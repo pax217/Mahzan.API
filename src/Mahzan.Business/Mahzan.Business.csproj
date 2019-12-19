@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Requests\" />
+    <Folder Include="Requests\AspNetUsers\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Business\" />
+    <Folder Include="Results\" />
+    <Folder Include="Results\_Base\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Enums\Result\" />
+    <Folder Include="Results\AspNetUsers\" />
+    <Folder Include="Resources\Business\AspNetUsers\" />
+    <Folder Include="Implementations\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Interfaces\Business\" />
+    <Folder Include="Interfaces\Validations\" />
+    <Folder Include="Implementations\Business\" />
+    <Folder Include="Implementations\Validations\" />
+    <Folder Include="Interfaces\Validations\AspNetUsers\" />
+    <Folder Include="Resources\Validations\" />
+    <Folder Include="Resources\Validations\AspNetUsers\" />
+    <Folder Include="Implementations\Validations\AspNetUsers\" />
+    <Folder Include="Enums\AspNetRoles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AspNetUsersBusinessResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\AspNetUsers\LogInValidationsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LogInValidationsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\AspNetUsers\SignUpValidationsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SignUpValidationsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.Designer.cs">
+      <DependentUpon>AspNetUsersBusinessResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\AspNetUsers\LogInValidationsResources.Designer.cs">
+      <DependentUpon>LogInValidationsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\AspNetUsers\SignUpValidationsResources.Designer.cs">
+      <DependentUpon>SignUpValidationsResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ValidSignInManager_Title" xml:space="preserve">
+        <value>Valida Inicio de Sesión.</value>
+    </data>
+    <data name="ValidSignInManager_SUCCESS_Message" xml:space="preserve">
+        <value>Se ha validado correctamente la información del inicio de sesión.</value>
+    </data>
+    <data name="ValidSignInManager_400_ERROR_Message_IsLockedOut" xml:space="preserve">
+        <value>Esta cuenta ha sido bloqueada, por favor intente nuevamente más tarde.</value>
+    </data>
+    <data name="ValidSignInManager_400_ERROR_Message_AspNetUser" xml:space="preserve">
+        <value>El Usuario no esta regsitrado, para iniciar sesión debe crear una cuenta.</value>
+    </data>
+</root>

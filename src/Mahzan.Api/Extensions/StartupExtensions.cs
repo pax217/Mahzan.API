@@ -1,0 +1,134 @@
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Text;
+using Mahzan.Api.Context;
+using Mahzan.Api.Services;
+using Mahzan.Business.Implementations.Validations.AspNetUsers;
+using Mahzan.Business.Interfaces.Validations.AspNetUsers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+
+namespace Mahzan.Api.Extensions
+{
+    [ExcludeFromCodeCoverage]
+    public static class StartupExtensions
+    {
+        public static void ConfigureBlServices(this IServiceCollection services)
+        {
+
+            //Data Access
+            //services.AddTransient<IMiembrosRepositorio, MiembrosRepositorio>();
+            //services.AddTransient<IGruposRepositorio, GruposRepositorio>();
+
+            //Validaciones
+            services.AddTransient<ILogInValidations, LogInValidations>();
+            services.AddTransient<ISignUpValidations, SignUpValidations>();
+
+            //Negocio
+            //services.AddTransient<IAspNetUsersNegocio, AspNetUsersNegocio>();
+            //services.AddTransient<IMiembrosNegocio, MiembrosNegocio>();
+            //services.AddTransient<IGruposNegocio, GruposNegocio>();
+            //services.AddTransient<IEmpresasNegocio, EmpresasNegocio>();
+            //services.AddTransient<ISucursalesNegocio, SucursalesNegocio>();
+            //services.AddTransient<IEmpleadosNegocio, EmpleadosNegocio>();
+
+        }
+
+        /// <summary>
+        /// Agrega Swagger
+        /// </summary>
+        /// <param name="services"></param>
+        public static void AddSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mahzan API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+               {
+                 new OpenApiSecurityScheme
+                 {
+                   Reference = new OpenApiReference
+                   {
+                     Type = ReferenceType.SecurityScheme,
+                     Id = "Bearer"
+                   }
+                  },
+                  new string[] { }
+                }
+              });
+            });
+        }
+
+        /// <summary>
+        /// Agrega Autenticación por Jwt
+        /// </summary>
+        /// <param name="services"></param>
+        public static void AddJwt(this IServiceCollection services,
+                                  IConfiguration Configuration)
+        {
+            string secretKey = Configuration["Jwt:Key"];
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options => {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = "http://oec.com",
+                    ValidIssuer = "http://oec.com",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+
+                };
+            });
+        }
+
+        public static void AddMahzanIdentityDbContext(this IServiceCollection services,
+                                                      IConfiguration Configuration)
+        {
+            services.AddDbContext<MahzanIdentityDbContext>(options =>
+                                                           options.UseSqlServer(Configuration.GetConnectionString("Mahzan")
+                                                           ));
+        }
+
+        public static void AddIdentityProvider(this IServiceCollection services)
+        {
+            services.AddIdentity<AspNetUsers, IdentityRole>()
+                    .AddEntityFrameworkStores<MahzanIdentityDbContext>()
+                    .AddDefaultTokenProviders();
+        }
+
+
+        public static void AddEmailSender(this IServiceCollection services,
+                                          IConfiguration Configuration)
+        {
+            //Envio de Email
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.AddSingleton<IEmailSender, EmailSender>();
+        }
+
+        public static void AddRequireEmailConfirmation(this IServiceCollection services)
+        {
+            services.Configure<IdentityOptions>(o => {
+                o.SignIn.RequireConfirmedEmail = true;
+            });
+        }
+    }
+}
