@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.Business", "src\Mahzan.Business\Mahzan.Business.csproj", "{28E72D55-815B-4418-82D3-AC3022650F72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.Models", "src\Mahzan.Models\Mahzan.Models.csproj", "{3289ACD4-1132-40A8-ABCF-2E5DCB967641}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.DataAccess", "src\Mahzan.DataAccess\Mahzan.DataAccess.csproj", "{4E24C1FC-642C-4DA3-979A-7CDD164E7B79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,9 +33,19 @@ Global
 		{28E72D55-815B-4418-82D3-AC3022650F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28E72D55-815B-4418-82D3-AC3022650F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28E72D55-815B-4418-82D3-AC3022650F72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3289ACD4-1132-40A8-ABCF-2E5DCB967641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3289ACD4-1132-40A8-ABCF-2E5DCB967641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3289ACD4-1132-40A8-ABCF-2E5DCB967641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3289ACD4-1132-40A8-ABCF-2E5DCB967641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E24C1FC-642C-4DA3-979A-7CDD164E7B79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E24C1FC-642C-4DA3-979A-7CDD164E7B79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E24C1FC-642C-4DA3-979A-7CDD164E7B79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E24C1FC-642C-4DA3-979A-7CDD164E7B79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{42BE0745-B69F-44E9-B074-DD61DC627F51} = {5BCCE6CA-3C85-4320-AA18-811ECFBD83EF}
 		{28E72D55-815B-4418-82D3-AC3022650F72} = {5BCCE6CA-3C85-4320-AA18-811ECFBD83EF}
+		{3289ACD4-1132-40A8-ABCF-2E5DCB967641} = {5BCCE6CA-3C85-4320-AA18-811ECFBD83EF}
+		{4E24C1FC-642C-4DA3-979A-7CDD164E7B79} = {5BCCE6CA-3C85-4320-AA18-811ECFBD83EF}
 	EndGlobalSection
 EndGlobal

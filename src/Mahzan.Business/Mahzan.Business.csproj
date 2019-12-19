@@ -26,6 +26,9 @@
     <Folder Include="Resources\Validations\AspNetUsers\" />
     <Folder Include="Implementations\Validations\AspNetUsers\" />
     <Folder Include="Enums\AspNetRoles\" />
+    <Folder Include="Results\Miembros\" />
+    <Folder Include="Requests\Grupos\" />
+    <Folder Include="Requests\_Base\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -54,5 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mahzan.DataAccess\Mahzan.DataAccess.csproj" />
   </ItemGroup>
 </Project>

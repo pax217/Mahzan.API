@@ -49,6 +49,9 @@ namespace Mahzan.Api
             //IdentityDbContext
             services.AddMahzanIdentityDbContext(_configuration);
 
+            //MahzanDbContext
+            services.AddMahzanDbContext(_configuration);
+
             //Identity Provider
             services.AddIdentityProvider();
 

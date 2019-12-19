@@ -3,8 +3,13 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Mahzan.Api.Context;
 using Mahzan.Api.Services;
+using Mahzan.Business.Implementations.Business;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
+using Mahzan.Business.Interfaces.Business;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
+using Mahzan.DataAccess.Implementations;
+using Mahzan.DataAccess.Interfaces;
+using Mahzan.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +27,7 @@ namespace Mahzan.Api.Extensions
         {
 
             //Data Access
-            //services.AddTransient<IMiembrosRepositorio, MiembrosRepositorio>();
+            services.AddTransient<IMiembrosRepository, MiembrosRepository>();
             //services.AddTransient<IGruposRepositorio, GruposRepositorio>();
 
             //Validaciones
@@ -30,8 +35,8 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<ISignUpValidations, SignUpValidations>();
 
             //Negocio
+            services.AddTransient<IMiembrosBusiness, MiembrosBusiness>();
             //services.AddTransient<IAspNetUsersNegocio, AspNetUsersNegocio>();
-            //services.AddTransient<IMiembrosNegocio, MiembrosNegocio>();
             //services.AddTransient<IGruposNegocio, GruposNegocio>();
             //services.AddTransient<IEmpresasNegocio, EmpresasNegocio>();
             //services.AddTransient<ISucursalesNegocio, SucursalesNegocio>();
@@ -106,6 +111,14 @@ namespace Mahzan.Api.Extensions
             services.AddDbContext<MahzanIdentityDbContext>(options =>
                                                            options.UseSqlServer(Configuration.GetConnectionString("Mahzan")
                                                            ));
+        }
+
+        public static void AddMahzanDbContext(this IServiceCollection services,
+                                              IConfiguration Configuration)
+        {
+            services.AddDbContext<MahzanDbContext>(options =>
+                                                   options.UseSqlServer(Configuration.GetConnectionString("Mahzan")
+                                                   ));
         }
 
         public static void AddIdentityProvider(this IServiceCollection services)

@@ -12,6 +12,7 @@
     <Folder Include="Context\" />
     <Folder Include="Controllers\V1\" />
     <Folder Include="Services\" />
+    <Folder Include="Controllers\_Base\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0-rc5" />
@@ -35,6 +36,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Business\Mahzan.Business.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Mahzan.DataAccess\Mahzan.DataAccess.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
