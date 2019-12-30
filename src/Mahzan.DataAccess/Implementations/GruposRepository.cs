@@ -5,7 +5,7 @@ using Mahzan.Models.Entities;
 
 namespace Mahzan.DataAccess.Implementations
 {
-    public class GruposRepository : RepositoryBase<Grupos>, IGruposRepository
+    public class GruposRepository : RepositoryBase<Groups>, IGroupsRepository
     {
         public GruposRepository(MahzanDbContext repositoryContext)
             : base(repositoryContext)

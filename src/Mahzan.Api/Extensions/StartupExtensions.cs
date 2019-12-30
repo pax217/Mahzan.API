@@ -5,8 +5,10 @@ using Mahzan.Api.Context;
 using Mahzan.Api.Services;
 using Mahzan.Business.Implementations.Business;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
+using Mahzan.Business.Implementations.Validations.Miembros;
 using Mahzan.Business.Interfaces.Business;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
+using Mahzan.Business.Interfaces.Validations.Miembros;
 using Mahzan.DataAccess.Implementations;
 using Mahzan.DataAccess.Interfaces;
 using Mahzan.Models;
@@ -27,12 +29,14 @@ namespace Mahzan.Api.Extensions
         {
 
             //Data Access
-            services.AddTransient<IMiembrosRepository, MiembrosRepository>();
+            services.AddTransient<IMembersRepository, MembersRepository>();
             //services.AddTransient<IGruposRepositorio, GruposRepositorio>();
 
             //Validaciones
             services.AddTransient<ILogInValidations, LogInValidations>();
             services.AddTransient<ISignUpValidations, SignUpValidations>();
+            services.AddTransient<IAddMiembrosValidations, AddMiembrosValidations>();
+            
 
             //Negocio
             services.AddTransient<IMiembrosBusiness, MiembrosBusiness>();
