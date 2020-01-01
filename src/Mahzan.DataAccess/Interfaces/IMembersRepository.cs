@@ -3,7 +3,7 @@ using Mahzan.Models.Entities;
 
 namespace Mahzan.DataAccess.Interfaces
 {
-    public interface IMiembrosRepository : IRepositoryBase<Miembros>
+    public interface IMembersRepository : IRepositoryBase<Members>
     {
 
     }

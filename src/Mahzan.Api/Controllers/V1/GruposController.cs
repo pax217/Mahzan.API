@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Mahzan.Api.Controllers._Base;
-using Mahzan.Business.Interfaces.Business;
+using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Requests.Grupos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +17,7 @@ namespace Mahzan.Api.Controllers.V1
     {
 
 
-        public GruposController(IMiembrosBusiness miembrosBusiness)
+        public GruposController(IMembersBusiness miembrosBusiness)
             : base(miembrosBusiness)
         {
  

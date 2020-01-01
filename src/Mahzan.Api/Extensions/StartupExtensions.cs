@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using AutoMapper;
 using Mahzan.Api.Context;
 using Mahzan.Api.Services;
-using Mahzan.Business.Implementations.Business;
+using Mahzan.Business.Implementations.Business.Members;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
-using Mahzan.Business.Interfaces.Business;
+using Mahzan.Business.Implementations.Validations.Members;
+using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
+using Mahzan.Business.Interfaces.Validations.Miembros;
+using Mahzan.Business.Mapping;
 using Mahzan.DataAccess.Implementations;
 using Mahzan.DataAccess.Interfaces;
 using Mahzan.Models;
@@ -27,15 +31,17 @@ namespace Mahzan.Api.Extensions
         {
 
             //Data Access
-            services.AddTransient<IMiembrosRepository, MiembrosRepository>();
+            services.AddTransient<IMembersRepository, MembersRepository>();
             //services.AddTransient<IGruposRepositorio, GruposRepositorio>();
 
             //Validaciones
             services.AddTransient<ILogInValidations, LogInValidations>();
             services.AddTransient<ISignUpValidations, SignUpValidations>();
+            services.AddTransient<IAddMembersValidations, AddMembersValidations>();
+            
 
             //Negocio
-            services.AddTransient<IMiembrosBusiness, MiembrosBusiness>();
+            services.AddTransient<IMembersBusiness, MembersBusiness>();
             //services.AddTransient<IAspNetUsersNegocio, AspNetUsersNegocio>();
             //services.AddTransient<IGruposNegocio, GruposNegocio>();
             //services.AddTransient<IEmpresasNegocio, EmpresasNegocio>();
@@ -142,6 +148,18 @@ namespace Mahzan.Api.Extensions
             services.Configure<IdentityOptions>(o => {
                 o.SignIn.RequireConfirmedEmail = true;
             });
+        }
+
+        public static void AddMappingConfig(this IServiceCollection services) 
+        {
+            // Auto Mapper Configurations
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
     }
 }

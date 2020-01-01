@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mahzan.Models.Entities
 {
-    public class Grupos
+    public class Groups
     {
         /// <summary>
         /// Identificador único de Grupo
@@ -15,16 +15,16 @@ namespace Mahzan.Models.Entities
         /// Nombre del miembro
         /// </summary>
         [Required, MaxLength(100)]
-        public string Nombre { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Indica si el resgitro esta activo
         /// </summary>
         [Required]
-        public bool Activo { get; set; }
+        public bool Active { get; set; }
         /// <summary>
         /// Identificador único del Miembro
         /// </summary>
         [Required]
-        public Guid MiembroId { get; set; }
+        public Guid MemberId { get; set; }
     }
 }

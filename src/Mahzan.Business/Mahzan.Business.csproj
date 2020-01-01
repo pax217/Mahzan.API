@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -7,28 +7,22 @@
   <ItemGroup>
     <Folder Include="Requests\" />
     <Folder Include="Requests\AspNetUsers\" />
-    <Folder Include="Resources\" />
     <Folder Include="Resources\Business\" />
-    <Folder Include="Results\" />
     <Folder Include="Results\_Base\" />
     <Folder Include="Enums\" />
     <Folder Include="Enums\Result\" />
     <Folder Include="Results\AspNetUsers\" />
     <Folder Include="Resources\Business\AspNetUsers\" />
-    <Folder Include="Implementations\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Interfaces\Business\" />
     <Folder Include="Interfaces\Validations\" />
-    <Folder Include="Implementations\Business\" />
-    <Folder Include="Implementations\Validations\" />
     <Folder Include="Interfaces\Validations\AspNetUsers\" />
-    <Folder Include="Resources\Validations\" />
     <Folder Include="Resources\Validations\AspNetUsers\" />
     <Folder Include="Implementations\Validations\AspNetUsers\" />
     <Folder Include="Enums\AspNetRoles\" />
-    <Folder Include="Results\Miembros\" />
+    <Folder Include="Results\Members\" />
     <Folder Include="Requests\Grupos\" />
     <Folder Include="Requests\_Base\" />
+    <Folder Include="Resources\Business\Miembros\" />
+    <Folder Include="Interfaces\Validations\Miembros\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -43,6 +37,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SignUpValidationsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Miembros\AddMiembrosResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddMiembrosResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\Members\AddMembersValidationsResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddMembersValidationsResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.Designer.cs">
@@ -54,8 +56,17 @@
     <Compile Update="Resources\Validations\AspNetUsers\SignUpValidationsResources.Designer.cs">
       <DependentUpon>SignUpValidationsResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Business\Miembros\AddMiembrosResources.Designer.cs">
+      <DependentUpon>AddMiembrosResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\Members\AddMembersValidationsResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AddMembersValidationsResource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
