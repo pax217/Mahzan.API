@@ -2,30 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Interfaces.Business;
+using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Validations.Miembros;
 using Mahzan.Business.Resources.Business.Miembros;
-using Mahzan.Business.Results.Miembros;
+using Mahzan.Business.Results.Members;
 using Mahzan.DataAccess.DTO.Miembros;
 using Mahzan.DataAccess.Interfaces;
-using Mahzan.Models.Entities;
 
-namespace Mahzan.Business.Implementations.Business
+
+namespace Mahzan.Business.Implementations.Business.Members
 {
-    public class MiembrosBusiness: IMiembrosBusiness
+    public class MembersBusiness: IMembersBusiness
     {
         readonly IMembersRepository _membersRepository;
 
-        readonly IAddMiembrosValidations _addMiembrosValidations;
+        readonly IAddMembersValidations _addMiembrosValidations;
 
-        public MiembrosBusiness(
+        readonly IMapper _mapper;
+
+        public MembersBusiness(
             IMembersRepository miembrosRepository,
-            IAddMiembrosValidations addValidations
+            IAddMembersValidations addValidations,
+            IMapper mapper
             )
         {
             _membersRepository = miembrosRepository;
             _addMiembrosValidations = addValidations;
+            _mapper = mapper;
         }
 
 
@@ -33,11 +39,11 @@ namespace Mahzan.Business.Implementations.Business
         {
             Guid result = Guid.Empty;
 
-            List<Members> miembroExistente = _membersRepository
-                                               .ObtienePorFiltro(
-                                                    x => x.UserName
-                                                          .Equals(userName)
-                                               );
+            List<Models.Entities.Members> miembroExistente = _membersRepository
+                                                              .Get(
+                                                                x => x.UserName
+                                                                      .Equals(userName)
+                                                              );
 
             if (miembroExistente != null)
                 result = miembroExistente.FirstOrDefault().Id;
@@ -46,9 +52,9 @@ namespace Mahzan.Business.Implementations.Business
             return result;
         }
 
-        public async Task<AddMiembroResult> Add(AddMiembrosDto addMiembrosDto)
+        public async Task<AddMembersResult> Add(AddMiembrosDto addMiembrosDto)
         {
-            AddMiembroResult result = new AddMiembroResult()
+            AddMembersResult result = new AddMembersResult()
             {
                 IsValid = true,
                 StatusCode =200,
@@ -60,14 +66,17 @@ namespace Mahzan.Business.Implementations.Business
             try
             {
                 //Valida Datos de Miembro
-                AddMiembroResult AddMiembroValidResult = await _addMiembrosValidations
-                                                                .AddMiembroValid(addMiembrosDto);
+                AddMembersResult AddMiembroValidResult = await _addMiembrosValidations
+                                                                .AddMembersValid(addMiembrosDto);
 
                 if (!AddMiembroValidResult.IsValid)
                 {
                     return AddMiembroValidResult;
                 }
 
+                //Guarda en Base de Datos
+                _membersRepository
+                 .Add(_mapper.Map<Models.Entities.Members>(addMiembrosDto));
 
             }
             catch (Exception ex)

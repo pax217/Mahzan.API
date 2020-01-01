@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Mahzan.Business.Results.Miembros;
+using Mahzan.Business.Results.Members;
 using Mahzan.DataAccess.DTO.Miembros;
 
 namespace Mahzan.Business.Interfaces.Validations.Miembros
 {
-    public interface IAddMiembrosValidations
+    public interface IAddMembersValidations
     {
-        Task<AddMiembroResult> AddMiembroValid(AddMiembrosDto addMiembrosDto);
+        Task<AddMembersResult> AddMembersValid(AddMiembrosDto addMiembrosDto);
     }
 }

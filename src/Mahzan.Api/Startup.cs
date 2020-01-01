@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Mahzan.Api.Context;
 using Mahzan.Api.Extensions;
+using Mahzan.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -63,6 +64,9 @@ namespace Mahzan.Api
 
             //Requiere confimración de email
             services.AddRequireEmailConfirmation();
+
+            //Add MappingProfile
+            services.AddMappingConfig();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,12 +83,12 @@ namespace Mahzan.Api
                 }
 
                 //MahzanDbContext
-                //var mahzanDbContext = serviceScope.ServiceProvider.GetRequiredService<MahzanDbContext>();
+                var mahzanDbContext = serviceScope.ServiceProvider.GetRequiredService<MahzanDbContext>();
 
-                //if (mahzanDbContext.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
-                //{
-                //    mahzanDbContext.Database.Migrate();
-                //}
+                if (mahzanDbContext.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+                {
+                    mahzanDbContext.Database.Migrate();
+                }
             }
 
             if (env.IsDevelopment())
