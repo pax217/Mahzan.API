@@ -5,9 +5,9 @@ using Mahzan.Models.Entities;
 
 namespace Mahzan.DataAccess.Implementations
 {
-    public class MiembrosRepository:RepositoryBase<Miembros>,IMiembrosRepository
+    public class MembersRepository:RepositoryBase<Members>,IMembersRepository
     {
-        public MiembrosRepository(MahzanDbContext repositoryContext)
+        public MembersRepository(MahzanDbContext repositoryContext)
             : base(repositoryContext)
         {
         }

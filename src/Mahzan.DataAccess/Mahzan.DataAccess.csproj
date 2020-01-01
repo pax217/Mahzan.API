@@ -7,6 +7,8 @@
   <ItemGroup>
     <Folder Include="Implementations\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="DTO\" />
+    <Folder Include="DTO\Miembros\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />

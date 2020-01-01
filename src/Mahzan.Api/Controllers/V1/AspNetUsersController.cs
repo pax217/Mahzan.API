@@ -18,6 +18,8 @@ using Mahzan.Business.Interfaces.Validations.AspNetUsers;
 using Microsoft.AspNetCore.WebUtilities;
 using Mahzan.Api.Services;
 using System.Text.Encodings.Web;
+using Mahzan.Business.Interfaces.Business.Members;
+using Mahzan.DataAccess.DTO.Miembros;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,6 +36,7 @@ namespace Mahzan.Api.Controllers.V1
 
         readonly ILogInValidations _logInValidations;
         readonly ISignUpValidations _signUpValidations;
+        readonly IMembersBusiness _miembrosBusiness;
 
         readonly IEmailSender _emailSender;
 
@@ -60,6 +63,7 @@ namespace Mahzan.Api.Controllers.V1
                                      RoleManager<IdentityRole> roleManager,
                                      ILogInValidations logInValidations,
                                      ISignUpValidations signUpValidations,
+                                     IMembersBusiness miembrosBusiness,
                                      IEmailSender emailSender)
         {
             //Identity
@@ -73,6 +77,9 @@ namespace Mahzan.Api.Controllers.V1
 
             //Services
             _emailSender = emailSender;
+
+            //Business
+            _miembrosBusiness = miembrosBusiness;
         }
         #endregion
 
@@ -130,7 +137,7 @@ namespace Mahzan.Api.Controllers.V1
             catch (Exception ex)
             {
                 result.IsValid = false;
-                result.StatusCode = 400;
+                result.StatusCode = 500;
                 result.ResultTypeEnum = ResultTypeEnum.ERROR;
                 result.Message = ex.Message;
             }
@@ -184,8 +191,38 @@ namespace Mahzan.Api.Controllers.V1
 
                     if (AddRoleToUserResult.Succeeded)
                     {
+                        //Obtiene Id de Usuario creado
+                        AspNetUsers userCreated = await _userManager
+                                                         .FindByNameAsync(signUpRequest.UserName);
+
+                        //Crea Miembro
+                        await _miembrosBusiness
+                               .Add(new AddMiembrosDto()
+                               {
+                                   Name = signUpRequest.Name,
+                                   Phone = signUpRequest.Phone,
+                                   Email = signUpRequest.Email,
+                                   UserName = signUpRequest.UserName,
+                                   AspNetUsersId = new Guid(userCreated.Id)
+                               });
+
                         //Envia el correo de confirmación
                         await SendEmailConfirmation(signUpRequest);
+                    }
+                    else 
+                    {
+                        result.IsValid = false;
+                        result.StatusCode = 400;
+                        result.ResultTypeEnum = ResultTypeEnum.INFO;
+                            
+                        StringBuilder errorMessage = new StringBuilder();
+
+                        foreach (var error in AddRoleToUserResult.Errors)
+                        {
+                            errorMessage.Append(error.Description + "|");
+                        }
+
+                        result.Message = errorMessage.ToString();
                     }
 
                 }
@@ -194,7 +231,7 @@ namespace Mahzan.Api.Controllers.V1
             catch (Exception ex)
             {
                 result.IsValid = false;
-                result.StatusCode = 400;
+                result.StatusCode = 500;
                 result.ResultTypeEnum = ResultTypeEnum.ERROR;
                 result.Message = ex.Message;
             }

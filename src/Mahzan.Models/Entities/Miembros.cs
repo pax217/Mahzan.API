@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mahzan.Models.Entities
 {
-    public class Miembros
+    public class Members
     {
         /// <summary>
         /// Identificador unico de Miembro
@@ -16,12 +16,12 @@ namespace Mahzan.Models.Entities
         /// Nombre del miembro
         /// </summary>
         [Required, MaxLength(100)]
-        public string Nombre { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Telefono del Miembro
         /// </summary>
         [Required, MaxLength(18)]
-        public string Telefono { get; set; }
+        public string Phone { get; set; }
         /// <summary>
         /// Email del Miembro
         /// </summary>
@@ -33,5 +33,6 @@ namespace Mahzan.Models.Entities
 
         [Required]
         public Guid AspNetUsersId { get; set; }
+
     }
 }

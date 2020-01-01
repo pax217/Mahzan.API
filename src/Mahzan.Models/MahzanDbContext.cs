@@ -14,6 +14,9 @@ namespace Mahzan.Models
     {
         public DbSet<Audits> Audits { get; set; }
         public DbSet<Grupos> Grupos { get; set; }
+        public DbSet<Members> Members { get; set; }
+
+
         //public DbSet<Empresas> Empresas { get; set; }
         //public DbSet<Empleados> Empleados { get; set; }
         //public DbSet<Empleados_Sucursal> Empleados_Sucursal { get; set; }
@@ -35,7 +38,10 @@ namespace Mahzan.Models
             modelBuilder.Entity<Audits>()
                         .HasKey(audits => new { audits.Id });
 
-            //modelBuilder.Entity<Grupos>()
+            modelBuilder.Entity<Members>()
+                        .HasKey(members => new { members.Id });
+
+            //modelBuilder.Entity<Groups>()
             //            .HasKey(grupos => new { grupos.Id });
 
             //modelBuilder.Entity<Empresas>()

@@ -6,6 +6,9 @@ namespace Mahzan.Business.Requests.AspNetUsers
 {
     public class SignUpRequest
     {
+        [Required(ErrorMessage = "El Nombre es requerido.")]
+        public string Name { get; set; }
+
         [Required(ErrorMessage = "El Usuario es requerido.")]
         public string UserName { get; set; }
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mahzan.Models.Entities
 {
-    public class Empresas
+    public class Company
     {
         /// <summary>
         /// Identificador único del Empresa
@@ -20,26 +20,26 @@ namespace Mahzan.Models.Entities
         /// Nombre Comercial de la Empresa
         /// </summary>
         [MaxLength(100)]
-        public string NombreComercial { get; set; }
+        public string CommercialName { get; set; }
         /// <summary>
         /// Razón Social de la Empresa
         /// </summary>
         [Required, MaxLength(250)]
-        public string RazonSocial { get; set; }
+        public string BusinessName { get; set; }
         /// <summary>
         /// Indica si el registro esta activo
         /// </summary>
         [Required]
-        public bool Activo { get; set; }
+        public bool Active { get; set; }
         /// <summary>
         /// Indica a que Grupo pertenece la Empresa
         /// </summary>
         [Required]
-        public Guid GrupoId { get; set; }
+        public Guid GroupId { get; set; }
         /// <summary>
         /// Identificador único del Miembro
         /// </summary>
         [Required]
-        public Guid MiembroId { get; set; }
+        public Guid MemberId { get; set; }
     }
 }
