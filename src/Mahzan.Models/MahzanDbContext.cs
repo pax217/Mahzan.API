@@ -13,7 +13,6 @@ namespace Mahzan.Models
     public class MahzanDbContext : DbContext
     {
         public DbSet<Audits> Audits { get; set; }
-        public DbSet<Grupos> Grupos { get; set; }
         public DbSet<Members> Members { get; set; }
 
 

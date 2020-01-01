@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    [Migration("20200101232730_Audits")]
-    partial class Audits
+    [Migration("20200101234754_CreateAudits")]
+    partial class CreateAudits
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,26 +47,37 @@ namespace Mahzan.Models.Migrations
                     b.ToTable("Audits");
                 });
 
-            modelBuilder.Entity("Mahzan.Models.Entities.Grupos", b =>
+            modelBuilder.Entity("Mahzan.Models.Entities.Members", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Activo")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("MiembroId")
+                    b.Property<Guid>("AspNetUsersId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(18)")
+                        .HasMaxLength(18);
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Grupos");
+                    b.ToTable("Members");
                 });
 #pragma warning restore 612, 618
         }
