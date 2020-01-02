@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Mahzan.DataAccess.DTO.Miembros;
+using Mahzan.DataAccess.DTO.Groups;
+using Mahzan.DataAccess.DTO.Members;
 using Mahzan.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,11 @@ namespace Mahzan.Business.Mapping
         public MappingProfile() 
         {
             #region Members
-            CreateMap<AddMiembrosDto, Members>();
+            CreateMap<AddMembersDto, Members>();
+            #endregion
+
+            #region Groups
+            CreateMap<AddGroupsDto, Groups>();
             #endregion
         }
     }

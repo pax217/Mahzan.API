@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Mahzan.Models.Enums.Audit;
 
 namespace Mahzan.DataAccess.Interfaces
 {
@@ -11,5 +12,8 @@ namespace Mahzan.DataAccess.Interfaces
         T Add(T entity);
         T Update(T entity);
         T Delete(T entity);
+        T Add(T entity,
+              Guid aspNetUserId,
+              TableAuditEnum tableAuditEnum);
     }
 }
