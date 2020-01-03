@@ -5,8 +5,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5BCCE6CA-3C8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.Api", "src\Mahzan.Api\Mahzan.Api.csproj", "{42BE0745-B69F-44E9-B074-DD61DC627F51}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documents", "documents", "{B2F09A11-3DAF-4E50-B7CB-4FDD1EB59EE2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{29D1CE63-1BE0-45FD-9702-427EB9EC586C}"
 	ProjectSection(SolutionItems) = preProject
 		dockerfile = dockerfile

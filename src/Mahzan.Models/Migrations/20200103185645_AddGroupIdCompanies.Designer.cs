@@ -4,14 +4,16 @@ using Mahzan.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    partial class MahzanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200103185645_AddGroupIdCompanies")]
+    partial class AddGroupIdCompanies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,6 +68,9 @@ namespace Mahzan.Models.Migrations
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("GroupsId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("MemberId")
                         .HasColumnType("uniqueidentifier");
 
@@ -75,6 +80,8 @@ namespace Mahzan.Models.Migrations
                         .HasMaxLength(13);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupsId");
 
                     b.ToTable("Companies");
                 });
@@ -190,6 +197,13 @@ namespace Mahzan.Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Companies", b =>
+                {
+                    b.HasOne("Mahzan.Models.Entities.Groups", null)
+                        .WithMany("Companies")
+                        .HasForeignKey("GroupsId");
                 });
 #pragma warning restore 612, 618
         }

@@ -50,5 +50,17 @@ namespace Mahzan.Models
             groups_Audit.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
             return groups_Audit;
         }
+
+        public Companies_Audit ToCompanies_Audit()
+        {
+            var companies_Audit = new Companies_Audit();
+            companies_Audit.AspNetUserId = AspNetUserId;
+            companies_Audit.Type = Tipo.ToString();
+            companies_Audit.DateTime = DateTime.UtcNow;
+            companies_Audit.KeyValues = JsonConvert.SerializeObject(KeyValues);
+            companies_Audit.OldValues = OldValues.Count == 0 ? null : JsonConvert.SerializeObject(OldValues);
+            companies_Audit.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
+            return companies_Audit;
+        }
     }
 }
