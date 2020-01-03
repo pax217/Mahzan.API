@@ -11,6 +11,9 @@
     <Folder Include="DTO\Members\" />
     <Folder Include="DTO\Groups\" />
     <Folder Include="DTO\_Base\" />
+    <Folder Include="Filters\" />
+    <Folder Include="Filters\_Base\" />
+    <Folder Include="Paging\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />

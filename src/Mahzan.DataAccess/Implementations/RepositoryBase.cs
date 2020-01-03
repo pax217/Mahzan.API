@@ -61,5 +61,15 @@ namespace Mahzan.DataAccess.Implementations
 
             return entity;
         }
+
+        public T Update(T entity,
+                        Guid aspNetUserId,
+                        TableAuditEnum tableAuditEnum)
+        {
+            this._context.Set<T>().Update(entity);
+            this._context.SaveChanges(tableAuditEnum, aspNetUserId);
+
+            return entity;
+        }
     }
 }

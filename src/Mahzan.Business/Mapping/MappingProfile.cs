@@ -18,6 +18,8 @@ namespace Mahzan.Business.Mapping
 
             #region Groups
             CreateMap<AddGroupsDto, Groups>();
+            CreateMap<PutGroupsDto, Groups>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GroupId));
             #endregion
         }
     }
