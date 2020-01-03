@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Mahzan.Api.Services;
 using System.Text.Encodings.Web;
 using Mahzan.Business.Interfaces.Business.Members;
-using Mahzan.DataAccess.DTO.Miembros;
+using Mahzan.DataAccess.DTO.Members;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -197,7 +197,7 @@ namespace Mahzan.Api.Controllers.V1
 
                         //Crea Miembro
                         await _miembrosBusiness
-                               .Add(new AddMiembrosDto()
+                               .Add(new AddMembersDto()
                                {
                                    Name = signUpRequest.Name,
                                    Phone = signUpRequest.Phone,
@@ -209,12 +209,12 @@ namespace Mahzan.Api.Controllers.V1
                         //Envia el correo de confirmación
                         await SendEmailConfirmation(signUpRequest);
                     }
-                    else 
+                    else
                     {
                         result.IsValid = false;
                         result.StatusCode = 400;
                         result.ResultTypeEnum = ResultTypeEnum.INFO;
-                            
+
                         StringBuilder errorMessage = new StringBuilder();
 
                         foreach (var error in AddRoleToUserResult.Errors)
@@ -249,19 +249,20 @@ namespace Mahzan.Api.Controllers.V1
 
             string result = string.Empty;
 
-            Claim[] claims = {
+            Claim[] claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, logInRequest.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            //SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
                 issuer: "http://oec.com",
                 audience: "http://oec.com",
                 expires: DateTime.UtcNow.AddHours(1),
                 claims: claims,
-                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+                signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(key, SecurityAlgorithms.HmacSha256)
                 );
 
             result = new JwtSecurityTokenHandler().WriteToken(token);
@@ -328,7 +329,7 @@ namespace Mahzan.Api.Controllers.V1
             var callbackUrl = Url.Page(
                 "/V1/AspNetUsers/ConfirmEmail",
                 pageHandler: null,
-                values: new {id = aspNetUser.Id, code = code },
+                values: new { id = aspNetUser.Id, code = code },
                 protocol: Request.Scheme);
 
             //Nota: Investigar por que solo obtiene el controlador Agerga

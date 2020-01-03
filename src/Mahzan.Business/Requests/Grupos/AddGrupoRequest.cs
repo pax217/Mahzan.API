@@ -1,11 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Mahzan.Business.Requests._Base;
 
-namespace Mahzan.Business.Requests.Grupos
-{
-    public class AddGrupoRequest:BaseRequest
+namespace Mahzan.Business.Requests.Groups{
+    public class AddGroupsRequest
     {
-        public string Nombre { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
         public bool Active { get; set; }
     }
 }

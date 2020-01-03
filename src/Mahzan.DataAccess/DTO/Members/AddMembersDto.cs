@@ -1,7 +1,7 @@
 ﻿using System;
-namespace Mahzan.DataAccess.DTO.Miembros
+namespace Mahzan.DataAccess.DTO.Members
 {
-    public class AddMiembrosDto
+    public class AddMembersDto
     {
         public string Name { get; set; }
 

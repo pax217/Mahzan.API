@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Mahzan.Business.Results.Members;
-using Mahzan.DataAccess.DTO.Miembros;
+using Mahzan.DataAccess.DTO.Members;
 
 namespace Mahzan.Business.Interfaces.Business.Members
 {
     public interface IMembersBusiness
     {
-        Task<AddMembersResult> Add(AddMiembrosDto addMiembrosDto);
-        Guid Get(string userName);
+        Task<AddMembersResult> Add(AddMembersDto addMiembrosDto);
+
+        Models.Entities.Members Get(string userName);
+
     }
 }

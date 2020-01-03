@@ -19,6 +19,7 @@ namespace Mahzan.Models
 
         public EntityEntry Entry { get; }
         public string TableName { get; set; }
+        public Guid AspNetUserId { get; set; }
         public EntityState Tipo { get; set; }
         public Dictionary<string, object> KeyValues { get; } = new Dictionary<string, object>();
         public Dictionary<string, object> OldValues { get; } = new Dictionary<string, object>();
@@ -36,6 +37,18 @@ namespace Mahzan.Models
             audit.OldValues = OldValues.Count == 0 ? null : JsonConvert.SerializeObject(OldValues);
             audit.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
             return audit;
+        }
+
+        public Groups_Audit ToGroups_Audit()
+        {
+            var groups_Audit = new Groups_Audit();
+            groups_Audit.AspNetUserId = AspNetUserId;
+            groups_Audit.Type = Tipo.ToString();
+            groups_Audit.DateTime = DateTime.UtcNow;
+            groups_Audit.KeyValues = JsonConvert.SerializeObject(KeyValues);
+            groups_Audit.OldValues = OldValues.Count == 0 ? null : JsonConvert.SerializeObject(OldValues);
+            groups_Audit.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
+            return groups_Audit;
         }
     }
 }

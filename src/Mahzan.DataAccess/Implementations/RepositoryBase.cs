@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Mahzan.DataAccess.Interfaces;
 using Mahzan.Models;
+using Mahzan.Models.Enums.Audit;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mahzan.DataAccess.Implementations
@@ -47,6 +48,26 @@ namespace Mahzan.DataAccess.Implementations
         {
             this._context.Set<T>().Remove(entity);
             this._context.SaveChangesAsync();
+
+            return entity;
+        }
+
+        public T Add(T entity,
+                     Guid aspNetUserId,
+                     TableAuditEnum tableAuditEnum)
+        {
+            this._context.Set<T>().Add(entity);
+            this._context.SaveChanges(tableAuditEnum, aspNetUserId);
+
+            return entity;
+        }
+
+        public T Update(T entity,
+                        Guid aspNetUserId,
+                        TableAuditEnum tableAuditEnum)
+        {
+            this._context.Set<T>().Update(entity);
+            this._context.SaveChanges(tableAuditEnum, aspNetUserId);
 
             return entity;
         }

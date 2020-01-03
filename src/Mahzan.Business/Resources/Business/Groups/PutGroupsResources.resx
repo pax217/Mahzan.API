@@ -11,11 +11,11 @@
     </resheader>
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>   
-    <data name="Add_Title" xml:space="preserve">
-        <value>Agrega Miembro.</value>
+    </resheader>
+    <data name="Put_Title" xml:space="preserve">
+        <value>Actializa Grupos.</value>
     </data>
-    <data name="Add_200_SUCCESS_Message" xml:space="preserve">
-        <value>Se ha agregado correctamente el Miembro.</value>
+    <data name="Put_200_SUCCESS_Message" xml:space="preserve">
+        <value>Se ha actualizado información del Grupo.</value>
     </data>
 </root>
