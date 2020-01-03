@@ -4,7 +4,7 @@ using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Interfaces.Validations.Miembros;
 using Mahzan.Business.Resources.Validations.Members;
 using Mahzan.Business.Results.Members;
-using Mahzan.DataAccess.DTO.Miembros;
+using Mahzan.DataAccess.DTO.Members;
 using Mahzan.DataAccess.Interfaces;
 
 namespace Mahzan.Business.Implementations.Validations.Members
@@ -18,7 +18,7 @@ namespace Mahzan.Business.Implementations.Validations.Members
             _membersRepository = membersRepository;
         }
 
-        public async Task<AddMembersResult> AddMembersValid(AddMiembrosDto addMiembrosDto)
+        public async Task<AddMembersResult> AddMembersValid(AddMembersDto addMembersDto)
         {
             AddMembersResult result = new AddMembersResult()
             {
@@ -30,7 +30,7 @@ namespace Mahzan.Business.Implementations.Validations.Members
             };
 
             //Identifica si el usuario ya tiene un miembro asignado
-            if (_membersRepository.Get(x => x.AspNetUsersId == addMiembrosDto.AspNetUsersId).Count > 0)
+            if (_membersRepository.Get(x => x.AspNetUsersId == addMembersDto.AspNetUsersId).Count > 0)
             {
                 result.IsValid = false;
                 result.StatusCode = 500;

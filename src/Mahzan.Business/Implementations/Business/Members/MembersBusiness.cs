@@ -9,7 +9,7 @@ using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Validations.Miembros;
 using Mahzan.Business.Resources.Business.Miembros;
 using Mahzan.Business.Results.Members;
-using Mahzan.DataAccess.DTO.Miembros;
+using Mahzan.DataAccess.DTO.Members;
 using Mahzan.DataAccess.Interfaces;
 
 
@@ -35,9 +35,9 @@ namespace Mahzan.Business.Implementations.Business.Members
         }
 
 
-        public Guid Get(string userName)
+        public Models.Entities.Members Get(string userName)
         {
-            Guid result = Guid.Empty;
+            Models.Entities.Members result = null;
 
             List<Models.Entities.Members> miembroExistente = _membersRepository
                                                               .Get(
@@ -46,13 +46,13 @@ namespace Mahzan.Business.Implementations.Business.Members
                                                               );
 
             if (miembroExistente != null)
-                result = miembroExistente.FirstOrDefault().Id;
+                result = miembroExistente.FirstOrDefault();
 
 
             return result;
         }
 
-        public async Task<AddMembersResult> Add(AddMiembrosDto addMiembrosDto)
+        public async Task<AddMembersResult> Add(AddMembersDto addMembersDto)
         {
             AddMembersResult result = new AddMembersResult()
             {
@@ -67,7 +67,7 @@ namespace Mahzan.Business.Implementations.Business.Members
             {
                 //Valida Datos de Miembro
                 AddMembersResult AddMiembroValidResult = await _addMiembrosValidations
-                                                                .AddMembersValid(addMiembrosDto);
+                                                                .AddMembersValid(addMembersDto);
 
                 if (!AddMiembroValidResult.IsValid)
                 {
@@ -76,7 +76,7 @@ namespace Mahzan.Business.Implementations.Business.Members
 
                 //Guarda en Base de Datos
                 _membersRepository
-                 .Add(_mapper.Map<Models.Entities.Members>(addMiembrosDto));
+                 .Add(_mapper.Map<Models.Entities.Members>(addMembersDto));
 
             }
             catch (Exception ex)

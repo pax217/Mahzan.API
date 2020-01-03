@@ -27,12 +27,21 @@ namespace Mahzan.Api.Controllers._Base
             }
         }
 
-        public Guid MiembroId
+        public Guid MemberId
         {
             get
             {
                 return _miembrosBusiness
-                        .Get(UserName);
+                        .Get(UserName).Id;
+            }
+        }
+
+        public Guid AspNetUserId
+        {
+            get
+            {
+                return _miembrosBusiness
+                        .Get(UserName).AspNetUsersId;
             }
         }
     }

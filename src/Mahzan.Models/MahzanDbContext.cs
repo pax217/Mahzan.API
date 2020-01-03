@@ -14,7 +14,8 @@ namespace Mahzan.Models
     {
         public DbSet<Audits> Audits { get; set; }
         public DbSet<Members> Members { get; set; }
-
+        public DbSet<Groups> Groups { get; set; }
+        public DbSet<Groups_Audit> Groups_Audit { get; set; }
 
         //public DbSet<Empresas> Empresas { get; set; }
         //public DbSet<Empleados> Empleados { get; set; }
@@ -40,33 +41,16 @@ namespace Mahzan.Models
             modelBuilder.Entity<Members>()
                         .HasKey(members => new { members.Id });
 
-            //modelBuilder.Entity<Groups>()
-            //            .HasKey(grupos => new { grupos.Id });
+            modelBuilder.Entity<Groups>()
+                        .HasKey(Groups => new { Groups.Id });
 
-            //modelBuilder.Entity<Empresas>()
-            //            .HasKey(empresas => new { empresas.Id });
+            modelBuilder.Entity<Groups_Audit>()
+                        .HasKey(groups_Audit => new { groups_Audit.Id });
 
-            //modelBuilder.Entity<Empleados>()
-            //            .HasKey(empleados => new { empleados.Id });
-
-            //modelBuilder.Entity<Empleados_Sucursal>()
-            //            .HasKey(empleados_sucursal => new {
-            //                empleados_sucursal.EmpleadoId,
-            //                empleados_sucursal.SucursalId,
-            //                empleados_sucursal.MiembroId
-            //            });
-
-
-
-            //modelBuilder.Entity<Miembros>()
-            //            .HasKey(miembros => new { miembros.Id });
-
-            //modelBuilder.Entity<Sucursales>()
-            //            .HasKey(sucursales => new { sucursales.Id });
         }
 
         public int SaveChanges(TableAuditEnum tableAuditEnum,
-                               string aspNetUsersId = null)
+                               Guid aspNetUsersId)
         {
             var auditEntries = OnBeforeSaveChanges(tableAuditEnum,
                                                    aspNetUsersId);
@@ -81,8 +65,10 @@ namespace Mahzan.Models
 
         }
         private List<AuditEntry> OnBeforeSaveChanges(TableAuditEnum tableAuditEnum,
-                                                     string aspNetUsersId)
+                                                     Guid aspNetUsersId)
         {
+
+
             ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
             foreach (var entry in ChangeTracker.Entries())
@@ -139,27 +125,26 @@ namespace Mahzan.Models
             // Save audit entities that have all the modifications
             foreach (var auditEntry in auditEntries.Where(_ => !_.HasTemporaryProperties))
             {
+                
+                auditEntry.AspNetUserId = aspNetUsersId;
+
                 switch (tableAuditEnum)
                 {
-                    case TableAuditEnum.MEMBERS:
-                        Audits.Add(auditEntry.ToAudits());
+                    case TableAuditEnum.GROUPS_AUDIT:
+                        Groups_Audit.Add(auditEntry.ToGroups_Audit());
                         break;
                     default:
+                        Audits.Add(auditEntry.ToAudits());
                         break;
                 }
 
-                //Debug.WriteLine(auditEntry.ToAudit());
-                //AuditoriaDAO.Agrega(tablaAuditoriaEnum,
-                //                    aspNetUsersId,
-                //                    auditEntry);
-                //Audits.Add(auditEntry.ToAudit());
             }
 
             // keep a list of entries where the value of some properties are unknown at this step
             return auditEntries.Where(_ => _.HasTemporaryProperties).ToList();
         }
         private Task OnAfterSaveChanges(TableAuditEnum tableAuditEnum,
-                                        string aspNetUserId,
+                                        Guid aspNetUsersId,
                                         List<AuditEntry> auditEntries)
         {
             if (auditEntries == null || auditEntries.Count == 0)

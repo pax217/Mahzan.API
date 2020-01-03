@@ -4,9 +4,11 @@ using System.Text;
 using AutoMapper;
 using Mahzan.Api.Context;
 using Mahzan.Api.Services;
+using Mahzan.Business.Implementations.Business.Groups;
 using Mahzan.Business.Implementations.Business.Members;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
 using Mahzan.Business.Implementations.Validations.Members;
+using Mahzan.Business.Interfaces.Business.Groups;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
 using Mahzan.Business.Interfaces.Validations.Miembros;
@@ -32,16 +34,17 @@ namespace Mahzan.Api.Extensions
 
             //Data Access
             services.AddTransient<IMembersRepository, MembersRepository>();
-            //services.AddTransient<IGruposRepositorio, GruposRepositorio>();
+            services.AddTransient<IGroupsRepository, GroupsRepository>();
 
             //Validaciones
             services.AddTransient<ILogInValidations, LogInValidations>();
             services.AddTransient<ISignUpValidations, SignUpValidations>();
             services.AddTransient<IAddMembersValidations, AddMembersValidations>();
-            
+
 
             //Negocio
             services.AddTransient<IMembersBusiness, MembersBusiness>();
+            services.AddTransient<IGroupsBusiness, GroupsBusiness>();
             //services.AddTransient<IAspNetUsersNegocio, AspNetUsersNegocio>();
             //services.AddTransient<IGruposNegocio, GruposNegocio>();
             //services.AddTransient<IEmpresasNegocio, EmpresasNegocio>();
@@ -109,6 +112,7 @@ namespace Mahzan.Api.Extensions
 
                 };
             });
+
         }
 
         public static void AddMahzanIdentityDbContext(this IServiceCollection services,
@@ -150,7 +154,7 @@ namespace Mahzan.Api.Extensions
             });
         }
 
-        public static void AddMappingConfig(this IServiceCollection services) 
+        public static void AddMappingConfig(this IServiceCollection services)
         {
             // Auto Mapper Configurations
             var mappingConfig = new MapperConfiguration(mc =>
@@ -160,6 +164,23 @@ namespace Mahzan.Api.Extensions
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
+        }
+
+        public static void AddCorsPolicy(this IServiceCollection services)
+        {
+            /*ADD CORS*/
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CORS", corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin()
+                    // Apply CORS policy for any type of origin  
+                    .AllowAnyMethod()
+                    // Apply CORS policy for any type of http methods  
+                    .AllowAnyHeader()
+                    // Apply CORS policy for any headers  
+                    .AllowCredentials()
+                    // Apply CORS policy for all users  
+                    .AllowAnyOrigin());
+            });
         }
     }
 }

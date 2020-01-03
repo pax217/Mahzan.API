@@ -23,6 +23,10 @@
     <Folder Include="Requests\_Base\" />
     <Folder Include="Resources\Business\Miembros\" />
     <Folder Include="Interfaces\Validations\Miembros\" />
+    <Folder Include="Interfaces\Business\Groups\" />
+    <Folder Include="Results\Groups\" />
+    <Folder Include="Implementations\Business\Groups\" />
+    <Folder Include="Resources\Business\Groups\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -45,6 +49,25 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddMembersValidationsResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Groups\AddGroupsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddGroupsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Groups\GetGroupsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetGroupsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Groups\PutGroupsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PutGroupsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Groups\DeleteGroupsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeleteGroupsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.Designer.cs">
@@ -63,6 +86,18 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AddMembersValidationsResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Groups\AddGroupsResources.Designer.cs">
+      <DependentUpon>AddGroupsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Groups\GetGroupsResources.Designer.cs">
+      <DependentUpon>GetGroupsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Groups\PutGroupsResources.Designer.cs">
+      <DependentUpon>PutGroupsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Groups\DeleteGroupsResources.Designer.cs">
+      <DependentUpon>DeleteGroupsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

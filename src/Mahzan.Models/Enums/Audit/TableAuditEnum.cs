@@ -6,6 +6,6 @@ namespace Mahzan.Models.Enums.Audit
 {
     public enum TableAuditEnum
     {
-        MEMBERS,
+        GROUPS_AUDIT
     }
 }
