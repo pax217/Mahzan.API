@@ -4,10 +4,12 @@ using System.Text;
 using AutoMapper;
 using Mahzan.Api.Context;
 using Mahzan.Api.Services;
+using Mahzan.Business.Implementations.Business.Companies;
 using Mahzan.Business.Implementations.Business.Groups;
 using Mahzan.Business.Implementations.Business.Members;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
 using Mahzan.Business.Implementations.Validations.Members;
+using Mahzan.Business.Interfaces.Business.Companies;
 using Mahzan.Business.Interfaces.Business.Groups;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
@@ -35,6 +37,7 @@ namespace Mahzan.Api.Extensions
             //Data Access
             services.AddTransient<IMembersRepository, MembersRepository>();
             services.AddTransient<IGroupsRepository, GroupsRepository>();
+            services.AddTransient<ICompaniesRepository, CompaniesRepository>();
 
             //Validaciones
             services.AddTransient<ILogInValidations, LogInValidations>();
@@ -45,11 +48,7 @@ namespace Mahzan.Api.Extensions
             //Negocio
             services.AddTransient<IMembersBusiness, MembersBusiness>();
             services.AddTransient<IGroupsBusiness, GroupsBusiness>();
-            //services.AddTransient<IAspNetUsersNegocio, AspNetUsersNegocio>();
-            //services.AddTransient<IGruposNegocio, GruposNegocio>();
-            //services.AddTransient<IEmpresasNegocio, EmpresasNegocio>();
-            //services.AddTransient<ISucursalesNegocio, SucursalesNegocio>();
-            //services.AddTransient<IEmpleadosNegocio, EmpleadosNegocio>();
+            services.AddTransient<ICompaniesBusiness, CompaniesBusiness>();
 
         }
 

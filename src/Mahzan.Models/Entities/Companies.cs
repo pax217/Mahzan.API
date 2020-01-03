@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mahzan.Models.Entities
 {
-    public class Company
+    public class Companies
     {
         /// <summary>
         /// Identificador único del Empresa
@@ -32,14 +32,13 @@ namespace Mahzan.Models.Entities
         [Required]
         public bool Active { get; set; }
         /// <summary>
-        /// Indica a que Grupo pertenece la Empresa
-        /// </summary>
-        [Required]
-        public Guid GroupId { get; set; }
-        /// <summary>
         /// Identificador único del Miembro
         /// </summary>
         [Required]
         public Guid MemberId { get; set; }
+
+        [Required]
+        public Guid GroupId { get; set; }
+
     }
 }
