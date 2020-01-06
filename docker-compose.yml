@@ -1,11 +1,11 @@
-﻿version: "3"
+﻿version: "3.7"
 services:
     web:
         build: .
         ports:
-            - "6000:6000"
+        - "5000:5000"
         depends_on:
-            - sql-server-db
+        - sql-server-db
     sql-server-db:
         container_name: sql-server-db
         image: microsoft/mssql-server-linux:2017-latest
