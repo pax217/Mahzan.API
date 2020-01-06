@@ -32,6 +32,11 @@
     <Folder Include="Implementations\Business\Companies\" />
     <Folder Include="Results\Companies\" />
     <Folder Include="Resources\Business\Companies\" />
+    <Folder Include="Requests\Stores\" />
+    <Folder Include="Results\Stores\" />
+    <Folder Include="Interfaces\Business\Stores\" />
+    <Folder Include="Implementations\Business\Stores\" />
+    <Folder Include="Resources\Business\Stores\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -86,6 +91,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DeleteCompaniesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Stores\AddStoresResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddStoresResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Stores\GetStoresResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetStoresResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Stores\PutStoresResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PutStoresResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Stores\DeleteStoresResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeleteStoresResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -131,6 +152,18 @@
     </Compile>
     <Compile Update="Resources\Business\Companies\DeleteCompaniesResources.Designer.cs">
       <DependentUpon>DeleteCompaniesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Stores\AddStoresResources.Designer.cs">
+      <DependentUpon>AddStoresResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Stores\GetStoresResources.Designer.cs">
+      <DependentUpon>GetStoresResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Stores\PutStoresResources.Designer.cs">
+      <DependentUpon>PutStoresResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Stores\DeleteStoresResources.Designer.cs">
+      <DependentUpon>DeleteStoresResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
