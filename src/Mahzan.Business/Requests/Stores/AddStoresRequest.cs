@@ -1,22 +1,20 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Mahzan.DataAccess.DTO._Base;
 
-namespace Mahzan.DataAccess.DTO.Groups
+namespace Mahzan.Business.Requests.Stores
 {
-    public class PutGroupsDto:BaseDto
+    public class AddStoresRequest
     {
-        [Required]
-        public Guid GroupId { get; set; }
-
         public string Code { get; set; }
-
+        [Required]
         public string Name { get; set; }
 
         public string Phone { get; set; }
 
         public string Comment { get; set; }
 
-        public bool? Active { get; set; }
+        public bool Active { get; set; }
+        [Required]
+        public Guid CompanyId { get; set; }
     }
 }

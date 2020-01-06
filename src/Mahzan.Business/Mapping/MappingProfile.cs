@@ -2,6 +2,7 @@
 using Mahzan.DataAccess.DTO.Companies;
 using Mahzan.DataAccess.DTO.Groups;
 using Mahzan.DataAccess.DTO.Members;
+using Mahzan.DataAccess.DTO.Stores;
 using Mahzan.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,12 @@ namespace Mahzan.Business.Mapping
             CreateMap<AddCompaniesDto, Companies>()
                 .ForMember(dest => dest.GroupId,
                            opt => opt.MapFrom(src =>src.GrupoId));
+            #endregion
+
+            #region Groups
+            CreateMap<AddStoresDto, Stores>()
+                .ForMember(dest => dest.CompanyId,
+                           opt => opt.MapFrom(src => src.CompanyId));
             #endregion
         }
     }
