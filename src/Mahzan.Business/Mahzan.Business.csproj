@@ -37,6 +37,11 @@
     <Folder Include="Interfaces\Business\Stores\" />
     <Folder Include="Implementations\Business\Stores\" />
     <Folder Include="Resources\Business\Stores\" />
+    <Folder Include="Requests\Employees\" />
+    <Folder Include="Results\Employees\" />
+    <Folder Include="Interfaces\Business\Employees\" />
+    <Folder Include="Implementations\Business\Employees\" />
+    <Folder Include="Resources\Business\Employees\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -107,6 +112,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DeleteStoresResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Employees\AddEmployeesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddEmployeesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Employees\GetEmployeesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetEmployeesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Employees\PutEmployeesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PutEmployeesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Employees\DeleteEmployeesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeleteEmployeesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -164,6 +185,18 @@
     </Compile>
     <Compile Update="Resources\Business\Stores\DeleteStoresResources.Designer.cs">
       <DependentUpon>DeleteStoresResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Employees\AddEmployeesResources.Designer.cs">
+      <DependentUpon>AddEmployeesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Employees\GetEmployeesResources.Designer.cs">
+      <DependentUpon>GetEmployeesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Employees\PutEmployeesResources.Designer.cs">
+      <DependentUpon>PutEmployeesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Employees\DeleteEmployeesResources.Designer.cs">
+      <DependentUpon>DeleteEmployeesResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

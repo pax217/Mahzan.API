@@ -5,12 +5,14 @@ using AutoMapper;
 using Mahzan.Api.Context;
 using Mahzan.Api.Services;
 using Mahzan.Business.Implementations.Business.Companies;
+using Mahzan.Business.Implementations.Business.Employees;
 using Mahzan.Business.Implementations.Business.Groups;
 using Mahzan.Business.Implementations.Business.Members;
 using Mahzan.Business.Implementations.Business.Stores;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
 using Mahzan.Business.Implementations.Validations.Members;
 using Mahzan.Business.Interfaces.Business.Companies;
+using Mahzan.Business.Interfaces.Business.Employees;
 using Mahzan.Business.Interfaces.Business.Groups;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Business.Stores;
@@ -41,6 +43,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IGroupsRepository, GroupsRepository>();
             services.AddTransient<ICompaniesRepository, CompaniesRepository>();
             services.AddTransient<IStoresRepository, StoresRepository>();
+            services.AddTransient<IEmployeesRepository, EmployeesRepository>();
 
             //Validaciones
             services.AddTransient<ILogInValidations, LogInValidations>();
@@ -53,6 +56,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IGroupsBusiness, GroupsBusiness>();
             services.AddTransient<ICompaniesBusiness, CompaniesBusiness>();
             services.AddTransient<IStoresBusiness, StoresBusiness>();
+            services.AddTransient<IEmployeesBusiness, EmployeesBusiness>();
         }
 
         /// <summary>

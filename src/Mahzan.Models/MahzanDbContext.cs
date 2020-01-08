@@ -20,6 +20,8 @@ namespace Mahzan.Models
         public DbSet<Companies_Audit> Companies_Audit { get; set; }
         public DbSet<Stores> Stores { get; set; }
         public DbSet<Stores_Audit> Stores_Audit { get; set; }
+        public DbSet<Employees> Employees { get; set; }
+        public DbSet<Employees_Audit> Employees_Audit { get; set; }
 
 
         public MahzanDbContext(DbContextOptions<MahzanDbContext> options) : base(options)
@@ -52,6 +54,12 @@ namespace Mahzan.Models
 
             modelBuilder.Entity<Stores_Audit>()
                         .HasKey(stores_audit => new { stores_audit.Id });
+
+            modelBuilder.Entity<Employees>()
+                        .HasKey(employees => new { employees.Id });
+
+            modelBuilder.Entity<Employees_Audit>()
+                        .HasKey(employees_Audit => new { employees_Audit.Id });
 
 
         }
@@ -145,6 +153,9 @@ namespace Mahzan.Models
                         break;
                     case TableAuditEnum.STORES_AUDIT:
                         Stores_Audit.Add(auditEntry.ToStores_Audit());
+                        break;
+                    case TableAuditEnum.EMPLOYEES_AUDIT:
+                        Employees_Audit.Add(auditEntry.ToEmployees_Audit());
                         break;
                     default:
                         Audits.Add(auditEntry.ToAudits());
