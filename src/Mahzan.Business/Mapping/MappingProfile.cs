@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Mahzan.DataAccess.DTO.Companies;
+using Mahzan.DataAccess.DTO.Employees;
 using Mahzan.DataAccess.DTO.Groups;
 using Mahzan.DataAccess.DTO.Members;
 using Mahzan.DataAccess.DTO.Stores;
@@ -34,6 +35,10 @@ namespace Mahzan.Business.Mapping
             CreateMap<AddStoresDto, Stores>()
                 .ForMember(dest => dest.CompanyId,
                            opt => opt.MapFrom(src => src.CompanyId));
+            #endregion
+
+            #region Employees
+            CreateMap<AddEmployeesDto, Employees>();
             #endregion
         }
     }

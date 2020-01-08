@@ -4,14 +4,16 @@ using Mahzan.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    partial class MahzanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200107230718_CreateEmployees")]
+    partial class CreateEmployees
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,7 +131,7 @@ namespace Mahzan.Models.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("MemberId")
+                    b.Property<Guid>("MemeberId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Phone")

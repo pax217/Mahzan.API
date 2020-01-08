@@ -18,6 +18,8 @@
     <Folder Include="Filters\Companies\" />
     <Folder Include="DTO\Stores\" />
     <Folder Include="Filters\Stores\" />
+    <Folder Include="DTO\Employees\" />
+    <Folder Include="Filters\Employees\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />

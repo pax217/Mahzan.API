@@ -23,7 +23,8 @@ namespace Mahzan.Api.Controllers._Base
         {
             get
             {
-                return HttpContext.User.Claims.ToList()[0].Value;
+                return _miembrosBusiness
+                        .Get(HttpContext.User.Claims.ToList()[0].Value).UserName;
             }
         }
 
@@ -32,7 +33,7 @@ namespace Mahzan.Api.Controllers._Base
             get
             {
                 return _miembrosBusiness
-                        .Get(UserName).Id;
+                        .Get(HttpContext.User.Claims.ToList()[0].Value).Id;
             }
         }
 
@@ -41,7 +42,7 @@ namespace Mahzan.Api.Controllers._Base
             get
             {
                 return _miembrosBusiness
-                        .Get(UserName).AspNetUsersId;
+                        .Get(HttpContext.User.Claims.ToList()[0].Value).AspNetUsersId;
             }
         }
     }
