@@ -22,6 +22,8 @@ namespace Mahzan.Models
         public DbSet<Stores_Audit> Stores_Audit { get; set; }
         public DbSet<Employees> Employees { get; set; }
         public DbSet<Employees_Audit> Employees_Audit { get; set; }
+        public DbSet<PointsOfSales> PointsOfSales { get; set; }
+        public DbSet<PointsOfSales_Audit> PointsOfSales_Audit { get; set; }
 
 
         public MahzanDbContext(DbContextOptions<MahzanDbContext> options) : base(options)
@@ -60,6 +62,12 @@ namespace Mahzan.Models
 
             modelBuilder.Entity<Employees_Audit>()
                         .HasKey(employees_Audit => new { employees_Audit.Id });
+
+            modelBuilder.Entity<PointsOfSales>()
+                        .HasKey(pointsOfSales => new { pointsOfSales.Id });
+
+            modelBuilder.Entity<PointsOfSales_Audit>()
+                        .HasKey(pointsOfSales_Audit => new { pointsOfSales_Audit.Id });
 
 
         }
