@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using Mahzan.Models.Enums.Expressions;
 
 namespace Mahzan.Models.Expressions
 {
@@ -15,7 +16,7 @@ namespace Mahzan.Models.Expressions
 
 
         public static Expression<Func<T,
-        bool>> GetExpression<T>(IList<Filter> filters)
+        bool>> GetExpression<T>(IList<FilterExpression> filters)
         {
             if (filters.Count == 0)
                 return null;
@@ -53,10 +54,10 @@ namespace Mahzan.Models.Expressions
             return Expression.Lambda<Func<T, bool>>(exp, param);
         }
 
-        private static Expression GetExpression<T>(ParameterExpression param, Filter filter)
+        private static Expression GetExpression<T>(ParameterExpression param, FilterExpression filter)
         {
 
-            MemberExpression member = Expression.Property(param, filter.PropertyName);
+            MemberExpression member = Expression.Property(param, filter.PropertyInfo.Name);
             ConstantExpression constant = Expression.Constant(filter.Value);
 
             //var parameter = Expression.Parameter(typeof(T), "t");
@@ -66,29 +67,29 @@ namespace Mahzan.Models.Expressions
 
             switch (filter.Operator)
             {
-                case Op.Equals:
+                case OperationsEnum.Equals:
                     //return Expression.Equal(member, constant);
                     return Expression.Equal(property, converted);
 
-                case Op.GreaterThan:
+                case OperationsEnum.GreaterThan:
                     return Expression.GreaterThan(member, constant);
 
-                case Op.GreaterThanOrEqual:
+                case OperationsEnum.GreaterThanOrEqual:
                     return Expression.GreaterThanOrEqual(member, constant);
 
-                case Op.LessThan:
+                case OperationsEnum.LessThan:
                     return Expression.LessThan(member, constant);
 
-                case Op.LessThanOrEqual:
+                case OperationsEnum.LessThanOrEqual:
                     return Expression.LessThanOrEqual(member, constant);
 
-                case Op.Contains:
+                case OperationsEnum.Contains:
                     return Expression.Call(member, containsMethod, constant);
 
-                case Op.StartsWith:
+                case OperationsEnum.StartsWith:
                     return Expression.Call(member, startsWithMethod, constant);
 
-                case Op.EndsWith:
+                case OperationsEnum.EndsWith:
                     return Expression.Call(member, endsWithMethod, constant);
             }
 
@@ -96,7 +97,7 @@ namespace Mahzan.Models.Expressions
         }
 
         private static BinaryExpression GetExpression<T>
-        (ParameterExpression param, Filter filter1, Filter filter2)
+        (ParameterExpression param, FilterExpression filter1, FilterExpression filter2)
         {
             Expression bin1 = GetExpression<T>(param, filter1);
             Expression bin2 = GetExpression<T>(param, filter2);
@@ -104,3 +105,4 @@ namespace Mahzan.Models.Expressions
             return Expression.AndAlso(bin1, bin2);
         }
     }
+}

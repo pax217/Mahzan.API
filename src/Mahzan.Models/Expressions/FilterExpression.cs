@@ -2,7 +2,7 @@
 using System.Reflection;
 using Mahzan.Models.Enums.Expressions;
 
-namespace Mahzan.DataAccess.Filters._Base
+namespace Mahzan.Models.Expressions
 {
     public class FilterExpression
     {
