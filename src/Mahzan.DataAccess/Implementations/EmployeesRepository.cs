@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Mahzan.DataAccess.DTO.Employees;
+using Mahzan.Models.Expressions;
+using Mahzan.Models.Enums.Expressions;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -37,44 +39,39 @@ namespace Mahzan.DataAccess.Implementations
         public PagedList<Employees> Get(GetEmployeesFilter getEmployeesFilter)
         {
             List<Employees> result = null;
+            List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getEmployeesFilter.EmployeId==null
-                && getEmployeesFilter.MemberId == null)
+            if (getEmployeesFilter.EmployeId!=null)
             {
-                result = (from c in _context.Set<Employees>()
-                          select c)
-                         .ToList();
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Employees).GetProperties().First(p => p.Name == "Id"),
+                    Operator =OperationsEnum.Equals,
+                    Value = getEmployeesFilter.EmployeId
+                });
+            }
+
+            if (getEmployeesFilter.MemberId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Employees).GetProperties().First(p => p.Name == "MemberId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getEmployeesFilter.MemberId
+                });
+            }
+
+
+            if (filterExpressions.Any())
+            {
+                var deleg = ExpressionBuilder.GetExpression<Employees>(filterExpressions).Compile();
+
+                result = _context.Set<Employees>().Where(deleg).ToList();
             }
             else
             {
-                if (getEmployeesFilter.EmployeId != null
-                    && getEmployeesFilter.MemberId != null)
-                {
-                    result = (from c in _context.Set<Employees>()
-                              where c.Id == getEmployeesFilter.EmployeId
-                              && c.MemberId == getEmployeesFilter.MemberId
-                              select c)
-                              .ToList();
-                }
-                else
-                {
-                    if (getEmployeesFilter.EmployeId != null)
-                    {
-                        result = (from c in _context.Set<Employees>()
-                                  where c.Id == getEmployeesFilter.EmployeId
-                                  select c)
-                                  .ToList();
-                    }
-                    else if (getEmployeesFilter.MemberId != null)
-                    {
-                        result = (from c in _context.Set<Employees>()
-                                  where c.MemberId == getEmployeesFilter.MemberId
-                                  select c)
-                                  .ToList();
-                    }
-                }
+                result = _context.Set<Employees>().ToList();
             }
-
 
             return PagedList<Employees>.ToPagedList(result,
                                                     getEmployeesFilter.PageNumber,
