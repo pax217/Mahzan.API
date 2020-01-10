@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Reflection;
+using Mahzan.Models.Enums.Expressions;
+
 namespace Mahzan.DataAccess.Filters._Base
 {
     public class FilterBase
