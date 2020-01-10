@@ -188,5 +188,6 @@ namespace Mahzan.Api.Extensions
                     .AllowAnyOrigin());
             });
         }
+
     }
 }

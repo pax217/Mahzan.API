@@ -70,6 +70,9 @@ namespace Mahzan.Api
 
             //Add MappingProfile
             services.AddMappingConfig();
+
+            //AddHealthChecks
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -124,7 +127,7 @@ namespace Mahzan.Api
                 endpoints.MapControllers();
             });
 
-            
+            app.ConfigureHealthChecks();
         }
     }
 }
