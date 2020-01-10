@@ -42,6 +42,11 @@
     <Folder Include="Interfaces\Business\Employees\" />
     <Folder Include="Implementations\Business\Employees\" />
     <Folder Include="Resources\Business\Employees\" />
+    <Folder Include="Interfaces\Business\PointOfSales\" />
+    <Folder Include="Results\PointOfSales\" />
+    <Folder Include="Requests\PointOfSales\" />
+    <Folder Include="Implementations\Business\PointOfSales\" />
+    <Folder Include="Resources\Business\PointsOfSales\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -128,6 +133,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DeleteEmployeesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\PointsOfSales\AddPointsOfSalesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddPointsOfSalesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\PointsOfSales\GetPointsOfSalesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetPointsOfSalesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\PointsOfSales\PutPointsOfSalesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PutPointsOfSalesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\PointsOfSales\DeletePointsOfSalesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeletePointsOfSalesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -197,6 +218,18 @@
     </Compile>
     <Compile Update="Resources\Business\Employees\DeleteEmployeesResources.Designer.cs">
       <DependentUpon>DeleteEmployeesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\PointsOfSales\AddPointsOfSalesResources.Designer.cs">
+      <DependentUpon>AddPointsOfSalesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\PointsOfSales\GetPointsOfSalesResources.Designer.cs">
+      <DependentUpon>GetPointsOfSalesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\PointsOfSales\PutPointsOfSalesResources.Designer.cs">
+      <DependentUpon>PutPointsOfSalesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\PointsOfSales\DeletePointsOfSalesResources.Designer.cs">
+      <DependentUpon>DeletePointsOfSalesResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

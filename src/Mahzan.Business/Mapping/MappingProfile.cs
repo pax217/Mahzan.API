@@ -3,6 +3,7 @@ using Mahzan.DataAccess.DTO.Companies;
 using Mahzan.DataAccess.DTO.Employees;
 using Mahzan.DataAccess.DTO.Groups;
 using Mahzan.DataAccess.DTO.Members;
+using Mahzan.DataAccess.DTO.PointOfSales;
 using Mahzan.DataAccess.DTO.Stores;
 using Mahzan.Models.Entities;
 using System;
@@ -39,6 +40,12 @@ namespace Mahzan.Business.Mapping
 
             #region Employees
             CreateMap<AddEmployeesDto, Employees>();
+            #endregion
+
+            #region Points Of Sales
+            CreateMap<AddPointsOfSalesDto, PointsOfSales>()
+                 .ForMember(dest => dest.StoreId,
+                            opt => opt.MapFrom(src => src.StoreId)); ;
             #endregion
         }
     }

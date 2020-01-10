@@ -165,6 +165,9 @@ namespace Mahzan.Models
                     case TableAuditEnum.EMPLOYEES_AUDIT:
                         Employees_Audit.Add(auditEntry.ToEmployees_Audit());
                         break;
+                    case TableAuditEnum.POINTSOFSALES_AUDIT:
+                        PointsOfSales_Audit.Add(auditEntry.ToPointsOfSales_Audit());
+                        break;
                     default:
                         Audits.Add(auditEntry.ToAudits());
                         break;

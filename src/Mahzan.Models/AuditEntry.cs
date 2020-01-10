@@ -86,5 +86,17 @@ namespace Mahzan.Models
             employees_Audit.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
             return employees_Audit;
         }
+
+        public PointsOfSales_Audit ToPointsOfSales_Audit()
+        {
+            var pointsOfSales_Audit = new PointsOfSales_Audit();
+            pointsOfSales_Audit.AspNetUserId = AspNetUserId;
+            pointsOfSales_Audit.Type = Tipo.ToString();
+            pointsOfSales_Audit.DateTime = DateTime.UtcNow;
+            pointsOfSales_Audit.KeyValues = JsonConvert.SerializeObject(KeyValues);
+            pointsOfSales_Audit.OldValues = OldValues.Count == 0 ? null : JsonConvert.SerializeObject(OldValues);
+            pointsOfSales_Audit.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
+            return pointsOfSales_Audit;
+        }
     }
 }
