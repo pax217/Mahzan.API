@@ -6,15 +6,19 @@ using Mahzan.Api.Context;
 using Mahzan.Api.Services;
 using Mahzan.Business.Implementations.Business.Companies;
 using Mahzan.Business.Implementations.Business.Employees;
+using Mahzan.Business.Implementations.Business.EmployeesStores;
 using Mahzan.Business.Implementations.Business.Groups;
 using Mahzan.Business.Implementations.Business.Members;
+using Mahzan.Business.Implementations.Business.PointOfSales;
 using Mahzan.Business.Implementations.Business.Stores;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
 using Mahzan.Business.Implementations.Validations.Members;
 using Mahzan.Business.Interfaces.Business.Companies;
 using Mahzan.Business.Interfaces.Business.Employees;
+using Mahzan.Business.Interfaces.Business.EmployeesStores;
 using Mahzan.Business.Interfaces.Business.Groups;
 using Mahzan.Business.Interfaces.Business.Members;
+using Mahzan.Business.Interfaces.Business.PointOfSales;
 using Mahzan.Business.Interfaces.Business.Stores;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
 using Mahzan.Business.Interfaces.Validations.Miembros;
@@ -44,6 +48,9 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<ICompaniesRepository, CompaniesRepository>();
             services.AddTransient<IStoresRepository, StoresRepository>();
             services.AddTransient<IEmployeesRepository, EmployeesRepository>();
+            services.AddTransient<IEmployeesStoresRepository, EmployeesStoresRepository>();
+            services.AddTransient<IPointsOfSalesRepository, PointsOfSalesRepository>();
+
 
             //Validaciones
             services.AddTransient<ILogInValidations, LogInValidations>();
@@ -57,6 +64,9 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<ICompaniesBusiness, CompaniesBusiness>();
             services.AddTransient<IStoresBusiness, StoresBusiness>();
             services.AddTransient<IEmployeesBusiness, EmployeesBusiness>();
+            services.AddTransient<IEmployeesStoresBusiness, EmployeesStoresBusiniess>();
+            services.AddTransient<IPointsOfSalesBusiness, PointsOfSalesBusiness>();
+
         }
 
         /// <summary>

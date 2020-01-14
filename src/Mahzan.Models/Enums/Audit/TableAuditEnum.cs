@@ -10,6 +10,7 @@ namespace Mahzan.Models.Enums.Audit
         COMPANIES_AUDIT,
         STORES_AUDIT,
         EMPLOYEES_AUDIT,
-        POINTSOFSALES_AUDIT
+        POINTSOFSALES_AUDIT,
+        EMPLOYEES_STORES_AUDIT
     }
 }

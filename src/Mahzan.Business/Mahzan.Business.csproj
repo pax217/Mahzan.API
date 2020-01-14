@@ -47,6 +47,11 @@
     <Folder Include="Requests\PointOfSales\" />
     <Folder Include="Implementations\Business\PointOfSales\" />
     <Folder Include="Resources\Business\PointsOfSales\" />
+    <Folder Include="Requests\EmployeesStores\" />
+    <Folder Include="Results\EmployeesStores\" />
+    <Folder Include="Interfaces\Business\EmployeesStores\" />
+    <Folder Include="Implementations\Business\EmployeesStores\" />
+    <Folder Include="Resources\Business\EmployeesStores\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -149,6 +154,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DeletePointsOfSalesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\EmployeesStores\AddEmployeesStoresResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddEmployeesStoresResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\EmployeesStores\GetEmployeesStoresResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetEmployeesStoresResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -230,6 +243,12 @@
     </Compile>
     <Compile Update="Resources\Business\PointsOfSales\DeletePointsOfSalesResources.Designer.cs">
       <DependentUpon>DeletePointsOfSalesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\EmployeesStores\AddEmployeesStoresResources.Designer.cs">
+      <DependentUpon>AddEmployeesStoresResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\EmployeesStores\GetEmployeesStoresResources.Designer.cs">
+      <DependentUpon>GetEmployeesStoresResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
