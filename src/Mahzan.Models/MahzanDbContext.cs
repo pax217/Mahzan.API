@@ -30,6 +30,8 @@ namespace Mahzan.Models
         public DbSet<Products_Audit> Products_Audit { get; set; }
         public DbSet<ProductsPhotos> ProductsPhotos { get; set; }
 
+        public DbSet<ProductUnits> ProductUnits { get; set; }
+
 
         public MahzanDbContext(DbContextOptions<MahzanDbContext> options) : base(options)
         {
@@ -88,6 +90,9 @@ namespace Mahzan.Models
 
             modelBuilder.Entity<ProductsPhotos>()
                         .HasKey(productsPhotos => new { productsPhotos.Id });
+
+            modelBuilder.Entity<ProductUnits>()
+                        .HasKey(productUnits => new { productUnits.Id });
 
 
         }
