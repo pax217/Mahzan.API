@@ -14,5 +14,9 @@ namespace Mahzan.Business.Requests.Products
         public decimal Cost { get; set; }
 
         public bool Active { get; set; }
+
+        public Guid? ProductCategoryId { get; set; }
+
+        public Guid ProductUnitId { get; set; }
     }
 }

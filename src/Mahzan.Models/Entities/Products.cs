@@ -24,9 +24,9 @@ namespace Mahzan.Models.Entities
 
         public Guid MemberId { get; set; }
 
-        //public Guid? ProductCategoryId { get; set; }
+        public Guid? ProductCategoryId { get; set; }
 
-        //public Guid ProductUnitId { get; set; }
+        public Guid ProductUnitId { get; set; }
 
     }
 }

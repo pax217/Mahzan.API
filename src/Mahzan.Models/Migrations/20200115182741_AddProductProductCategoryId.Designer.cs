@@ -4,14 +4,16 @@ using Mahzan.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    partial class MahzanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200115182741_AddProductProductCategoryId")]
+    partial class AddProductProductCategoryId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -437,9 +439,6 @@ namespace Mahzan.Models.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid?>("ProductCategoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductUnitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SKU")
