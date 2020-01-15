@@ -24,6 +24,9 @@
     <Folder Include="Filters\PointsOfSales\" />
     <Folder Include="DTO\EmployeesStores\" />
     <Folder Include="Filters\EmployeesStores\" />
+    <Folder Include="DTO\Products\" />
+    <Folder Include="Filters\Products\" />
+    <Folder Include="DTO\ProductsPhotos\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />

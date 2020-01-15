@@ -10,6 +10,8 @@ using Mahzan.Business.Implementations.Business.EmployeesStores;
 using Mahzan.Business.Implementations.Business.Groups;
 using Mahzan.Business.Implementations.Business.Members;
 using Mahzan.Business.Implementations.Business.PointOfSales;
+using Mahzan.Business.Implementations.Business.Products;
+using Mahzan.Business.Implementations.Business.ProductsPhotos;
 using Mahzan.Business.Implementations.Business.Stores;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
 using Mahzan.Business.Implementations.Validations.Members;
@@ -19,6 +21,8 @@ using Mahzan.Business.Interfaces.Business.EmployeesStores;
 using Mahzan.Business.Interfaces.Business.Groups;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Business.PointOfSales;
+using Mahzan.Business.Interfaces.Business.Products;
+using Mahzan.Business.Interfaces.Business.ProductsPhotos;
 using Mahzan.Business.Interfaces.Business.Stores;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
 using Mahzan.Business.Interfaces.Validations.Miembros;
@@ -50,6 +54,8 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IEmployeesRepository, EmployeesRepository>();
             services.AddTransient<IEmployeesStoresRepository, EmployeesStoresRepository>();
             services.AddTransient<IPointsOfSalesRepository, PointsOfSalesRepository>();
+            services.AddTransient<IProductsRepository, ProductsRepository>();
+            services.AddTransient<IProductsPhotosRepository, ProductsPhotosRepository>();
 
 
             //Validaciones
@@ -66,6 +72,8 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IEmployeesBusiness, EmployeesBusiness>();
             services.AddTransient<IEmployeesStoresBusiness, EmployeesStoresBusiniess>();
             services.AddTransient<IPointsOfSalesBusiness, PointsOfSalesBusiness>();
+            services.AddTransient<IProductsBusiness, ProductsBusiness>();
+            services.AddTransient<IProductsPhotosBusiness, ProductsPhotosBusiness>();
 
         }
 
@@ -77,7 +85,10 @@ namespace Mahzan.Api.Extensions
         {
             services.AddSwaggerGen(c =>
             {
+
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mahzan API", Version = "v1" });
+
+
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
@@ -85,19 +96,21 @@ namespace Mahzan.Api.Extensions
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });
+               
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-               {
-                 new OpenApiSecurityScheme
-                 {
-                   Reference = new OpenApiReference
                    {
-                     Type = ReferenceType.SecurityScheme,
-                     Id = "Bearer"
+                     new OpenApiSecurityScheme
+                     {
+                       Reference = new OpenApiReference
+                       {
+                         Type = ReferenceType.SecurityScheme,
+                         Id = "Bearer"
+                       }
+                      },
+                      new string[] { }
                    }
-                  },
-                  new string[] { }
-                }
-              });
+                });
+
             });
         }
 
