@@ -52,6 +52,15 @@
     <Folder Include="Interfaces\Business\EmployeesStores\" />
     <Folder Include="Implementations\Business\EmployeesStores\" />
     <Folder Include="Resources\Business\EmployeesStores\" />
+    <Folder Include="Requests\Products\" />
+    <Folder Include="Results\Products\" />
+    <Folder Include="Interfaces\Business\Products\" />
+    <Folder Include="Implementations\Business\Products\" />
+    <Folder Include="Resources\Business\Products\" />
+    <Folder Include="Results\ProductsPhotos\" />
+    <Folder Include="Interfaces\Business\ProductsPhotos\" />
+    <Folder Include="Implementations\Business\ProductsPhotos\" />
+    <Folder Include="Resources\Business\ProductsPhotos\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -162,6 +171,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GetEmployeesStoresResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Products\AddProductsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddProductsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\ProductsPhotos\AddProductsPhotosResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddProductsPhotosResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -249,6 +266,12 @@
     </Compile>
     <Compile Update="Resources\Business\EmployeesStores\GetEmployeesStoresResources.Designer.cs">
       <DependentUpon>GetEmployeesStoresResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Products\AddProductsResources.Designer.cs">
+      <DependentUpon>AddProductsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\ProductsPhotos\AddProductsPhotosResources.Designer.cs">
+      <DependentUpon>AddProductsPhotosResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
