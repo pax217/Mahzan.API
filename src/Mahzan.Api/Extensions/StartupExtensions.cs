@@ -9,6 +9,7 @@ using Mahzan.Business.Implementations.Business.Employees;
 using Mahzan.Business.Implementations.Business.EmployeesStores;
 using Mahzan.Business.Implementations.Business.Groups;
 using Mahzan.Business.Implementations.Business.Members;
+using Mahzan.Business.Implementations.Business.Menu;
 using Mahzan.Business.Implementations.Business.PointOfSales;
 using Mahzan.Business.Implementations.Business.Products;
 using Mahzan.Business.Implementations.Business.ProductsPhotos;
@@ -20,6 +21,7 @@ using Mahzan.Business.Interfaces.Business.Employees;
 using Mahzan.Business.Interfaces.Business.EmployeesStores;
 using Mahzan.Business.Interfaces.Business.Groups;
 using Mahzan.Business.Interfaces.Business.Members;
+using Mahzan.Business.Interfaces.Business.Menu;
 using Mahzan.Business.Interfaces.Business.PointOfSales;
 using Mahzan.Business.Interfaces.Business.Products;
 using Mahzan.Business.Interfaces.Business.ProductsPhotos;
@@ -56,6 +58,9 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IPointsOfSalesRepository, PointsOfSalesRepository>();
             services.AddTransient<IProductsRepository, ProductsRepository>();
             services.AddTransient<IProductsPhotosRepository, ProductsPhotosRepository>();
+            services.AddTransient<IMenuRepository, MenuRepository>();
+            services.AddTransient<IMenuItemsRepository, MenuItemsRepository>();
+            services.AddTransient<IMenuSubItemsRepository, MenuSubItemsRepository>();
 
 
             //Validaciones
@@ -74,6 +79,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IPointsOfSalesBusiness, PointsOfSalesBusiness>();
             services.AddTransient<IProductsBusiness, ProductsBusiness>();
             services.AddTransient<IProductsPhotosBusiness, ProductsPhotosBusiness>();
+            services.AddTransient<IMenuBusiness, MenuBusiness>();
 
         }
 

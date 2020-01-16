@@ -61,6 +61,10 @@
     <Folder Include="Interfaces\Business\ProductsPhotos\" />
     <Folder Include="Implementations\Business\ProductsPhotos\" />
     <Folder Include="Resources\Business\ProductsPhotos\" />
+    <Folder Include="Results\Menu\" />
+    <Folder Include="Interfaces\Business\Menu\" />
+    <Folder Include="Implementations\Business\Menu\" />
+    <Folder Include="Resources\Business\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -179,6 +183,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddProductsPhotosResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Menu\GetMenuResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetMenuResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -272,6 +280,9 @@
     </Compile>
     <Compile Update="Resources\Business\ProductsPhotos\AddProductsPhotosResources.Designer.cs">
       <DependentUpon>AddProductsPhotosResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Menu\GetMenuResources.Designer.cs">
+      <DependentUpon>GetMenuResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

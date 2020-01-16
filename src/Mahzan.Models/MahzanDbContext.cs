@@ -33,6 +33,10 @@ namespace Mahzan.Models
         public DbSet<ProductUnits> ProductUnits { get; set; }
         public DbSet<ProductCategories> ProductCategories { get; set; }
 
+        public DbSet<Menu> Menu { get; set; }
+        public DbSet<Menu_Items> Menu_Items { get; set; }
+        public DbSet<Menu_SubItems> Menu_SubItems { get; set; }
+
         public MahzanDbContext(DbContextOptions<MahzanDbContext> options) : base(options)
         {
         }
@@ -96,6 +100,15 @@ namespace Mahzan.Models
 
             modelBuilder.Entity<ProductCategories>()
                         .HasKey(productCategories => new { productCategories.Id });
+
+            modelBuilder.Entity<Menu>()
+                        .HasKey(menu => new { menu.Id });
+
+            modelBuilder.Entity<Menu_Items>()
+                        .HasKey(menu_Items => new { menu_Items.Id });
+
+            modelBuilder.Entity<Menu_SubItems>()
+                        .HasKey(menu_SubItems => new { menu_SubItems.Id });
 
         }
 
