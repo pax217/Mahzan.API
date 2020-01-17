@@ -10,7 +10,7 @@ namespace Mahzan.Business.Interfaces.Business.Groups
     {
         Task<AddGroupsResult> Add(AddGroupsDto addGroupsDto);
 
-        Task<GetGroupsResult> Get(GetGroupFilter getGroupFilter);
+        Task<GetGroupsResult> Get(GetGroupsDto getGroupsDto);
 
         Task<PutGroupsResult> Put(PutGroupsDto putGroupsDto);
 

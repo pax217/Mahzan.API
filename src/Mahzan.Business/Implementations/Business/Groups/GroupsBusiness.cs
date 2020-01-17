@@ -64,7 +64,7 @@ namespace Mahzan.Business.Implementations.Business.Groups
             return result;
         }
 
-        public async Task<GetGroupsResult> Get(GetGroupFilter getGroupFilter)
+        public async Task<GetGroupsResult> Get(GetGroupsDto getGroupsDto)
         {
             GetGroupsResult result = new GetGroupsResult()
             {
@@ -79,7 +79,7 @@ namespace Mahzan.Business.Implementations.Business.Groups
             {
 
                 result.Groups = _groupsRepository
-                                .Get(getGroupFilter);
+                                .Get(getGroupsDto);
 
                 if (!result.Groups.Any())
                 {

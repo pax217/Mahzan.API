@@ -7,6 +7,8 @@ using Mahzan.DataAccess.Interfaces;
 using Mahzan.DataAccess.Paging;
 using Mahzan.Models;
 using Mahzan.Models.Entities;
+using Mahzan.Models.Enums.Expressions;
+using Mahzan.Models.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -19,57 +21,55 @@ namespace Mahzan.DataAccess.Implementations
         {
         }
 
-        public PagedList<Groups> Get(GetGroupFilter getGroupFilter)
+        public PagedList<Groups> Get(GetGroupsDto getGroupsDto)
         {
             List<Groups> result = null;
+            List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getGroupFilter.GroupId == Guid.Empty
-                && getGroupFilter.MemberId == Guid.Empty
-                && getGroupFilter.Name == null)
+            if (getGroupsDto.MemberId != null)
             {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Groups).GetProperties().First(p => p.Name == "MemberId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getGroupsDto.MemberId
+                });
+            }
 
-                result = (from g in _context.Set<Groups>()
-                          select g)
-                         .ToList();
+            if (getGroupsDto.GroupId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Groups).GetProperties().First(p => p.Name == "Id"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getGroupsDto.GroupId
+                });
+            }
+
+            if (getGroupsDto.Name != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Groups).GetProperties().First(p => p.Name == "Name"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getGroupsDto.Name
+                });
+            }
+
+            if (filterExpressions.Any())
+            {
+                var deleg = ExpressionBuilder.GetExpression<Groups>(filterExpressions).Compile();
+
+                result = _context.Set<Groups>().Where(deleg).ToList();
             }
             else
             {
-                if (getGroupFilter.GroupId != Guid.Empty
-                    && getGroupFilter.MemberId != Guid.Empty
-                    && getGroupFilter.Name != null)
-                {
-                    result = (from g in _context.Set<Groups>()
-                             where g.Id == getGroupFilter.GroupId
-                             && g.MemberId == getGroupFilter.MemberId
-                             && g.Name.Contains(getGroupFilter.Name)
-                             select g)
-                             .ToList();
-                }
-                else if (getGroupFilter.GroupId != Guid.Empty)
-                {
-                    result = (from g in _context.Set<Groups>()
-                              where g.Id == getGroupFilter.GroupId
-                              select g).ToList();
-                }
-                else if (getGroupFilter.MemberId != Guid.Empty)
-                {
-                    result = (from g in _context.Set<Groups>()
-                              where g.MemberId == getGroupFilter.MemberId
-                              select g)
-                             .ToList();
-                }
-                else if (getGroupFilter.Name != null)
-                {
-                    result = (from g in _context.Set<Groups>()
-                              where g.Name.Contains(getGroupFilter.Name)
-                              select g)
-                             .ToList();
-                }
+                result = _context.Set<Groups>().ToList();
             }
 
             return PagedList<Groups>.ToPagedList(result,
-                                                 getGroupFilter.PageNumber,
-                                                 getGroupFilter.PageSize);
+                                                 getGroupsDto.PageNumber,
+                                                 getGroupsDto.PageSize);
         }
 
         public Groups Update(PutGroupsDto putGroupsDto)

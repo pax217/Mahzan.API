@@ -9,7 +9,7 @@ namespace Mahzan.DataAccess.Interfaces
 {
     public interface IGroupsRepository: IRepositoryBase<Groups>
     {
-        PagedList<Groups> Get(GetGroupFilter getGroupFilter);
+        PagedList<Groups> Get(GetGroupsDto getGroupsDto);
 
         Groups Update(PutGroupsDto putGroupsDto);
 
