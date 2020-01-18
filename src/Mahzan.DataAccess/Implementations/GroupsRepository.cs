@@ -51,7 +51,7 @@ namespace Mahzan.DataAccess.Implementations
                 filterExpressions.Add(new FilterExpression
                 {
                     PropertyInfo = typeof(Groups).GetProperties().First(p => p.Name == "Name"),
-                    Operator = OperationsEnum.Equals,
+                    Operator = OperationsEnum.Contains,
                     Value = getGroupsDto.Name
                 });
             }
@@ -85,10 +85,6 @@ namespace Mahzan.DataAccess.Implementations
                 groupToUpdate.Name = putGroupsDto.Name;
             }
 
-            if (putGroupsDto.Active != null)
-            {
-                groupToUpdate.Active = putGroupsDto.Active.Value;
-            }
 
             EntityEntry entry = _context.Entry(groupToUpdate);
             entry.State = EntityState.Modified;

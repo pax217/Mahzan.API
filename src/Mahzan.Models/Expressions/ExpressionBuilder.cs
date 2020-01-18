@@ -8,7 +8,8 @@ namespace Mahzan.Models.Expressions
 {
     public static class ExpressionBuilder
     {
-        private static MethodInfo containsMethod = typeof(string).GetMethod("Contains");
+        private static MethodInfo containsMethod =
+        typeof(string).GetMethod("Contains", new Type[] { typeof(string) });
         private static MethodInfo startsWithMethod =
         typeof(string).GetMethod("StartsWith", new Type[] { typeof(string) });
         private static MethodInfo endsWithMethod =
