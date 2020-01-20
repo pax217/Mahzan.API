@@ -42,7 +42,6 @@ namespace Mahzan.Api.Controllers.V1
                                             .Add(new AddGroupsDto()
                                             {
                                                 Name = addGroupsRequest.Name,
-                                                Active = addGroupsRequest.Active,
                                                 MemberId = MemberId,
                                                 AspNetUserId = AspNetUserId,
                                                 TableAuditEnum = TableAuditEnum.GROUPS_AUDIT,

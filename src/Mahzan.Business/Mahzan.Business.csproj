@@ -65,6 +65,9 @@
     <Folder Include="Interfaces\Business\Menu\" />
     <Folder Include="Implementations\Business\Menu\" />
     <Folder Include="Resources\Business\Menu\" />
+    <Folder Include="Interfaces\Validations\Groups\" />
+    <Folder Include="Implementations\Validations\Groups\" />
+    <Folder Include="Resources\Validations\Gruops\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -187,6 +190,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GetMenuResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\Gruops\AddGroupsValidationsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddGroupsValidationsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -283,6 +290,9 @@
     </Compile>
     <Compile Update="Resources\Business\Menu\GetMenuResources.Designer.cs">
       <DependentUpon>GetMenuResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\Gruops\AddGroupsValidationsResources.Designer.cs">
+      <DependentUpon>AddGroupsValidationsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

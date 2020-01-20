@@ -15,6 +15,7 @@ using Mahzan.Business.Implementations.Business.Products;
 using Mahzan.Business.Implementations.Business.ProductsPhotos;
 using Mahzan.Business.Implementations.Business.Stores;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
+using Mahzan.Business.Implementations.Validations.Groups;
 using Mahzan.Business.Implementations.Validations.Members;
 using Mahzan.Business.Interfaces.Business.Companies;
 using Mahzan.Business.Interfaces.Business.Employees;
@@ -27,6 +28,7 @@ using Mahzan.Business.Interfaces.Business.Products;
 using Mahzan.Business.Interfaces.Business.ProductsPhotos;
 using Mahzan.Business.Interfaces.Business.Stores;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
+using Mahzan.Business.Interfaces.Validations.Groups;
 using Mahzan.Business.Interfaces.Validations.Miembros;
 using Mahzan.Business.Mapping;
 using Mahzan.DataAccess.Implementations;
@@ -67,6 +69,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<ILogInValidations, LogInValidations>();
             services.AddTransient<ISignUpValidations, SignUpValidations>();
             services.AddTransient<IAddMembersValidations, AddMembersValidations>();
+            services.AddTransient<IAddGroupsValidations, AddGroupsValidations>();
 
 
             //Negocio

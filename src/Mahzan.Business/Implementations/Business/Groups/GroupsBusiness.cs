@@ -10,6 +10,7 @@ using Mahzan.DataAccess.DTO.Groups;
 using Mahzan.DataAccess.Interfaces;
 using System.Linq;
 using System.Collections.Generic;
+using Mahzan.Business.Interfaces.Validations.Groups;
 
 namespace Mahzan.Business.Implementations.Business.Groups
 {
@@ -18,14 +19,22 @@ namespace Mahzan.Business.Implementations.Business.Groups
 
         readonly IGroupsRepository _groupsRepository;
 
+        readonly IAddGroupsValidations _addGroupsValidations;
+
         readonly IMapper _mapper;
 
         public GroupsBusiness(
             IGroupsRepository groupsRepository,
+            IAddGroupsValidations addGroupsValidations,
             IMapper mapper)
         {
+            //Valdiations
+            _addGroupsValidations = addGroupsValidations;
 
+            //Repository
             _groupsRepository = groupsRepository;
+
+            //Services
             _mapper = mapper;
 
         }
@@ -44,6 +53,13 @@ namespace Mahzan.Business.Implementations.Business.Groups
             try
             {
                 //Valida la información del grupo a agregar
+                AddGroupsResult resultValidations = await _addGroupsValidations
+                                                          .AddGroupsValid(addGroupsDto);
+
+                if (!resultValidations.IsValid)
+                {
+                    return resultValidations;
+                }
 
                 //Agrega Grupo
                 _groupsRepository

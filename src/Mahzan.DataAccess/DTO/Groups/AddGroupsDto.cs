@@ -6,6 +6,5 @@ namespace Mahzan.DataAccess.DTO.Groups
     public class AddGroupsDto:BaseDto
     {
         public string Name { get; set; }
-        public bool Active { get; set; }
     }
 }
