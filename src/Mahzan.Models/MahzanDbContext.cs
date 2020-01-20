@@ -31,7 +31,11 @@ namespace Mahzan.Models
         public DbSet<ProductsPhotos> ProductsPhotos { get; set; }
 
         public DbSet<ProductUnits> ProductUnits { get; set; }
+        public DbSet<ProductUnits_Audit> ProductUnits_Audit { get; set; }
+
         public DbSet<ProductCategories> ProductCategories { get; set; }
+        public DbSet<ProductCategories_Audit> ProductCategories_Audit { get; set; }
+
 
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Menu_Items> Menu_Items { get; set; }
@@ -98,8 +102,14 @@ namespace Mahzan.Models
             modelBuilder.Entity<ProductUnits>()
                         .HasKey(productUnits => new { productUnits.Id });
 
+            modelBuilder.Entity<ProductUnits_Audit>()
+                        .HasKey(productUnits_Audit => new { productUnits_Audit.Id });
+
             modelBuilder.Entity<ProductCategories>()
                         .HasKey(productCategories => new { productCategories.Id });
+
+            modelBuilder.Entity<ProductCategories_Audit>()
+                        .HasKey(productCategories_Audit => new { productCategories_Audit.Id });
 
             modelBuilder.Entity<Menu>()
                         .HasKey(menu => new { menu.Id });
@@ -213,6 +223,12 @@ namespace Mahzan.Models
                         break;
                     case TableAuditEnum.PRODUCTS_AUDIT:
                         Products_Audit.Add(auditEntry.ToProducts_Audit());
+                        break;
+                    case TableAuditEnum.PRODUCT_CATEGORIES_AUDIT:
+                        ProductCategories_Audit.Add(auditEntry.ToProductCategories_Audit());
+                        break;
+                    case TableAuditEnum.PRODUCT_UNITS_AUDIT:
+                        ProductUnits_Audit.Add(auditEntry.ToProductUnits_Audit());
                         break;
                     default:
                         Audits.Add(auditEntry.ToAudits());

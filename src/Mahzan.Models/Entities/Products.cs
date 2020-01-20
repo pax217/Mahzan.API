@@ -20,13 +20,11 @@ namespace Mahzan.Models.Entities
 
         public decimal Cost { get; set; }
 
-        public bool  Active { get; set; }
-
         public Guid MemberId { get; set; }
 
-        public Guid? ProductCategoryId { get; set; }
+        public ProductCategories ProductCategories { get; set; }
 
-        public Guid ProductUnitId { get; set; }
+        public ProductUnits ProductUnits { get; set; }
 
     }
 }

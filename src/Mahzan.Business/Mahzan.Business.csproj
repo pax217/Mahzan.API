@@ -68,6 +68,16 @@
     <Folder Include="Interfaces\Validations\Groups\" />
     <Folder Include="Implementations\Validations\Groups\" />
     <Folder Include="Resources\Validations\Gruops\" />
+    <Folder Include="Requests\ProductCategories\" />
+    <Folder Include="Results\ProductCategories\" />
+    <Folder Include="Interfaces\Business\ProductCategories\" />
+    <Folder Include="Implementations\Business\ProductCategories\" />
+    <Folder Include="Resources\Business\ProductCategories\" />
+    <Folder Include="Requests\ProductUnits\" />
+    <Folder Include="Results\ProductUnits\" />
+    <Folder Include="Interfaces\Business\ProductUnits\" />
+    <Folder Include="Implementations\Business\ProductUnits\" />
+    <Folder Include="Resources\Business\ProductUnits\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -194,6 +204,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddGroupsValidationsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\ProductCategories\AddProductCategoriesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddProductCategoriesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\ProductUnits\AddProductUnitsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddProductUnitsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -293,6 +311,12 @@
     </Compile>
     <Compile Update="Resources\Validations\Gruops\AddGroupsValidationsResources.Designer.cs">
       <DependentUpon>AddGroupsValidationsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\ProductCategories\AddProductCategoriesResources.Designer.cs">
+      <DependentUpon>AddProductCategoriesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\ProductUnits\AddProductUnitsResources.Designer.cs">
+      <DependentUpon>AddProductUnitsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

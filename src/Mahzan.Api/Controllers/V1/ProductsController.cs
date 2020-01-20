@@ -43,9 +43,8 @@ namespace Mahzan.Api.Controllers.V1
                                                    Description = postProductsRequest.Description,
                                                    Price = postProductsRequest.Price,
                                                    Cost = postProductsRequest.Cost,
-                                                   Active = postProductsRequest.Active,
-                                                   ProductCategoryId = postProductsRequest.ProductCategoryId,
-                                                   ProductUnitId = postProductsRequest.ProductUnitId,
+                                                   ProductCategoryId = postProductsRequest.ProductCategoriesId,
+                                                   ProductUnitId = postProductsRequest.ProductUnitsId,
                                                    AspNetUserId = AspNetUserId,
                                                    MemberId = MemberId,
                                                    TableAuditEnum = TableAuditEnum.PRODUCTS_AUDIT

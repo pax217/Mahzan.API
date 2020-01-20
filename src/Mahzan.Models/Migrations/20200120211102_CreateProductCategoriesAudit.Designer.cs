@@ -4,14 +4,16 @@ using Mahzan.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    partial class MahzanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200120211102_CreateProductCategoriesAudit")]
+    partial class CreateProductCategoriesAudit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -515,40 +517,14 @@ namespace Mahzan.Models.Migrations
                     b.ToTable("ProductUnits");
                 });
 
-            modelBuilder.Entity("Mahzan.Models.Entities.ProductUnits_Audit", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AspNetUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("DateTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("KeyValues")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewValues")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OldValues")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductUnits_Audit");
-                });
-
             modelBuilder.Entity("Mahzan.Models.Entities.Products", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Barcode")
                         .HasColumnType("nvarchar(max)");
@@ -568,17 +544,12 @@ namespace Mahzan.Models.Migrations
                     b.Property<Guid?>("ProductCategoriesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProductUnitsId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("SKU")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductCategoriesId");
-
-                    b.HasIndex("ProductUnitsId");
 
                     b.ToTable("Products");
                 });
@@ -714,10 +685,6 @@ namespace Mahzan.Models.Migrations
                     b.HasOne("Mahzan.Models.Entities.ProductCategories", "ProductCategories")
                         .WithMany()
                         .HasForeignKey("ProductCategoriesId");
-
-                    b.HasOne("Mahzan.Models.Entities.ProductUnits", "ProductUnits")
-                        .WithMany()
-                        .HasForeignKey("ProductUnitsId");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,8 +5,10 @@ using Mahzan.DataAccess.DTO.EmployeesStores;
 using Mahzan.DataAccess.DTO.Groups;
 using Mahzan.DataAccess.DTO.Members;
 using Mahzan.DataAccess.DTO.PointOfSales;
+using Mahzan.DataAccess.DTO.ProductCategories;
 using Mahzan.DataAccess.DTO.Products;
 using Mahzan.DataAccess.DTO.ProductsPhotos;
+using Mahzan.DataAccess.DTO.ProductUnits;
 using Mahzan.DataAccess.DTO.Stores;
 using Mahzan.Models.Entities;
 using System;
@@ -53,6 +55,14 @@ namespace Mahzan.Business.Mapping
 
             #region Employees of Stores
             CreateMap<AddEmployeesStoresDto, Employees_Stores>();
+            #endregion
+
+            #region Products Categories
+            CreateMap<AddProductCategoriesDto, ProductCategories>();
+            #endregion
+
+            #region Products Units
+            CreateMap<AddProductUnitsDto, ProductUnits>();
             #endregion
 
             #region Products

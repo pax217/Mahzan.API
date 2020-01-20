@@ -122,5 +122,29 @@ namespace Mahzan.Models
             products_Audit.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
             return products_Audit;
         }
+
+        public ProductCategories_Audit ToProductCategories_Audit()
+        {
+            var productCategories_Audit = new ProductCategories_Audit();
+            productCategories_Audit.AspNetUserId = AspNetUserId;
+            productCategories_Audit.Type = Tipo.ToString();
+            productCategories_Audit.DateTime = DateTime.UtcNow;
+            productCategories_Audit.KeyValues = JsonConvert.SerializeObject(KeyValues);
+            productCategories_Audit.OldValues = OldValues.Count == 0 ? null : JsonConvert.SerializeObject(OldValues);
+            productCategories_Audit.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
+            return productCategories_Audit;
+        }
+
+        public ProductUnits_Audit ToProductUnits_Audit()
+        {
+            var productUnits_Audit = new ProductUnits_Audit();
+            productUnits_Audit.AspNetUserId = AspNetUserId;
+            productUnits_Audit.Type = Tipo.ToString();
+            productUnits_Audit.DateTime = DateTime.UtcNow;
+            productUnits_Audit.KeyValues = JsonConvert.SerializeObject(KeyValues);
+            productUnits_Audit.OldValues = OldValues.Count == 0 ? null : JsonConvert.SerializeObject(OldValues);
+            productUnits_Audit.NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues);
+            return productUnits_Audit;
+        }
     }
 }

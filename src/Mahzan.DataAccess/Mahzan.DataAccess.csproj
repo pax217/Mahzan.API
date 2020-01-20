@@ -30,6 +30,8 @@
     <Folder Include="Filters\Menu\" />
     <Folder Include="Filters\MenuItems\" />
     <Folder Include="Filters\MenuSubItems\" />
+    <Folder Include="DTO\ProductCategories\" />
+    <Folder Include="DTO\ProductUnits\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />

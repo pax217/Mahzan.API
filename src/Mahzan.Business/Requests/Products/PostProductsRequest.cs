@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace Mahzan.Business.Requests.Products
 {
     public class PostProductsRequest
@@ -6,17 +8,15 @@ namespace Mahzan.Business.Requests.Products
         public string SKU { get; set; }
 
         public string Barcode { get; set; }
-
+        [Required]
         public string Description { get; set; }
-
+        [Required]
         public decimal Price { get; set; }
-
+        [Required]
         public decimal Cost { get; set; }
 
-        public bool Active { get; set; }
-
-        public Guid? ProductCategoryId { get; set; }
-
-        public Guid ProductUnitId { get; set; }
+        public Guid? ProductCategoriesId { get; set; }
+        [Required]
+        public Guid ProductUnitsId { get; set; }
     }
 }
