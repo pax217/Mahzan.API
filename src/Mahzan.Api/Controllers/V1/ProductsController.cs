@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Mahzan.Api.Controllers._Base;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Business.Products;
 using Mahzan.Business.Requests.Products;
+using Mahzan.Business.Requests.Products_Store;
 using Mahzan.Business.Results.Products;
 using Mahzan.DataAccess.DTO.Products;
+using Mahzan.DataAccess.DTO.ProductsStore;
 using Mahzan.Models.Enums.Audit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,13 +25,17 @@ namespace Mahzan.Api.Controllers.V1
     {
         readonly IProductsBusiness _productsBusiness;
 
+        readonly IMapper _mapper;
 
         public ProductsController(
             IMembersBusiness miembrosBusiness,
-            IProductsBusiness productsBusiness)
+            IProductsBusiness productsBusiness,
+            IMapper mapper)
             :base(miembrosBusiness)
         {
             _productsBusiness = productsBusiness;
+
+            _mapper = mapper;
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
@@ -43,8 +50,11 @@ namespace Mahzan.Api.Controllers.V1
                                                    Description = postProductsRequest.Description,
                                                    Price = postProductsRequest.Price,
                                                    Cost = postProductsRequest.Cost,
-                                                   ProductCategoryId = postProductsRequest.ProductCategoriesId,
-                                                   ProductUnitId = postProductsRequest.ProductUnitsId,
+                                                   ProductCategoriesId = postProductsRequest.ProductCategoriesId,
+                                                   ProductUnitsId = postProductsRequest.ProductUnitsId,
+                                                   FollowInventory = postProductsRequest.FollowInventory,
+                                                   AvailableInAllStores = postProductsRequest.AvailableInAllStores,
+                                                   AddProductsStoreDto = _mapper.Map<List<PostProductsStoreRequest>, List<AddProductsStoreDto>>(postProductsRequest.PostProductsStoreRequest),
                                                    AspNetUserId = AspNetUserId,
                                                    MemberId = MemberId,
                                                    TableAuditEnum = TableAuditEnum.PRODUCTS_AUDIT

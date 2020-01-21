@@ -8,6 +8,8 @@ namespace Mahzan.DataAccess.Interfaces
 {
     public interface IProductsRepository: IRepositoryBase<Products>
     {
+        Products Add(AddProductsDto addProductsDto);
+
         PagedList<Products> Get(GetProductsFilter getProductsFilter);
 
         Products Update(PutProductsDto putProductsDto);

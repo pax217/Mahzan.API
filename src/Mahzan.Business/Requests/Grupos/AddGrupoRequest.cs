@@ -7,7 +7,5 @@ namespace Mahzan.Business.Requests.Groups{
     {
         [Required]
         public string Name { get; set; }
-        [Required]
-        public bool Active { get; set; }
     }
 }

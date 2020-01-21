@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Mahzan.Business.Requests.Products_Store;
 using Mahzan.DataAccess.DTO.Companies;
 using Mahzan.DataAccess.DTO.Employees;
 using Mahzan.DataAccess.DTO.EmployeesStores;
@@ -8,6 +9,7 @@ using Mahzan.DataAccess.DTO.PointOfSales;
 using Mahzan.DataAccess.DTO.ProductCategories;
 using Mahzan.DataAccess.DTO.Products;
 using Mahzan.DataAccess.DTO.ProductsPhotos;
+using Mahzan.DataAccess.DTO.ProductsStore;
 using Mahzan.DataAccess.DTO.ProductUnits;
 using Mahzan.DataAccess.DTO.Stores;
 using Mahzan.Models.Entities;
@@ -66,7 +68,17 @@ namespace Mahzan.Business.Mapping
             #endregion
 
             #region Products
-            CreateMap<AddProductsDto, Products>();
+            CreateMap<AddProductsDto, Products>()
+                .ForMember(dest => dest.MembersId,
+                           opt => opt.MapFrom(src => src.MemberId))
+                .ForMember(dest => dest.ProductCategoriesId,
+                           opt => opt.MapFrom(src => src.ProductCategoriesId))
+                .ForMember(dest => dest.ProductUnitsId,
+                           opt => opt.MapFrom(src => src.ProductUnitsId));
+            #endregion
+
+            #region Products Store
+            CreateMap<List<AddProductsStoreDto>, List<PostProductsStoreRequest>>();
             #endregion
 
             #region Products Photos

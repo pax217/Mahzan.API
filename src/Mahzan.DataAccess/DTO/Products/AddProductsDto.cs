@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Mahzan.DataAccess.DTO._Base;
+using Mahzan.DataAccess.DTO.ProductsStore;
 
 namespace Mahzan.DataAccess.DTO.Products
 {
@@ -15,8 +17,14 @@ namespace Mahzan.DataAccess.DTO.Products
 
         public decimal Cost { get; set; }
 
-        public Guid? ProductCategoryId { get; set; }
+        public bool FollowInventory { get; set; }
 
-        public Guid ProductUnitId { get; set; }
+        public bool AvailableInAllStores { get; set; }
+
+        public List<AddProductsStoreDto> AddProductsStoreDto { get; set; }
+        
+        public Guid? ProductCategoriesId { get; set; }
+
+        public Guid ProductUnitsId { get; set; }
     }
 }

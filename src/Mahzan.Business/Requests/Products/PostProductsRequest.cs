@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Mahzan.Business.Requests.Products_Store;
 
 namespace Mahzan.Business.Requests.Products
 {
@@ -14,6 +16,12 @@ namespace Mahzan.Business.Requests.Products
         public decimal Price { get; set; }
         [Required]
         public decimal Cost { get; set; }
+
+        public bool FollowInventory { get; set; }
+
+        public bool AvailableInAllStores { get; set; }
+
+        public List<PostProductsStoreRequest> PostProductsStoreRequest { get; set; }
 
         public Guid? ProductCategoriesId { get; set; }
         [Required]

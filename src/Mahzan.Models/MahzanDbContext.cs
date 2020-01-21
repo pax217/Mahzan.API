@@ -26,8 +26,10 @@ namespace Mahzan.Models
         public DbSet<PointsOfSales_Audit> PointsOfSales_Audit { get; set; }
         public DbSet<Employees_Stores> Employees_Stores { get; set; }
         public DbSet<Employees_Stores_Audit> Employees_Stores_Audit { get; set; }
+
         public DbSet<Products> Products { get; set; }
         public DbSet<Products_Audit> Products_Audit { get; set; }
+
         public DbSet<ProductsPhotos> ProductsPhotos { get; set; }
 
         public DbSet<ProductUnits> ProductUnits { get; set; }
@@ -36,6 +38,8 @@ namespace Mahzan.Models
         public DbSet<ProductCategories> ProductCategories { get; set; }
         public DbSet<ProductCategories_Audit> ProductCategories_Audit { get; set; }
 
+        public DbSet<Products_Store> Products_Store { get; set; }
+        public DbSet<Products_Store_Audit> Products_Store_Audit { get; set; }
 
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Menu_Items> Menu_Items { get; set; }
@@ -91,10 +95,17 @@ namespace Mahzan.Models
                         .HasKey(employees_Stores_Audit => new { employees_Stores_Audit.Id });
 
             modelBuilder.Entity<Products>()
+                
                         .HasKey(products => new { products.Id });
 
             modelBuilder.Entity<Products_Audit>()
                         .HasKey(products_Audit => new { products_Audit.Id });
+
+            modelBuilder.Entity<Products_Store>()
+                        .HasKey(products_Store => new { products_Store.Id });
+
+            modelBuilder.Entity<Products_Store_Audit>()
+                        .HasKey(products_Store_Audit => new { products_Store_Audit.Id });
 
             modelBuilder.Entity<ProductsPhotos>()
                         .HasKey(productsPhotos => new { productsPhotos.Id });

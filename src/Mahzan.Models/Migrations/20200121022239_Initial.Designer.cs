@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    [Migration("20200117233244_UpdateGroupsRemoveActive")]
-    partial class UpdateGroupsRemoveActive
+    [Migration("20200121022239_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -468,6 +468,35 @@ namespace Mahzan.Models.Migrations
                     b.ToTable("ProductCategories");
                 });
 
+            modelBuilder.Entity("Mahzan.Models.Entities.ProductCategories_Audit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AspNetUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("DateTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("KeyValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCategories_Audit");
+                });
+
             modelBuilder.Entity("Mahzan.Models.Entities.ProductUnits", b =>
                 {
                     b.Property<Guid>("Id")
@@ -488,14 +517,40 @@ namespace Mahzan.Models.Migrations
                     b.ToTable("ProductUnits");
                 });
 
-            modelBuilder.Entity("Mahzan.Models.Entities.Products", b =>
+            modelBuilder.Entity("Mahzan.Models.Entities.ProductUnits_Audit", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                    b.Property<Guid>("AspNetUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("DateTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("KeyValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductUnits_Audit");
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Products", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Barcode")
                         .HasColumnType("nvarchar(max)");
@@ -506,22 +561,28 @@ namespace Mahzan.Models.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("MemberId")
+                    b.Property<Guid>("MembersId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid?>("ProductCategoryId")
+                    b.Property<Guid>("ProductCategoriesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProductUnitId")
+                    b.Property<Guid>("ProductUnitsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SKU")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MembersId");
+
+                    b.HasIndex("ProductCategoriesId");
+
+                    b.HasIndex("ProductUnitsId");
 
                     b.ToTable("Products");
                 });
@@ -582,6 +643,66 @@ namespace Mahzan.Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products_Audit");
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Products_Store", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("InStock")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("LowStock")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OptimumStock")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("ProductsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("Products_Store");
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Products_Store_Audit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AspNetUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("DateTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("KeyValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products_Store_Audit");
                 });
 
             modelBuilder.Entity("Mahzan.Models.Entities.Stores", b =>
@@ -650,6 +771,36 @@ namespace Mahzan.Models.Migrations
                     b.HasOne("Mahzan.Models.Entities.Menu_Items", null)
                         .WithMany("Menu_SubItems")
                         .HasForeignKey("Menu_ItemsId");
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Products", b =>
+                {
+                    b.HasOne("Mahzan.Models.Entities.Members", "Members")
+                        .WithMany()
+                        .HasForeignKey("MembersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Mahzan.Models.Entities.ProductCategories", "ProductCategories")
+                        .WithMany()
+                        .HasForeignKey("ProductCategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Mahzan.Models.Entities.ProductUnits", "ProductUnits")
+                        .WithMany()
+                        .HasForeignKey("ProductUnitsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Products_Store", b =>
+                {
+                    b.HasOne("Mahzan.Models.Entities.Products", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

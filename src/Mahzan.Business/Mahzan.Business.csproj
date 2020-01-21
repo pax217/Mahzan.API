@@ -78,6 +78,10 @@
     <Folder Include="Interfaces\Business\ProductUnits\" />
     <Folder Include="Implementations\Business\ProductUnits\" />
     <Folder Include="Resources\Business\ProductUnits\" />
+    <Folder Include="Requests\Products_Store\" />
+    <Folder Include="Interfaces\Validations\Products\" />
+    <Folder Include="Implementations\Validations\Products\" />
+    <Folder Include="Resources\Validations\Products\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -212,6 +216,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddProductUnitsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\Products\AddProductsValidationsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddProductsValidationsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -317,6 +325,9 @@
     </Compile>
     <Compile Update="Resources\Business\ProductUnits\AddProductUnitsResources.Designer.cs">
       <DependentUpon>AddProductUnitsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\Products\AddProductsValidationsResources.Designer.cs">
+      <DependentUpon>AddProductsValidationsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

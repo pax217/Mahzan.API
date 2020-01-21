@@ -19,6 +19,7 @@ using Mahzan.Business.Implementations.Business.Stores;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
 using Mahzan.Business.Implementations.Validations.Groups;
 using Mahzan.Business.Implementations.Validations.Members;
+using Mahzan.Business.Implementations.Validations.Products;
 using Mahzan.Business.Interfaces.Business.Companies;
 using Mahzan.Business.Interfaces.Business.Employees;
 using Mahzan.Business.Interfaces.Business.EmployeesStores;
@@ -34,6 +35,7 @@ using Mahzan.Business.Interfaces.Business.Stores;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
 using Mahzan.Business.Interfaces.Validations.Groups;
 using Mahzan.Business.Interfaces.Validations.Miembros;
+using Mahzan.Business.Interfaces.Validations.Products;
 using Mahzan.Business.Mapping;
 using Mahzan.DataAccess.Implementations;
 using Mahzan.DataAccess.Interfaces;
@@ -77,6 +79,8 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IAddMembersValidations, AddMembersValidations>();
             services.AddTransient<IAddGroupsValidations, AddGroupsValidations>();
 
+            services.AddTransient<IAddProductsValidations, AddProductsValidations>();
+
 
             //Negocio
             services.AddTransient<IMembersBusiness, MembersBusiness>();
@@ -89,6 +93,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IProductCategoriesBusiness, ProductCategoriesBusiness>();
             services.AddTransient<IProductUnitsBusiness, ProductUnitsBusiness>();
             services.AddTransient<IProductsPhotosBusiness, ProductsPhotosBusiness>();
+            services.AddTransient<IProductsBusiness, ProductsBusiness>();
             services.AddTransient<IMenuBusiness, MenuBusiness>();
 
         }

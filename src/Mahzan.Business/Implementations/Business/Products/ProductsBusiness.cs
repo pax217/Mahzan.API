@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Interfaces.Business.Products;
+using Mahzan.Business.Interfaces.Validations.Products;
 using Mahzan.Business.Resources.Business.Products;
 using Mahzan.Business.Results.Products;
 using Mahzan.DataAccess.DTO.Products;
@@ -18,13 +19,18 @@ namespace Mahzan.Business.Implementations.Business.Products
 
         readonly IProductsRepository _productsRepository;
 
+        readonly IAddProductsValidations _addProductsValidations;
+
         public ProductsBusiness(
             IMapper mapper,
-            IProductsRepository productsRepository)
+            IProductsRepository productsRepository,
+            IAddProductsValidations addProductsValidations)
         {
             _mapper = mapper;
 
             _productsRepository = productsRepository;
+
+            _addProductsValidations = addProductsValidations;
         }
 
         public async Task<PostProductsResult> Add(AddProductsDto addProductsDto)
@@ -41,10 +47,20 @@ namespace Mahzan.Business.Implementations.Business.Products
 
             try
             {
-                _productsRepository
-                    .Add(_mapper.Map<Models.Entities.Products>(addProductsDto),
-                    addProductsDto.AspNetUserId,
-                    addProductsDto.TableAuditEnum);
+                //Validaciones de Producto
+                PostProductsResult resultAddValidations = await _addProductsValidations
+                                                                .AddProductsValid(addProductsDto);
+                if (!resultAddValidations.IsValid)
+                {
+                    return resultAddValidations;
+                }
+
+                //agrega Producto
+                Models.Entities.Products addedProduct = await AddProduct(addProductsDto);
+
+                //Agrega el Producto a seguimiento de Inventario
+
+                await AddProductsStore(addedProduct, addProductsDto);
 
             }
             catch (Exception ex)
@@ -72,5 +88,38 @@ namespace Mahzan.Business.Implementations.Business.Products
         {
             throw new NotImplementedException();
         }
+
+
+        #region Private Methods
+
+        private async Task<Models.Entities.Products> AddProduct(AddProductsDto addProductsDto)
+        {
+            //Agrega el Producto
+            return _productsRepository
+                   .Add(addProductsDto);
+        }
+
+        private async Task<Models.Entities.Products_Store> AddProductsStore(
+            Models.Entities.Products addedProduct,
+            AddProductsDto addProductsDto)
+        {
+            Models.Entities.Products_Store result = null;
+
+            if (addProductsDto.FollowInventory)
+            {
+                foreach (var item in addProductsDto.AddProductsStoreDto)
+                {
+
+                }
+            }
+            else
+            {
+
+            }
+
+            return result;
+        }
+
+        #endregion
     }
 }

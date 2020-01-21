@@ -559,22 +559,24 @@ namespace Mahzan.Models.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("MemberId")
+                    b.Property<Guid>("MembersId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid?>("ProductCategoriesId")
+                    b.Property<Guid>("ProductCategoriesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProductUnitsId")
+                    b.Property<Guid>("ProductUnitsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SKU")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MembersId");
 
                     b.HasIndex("ProductCategoriesId");
 
@@ -639,6 +641,71 @@ namespace Mahzan.Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products_Audit");
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Products_Store", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("InStock")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("LowStock")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OptimumStock")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("ProductsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StoresId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductsId");
+
+                    b.HasIndex("StoresId");
+
+                    b.ToTable("Products_Store");
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Products_Store_Audit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AspNetUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("DateTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("KeyValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products_Store_Audit");
                 });
 
             modelBuilder.Entity("Mahzan.Models.Entities.Stores", b =>
@@ -711,13 +778,38 @@ namespace Mahzan.Models.Migrations
 
             modelBuilder.Entity("Mahzan.Models.Entities.Products", b =>
                 {
+                    b.HasOne("Mahzan.Models.Entities.Members", "Members")
+                        .WithMany()
+                        .HasForeignKey("MembersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Mahzan.Models.Entities.ProductCategories", "ProductCategories")
                         .WithMany()
-                        .HasForeignKey("ProductCategoriesId");
+                        .HasForeignKey("ProductCategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Mahzan.Models.Entities.ProductUnits", "ProductUnits")
                         .WithMany()
-                        .HasForeignKey("ProductUnitsId");
+                        .HasForeignKey("ProductUnitsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Products_Store", b =>
+                {
+                    b.HasOne("Mahzan.Models.Entities.Products", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Mahzan.Models.Entities.Stores", "Stores")
+                        .WithMany()
+                        .HasForeignKey("StoresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

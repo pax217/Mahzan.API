@@ -32,11 +32,13 @@
     <Folder Include="Filters\MenuSubItems\" />
     <Folder Include="DTO\ProductCategories\" />
     <Folder Include="DTO\ProductUnits\" />
+    <Folder Include="DTO\ProductsStore\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.19" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
   </ItemGroup>
 </Project>
