@@ -54,7 +54,7 @@ namespace Mahzan.Api.Controllers.V1
                                                    ProductUnitsId = postProductsRequest.ProductUnitsId,
                                                    FollowInventory = postProductsRequest.FollowInventory,
                                                    AvailableInAllStores = postProductsRequest.AvailableInAllStores,
-                                                   AddProductsStoreDto = _mapper.Map<List<PostProductsStoreRequest>, List<AddProductsStoreDto>>(postProductsRequest.PostProductsStoreRequest),
+                                                   AddProductsStoreDto = _mapper.Map<List<AddProductsStoreDto>>(postProductsRequest.PostProductsStoreRequest),
                                                    AspNetUserId = AspNetUserId,
                                                    MemberId = MemberId,
                                                    TableAuditEnum = TableAuditEnum.PRODUCTS_AUDIT

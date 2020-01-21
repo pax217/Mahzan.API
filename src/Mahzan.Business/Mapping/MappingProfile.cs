@@ -77,12 +77,9 @@ namespace Mahzan.Business.Mapping
                            opt => opt.MapFrom(src => src.ProductUnitsId));
             #endregion
 
-            #region Products Store
-            CreateMap<List<AddProductsStoreDto>, List<PostProductsStoreRequest>>();
-            #endregion
 
             #region Products Photos
-            CreateMap< AddProductsPhotosDto,ProductsPhotos > ();
+            CreateMap<AddProductsPhotosDto,ProductsPhotos>();
             #endregion
         }
     }
