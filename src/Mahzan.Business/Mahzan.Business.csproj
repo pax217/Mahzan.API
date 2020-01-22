@@ -82,6 +82,7 @@
     <Folder Include="Interfaces\Validations\Products\" />
     <Folder Include="Implementations\Validations\Products\" />
     <Folder Include="Resources\Validations\Products\" />
+    <Folder Include="Requests\Tickets\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">

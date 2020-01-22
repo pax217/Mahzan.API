@@ -63,7 +63,6 @@ namespace Mahzan.Business.Implementations.Business.Products
                 Models.Entities.Products addedProduct = await AddProduct(addProductsDto);
 
                 //Agrega el Producto a seguimiento de Inventario
-
                 await AddProductsStore(addedProduct, addProductsDto);
 
             }
@@ -100,30 +99,22 @@ namespace Mahzan.Business.Implementations.Business.Products
         {
             //Agrega el Producto
             return _productsRepository
-                   .Add(addProductsDto);
+                    .Add(addProductsDto);
         }
 
-        private async Task<Models.Entities.Products_Store> AddProductsStore(
+        private async Task AddProductsStore(
             Models.Entities.Products addedProduct,
             AddProductsDto addProductsDto)
         {
-            Models.Entities.Products_Store result = null;
 
-            if (addProductsDto.FollowInventory)
+
+            foreach (var addProductStoreDto in addProductsDto.AddProductsStoreDto)
             {
-                foreach (var addProductStoreDto in addProductsDto.AddProductsStoreDto)
-                {
-                    addProductStoreDto.ProductsId = addedProduct.Id;
+                addProductStoreDto.ProductsId = addedProduct.Id;
 
-                    _productsStoreRepository.Add(addProductStoreDto);
-                }
-            }
-            else
-            {
-
+                _productsStoreRepository.Add(addProductStoreDto);
             }
 
-            return result;
         }
 
         #endregion
