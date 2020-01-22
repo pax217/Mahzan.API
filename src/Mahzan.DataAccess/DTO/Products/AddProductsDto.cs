@@ -27,4 +27,6 @@ namespace Mahzan.DataAccess.DTO.Products
 
         public Guid ProductUnitsId { get; set; }
     }
+
+
 }

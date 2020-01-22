@@ -67,6 +67,7 @@ namespace Mahzan.Business.Mapping
             CreateMap<AddProductUnitsDto, ProductUnits>();
             #endregion
 
+
             #region Products
             CreateMap<AddProductsDto, Products>()
                 .ForMember(dest => dest.MembersId,
@@ -75,6 +76,10 @@ namespace Mahzan.Business.Mapping
                            opt => opt.MapFrom(src => src.ProductCategoriesId))
                 .ForMember(dest => dest.ProductUnitsId,
                            opt => opt.MapFrom(src => src.ProductUnitsId));
+            #endregion
+
+            #region Products Units
+            CreateMap<AddProductsStoreDto, Products_Store>();
             #endregion
 
 

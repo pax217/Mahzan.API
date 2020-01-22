@@ -25,8 +25,6 @@ namespace Mahzan.Api.Controllers.V1
     {
         readonly IProductsBusiness _productsBusiness;
 
-        readonly IMapper _mapper;
-
         public ProductsController(
             IMembersBusiness miembrosBusiness,
             IProductsBusiness productsBusiness,
@@ -35,13 +33,15 @@ namespace Mahzan.Api.Controllers.V1
         {
             _productsBusiness = productsBusiness;
 
-            _mapper = mapper;
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
         public async Task<IActionResult> Post(PostProductsRequest postProductsRequest)
         {
+
+            
+
             PostProductsResult result = await _productsBusiness
                                                .Add(new AddProductsDto
                                                {
@@ -54,7 +54,16 @@ namespace Mahzan.Api.Controllers.V1
                                                    ProductUnitsId = postProductsRequest.ProductUnitsId,
                                                    FollowInventory = postProductsRequest.FollowInventory,
                                                    AvailableInAllStores = postProductsRequest.AvailableInAllStores,
-                                                   AddProductsStoreDto = _mapper.Map<List<AddProductsStoreDto>>(postProductsRequest.PostProductsStoreRequest),
+                                                   AddProductsStoreDto = postProductsRequest.PostProductsStoreRequest
+                                                                                            .Select(p => new AddProductsStoreDto {
+                                                                                                Price = p.Price,
+                                                                                                Cost = postProductsRequest.FollowInventory? p.Cost : null,
+                                                                                                InStock = postProductsRequest.FollowInventory ? p.InStock : null,
+                                                                                                LowStock = postProductsRequest.FollowInventory ? p.LowStock : null,
+                                                                                                OptimumStock = postProductsRequest.FollowInventory ? p.OptimumStock : null,
+                                                                                                StoresId = p.StoresId
+                                                                                            })
+                                                                                            .ToList(),
                                                    AspNetUserId = AspNetUserId,
                                                    MemberId = MemberId,
                                                    TableAuditEnum = TableAuditEnum.PRODUCTS_AUDIT

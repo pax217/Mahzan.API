@@ -22,6 +22,10 @@ namespace Mahzan.Models.Entities
 
         public decimal Cost { get; set; }
 
+        public bool FollowInventory { get; set; }
+
+        public bool AvailableInAllStores { get; set; }
+
         //Members
         public Guid MembersId { get; set; }
         public Members Members { get; set; }

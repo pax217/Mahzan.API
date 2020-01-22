@@ -19,16 +19,20 @@ namespace Mahzan.Business.Implementations.Business.Products
 
         readonly IProductsRepository _productsRepository;
 
+        readonly IProductsStoreRepository _productsStoreRepository;
+
         readonly IAddProductsValidations _addProductsValidations;
 
         public ProductsBusiness(
             IMapper mapper,
             IProductsRepository productsRepository,
+            IProductsStoreRepository productsStoreRepository,
             IAddProductsValidations addProductsValidations)
         {
             _mapper = mapper;
 
             _productsRepository = productsRepository;
+            _productsStoreRepository = productsStoreRepository;
 
             _addProductsValidations = addProductsValidations;
         }
@@ -107,9 +111,11 @@ namespace Mahzan.Business.Implementations.Business.Products
 
             if (addProductsDto.FollowInventory)
             {
-                foreach (var item in addProductsDto.AddProductsStoreDto)
+                foreach (var addProductStoreDto in addProductsDto.AddProductsStoreDto)
                 {
+                    addProductStoreDto.ProductsId = addedProduct.Id;
 
+                    _productsStoreRepository.Add(addProductStoreDto);
                 }
             }
             else

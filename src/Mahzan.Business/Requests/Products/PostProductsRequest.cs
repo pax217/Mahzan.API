@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Mahzan.Business.Requests.Products_Store;
+using Mahzan.DataAccess.DTO.ProductsStore;
 
 namespace Mahzan.Business.Requests.Products
 {
