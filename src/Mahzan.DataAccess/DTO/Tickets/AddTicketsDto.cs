@@ -15,6 +15,10 @@ namespace Mahzan.DataAccess.DTO.Tickets
     {
         public int Quantity { get; set; }
 
-        public Guid ProductsId { get; set; }
+        public string Description { get; set; }
+
+        public decimal Price { get; set; }
+
+        public decimal Amount { get; set; }
     }
 }

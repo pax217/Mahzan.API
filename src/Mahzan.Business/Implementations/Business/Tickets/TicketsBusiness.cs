@@ -65,6 +65,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             foreach (var ticketDetail in postTicketDetailDtos)
             {
                 //Obtener productos y calcular el total.
+                result += ticketDetail.Amount;
             }
 
             return result;
