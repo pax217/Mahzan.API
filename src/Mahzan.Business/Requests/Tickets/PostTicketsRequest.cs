@@ -6,8 +6,6 @@ namespace Mahzan.Business.Requests.Tickets
     public class PostTicketsRequest
     {
 
-        public Guid? AspNetUsersId { get; set; }
-
         public Guid StoresId { get; set; }
 
         public List<PostTicketDetailRequest> PostTicketDetailRequest { get; set; }

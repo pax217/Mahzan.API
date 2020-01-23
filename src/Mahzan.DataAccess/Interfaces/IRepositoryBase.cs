@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Mahzan.Models.Enums.Audit;
 
 namespace Mahzan.DataAccess.Interfaces
@@ -10,6 +11,8 @@ namespace Mahzan.DataAccess.Interfaces
         List<T> GetAll();
 
         List<T> Get(Expression<Func<T, bool>> expression);
+
+        //Task<T> Add(T entity);
 
         T Add(T entity);
 

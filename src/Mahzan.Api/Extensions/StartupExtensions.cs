@@ -16,6 +16,7 @@ using Mahzan.Business.Implementations.Business.Products;
 using Mahzan.Business.Implementations.Business.ProductsPhotos;
 using Mahzan.Business.Implementations.Business.ProductUnits;
 using Mahzan.Business.Implementations.Business.Stores;
+using Mahzan.Business.Implementations.Business.Tickets;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
 using Mahzan.Business.Implementations.Validations.Groups;
 using Mahzan.Business.Implementations.Validations.Members;
@@ -32,6 +33,7 @@ using Mahzan.Business.Interfaces.Business.Products;
 using Mahzan.Business.Interfaces.Business.ProductsPhotos;
 using Mahzan.Business.Interfaces.Business.ProductUnits;
 using Mahzan.Business.Interfaces.Business.Stores;
+using Mahzan.Business.Interfaces.Business.Tickets;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
 using Mahzan.Business.Interfaces.Validations.Groups;
 using Mahzan.Business.Interfaces.Validations.Miembros;
@@ -69,6 +71,8 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IProductUnitsRepository, ProductUnitsRepository>();
             services.AddTransient<IProductCategoriesRepository, ProductCategoriesRepository>();
             services.AddTransient<IProductsPhotosRepository, ProductsPhotosRepository>();
+            services.AddTransient<ITicketsRepository, TicketsRepository>();
+            services.AddTransient<ITicketDetailRepository, TicketDetailRepository>();
             services.AddTransient<IMenuRepository, MenuRepository>();
             services.AddTransient<IMenuItemsRepository, MenuItemsRepository>();
             services.AddTransient<IMenuSubItemsRepository, MenuSubItemsRepository>();
@@ -95,6 +99,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IProductUnitsBusiness, ProductUnitsBusiness>();
             services.AddTransient<IProductsPhotosBusiness, ProductsPhotosBusiness>();
             services.AddTransient<IProductsBusiness, ProductsBusiness>();
+            services.AddTransient<ITicketsBusiness, TicketsBusiness>();
             services.AddTransient<IMenuBusiness, MenuBusiness>();
 
         }

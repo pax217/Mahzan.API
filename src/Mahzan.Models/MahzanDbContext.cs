@@ -41,6 +41,9 @@ namespace Mahzan.Models
         public DbSet<Products_Store> Products_Store { get; set; }
         public DbSet<Products_Store_Audit> Products_Store_Audit { get; set; }
 
+        public DbSet<Tickets> Tickets { get; set; }
+        public DbSet<TicketDetail> TicketDetail { get; set; }
+
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Menu_Items> Menu_Items { get; set; }
         public DbSet<Menu_SubItems> Menu_SubItems { get; set; }
@@ -121,6 +124,12 @@ namespace Mahzan.Models
 
             modelBuilder.Entity<ProductCategories_Audit>()
                         .HasKey(productCategories_Audit => new { productCategories_Audit.Id });
+
+            modelBuilder.Entity<Tickets>()
+                        .HasKey(tickets => new { tickets.Id });
+
+            modelBuilder.Entity<TicketDetail>()
+                        .HasKey(ticketDetail => new { ticketDetail.Id });
 
             modelBuilder.Entity<Menu>()
                         .HasKey(menu => new { menu.Id });

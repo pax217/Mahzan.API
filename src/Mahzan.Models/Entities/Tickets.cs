@@ -19,7 +19,7 @@ namespace Mahzan.Models.Entities
         public ICollection<TicketDetail> TicketDetail { get; set; }
 
         //Store
-        public Stores StoresId { get; set; }
+        public Guid StoresId { get; set; }
         public Stores Stores { get; set; }
 
 

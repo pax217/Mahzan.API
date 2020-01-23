@@ -83,6 +83,10 @@
     <Folder Include="Implementations\Validations\Products\" />
     <Folder Include="Resources\Validations\Products\" />
     <Folder Include="Requests\Tickets\" />
+    <Folder Include="Interfaces\Business\Tickets\" />
+    <Folder Include="Results\Tickets\" />
+    <Folder Include="Implementations\Business\Tickets\" />
+    <Folder Include="Resources\Business\Tickets\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -221,6 +225,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddProductsValidationsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Tickets\AddTicketsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddTicketsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -329,6 +337,9 @@
     </Compile>
     <Compile Update="Resources\Validations\Products\AddProductsValidationsResources.Designer.cs">
       <DependentUpon>AddProductsValidationsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Tickets\AddTicketsResources.Designer.cs">
+      <DependentUpon>AddTicketsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

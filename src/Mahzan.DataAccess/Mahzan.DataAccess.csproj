@@ -33,6 +33,7 @@
     <Folder Include="DTO\ProductCategories\" />
     <Folder Include="DTO\ProductUnits\" />
     <Folder Include="DTO\ProductsStore\" />
+    <Folder Include="DTO\Tickets\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />

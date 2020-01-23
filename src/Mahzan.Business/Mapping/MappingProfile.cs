@@ -12,6 +12,7 @@ using Mahzan.DataAccess.DTO.ProductsPhotos;
 using Mahzan.DataAccess.DTO.ProductsStore;
 using Mahzan.DataAccess.DTO.ProductUnits;
 using Mahzan.DataAccess.DTO.Stores;
+using Mahzan.DataAccess.DTO.Tickets;
 using Mahzan.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,10 @@ namespace Mahzan.Business.Mapping
 
             #region Products Photos
             CreateMap<AddProductsPhotosDto,ProductsPhotos>();
+            #endregion
+
+            #region Tickets
+            CreateMap<AddTicketsDto, Tickets>();
             #endregion
         }
     }
