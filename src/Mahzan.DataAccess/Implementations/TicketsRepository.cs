@@ -27,6 +27,8 @@ namespace Mahzan.DataAccess.Implementations
 
             newTicket = _mapper.Map<Tickets>(addTicketsDto);
 
+            newTicket.CreatedAt = DateTime.Now;
+
             _context.Set<Tickets>().Add(newTicket);
 
             await _context.SaveChangesAsync();
