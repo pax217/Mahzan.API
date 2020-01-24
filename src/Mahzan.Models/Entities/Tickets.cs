@@ -23,10 +23,13 @@ namespace Mahzan.Models.Entities
         [Required]
         public ICollection<TicketDetail> TicketDetail { get; set; }
 
-        //Store
-        public Guid StoresId { get; set; }
-        public Stores Stores { get; set; }
 
+        //PointsOfSale
+        public Guid PointsOfSalesId{ get; set; }
+        public PointsOfSales PointsOfSales { get; set; }
 
+        //PointsOfSale
+        public Guid PaymentTypesId { get; set; }
+        public PaymentTypes PaymentTypes { get; set; }
     }
 }

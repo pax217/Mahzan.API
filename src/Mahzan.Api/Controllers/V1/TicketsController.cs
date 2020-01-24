@@ -38,6 +38,8 @@ namespace Mahzan.Api.Controllers.V1
                                               .Add(new AddTicketsDto
                                               {
                                                   StoresId = postTicketsRequest.StoresId,
+                                                  PointsOfSalesId = postTicketsRequest.PointsOfSalesId,
+                                                  PaymentTypesId = postTicketsRequest.PaymentTypesId,
                                                   PostTicketDetailDto = postTicketsRequest.PostTicketDetailRequest
                                                                                           .Select(p => new PostTicketDetailDto {
                                                                                               Quantity = p.Quantity,

@@ -7,5 +7,7 @@ namespace Mahzan.DataAccess.Interfaces
     public interface IProductsStoreRepository: IRepositoryBase<Products_Store>
     {
         Products_Store Add(AddProductsStoreDto addProductsStoreDto);
+
+        Products_Store Update(PutProductsStoreDto putProductsStoreDto);
     }
 }

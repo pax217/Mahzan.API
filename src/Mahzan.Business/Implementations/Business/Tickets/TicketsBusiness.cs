@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Interfaces.Business.Tickets;
 using Mahzan.Business.Resources.Business.Tickets;
 using Mahzan.Business.Results.Tickets;
+using Mahzan.DataAccess.DTO.ProductsStore;
 using Mahzan.DataAccess.DTO.Tickets;
 using Mahzan.DataAccess.Interfaces;
 
@@ -16,12 +18,20 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
         readonly ITicketsRepository _ticketsRepository;
 
+        readonly IProductsRepository _productsRepository;
+
+        readonly IProductsStoreRepository _productsStoreRepository;
+
         public TicketsBusiness(
             ITicketDetailRepository ticketDetailRepository,
-            ITicketsRepository ticketsRepository)
+            ITicketsRepository ticketsRepository,
+            IProductsRepository productsRepository,
+            IProductsStoreRepository productsStoreRepository)
         {
             _ticketDetailRepository = ticketDetailRepository;
             _ticketsRepository = ticketsRepository;
+            _productsRepository = productsRepository;
+            _productsStoreRepository = productsStoreRepository;
         }
 
         public async Task<PostTicketsResult> Add(AddTicketsDto addTicketsDto)
@@ -53,6 +63,9 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                 await _ticketDetailRepository
                        .Add(addedTicket,
                             addTicketsDto.PostTicketDetailDto);
+
+                //Identifica si el producto se sigue en el inventario.
+                FollowInventory(addTicketsDto);
             }
             catch (Exception ex)
             {
@@ -80,7 +93,44 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             return result;
         }
 
+        public void FollowInventory(AddTicketsDto addTicketsDto)
+        {
+            foreach (var item in addTicketsDto.PostTicketDetailDto)
+            {
+                List<Models.Entities.Products> foundProduct = _productsRepository
+                                                               .Get(x => x.Id == item.ProductsId);
 
+                if (foundProduct.Any())
+                {
+                    List<Models.Entities.Products_Store> foundProducts_Store = _productsStoreRepository
+                                                                                .Get(x => x.StoresId == addTicketsDto.StoresId
+                                                                                && x.ProductsId == item.ProductsId);
+                    if (foundProducts_Store.Any())
+                    {
+                        TakeFormStock(foundProducts_Store.FirstOrDefault().ProductsId);
+                    }
+                }
+
+
+
+            }
+        }
+
+        public void TakeFormStock(Guid productsStoreId)
+        {
+            Models.Entities.Products_Store products_Store = _productsStoreRepository
+                                                             .Get(x => x.Id == productsStoreId)
+                                                             .FirstOrDefault();
+
+            products_Store.InStock--;
+
+
+            _productsStoreRepository.Update(new PutProductsStoreDto {
+                                                ProductsStoreId = products_Store.Id,
+                                                InStock = products_Store.InStock
+                                            });
+
+        }
         #endregion
     }
 }

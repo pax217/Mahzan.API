@@ -3,6 +3,6 @@ namespace Mahzan.DataAccess.Filters.Products
 {
     public class GetProductsFilter
     {
-        public Guid? ProductId { get; set; }
+        public string Barcode { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Mahzan.DataAccess.Interfaces
     {
         Products Add(AddProductsDto addProductsDto);
 
-        PagedList<Products> Get(GetProductsFilter getProductsFilter);
+        PagedList<Products> Get(GetProductsDto getProductsDto);
 
         Products Update(PutProductsDto putProductsDto);
 

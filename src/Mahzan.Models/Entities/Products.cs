@@ -18,10 +18,6 @@ namespace Mahzan.Models.Entities
 
         public string Description { get; set; }
 
-        public decimal Price { get; set; }
-
-        public decimal Cost { get; set; }
-
         public bool FollowInventory { get; set; }
 
         public bool AvailableInAllStores { get; set; }

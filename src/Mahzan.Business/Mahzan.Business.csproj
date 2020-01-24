@@ -229,6 +229,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddTicketsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Products\GetProductsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetProductsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -340,6 +344,9 @@
     </Compile>
     <Compile Update="Resources\Business\Tickets\AddTicketsResources.Designer.cs">
       <DependentUpon>AddTicketsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Products\GetProductsResources.Designer.cs">
+      <DependentUpon>GetProductsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -27,11 +27,10 @@ namespace Mahzan.DataAccess.Implementations
             {
                 CreatedAt = DateTime.Now,
                 Total = addTicketsDto.Total,
-                StoresId = addTicketsDto.StoresId,
+                PointsOfSalesId = addTicketsDto.PointsOfSalesId,
+                PaymentTypesId = addTicketsDto.PaymentTypesId,
                 AspNetUsersId = addTicketsDto.AspNetUserId
             };
-
-
 
             _context.Set<Tickets>().Add(newTicket);
 

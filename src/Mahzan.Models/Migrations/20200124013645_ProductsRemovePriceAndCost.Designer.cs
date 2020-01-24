@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    [Migration("20200122022421_UpdateProducts")]
-    partial class UpdateProducts
+    [Migration("20200124013645_ProductsRemovePriceAndCost")]
+    partial class ProductsRemovePriceAndCost
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -558,9 +558,6 @@ namespace Mahzan.Models.Migrations
                     b.Property<string>("Barcode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -569,9 +566,6 @@ namespace Mahzan.Models.Migrations
 
                     b.Property<Guid>("MembersId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("ProductCategoriesId")
                         .HasColumnType("uniqueidentifier");
@@ -777,6 +771,59 @@ namespace Mahzan.Models.Migrations
                     b.ToTable("Stores_Audit");
                 });
 
+            modelBuilder.Entity("Mahzan.Models.Entities.TicketDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TicketsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TicketsId");
+
+                    b.ToTable("TicketDetail");
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Tickets", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AspNetUsersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PointsOfSalesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PointsOfSalesId");
+
+                    b.ToTable("Tickets");
+                });
+
             modelBuilder.Entity("Mahzan.Models.Entities.Menu_SubItems", b =>
                 {
                     b.HasOne("Mahzan.Models.Entities.Menu_Items", null)
@@ -816,6 +863,24 @@ namespace Mahzan.Models.Migrations
                     b.HasOne("Mahzan.Models.Entities.Stores", "Stores")
                         .WithMany()
                         .HasForeignKey("StoresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.TicketDetail", b =>
+                {
+                    b.HasOne("Mahzan.Models.Entities.Tickets", "Tickets")
+                        .WithMany("TicketDetail")
+                        .HasForeignKey("TicketsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Tickets", b =>
+                {
+                    b.HasOne("Mahzan.Models.Entities.PointsOfSales", "PointsOfSales")
+                        .WithMany()
+                        .HasForeignKey("PointsOfSalesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

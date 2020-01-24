@@ -10,7 +10,7 @@ namespace Mahzan.Business.Interfaces.Business.Products
     {
         Task<PostProductsResult> Add(AddProductsDto addProductsDto);
 
-        Task<GetProductsResult> Get(GetProductsFilter getProductsFilter);
+        Task<GetProductsResult> Get(GetProductsDto getProductsDto);
 
         Task<PutProductsResult> Update(PutProductsDto putProductsDto);
 

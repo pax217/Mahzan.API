@@ -77,9 +77,40 @@ namespace Mahzan.Business.Implementations.Business.Products
             return result;
         }
 
-        public Task<GetProductsResult> Get(GetProductsFilter getProductsFilter)
+        public async Task<GetProductsResult> Get(GetProductsDto getProductsDto)
         {
-            throw new NotImplementedException();
+            GetProductsResult result = new GetProductsResult
+            {
+                IsValid = true,
+                StatusCode = 200,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = GetProductsResources.ResourceManager.GetString("Get_Title"),
+                Message = GetProductsResources.ResourceManager.GetString("Get_200_SUCCESS_Message")
+
+            };
+
+            try
+            {
+                result.Products = _productsRepository
+                                   .Get(getProductsDto);
+
+                if (result.Products==null)
+                {
+                    result.ResultTypeEnum = ResultTypeEnum.INFO;
+                    result.Message = GetProductsResources.ResourceManager.GetString("Get_200_INFO_Message");
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.IsValid = false;
+                result.StatusCode = 500;
+                result.ResultTypeEnum = ResultTypeEnum.ERROR;
+                result.Message = ex.Message;
+            }
+
+            return result;
         }
 
         public Task<PutProductsResult> Update(PutProductsDto putProductsDto)

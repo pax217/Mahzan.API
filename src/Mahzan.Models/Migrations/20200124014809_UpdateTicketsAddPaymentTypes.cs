@@ -3,26 +3,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Mahzan.Models.Migrations
 {
-    public partial class UpdateProductStoreAddStores : Migration
+    public partial class UpdateTicketsAddPaymentTypes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<Guid>(
-                name: "StoresId",
-                table: "Products_Store",
+                name: "PaymentTypesId",
+                table: "Tickets",
                 nullable: false,
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_Store_StoresId",
-                table: "Products_Store",
-                column: "StoresId");
+                name: "IX_Tickets_PaymentTypesId",
+                table: "Tickets",
+                column: "PaymentTypesId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Products_Store_Stores_StoresId",
-                table: "Products_Store",
-                column: "StoresId",
-                principalTable: "Stores",
+                name: "FK_Tickets_PaymentTypes_PaymentTypesId",
+                table: "Tickets",
+                column: "PaymentTypesId",
+                principalTable: "PaymentTypes",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -30,16 +30,16 @@ namespace Mahzan.Models.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Products_Store_Stores_StoresId",
-                table: "Products_Store");
+                name: "FK_Tickets_PaymentTypes_PaymentTypesId",
+                table: "Tickets");
 
             migrationBuilder.DropIndex(
-                name: "IX_Products_Store_StoresId",
-                table: "Products_Store");
+                name: "IX_Tickets_PaymentTypesId",
+                table: "Tickets");
 
             migrationBuilder.DropColumn(
-                name: "StoresId",
-                table: "Products_Store");
+                name: "PaymentTypesId",
+                table: "Tickets");
         }
     }
 }

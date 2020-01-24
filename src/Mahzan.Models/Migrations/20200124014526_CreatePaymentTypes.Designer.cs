@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    [Migration("20200122225925_CreateTickets")]
-    partial class CreateTickets
+    [Migration("20200124014526_CreatePaymentTypes")]
+    partial class CreatePaymentTypes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -393,6 +393,25 @@ namespace Mahzan.Models.Migrations
                     b.ToTable("Menu_SubItems");
                 });
 
+            modelBuilder.Entity("Mahzan.Models.Entities.PaymentTypes", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MembersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MembersId");
+
+                    b.ToTable("PaymentTypes");
+                });
+
             modelBuilder.Entity("Mahzan.Models.Entities.PointsOfSales", b =>
                 {
                     b.Property<Guid>("Id")
@@ -558,9 +577,6 @@ namespace Mahzan.Models.Migrations
                     b.Property<string>("Barcode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -569,9 +585,6 @@ namespace Mahzan.Models.Migrations
 
                     b.Property<Guid>("MembersId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("ProductCategoriesId")
                         .HasColumnType("uniqueidentifier");
@@ -811,10 +824,13 @@ namespace Mahzan.Models.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AspNetUsersId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("StoresId")
+                    b.Property<Guid>("PointsOfSalesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Total")
@@ -822,7 +838,7 @@ namespace Mahzan.Models.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StoresId");
+                    b.HasIndex("PointsOfSalesId");
 
                     b.ToTable("Tickets");
                 });
@@ -832,6 +848,15 @@ namespace Mahzan.Models.Migrations
                     b.HasOne("Mahzan.Models.Entities.Menu_Items", null)
                         .WithMany("Menu_SubItems")
                         .HasForeignKey("Menu_ItemsId");
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.PaymentTypes", b =>
+                {
+                    b.HasOne("Mahzan.Models.Entities.Members", "Members")
+                        .WithMany()
+                        .HasForeignKey("MembersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Mahzan.Models.Entities.Products", b =>
@@ -881,9 +906,9 @@ namespace Mahzan.Models.Migrations
 
             modelBuilder.Entity("Mahzan.Models.Entities.Tickets", b =>
                 {
-                    b.HasOne("Mahzan.Models.Entities.Stores", "Stores")
+                    b.HasOne("Mahzan.Models.Entities.PointsOfSales", "PointsOfSales")
                         .WithMany()
-                        .HasForeignKey("StoresId")
+                        .HasForeignKey("PointsOfSalesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

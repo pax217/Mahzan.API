@@ -409,6 +409,27 @@ namespace Mahzan.Models.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    Total = table.Column<decimal>(nullable: false),
+                    AspNetUsersId = table.Column<Guid>(nullable: false),
+                    PointsOfSalesId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tickets_PointsOfSales_PointsOfSalesId",
+                        column: x => x.PointsOfSalesId,
+                        principalTable: "PointsOfSales",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -418,6 +439,8 @@ namespace Mahzan.Models.Migrations
                     Description = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     Cost = table.Column<decimal>(nullable: false),
+                    FollowInventory = table.Column<bool>(nullable: false),
+                    AvailableInAllStores = table.Column<bool>(nullable: false),
                     MembersId = table.Column<Guid>(nullable: false),
                     ProductCategoriesId = table.Column<Guid>(nullable: false),
                     ProductUnitsId = table.Column<Guid>(nullable: false)
@@ -446,16 +469,39 @@ namespace Mahzan.Models.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TicketDetail",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: false),
+                    TicketsId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TicketDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TicketDetail_Tickets_TicketsId",
+                        column: x => x.TicketsId,
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products_Store",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
-                    Cost = table.Column<decimal>(nullable: false),
-                    InStock = table.Column<decimal>(nullable: false),
-                    LowStock = table.Column<decimal>(nullable: false),
-                    OptimumStock = table.Column<decimal>(nullable: false),
-                    ProductsId = table.Column<Guid>(nullable: false)
+                    Cost = table.Column<decimal>(nullable: true),
+                    InStock = table.Column<decimal>(nullable: true),
+                    LowStock = table.Column<decimal>(nullable: true),
+                    OptimumStock = table.Column<decimal>(nullable: true),
+                    ProductsId = table.Column<Guid>(nullable: false),
+                    StoresId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -464,6 +510,12 @@ namespace Mahzan.Models.Migrations
                         name: "FK_Products_Store_Products_ProductsId",
                         column: x => x.ProductsId,
                         principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_Store_Stores_StoresId",
+                        column: x => x.StoresId,
+                        principalTable: "Stores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -492,6 +544,21 @@ namespace Mahzan.Models.Migrations
                 name: "IX_Products_Store_ProductsId",
                 table: "Products_Store",
                 column: "ProductsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_Store_StoresId",
+                table: "Products_Store",
+                column: "StoresId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TicketDetail_TicketsId",
+                table: "TicketDetail",
+                column: "TicketsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_PointsOfSalesId",
+                table: "Tickets",
+                column: "PointsOfSalesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -530,9 +597,6 @@ namespace Mahzan.Models.Migrations
                 name: "Menu_SubItems");
 
             migrationBuilder.DropTable(
-                name: "PointsOfSales");
-
-            migrationBuilder.DropTable(
                 name: "PointsOfSales_Audit");
 
             migrationBuilder.DropTable(
@@ -554,16 +618,22 @@ namespace Mahzan.Models.Migrations
                 name: "ProductUnits_Audit");
 
             migrationBuilder.DropTable(
-                name: "Stores");
+                name: "Stores_Audit");
 
             migrationBuilder.DropTable(
-                name: "Stores_Audit");
+                name: "TicketDetail");
 
             migrationBuilder.DropTable(
                 name: "Menu_Items");
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Stores");
+
+            migrationBuilder.DropTable(
+                name: "Tickets");
 
             migrationBuilder.DropTable(
                 name: "Members");
@@ -573,6 +643,9 @@ namespace Mahzan.Models.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductUnits");
+
+            migrationBuilder.DropTable(
+                name: "PointsOfSales");
         }
     }
 }

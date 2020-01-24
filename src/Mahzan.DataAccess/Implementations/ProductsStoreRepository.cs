@@ -4,6 +4,9 @@ using Mahzan.DataAccess.DTO.ProductsStore;
 using Mahzan.DataAccess.Interfaces;
 using Mahzan.Models;
 using Mahzan.Models.Entities;
+using System.Linq;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -18,6 +21,7 @@ namespace Mahzan.DataAccess.Implementations
         {
             _mapper = mapper;
         }
+
         public  Products_Store Add(AddProductsStoreDto addProductsStoreDto)
         {
             Products_Store newProductsStore = null;
@@ -29,5 +33,30 @@ namespace Mahzan.DataAccess.Implementations
 
             return newProductsStore;
         }
+
+        public Products_Store Update(PutProductsStoreDto putProductsStoreDto)
+        {
+            Products_Store productsStoreToUpdate = (from g in _context.Set<Products_Store>()
+                                                    where g.Id.Equals(putProductsStoreDto.ProductsStoreId)
+                                                    select g)
+                                                   .FirstOrDefault();
+
+            //InStock
+            if (putProductsStoreDto.InStock!=null)
+            {
+                productsStoreToUpdate.InStock = putProductsStoreDto.InStock;
+            }
+
+            EntityEntry entry = _context.Entry(productsStoreToUpdate);
+            entry.State = EntityState.Modified;
+            entry.Property("Id").IsModified = false;
+
+            _context.Set<Products_Store>().Update(productsStoreToUpdate);
+            _context.SaveChanges();
+
+            return productsStoreToUpdate;
+        }
+
+     
     }
 }

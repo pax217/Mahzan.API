@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    [Migration("20200124002250_UpdateTicketsAddAspNetUsersId")]
-    partial class UpdateTicketsAddAspNetUsersId
+    [Migration("20200124012955_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -817,7 +817,7 @@ namespace Mahzan.Models.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("StoresId")
+                    b.Property<Guid>("PointsOfSalesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Total")
@@ -825,7 +825,7 @@ namespace Mahzan.Models.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StoresId");
+                    b.HasIndex("PointsOfSalesId");
 
                     b.ToTable("Tickets");
                 });
@@ -884,9 +884,9 @@ namespace Mahzan.Models.Migrations
 
             modelBuilder.Entity("Mahzan.Models.Entities.Tickets", b =>
                 {
-                    b.HasOne("Mahzan.Models.Entities.Stores", "Stores")
+                    b.HasOne("Mahzan.Models.Entities.PointsOfSales", "PointsOfSales")
                         .WithMany()
-                        .HasForeignKey("StoresId")
+                        .HasForeignKey("PointsOfSalesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

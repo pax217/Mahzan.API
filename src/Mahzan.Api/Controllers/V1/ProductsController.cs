@@ -11,6 +11,7 @@ using Mahzan.Business.Requests.Products_Store;
 using Mahzan.Business.Results.Products;
 using Mahzan.DataAccess.DTO.Products;
 using Mahzan.DataAccess.DTO.ProductsStore;
+using Mahzan.DataAccess.Filters.Products;
 using Mahzan.Models.Enums.Audit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ namespace Mahzan.Api.Controllers.V1
             IMembersBusiness miembrosBusiness,
             IProductsBusiness productsBusiness,
             IMapper mapper)
-            :base(miembrosBusiness)
+            : base(miembrosBusiness)
         {
             _productsBusiness = productsBusiness;
 
@@ -40,7 +41,7 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Post(PostProductsRequest postProductsRequest)
         {
 
-            
+
 
             PostProductsResult result = await _productsBusiness
                                                .Add(new AddProductsDto
@@ -55,9 +56,10 @@ namespace Mahzan.Api.Controllers.V1
                                                    FollowInventory = postProductsRequest.FollowInventory,
                                                    AvailableInAllStores = postProductsRequest.AvailableInAllStores,
                                                    AddProductsStoreDto = postProductsRequest.PostProductsStoreRequest
-                                                                                            .Select(p => new AddProductsStoreDto {
+                                                                                            .Select(p => new AddProductsStoreDto
+                                                                                            {
                                                                                                 Price = p.Price,
-                                                                                                Cost = postProductsRequest.FollowInventory? p.Cost : null,
+                                                                                                Cost = postProductsRequest.FollowInventory ? p.Cost : null,
                                                                                                 InStock = postProductsRequest.FollowInventory ? p.InStock : null,
                                                                                                 LowStock = postProductsRequest.FollowInventory ? p.LowStock : null,
                                                                                                 OptimumStock = postProductsRequest.FollowInventory ? p.OptimumStock : null,
@@ -68,6 +70,20 @@ namespace Mahzan.Api.Controllers.V1
                                                    MemberId = MemberId,
                                                    TableAuditEnum = TableAuditEnum.PRODUCTS_AUDIT
                                                });
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery]GetProductsFilter getProductsFilter)
+        {
+            GetProductsResult result = await _productsBusiness
+                                             .Get(new GetProductsDto {
+                                                 Barcode = getProductsFilter.Barcode,
+                                                 MemberId = MemberId
+                                             });
 
             return StatusCode(result.StatusCode, result);
         }
