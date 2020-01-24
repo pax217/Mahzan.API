@@ -13,9 +13,9 @@ namespace Mahzan.DataAccess.DTO.Products
 
         public string Description { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
-        public decimal Cost { get; set; }
+        public decimal? Cost { get; set; }
 
         public bool FollowInventory { get; set; }
 

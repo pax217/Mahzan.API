@@ -13,10 +13,10 @@ namespace Mahzan.Business.Requests.Products
         public string Barcode { get; set; }
         [Required]
         public string Description { get; set; }
-        [Required]
-        public decimal Price { get; set; }
-        [Required]
-        public decimal Cost { get; set; }
+
+        public decimal? Price { get; set; }
+
+        public decimal? Cost { get; set; }
 
         public bool FollowInventory { get; set; }
 

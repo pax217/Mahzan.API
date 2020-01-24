@@ -42,6 +42,7 @@ namespace Mahzan.Api.Controllers.V1
                                                   PaymentTypesId = postTicketsRequest.PaymentTypesId,
                                                   PostTicketDetailDto = postTicketsRequest.PostTicketDetailRequest
                                                                                           .Select(p => new PostTicketDetailDto {
+                                                                                              ProductsId = p.ProductsId,
                                                                                               Quantity = p.Quantity,
                                                                                               Description = p.Description,
                                                                                               Price = p.Price,

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.Business.Enums.Result;
@@ -7,6 +8,7 @@ using Mahzan.Business.Interfaces.Validations.Products;
 using Mahzan.Business.Resources.Business.Products;
 using Mahzan.Business.Results.Products;
 using Mahzan.DataAccess.DTO.Products;
+using Mahzan.DataAccess.DTO.ProductsStore;
 using Mahzan.DataAccess.Filters.Products;
 using Mahzan.DataAccess.Interfaces;
 
@@ -23,16 +25,21 @@ namespace Mahzan.Business.Implementations.Business.Products
 
         readonly IAddProductsValidations _addProductsValidations;
 
+        readonly IStoresRepository _storesRepository;
+
         public ProductsBusiness(
             IMapper mapper,
             IProductsRepository productsRepository,
             IProductsStoreRepository productsStoreRepository,
-            IAddProductsValidations addProductsValidations)
+            IAddProductsValidations addProductsValidations,
+            IStoresRepository storesRepository)
         {
             _mapper = mapper;
 
             _productsRepository = productsRepository;
             _productsStoreRepository = productsStoreRepository;
+
+            _storesRepository = storesRepository;
 
             _addProductsValidations = addProductsValidations;
         }
@@ -138,12 +145,28 @@ namespace Mahzan.Business.Implementations.Business.Products
             AddProductsDto addProductsDto)
         {
 
-
-            foreach (var addProductStoreDto in addProductsDto.AddProductsStoreDto)
+            if (addProductsDto.AvailableInAllStores)
             {
-                addProductStoreDto.ProductsId = addedProduct.Id;
+                List<Models.Entities.Stores> Stores = _storesRepository
+                                                       .Get(x => x.MemberId == addProductsDto.MemberId);
 
-                _productsStoreRepository.Add(addProductStoreDto);
+                foreach (var store in Stores)
+                {
+                    _productsStoreRepository.Add(new AddProductsStoreDto {
+                        Price = addProductsDto.Price.Value,
+                        StoresId = store.Id,
+                        ProductsId = addedProduct.Id
+                    });
+                }
+                                
+            }
+            else {
+                foreach (var addProductStoreDto in addProductsDto.AddProductsStoreDto)
+                {
+                    addProductStoreDto.ProductsId = addedProduct.Id;
+
+                    _productsStoreRepository.Add(addProductStoreDto);
+                }
             }
 
         }

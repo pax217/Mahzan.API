@@ -102,33 +102,39 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
                 if (foundProduct.Any())
                 {
-                    List<Models.Entities.Products_Store> foundProducts_Store = _productsStoreRepository
-                                                                                .Get(x => x.StoresId == addTicketsDto.StoresId
-                                                                                && x.ProductsId == item.ProductsId);
-                    if (foundProducts_Store.Any())
+                    if (foundProduct.FirstOrDefault().FollowInventory)
                     {
-                        TakeFormStock(foundProducts_Store.FirstOrDefault().ProductsId);
+                        List<Models.Entities.Products_Store> foundProducts_Store = _productsStoreRepository
+                                                                                    .Get(x => x.StoresId == addTicketsDto.StoresId
+                                                                                    && x.ProductsId == item.ProductsId);
+                        if (foundProducts_Store.Any())
+                        {
+                            TakeFormStock(foundProducts_Store.FirstOrDefault().ProductsId);
+                        }
                     }
+
                 }
-
-
 
             }
         }
 
-        public void TakeFormStock(Guid productsStoreId)
+        public void TakeFormStock(Guid ProductsId)
         {
             Models.Entities.Products_Store products_Store = _productsStoreRepository
-                                                             .Get(x => x.Id == productsStoreId)
+                                                             .Get(x => x.ProductsId == ProductsId)
                                                              .FirstOrDefault();
+            if (products_Store!=null)
+            {
+                products_Store.InStock--;
 
-            products_Store.InStock--;
 
+                _productsStoreRepository.Update(new PutProductsStoreDto
+                {
+                    ProductsStoreId = products_Store.Id,
+                    InStock = products_Store.InStock
+                });
+            }
 
-            _productsStoreRepository.Update(new PutProductsStoreDto {
-                                                ProductsStoreId = products_Store.Id,
-                                                InStock = products_Store.InStock
-                                            });
 
         }
         #endregion
