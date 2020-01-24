@@ -8,6 +8,10 @@ namespace Mahzan.DataAccess.DTO.Tickets
     {
         public Guid StoresId { get; set; }
 
+        public decimal Total { get; set; }
+
+        public DateTimeOffset CreatedAt { get; set; }
+
         public List<PostTicketDetailDto> PostTicketDetailDto { get; set; }
     }
 

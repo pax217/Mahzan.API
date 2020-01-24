@@ -23,11 +23,15 @@ namespace Mahzan.DataAccess.Implementations
 
         public async Task<Tickets> Add(AddTicketsDto addTicketsDto)
         {
-            Tickets newTicket = null;
+            Tickets newTicket = new Tickets
+            {
+                CreatedAt = DateTime.Now,
+                Total = addTicketsDto.Total,
+                StoresId = addTicketsDto.StoresId,
+                AspNetUsersId = addTicketsDto.AspNetUserId
+            };
 
-            newTicket = _mapper.Map<Tickets>(addTicketsDto);
 
-            newTicket.CreatedAt = DateTime.Now;
 
             _context.Set<Tickets>().Add(newTicket);
 

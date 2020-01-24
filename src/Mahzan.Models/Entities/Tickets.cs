@@ -11,19 +11,21 @@ namespace Mahzan.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
+        [Required]
         public DateTime CreatedAt { get; set; }
 
+        [Required]
         public decimal Total { get; set; }
 
-        //TicketDetails
+        [Required]
+        public Guid AspNetUsersId { get; set; }
+
+        [Required]
         public ICollection<TicketDetail> TicketDetail { get; set; }
 
         //Store
         public Guid StoresId { get; set; }
         public Stores Stores { get; set; }
-
-
-
 
 
     }

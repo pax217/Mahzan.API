@@ -35,15 +35,24 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                 Message = AddTicketsResources.ResourceManager.GetString("Add_200_SUCCESS_Message")
             };
 
+            Models.Entities.Tickets newTicket = new Models.Entities.Tickets();
+
             try
             {
                 //Validaciones de Ticket
 
 
-                //Agrega Ticket
-                Models.Entities.Tickets newTicket = await _ticketsRepository
-                                                           .Add(addTicketsDto);
+                //Calcula Monto Total
+                addTicketsDto.Total = CalculateTotal(addTicketsDto.PostTicketDetailDto);
 
+                //Agrega ticket
+                Models.Entities.Tickets addedTicket = await _ticketsRepository
+                                                             .Add(addTicketsDto);
+
+                //Agrega detalle de Ticket
+                await _ticketDetailRepository
+                       .Add(addedTicket,
+                            addTicketsDto.PostTicketDetailDto);
             }
             catch (Exception ex)
             {

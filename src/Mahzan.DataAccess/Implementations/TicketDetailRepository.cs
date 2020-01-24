@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mahzan.DataAccess.DTO.Tickets;
 using Mahzan.DataAccess.Interfaces;
@@ -14,9 +15,24 @@ namespace Mahzan.DataAccess.Implementations
         {
         }
 
-        public Task<TicketDetail> Add(Tickets newTicket, AddTicketsDto addTicketsDto)
+        public async Task Add(Tickets newTicket,
+                              List<PostTicketDetailDto> postTicketDetailDto)
         {
-            throw new NotImplementedException();
+            foreach (var ticketDetail in postTicketDetailDto)
+            {
+                TicketDetail newTicketDetail = new TicketDetail
+                {
+                    Quantity = ticketDetail.Quantity,
+                    Description = ticketDetail.Description,
+                    Price = ticketDetail.Price,
+                    Amount = ticketDetail.Amount,
+                    TicketsId = newTicket.Id
+                };
+
+                _context.Set<TicketDetail>().Add(newTicketDetail);
+
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
