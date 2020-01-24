@@ -10,6 +10,7 @@ using Mahzan.Business.Implementations.Business.EmployeesStores;
 using Mahzan.Business.Implementations.Business.Groups;
 using Mahzan.Business.Implementations.Business.Members;
 using Mahzan.Business.Implementations.Business.Menu;
+using Mahzan.Business.Implementations.Business.PaymentTypes;
 using Mahzan.Business.Implementations.Business.PointOfSales;
 using Mahzan.Business.Implementations.Business.ProductCategories;
 using Mahzan.Business.Implementations.Business.Products;
@@ -27,6 +28,7 @@ using Mahzan.Business.Interfaces.Business.EmployeesStores;
 using Mahzan.Business.Interfaces.Business.Groups;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Business.Menu;
+using Mahzan.Business.Interfaces.Business.PaymentTypes;
 using Mahzan.Business.Interfaces.Business.PointOfSales;
 using Mahzan.Business.Interfaces.Business.ProductCategories;
 using Mahzan.Business.Interfaces.Business.Products;
@@ -76,6 +78,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IMenuRepository, MenuRepository>();
             services.AddTransient<IMenuItemsRepository, MenuItemsRepository>();
             services.AddTransient<IMenuSubItemsRepository, MenuSubItemsRepository>();
+            services.AddTransient<IPaymentTypesRepository, PaymentTypesRepository>();
 
 
             //Validaciones
@@ -101,6 +104,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IProductsBusiness, ProductsBusiness>();
             services.AddTransient<ITicketsBusiness, TicketsBusiness>();
             services.AddTransient<IMenuBusiness, MenuBusiness>();
+            services.AddTransient<IPaymentTypesBusiness, PaymentTypesBusiness>();
 
         }
 

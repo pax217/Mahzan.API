@@ -87,6 +87,11 @@
     <Folder Include="Results\Tickets\" />
     <Folder Include="Implementations\Business\Tickets\" />
     <Folder Include="Resources\Business\Tickets\" />
+    <Folder Include="Requests\PaymentTypes\" />
+    <Folder Include="Results\PaymentTypes\" />
+    <Folder Include="Interfaces\Business\PaymentTypes\" />
+    <Folder Include="Implementations\Business\PaymentTypes\" />
+    <Folder Include="Resources\Business\PaymentTypes\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -233,6 +238,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GetProductsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\PaymentTypes\AddPaymentTypesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddPaymentTypesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -347,6 +356,9 @@
     </Compile>
     <Compile Update="Resources\Business\Products\GetProductsResources.Designer.cs">
       <DependentUpon>GetProductsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\PaymentTypes\AddPaymentTypesResources.Designer.cs">
+      <DependentUpon>AddPaymentTypesResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
