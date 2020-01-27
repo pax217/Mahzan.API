@@ -35,7 +35,7 @@
     <Folder Include="DTO\ProductsStore\" />
     <Folder Include="DTO\Tickets\" />
     <Folder Include="DTO\PaymentTypes\" />
-    <Folder Include="DTO\Clients\" />
+    <Folder Include="DTO\BarCodes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />

@@ -4,6 +4,7 @@ using System.Text;
 using AutoMapper;
 using Mahzan.Api.Context;
 using Mahzan.Api.Services;
+using Mahzan.Business.Implementations.Business.BarCodes;
 using Mahzan.Business.Implementations.Business.Clients;
 using Mahzan.Business.Implementations.Business.Companies;
 using Mahzan.Business.Implementations.Business.Employees;
@@ -24,6 +25,7 @@ using Mahzan.Business.Implementations.Validations.Clients;
 using Mahzan.Business.Implementations.Validations.Groups;
 using Mahzan.Business.Implementations.Validations.Members;
 using Mahzan.Business.Implementations.Validations.Products;
+using Mahzan.Business.Interfaces.Business.BarCodes;
 using Mahzan.Business.Interfaces.Business.Clients;
 using Mahzan.Business.Interfaces.Business.Companies;
 using Mahzan.Business.Interfaces.Business.Employees;
@@ -113,6 +115,9 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IMenuBusiness, MenuBusiness>();
             services.AddTransient<IPaymentTypesBusiness, PaymentTypesBusiness>();
             services.AddTransient<IClientsBusiness, ClientsBusiness>();
+            services.AddTransient<IBarCodesBusiness, BarCodesBusiness>();
+
+            
 
         }
 

@@ -92,14 +92,11 @@
     <Folder Include="Interfaces\Business\PaymentTypes\" />
     <Folder Include="Implementations\Business\PaymentTypes\" />
     <Folder Include="Resources\Business\PaymentTypes\" />
-    <Folder Include="Requests\Clients\" />
-    <Folder Include="Interfaces\Business\Clients\" />
-    <Folder Include="Results\Clients\" />
-    <Folder Include="Implementations\Business\Clients\" />
-    <Folder Include="Resources\Business\Clients\" />
-    <Folder Include="Implementations\Validations\Clients\" />
-    <Folder Include="Interfaces\Validations\Clients\" />
-    <Folder Include="Resources\Validations\Clients\" />
+    <Folder Include="Requests\BarCodes\" />
+    <Folder Include="Results\BarCodes\" />
+    <Folder Include="Interfaces\Business\BarCodes\" />
+    <Folder Include="Implementations\Business\BarCodes\" />
+    <Folder Include="Resources\Business\BarCodes\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -250,13 +247,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddPaymentTypesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Business\Clients\AddClientsResources.resx">
+    <EmbeddedResource Update="Resources\Business\BarCodes\CreateBarCodesResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AddClientsResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Validations\Clients\AddClietsValidationsResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AddClietsValidationsResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>CreateBarCodesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -376,16 +369,14 @@
     <Compile Update="Resources\Business\PaymentTypes\AddPaymentTypesResources.Designer.cs">
       <DependentUpon>AddPaymentTypesResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Business\Clients\AddClientsResources.Designer.cs">
-      <DependentUpon>AddClientsResources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Validations\Clients\AddClietsValidationsResources.Designer.cs">
-      <DependentUpon>AddClietsValidationsResources.resx</DependentUpon>
+    <Compile Update="Resources\Business\BarCodes\CreateBarCodesResources.Designer.cs">
+      <DependentUpon>CreateBarCodesResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Syncfusion.Pdf.Net.Core" Version="17.4.0.44" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.DataAccess\Mahzan.DataAccess.csproj" />
