@@ -17,11 +17,10 @@ namespace Mahzan.Models.Entities
         /// </summary>
         [Required, MaxLength(100)]
         public string Name { get; set; }
-        /// <summary>
-        /// Identificador único del Miembro
-        /// </summary>
-        [Required]
-        public Guid MemberId { get; set; }
+
+        //Members
+        public Guid MembersId { get; set; }
+        public Members Members { get; set; }
 
     }
 }

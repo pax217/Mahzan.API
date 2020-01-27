@@ -12,10 +12,8 @@ namespace Mahzan.Models.Entities
 
         public string Name { get; set; }
 
-        public bool Active { get; set; }
-
-        public Guid StoreId { get; set; }
-
-        public Guid MemberId { get; set; }
+        //Stores
+        public Guid StoresId { get; set; }
+        public Stores Stores { get; set; }
     }
 }

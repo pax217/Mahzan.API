@@ -31,14 +31,12 @@ namespace Mahzan.Models.Entities
         /// </summary>
         [Required]
         public bool Active { get; set; }
-        /// <summary>
-        /// Identificador único del Miembro
-        /// </summary>
-        [Required]
-        public Guid MemberId { get; set; }
 
-        [Required]
-        public Guid GroupId { get; set; }
+
+        //Groups
+        public Guid GroupsId { get; set; }
+
+        public Groups Groups { get; set; }
 
     }
 }

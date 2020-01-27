@@ -16,10 +16,9 @@ namespace Mahzan.Models.Entities
 
         public string Comment { get; set; }
 
-        public bool Active { get; set; }
+        //Companies
+        public Guid CompaniesId { get; set; }
 
-        public Guid CompanyId { get; set; }
-
-        public Guid MemberId { get; set; }
+        public Companies Companies { get; set; }
     }
 }
