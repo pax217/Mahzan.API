@@ -36,7 +36,7 @@ namespace Mahzan.Business.Implementations.Validations.Groups
             List<Models.Entities.Groups> groupExist = _groupsRepository
                                                        .Get(new GetGroupsDto
                                                        {
-                                                           MemberId = addGroupsDto.MemberId,
+                                                           MembersId = addGroupsDto.MembersId,
                                                            Name = addGroupsDto.Name
                                                        });
             if (groupExist.Any())

@@ -39,7 +39,7 @@ namespace Mahzan.Api.Controllers.V1
                                                       {
                                                           Description = postProductCategoriesRequest.Description,
                                                           Color = postProductCategoriesRequest.Color,
-                                                          MemberId = MemberId,
+                                                          MembersId = MemberId,
                                                           AspNetUserId = AspNetUserId,
                                                           TableAuditEnum = TableAuditEnum.PRODUCT_CATEGORIES_AUDIT
                                                       });

@@ -67,7 +67,7 @@ namespace Mahzan.Api.Controllers.V1
                                                                                             })
                                                                                             .ToList(),
                                                    AspNetUserId = AspNetUserId,
-                                                   MemberId = MemberId,
+                                                   MembersId = MemberId,
                                                    TableAuditEnum = TableAuditEnum.PRODUCTS_AUDIT
                                                });
 
@@ -80,9 +80,10 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Get([FromQuery]GetProductsFilter getProductsFilter)
         {
             GetProductsResult result = await _productsBusiness
-                                             .Get(new GetProductsDto {
+                                             .Get(new GetProductsDto
+                                             {
                                                  Barcode = getProductsFilter.Barcode,
-                                                 MemberId = MemberId
+                                                 MembersId = MemberId
                                              });
 
             return StatusCode(result.StatusCode, result);

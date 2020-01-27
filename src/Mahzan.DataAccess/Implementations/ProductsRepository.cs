@@ -48,13 +48,13 @@ namespace Mahzan.DataAccess.Implementations
             List<Products> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getProductsDto.MemberId != null)
+            if (getProductsDto.MembersId != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
                     PropertyInfo = typeof(Products).GetProperties().First(p => p.Name == "MembersId"),
                     Operator = OperationsEnum.Equals,
-                    Value = getProductsDto.MemberId
+                    Value = getProductsDto.MembersId
                 });
             }
 

@@ -46,7 +46,7 @@ namespace Mahzan.Api.Controllers.V1
                                                          MIMEType = formFile.ContentType,
                                                          Base64 = FormFileToBase64(formFile),
                                                          AspNetUserId = AspNetUserId,
-                                                         MemberId = MemberId
+                                                         MembersId = MemberId
                                                      });
 
             return StatusCode(result.StatusCode, result);

@@ -32,7 +32,7 @@ namespace Mahzan.Business.Implementations.Validations.Products
             };
 
             //Valida el códido de barras
-            if (_productsRepository.Get( x=> x.MembersId == addProductsDto.MemberId
+            if (_productsRepository.Get( x=> x.MembersId == addProductsDto.MembersId
                                           && x.Barcode == addProductsDto.Barcode).Any())
             {
                 result.IsValid = false;

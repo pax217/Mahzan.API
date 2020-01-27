@@ -44,8 +44,10 @@ namespace Mahzan.Models
         public DbSet<Tickets> Tickets { get; set; }
         public DbSet<TicketDetail> TicketDetail { get; set; }
 
-
         public DbSet<PaymentTypes> PaymentTypes { get; set; }
+
+        public DbSet<Clients> Clients { get; set; }
+        
 
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Menu_Items> Menu_Items { get; set; }
@@ -136,6 +138,9 @@ namespace Mahzan.Models
 
             modelBuilder.Entity<PaymentTypes>()
                         .HasKey(paymentTypes => new { paymentTypes.Id });
+
+            modelBuilder.Entity<Clients>()
+                        .HasKey(clients => new { clients.ClientsId });
 
             modelBuilder.Entity<Menu>()
                         .HasKey(menu => new { menu.Id });

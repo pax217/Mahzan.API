@@ -43,7 +43,7 @@ namespace Mahzan.Api.Controllers.V1
                                                    BusinessName = postCompaniesRequest.BusinessName,
                                                    Active = postCompaniesRequest.Active,
                                                    GrupoId = postCompaniesRequest.GroupId,
-                                                   MemberId = MemberId,
+                                                   MembersId = MemberId,
                                                    AspNetUserId = AspNetUserId,
                                                    TableAuditEnum = TableAuditEnum.COMPANIES_AUDIT
                                                });

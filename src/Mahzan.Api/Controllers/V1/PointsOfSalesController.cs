@@ -43,7 +43,7 @@ namespace Mahzan.Api.Controllers.V1
                                                        Name = postPointOfSalesRequest.Name,
                                                        Active = postPointOfSalesRequest.Active,
                                                        StoreId = postPointOfSalesRequest.StoreId,
-                                                       MemberId = MemberId,
+                                                       MembersId = MemberId,
                                                        AspNetUserId = AspNetUserId,
                                                        TableAuditEnum = TableAuditEnum.POINTSOFSALES_AUDIT
                                                    });
@@ -94,11 +94,12 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Delete(Guid PointOfSaleId)
         {
             DeletePointsOfSalesResult result = await _pointOfSalesBusiness
-                                                      .Delete(new DeletePointsOfSalesDto {
+                                                      .Delete(new DeletePointsOfSalesDto
+                                                      {
                                                           PointOfSaleId = PointOfSaleId,
                                                           AspNetUserId = AspNetUserId,
                                                           TableAuditEnum = TableAuditEnum.POINTSOFSALES_AUDIT
-                                                          
+
                                                       });
 
             return StatusCode(result.StatusCode, result);

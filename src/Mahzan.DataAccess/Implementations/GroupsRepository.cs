@@ -26,13 +26,13 @@ namespace Mahzan.DataAccess.Implementations
             List<Groups> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getGroupsDto.MemberId != null)
+            if (getGroupsDto.MembersId != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
                     PropertyInfo = typeof(Groups).GetProperties().First(p => p.Name == "MemberId"),
                     Operator = OperationsEnum.Equals,
-                    Value = getGroupsDto.MemberId
+                    Value = getGroupsDto.MembersId
                 });
             }
 
