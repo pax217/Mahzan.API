@@ -42,7 +42,7 @@ namespace Mahzan.Api.Controllers.V1
                                                        Abbreviation = postProductUnitsRequest.Abbreviation,
                                                        Description = postProductUnitsRequest.Description,
                                                        AspNetUserId = AspNetUserId,
-                                                       MemberId = MemberId,
+                                                       MembersId = MemberId,
                                                        TableAuditEnum = TableAuditEnum.PRODUCT_UNITS_AUDIT
                                                     });
 

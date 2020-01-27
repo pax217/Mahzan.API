@@ -72,7 +72,7 @@ namespace Mahzan.Business.Mapping
             #region Products
             CreateMap<AddProductsDto, Products>()
                 .ForMember(dest => dest.MembersId,
-                           opt => opt.MapFrom(src => src.MemberId))
+                           opt => opt.MapFrom(src => src.MembersId))
                 .ForMember(dest => dest.ProductCategoriesId,
                            opt => opt.MapFrom(src => src.ProductCategoriesId))
                 .ForMember(dest => dest.ProductUnitsId,

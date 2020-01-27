@@ -101,7 +101,7 @@ namespace Mahzan.Business.Implementations.Business.Products
                 result.Products = _productsRepository
                                    .Get(getProductsDto);
 
-                if (result.Products==null)
+                if (result.Products == null)
                 {
                     result.ResultTypeEnum = ResultTypeEnum.INFO;
                     result.Message = GetProductsResources.ResourceManager.GetString("Get_200_INFO_Message");
@@ -148,19 +148,21 @@ namespace Mahzan.Business.Implementations.Business.Products
             if (addProductsDto.AvailableInAllStores)
             {
                 List<Models.Entities.Stores> Stores = _storesRepository
-                                                       .Get(x => x.MemberId == addProductsDto.MemberId);
+                                                       .Get(x => x.MemberId == addProductsDto.MembersId);
 
                 foreach (var store in Stores)
                 {
-                    _productsStoreRepository.Add(new AddProductsStoreDto {
+                    _productsStoreRepository.Add(new AddProductsStoreDto
+                    {
                         Price = addProductsDto.Price.Value,
                         StoresId = store.Id,
                         ProductsId = addedProduct.Id
                     });
                 }
-                                
+
             }
-            else {
+            else
+            {
                 foreach (var addProductStoreDto in addProductsDto.AddProductsStoreDto)
                 {
                     addProductStoreDto.ProductsId = addedProduct.Id;

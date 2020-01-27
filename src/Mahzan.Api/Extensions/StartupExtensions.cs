@@ -4,6 +4,7 @@ using System.Text;
 using AutoMapper;
 using Mahzan.Api.Context;
 using Mahzan.Api.Services;
+using Mahzan.Business.Implementations.Business.Clients;
 using Mahzan.Business.Implementations.Business.Companies;
 using Mahzan.Business.Implementations.Business.Employees;
 using Mahzan.Business.Implementations.Business.EmployeesStores;
@@ -19,9 +20,11 @@ using Mahzan.Business.Implementations.Business.ProductUnits;
 using Mahzan.Business.Implementations.Business.Stores;
 using Mahzan.Business.Implementations.Business.Tickets;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
+using Mahzan.Business.Implementations.Validations.Clients;
 using Mahzan.Business.Implementations.Validations.Groups;
 using Mahzan.Business.Implementations.Validations.Members;
 using Mahzan.Business.Implementations.Validations.Products;
+using Mahzan.Business.Interfaces.Business.Clients;
 using Mahzan.Business.Interfaces.Business.Companies;
 using Mahzan.Business.Interfaces.Business.Employees;
 using Mahzan.Business.Interfaces.Business.EmployeesStores;
@@ -37,6 +40,7 @@ using Mahzan.Business.Interfaces.Business.ProductUnits;
 using Mahzan.Business.Interfaces.Business.Stores;
 using Mahzan.Business.Interfaces.Business.Tickets;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
+using Mahzan.Business.Interfaces.Validations.Clients;
 using Mahzan.Business.Interfaces.Validations.Groups;
 using Mahzan.Business.Interfaces.Validations.Miembros;
 using Mahzan.Business.Interfaces.Validations.Products;
@@ -79,6 +83,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IMenuItemsRepository, MenuItemsRepository>();
             services.AddTransient<IMenuSubItemsRepository, MenuSubItemsRepository>();
             services.AddTransient<IPaymentTypesRepository, PaymentTypesRepository>();
+            services.AddTransient<IClientsRepository, ClientsRepository>();
 
 
             //Validaciones
@@ -88,6 +93,8 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IAddGroupsValidations, AddGroupsValidations>();
 
             services.AddTransient<IAddProductsValidations, AddProductsValidations>();
+
+            services.AddTransient<IAddClientsValidations, AddClientsValidations>();
 
 
             //Negocio
@@ -105,6 +112,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<ITicketsBusiness, TicketsBusiness>();
             services.AddTransient<IMenuBusiness, MenuBusiness>();
             services.AddTransient<IPaymentTypesBusiness, PaymentTypesBusiness>();
+            services.AddTransient<IClientsBusiness, ClientsBusiness>();
 
         }
 

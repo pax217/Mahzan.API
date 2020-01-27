@@ -45,7 +45,7 @@ namespace Mahzan.Api.Controllers.V1
                                               Comment = addStoresRequest.Comment,
                                               Active = addStoresRequest.Active,
                                               CompanyId = addStoresRequest.CompanyId,
-                                              MemberId = MemberId,
+                                              MembersId = MemberId,
                                               AspNetUserId = AspNetUserId,
                                               TableAuditEnum = TableAuditEnum.STORES_AUDIT
                                           });
@@ -105,7 +105,7 @@ namespace Mahzan.Api.Controllers.V1
                                                    TableAuditEnum = TableAuditEnum.STORES_AUDIT
                                                });
 
-           return StatusCode(result.StatusCode, result);
+            return StatusCode(result.StatusCode, result);
         }
     }
 }

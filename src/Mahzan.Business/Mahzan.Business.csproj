@@ -92,6 +92,14 @@
     <Folder Include="Interfaces\Business\PaymentTypes\" />
     <Folder Include="Implementations\Business\PaymentTypes\" />
     <Folder Include="Resources\Business\PaymentTypes\" />
+    <Folder Include="Requests\Clients\" />
+    <Folder Include="Interfaces\Business\Clients\" />
+    <Folder Include="Results\Clients\" />
+    <Folder Include="Implementations\Business\Clients\" />
+    <Folder Include="Resources\Business\Clients\" />
+    <Folder Include="Implementations\Validations\Clients\" />
+    <Folder Include="Interfaces\Validations\Clients\" />
+    <Folder Include="Resources\Validations\Clients\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -242,6 +250,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddPaymentTypesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Clients\AddClientsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddClientsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\Clients\AddClietsValidationsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddClietsValidationsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -359,6 +375,12 @@
     </Compile>
     <Compile Update="Resources\Business\PaymentTypes\AddPaymentTypesResources.Designer.cs">
       <DependentUpon>AddPaymentTypesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Clients\AddClientsResources.Designer.cs">
+      <DependentUpon>AddClientsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\Clients\AddClietsValidationsResources.Designer.cs">
+      <DependentUpon>AddClietsValidationsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

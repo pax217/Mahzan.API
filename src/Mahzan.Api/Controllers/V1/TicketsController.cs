@@ -50,7 +50,7 @@ namespace Mahzan.Api.Controllers.V1
                                                                                           })
                                                                                           .ToList(),
                                                   AspNetUserId = AspNetUserId,
-                                                  MemberId = MemberId
+                                                  MembersId = MemberId
                                               });
 
             return StatusCode(result.StatusCode, result);
