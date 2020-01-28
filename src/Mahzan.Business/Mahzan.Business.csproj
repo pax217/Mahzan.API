@@ -97,6 +97,9 @@
     <Folder Include="Interfaces\Business\BarCodes\" />
     <Folder Include="Implementations\Business\BarCodes\" />
     <Folder Include="Resources\Business\BarCodes\" />
+    <Folder Include="Interfaces\Validations\Companies\" />
+    <Folder Include="Implementations\Validations\Companies\" />
+    <Folder Include="Resources\Validations\Companies\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -255,6 +258,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DeleteGroupsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\Companies\AddCompaniesValidationsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddCompaniesValidationsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -378,6 +385,9 @@
     </Compile>
     <Compile Update="Resources\Validations\Gruops\DeleteGroupsResources.Designer.cs">
       <DependentUpon>DeleteGroupsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\Companies\AddCompaniesValidationsResources.Designer.cs">
+      <DependentUpon>AddCompaniesValidationsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

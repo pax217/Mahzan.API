@@ -5,6 +5,6 @@ namespace Mahzan.Business.Results.Groups
 {
     public class AddGroupsResult:Result
     {
-
+        public Models.Entities.Groups Group { get; set; }
     }
 }

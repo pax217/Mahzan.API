@@ -26,14 +26,14 @@ namespace Mahzan.DataAccess.Implementations
             List<Companies> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            //Member Id
-            if (getCompaniesDto.MembersId != null)
+
+            if (getCompaniesDto.RFC != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
-                    PropertyInfo = typeof(Companies).GetProperties().First(p => p.Name == "MembersId"),
+                    PropertyInfo = typeof(Companies).GetProperties().First(p => p.Name == "RFC"),
                     Operator = OperationsEnum.Equals,
-                    Value = getCompaniesDto.MembersId
+                    Value = getCompaniesDto.RFC
                 });
             }
 
@@ -57,6 +57,17 @@ namespace Mahzan.DataAccess.Implementations
                     Operator = OperationsEnum.Equals,
                     Value = getCompaniesDto.GroupsId
                 });
+            }
+
+            if (filterExpressions.Any())
+            {
+                var deleg = ExpressionBuilder.GetExpression<Companies>(filterExpressions).Compile();
+
+                result = _context.Set<Companies>().Where(deleg).ToList();
+            }
+            else
+            {
+                result = _context.Set<Companies>().ToList();
             }
 
             return PagedList<Companies>.ToPagedList(result,
@@ -91,16 +102,12 @@ namespace Mahzan.DataAccess.Implementations
                 companyToUpdate.BusinessName = putCompaniesDto.BusinessName;
             }
 
-            if (putCompaniesDto.Active != null)
-            {
-                companyToUpdate.Active = putCompaniesDto.Active.Value;
-            }
 
             EntityEntry entry = _context.Entry(companyToUpdate);
             entry.State = EntityState.Modified;
             entry.Property("Id").IsModified = false;
-            entry.Property("MemberId").IsModified = false;
-            entry.Property("GroupId").IsModified = false;
+            entry.Property("MembersId").IsModified = false;
+            entry.Property("GroupsId").IsModified = false;
 
             _context.Set<Companies>().Update(companyToUpdate);
             _context.SaveChanges(putCompaniesDto.TableAuditEnum,
@@ -121,6 +128,22 @@ namespace Mahzan.DataAccess.Implementations
                                  deleteCompaniesDto.AspNetUserId);
 
             return companyToDelte;
+        }
+
+        public Companies Add(AddCompaniesDto addCompaniesDto)
+        {
+            Companies newCompany = new Companies
+            {
+                RFC = addCompaniesDto.RFC,
+                CommercialName = addCompaniesDto.CommercialName,
+                BusinessName = addCompaniesDto.BusinessName,
+                GroupsId = addCompaniesDto.GroupsId
+            };
+
+            _context.Set<Companies>().Add(newCompany);
+            _context.SaveChanges();
+
+            return newCompany;
         }
     }
 }

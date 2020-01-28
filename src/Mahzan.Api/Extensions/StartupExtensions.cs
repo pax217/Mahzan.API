@@ -22,6 +22,7 @@ using Mahzan.Business.Implementations.Business.Stores;
 using Mahzan.Business.Implementations.Business.Tickets;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
 using Mahzan.Business.Implementations.Validations.Clients;
+using Mahzan.Business.Implementations.Validations.Companies;
 using Mahzan.Business.Implementations.Validations.Groups;
 using Mahzan.Business.Implementations.Validations.Members;
 using Mahzan.Business.Implementations.Validations.Products;
@@ -43,6 +44,7 @@ using Mahzan.Business.Interfaces.Business.Stores;
 using Mahzan.Business.Interfaces.Business.Tickets;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
 using Mahzan.Business.Interfaces.Validations.Clients;
+using Mahzan.Business.Interfaces.Validations.Companies;
 using Mahzan.Business.Interfaces.Validations.Groups;
 using Mahzan.Business.Interfaces.Validations.Miembros;
 using Mahzan.Business.Interfaces.Validations.Products;
@@ -92,7 +94,11 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<ILogInValidations, LogInValidations>();
             services.AddTransient<ISignUpValidations, SignUpValidations>();
             services.AddTransient<IAddMembersValidations, AddMembersValidations>();
+
             services.AddTransient<IAddGroupsValidations, AddGroupsValidations>();
+            services.AddTransient<IDeleteGroupsValidations, DeleteGroupsValidations>();
+
+            services.AddTransient<IAddCompaniesValidations, AddCompaniesValidations>();
 
             services.AddTransient<IAddProductsValidations, AddProductsValidations>();
 

@@ -26,6 +26,6 @@ namespace Mahzan.Models.Entities
 
         //Stores
         public Guid StoresId { get; set; }
-        public Stores Stores { get; set; }
+
     }
 }

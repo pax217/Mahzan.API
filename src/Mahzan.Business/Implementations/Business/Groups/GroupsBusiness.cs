@@ -65,10 +65,10 @@ namespace Mahzan.Business.Implementations.Business.Groups
                 }
 
                 //Agrega Grupo
-                _groupsRepository
-                    .Add(_mapper.Map<Models.Entities.Groups>(addGroupsDto),
-                         addGroupsDto.AspNetUserId,
-                         addGroupsDto.TableAuditEnum);
+                result.Group = _groupsRepository
+                               .Add(_mapper.Map<Models.Entities.Groups>(addGroupsDto),
+                                    addGroupsDto.AspNetUserId,
+                                    addGroupsDto.TableAuditEnum);
 
 
             }

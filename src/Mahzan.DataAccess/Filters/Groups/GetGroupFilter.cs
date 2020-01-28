@@ -5,7 +5,7 @@ namespace Mahzan.DataAccess.Filters.Groups
 {
     public class GetGroupFilter:FilterBase
     {
-        public Guid? GroupId { get; set; }
+        public Guid? GroupsId { get; set; }
         public string Name { get; set; }
     }
 }

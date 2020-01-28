@@ -26,10 +26,10 @@ namespace Mahzan.Models.Entities
 
         //PointsOfSale
         public Guid PointsOfSalesId{ get; set; }
-        public PointsOfSales PointsOfSales { get; set; }
+
 
         //PointsOfSale
         public Guid PaymentTypesId { get; set; }
-        public PaymentTypes PaymentTypes { get; set; }
+
     }
 }

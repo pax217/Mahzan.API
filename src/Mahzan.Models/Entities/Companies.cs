@@ -26,11 +26,6 @@ namespace Mahzan.Models.Entities
         /// </summary>
         [Required, MaxLength(250)]
         public string BusinessName { get; set; }
-        /// <summary>
-        /// Indica si el registro esta activo
-        /// </summary>
-        [Required]
-        public bool Active { get; set; }
 
 
         //Groups

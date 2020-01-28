@@ -56,7 +56,7 @@ namespace Mahzan.Api.Controllers.V1
         {
             GetGroupsResult result = await _groupsBusiness
                                             .Get(new GetGroupsDto {
-                                                GroupId = getGroupFilter.GroupId,
+                                                GroupsId = getGroupFilter.GroupsId,
                                                 Name = getGroupFilter.Name,
                                                 MembersId = MemberId
                                             });
@@ -93,12 +93,12 @@ namespace Mahzan.Api.Controllers.V1
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete]
-        public async Task<IActionResult> Delete(Guid groupId)
+        public async Task<IActionResult> Delete(Guid groupsId)
         {
             DeleteGroupsResult result = await _groupsBusiness
                                                .Delete(new DeleteGroupsDto()
                                                {
-                                                   GroupsId = groupId,
+                                                   GroupsId = groupsId,
                                                    AspNetUserId = AspNetUserId,
                                                    TableAuditEnum = TableAuditEnum.GROUPS_AUDIT
                                                });

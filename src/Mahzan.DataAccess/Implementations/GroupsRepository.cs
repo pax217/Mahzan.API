@@ -30,19 +30,19 @@ namespace Mahzan.DataAccess.Implementations
             {
                 filterExpressions.Add(new FilterExpression
                 {
-                    PropertyInfo = typeof(Groups).GetProperties().First(p => p.Name == "MemberId"),
+                    PropertyInfo = typeof(Groups).GetProperties().First(p => p.Name == "MembersId"),
                     Operator = OperationsEnum.Equals,
                     Value = getGroupsDto.MembersId
                 });
             }
 
-            if (getGroupsDto.GroupId != null)
+            if (getGroupsDto.GroupsId != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
-                    PropertyInfo = typeof(Groups).GetProperties().First(p => p.Name == "Id"),
+                    PropertyInfo = typeof(Groups).GetProperties().First(p => p.Name == "GroupsId"),
                     Operator = OperationsEnum.Equals,
-                    Value = getGroupsDto.GroupId
+                    Value = getGroupsDto.GroupsId
                 });
             }
 

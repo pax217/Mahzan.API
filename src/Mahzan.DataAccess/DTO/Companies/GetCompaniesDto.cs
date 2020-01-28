@@ -5,6 +5,8 @@ namespace Mahzan.DataAccess.DTO.Companies
 {
     public class GetCompaniesDto : BaseDto
     {
+        public string RFC { get; set; }
+
         public string BusinessName { get; set; }
 
         public Guid? GroupsId { get; set; }

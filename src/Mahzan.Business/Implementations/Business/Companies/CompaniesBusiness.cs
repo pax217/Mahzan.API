@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Interfaces.Business.Companies;
+using Mahzan.Business.Interfaces.Validations.Companies;
 using Mahzan.Business.Resources.Business.Companies;
 using Mahzan.Business.Results.Companies;
 using Mahzan.DataAccess.DTO.Companies;
@@ -17,13 +18,19 @@ namespace Mahzan.Business.Implementations.Business.Companies
     {
         readonly ICompaniesRepository _companiesRepository;
 
+        readonly IAddCompaniesValidations _addCompaniesValidations;
+
         readonly IMapper _mapper;
 
         public CompaniesBusiness(
             ICompaniesRepository companiesRepository,
+            IAddCompaniesValidations addCompaniesValidations,
             IMapper mapper)
         {
             _companiesRepository = companiesRepository;
+
+            //Validaciones
+            _addCompaniesValidations = addCompaniesValidations;
 
             _mapper = mapper;
         }
@@ -43,12 +50,17 @@ namespace Mahzan.Business.Implementations.Business.Companies
             {
                 //Validaciones al agregar Company
 
+                AddCompaniesResult resultValidations = await _addCompaniesValidations
+                                                              .AddCompaniesValid(addCompaniesDto);
+                if (!resultValidations.IsValid)
+                {
+                    return resultValidations;
+                }
+
                 //Agrega Company a la base datos
 
-                _companiesRepository
-                    .Add(_mapper.Map<Models.Entities.Companies>(addCompaniesDto),
-                         addCompaniesDto.AspNetUserId,
-                         addCompaniesDto.TableAuditEnum);
+                result.Company= _companiesRepository
+                                .Add(addCompaniesDto);
 
             }
             catch (Exception ex)

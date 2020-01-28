@@ -35,11 +35,11 @@ namespace Mahzan.Business.Implementations.Validations.Groups
             };
 
             //Valida que no tenga companias asociadas
-            PagedList<Companies> companies = _companiesRepository
-                                              .Get(new GetCompaniesDto {
-                                                  MembersId = deleteGroupsDto.MembersId,
-                                                  GroupsId = deleteGroupsDto.GroupsId
-                                              });
+            PagedList<Models.Entities.Companies> companies = _companiesRepository
+                                                              .Get(new GetCompaniesDto {
+                                                                  MembersId = deleteGroupsDto.MembersId,
+                                                                  GroupsId = deleteGroupsDto.GroupsId
+                                                              });
             if (companies.Any())
             {
                 result.IsValid = false;
