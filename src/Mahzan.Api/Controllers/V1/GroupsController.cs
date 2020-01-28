@@ -98,7 +98,7 @@ namespace Mahzan.Api.Controllers.V1
             DeleteGroupsResult result = await _groupsBusiness
                                                .Delete(new DeleteGroupsDto()
                                                {
-                                                   GroupId = groupId,
+                                                   GroupsId = groupId,
                                                    AspNetUserId = AspNetUserId,
                                                    TableAuditEnum = TableAuditEnum.GROUPS_AUDIT
                                                });

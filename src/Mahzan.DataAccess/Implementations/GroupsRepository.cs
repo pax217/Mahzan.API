@@ -101,7 +101,7 @@ namespace Mahzan.DataAccess.Implementations
         public Groups Delete(DeleteGroupsDto deleteGroupsDto)
         {
             Groups groupToDelte = (from g in _context.Set<Groups>()
-                                    where g.Id.Equals(deleteGroupsDto.GroupId)
+                                    where g.Id.Equals(deleteGroupsDto.GroupsId)
                                     select g)
                                     .FirstOrDefault();
 

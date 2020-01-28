@@ -9,6 +9,8 @@ using System.Linq;
 using Mahzan.DataAccess.DTO.Companies;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
+using Mahzan.Models.Expressions;
+using Mahzan.Models.Enums.Expressions;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -19,47 +21,47 @@ namespace Mahzan.DataAccess.Implementations
         {
         }
 
-        public PagedList<Companies> Get(GetCompaniesFilter getCompaniesFilter)
+        public PagedList<Companies> Get(GetCompaniesDto getCompaniesDto)
         {
             List<Companies> result = null;
+            List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getCompaniesFilter.MemberId == null
-                && getCompaniesFilter.BusinessName == null)
+            //Member Id
+            if (getCompaniesDto.MembersId != null)
             {
-                result = (from c in _context.Set<Companies>()
-                          select c)
-                         .ToList();
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Companies).GetProperties().First(p => p.Name == "MembersId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getCompaniesDto.MembersId
+                });
             }
-            else
+
+            //BusinessName
+            if (getCompaniesDto.BusinessName != null)
             {
-                if (getCompaniesFilter.MemberId!=null
-                    && getCompaniesFilter.BusinessName == null)
+                filterExpressions.Add(new FilterExpression
                 {
-                    result = (from c in _context.Set<Companies>()
-                              where c.MemberId.Equals(getCompaniesFilter.MemberId)
-                              && c.BusinessName.Contains(getCompaniesFilter.BusinessName)
-                              select c)
-                              .ToList();
-                }
-                else if(getCompaniesFilter.MemberId != null)
+                    PropertyInfo = typeof(Companies).GetProperties().First(p => p.Name == "BusinessName"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getCompaniesDto.BusinessName
+                });
+            }
+
+            //GroupsId
+            if (getCompaniesDto.GroupsId != null)
+            {
+                filterExpressions.Add(new FilterExpression
                 {
-                    result = (from c in _context.Set<Companies>()
-                              where c.MemberId.Equals(getCompaniesFilter.MemberId)
-                              select c)
-                              .ToList();
-                }
-                else if (getCompaniesFilter.BusinessName != null)
-                {
-                    result = (from c in _context.Set<Companies>()
-                              where c.BusinessName.Equals(getCompaniesFilter.BusinessName)
-                              select c)
-                              .ToList();
-                }
+                    PropertyInfo = typeof(Companies).GetProperties().First(p => p.Name == "GroupsId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getCompaniesDto.GroupsId
+                });
             }
 
             return PagedList<Companies>.ToPagedList(result,
-                                                    getCompaniesFilter.PageNumber,
-                                                    getCompaniesFilter.PageSize);
+                                                    getCompaniesDto.PageNumber,
+                                                    getCompaniesDto.PageSize);
         }
 
         public Companies Update(PutCompaniesDto putCompaniesDto)

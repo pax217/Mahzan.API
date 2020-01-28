@@ -251,6 +251,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateBarCodesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\Gruops\DeleteGroupsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeleteGroupsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -371,6 +375,9 @@
     </Compile>
     <Compile Update="Resources\Business\BarCodes\CreateBarCodesResources.Designer.cs">
       <DependentUpon>CreateBarCodesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\Gruops\DeleteGroupsResources.Designer.cs">
+      <DependentUpon>DeleteGroupsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

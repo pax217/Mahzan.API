@@ -20,16 +20,19 @@ namespace Mahzan.Business.Implementations.Business.Groups
         readonly IGroupsRepository _groupsRepository;
 
         readonly IAddGroupsValidations _addGroupsValidations;
+        readonly IDeleteGroupsValidations _deleteGroupsValidations;
 
         readonly IMapper _mapper;
 
         public GroupsBusiness(
             IGroupsRepository groupsRepository,
             IAddGroupsValidations addGroupsValidations,
+            IDeleteGroupsValidations deleteGroupsValidations,
             IMapper mapper)
         {
             //Valdiations
             _addGroupsValidations = addGroupsValidations;
+            _deleteGroupsValidations = deleteGroupsValidations;
 
             //Repository
             _groupsRepository = groupsRepository;
@@ -162,9 +165,17 @@ namespace Mahzan.Business.Implementations.Business.Groups
             try
             {
                 //Valida información al eliminar el Grupo
+                DeleteGroupsResult resultValidations = await _deleteGroupsValidations
+                                                             .DeleteGroupsValid(deleteGroupsDto);
 
+                if (!resultValidations.IsValid)
+                {
+                    return resultValidations;
+                }
+
+                //Agrega Grupo
                 _groupsRepository
-                 .Delete(deleteGroupsDto);
+                .Delete(deleteGroupsDto);
 
             }
             catch (Exception ex)

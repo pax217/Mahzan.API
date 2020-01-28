@@ -7,6 +7,6 @@ namespace Mahzan.DataAccess.Filters.Companies
     {
         public string BusinessName { get; set; }
 
-        public Guid? MemberId { get; set; }
+        public Guid? GroupsId { get; set; }
     }
 }

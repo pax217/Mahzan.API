@@ -8,7 +8,7 @@ namespace Mahzan.DataAccess.Interfaces
 {
     public interface ICompaniesRepository: IRepositoryBase<Companies>
     {
-        PagedList<Companies> Get(GetCompaniesFilter getCompaniesFilter);
+        PagedList<Companies> Get(GetCompaniesDto getCompaniesDto);
 
         Companies Update(PutCompaniesDto putCompaniesDto);
 
