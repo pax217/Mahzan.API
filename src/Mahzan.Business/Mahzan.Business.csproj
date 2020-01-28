@@ -106,6 +106,10 @@
     <Folder Include="Interfaces\Validations\PointsOfSales\" />
     <Folder Include="Implementations\Validations\PointsOfSales\" />
     <Folder Include="Resources\Validations\PointsOfSales\" />
+    <Folder Include="Requests\Taxes\" />
+    <Folder Include="Interfaces\Business\Taxes\" />
+    <Folder Include="Results\Taxes\" />
+    <Folder Include="Implementations\Business\Taxes\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
