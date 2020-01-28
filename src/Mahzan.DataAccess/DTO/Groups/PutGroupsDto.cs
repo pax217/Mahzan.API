@@ -7,7 +7,7 @@ namespace Mahzan.DataAccess.DTO.Groups
     public class PutGroupsDto:BaseDto
     {
         [Required]
-        public Guid GroupId { get; set; }
+        public Guid GroupsId { get; set; }
 
         public string Code { get; set; }
 

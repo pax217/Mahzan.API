@@ -8,6 +8,7 @@ using Mahzan.Business.Interfaces.Business.EmployeesStores;
 using Mahzan.Business.Resources.Business.EmployeesStores;
 using Mahzan.Business.Results.EmployeesStores;
 using Mahzan.DataAccess.DTO.EmployeesStores;
+using Mahzan.DataAccess.DTO.Stores;
 using Mahzan.DataAccess.Filters.EmployeesStores;
 using Mahzan.DataAccess.Filters.Stores;
 using Mahzan.DataAccess.Interfaces;
@@ -93,9 +94,9 @@ namespace Mahzan.Business.Implementations.Business.EmployeesStores
                     foreach (var employee_store in employees_Stores)
                     {
                         Models.Entities.Stores storeFind = _storesRepository
-                                                            .Get(new GetStoresFilter
+                                                            .Get(new GetStoresDto
                                                             {
-                                                                StoreId = employee_store.StoreId
+                                                                StoresId = employee_store.StoreId
                                                             }).FirstOrDefault();
                         if (storeFind!=null)
                         {

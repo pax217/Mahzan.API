@@ -11,7 +11,7 @@ namespace Mahzan.Business.Interfaces.Business.Stores
     {
         Task<AddStoresResult> Add(AddStoresDto addStoresDto);
 
-        Task<GetStoresResult> Get(GetStoresFilter getStoresFilter);
+        Task<GetStoresResult> Get(GetStoresDto getStoresDto);
 
         Task<PutStoresResult> Update(PutStoresDto putStoresDto);
 

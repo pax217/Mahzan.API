@@ -79,7 +79,7 @@ namespace Mahzan.Models
                         .HasKey(companies => new { companies.Id });
 
             modelBuilder.Entity<Stores>()
-                        .HasKey(stores => new { stores.Id });
+                        .HasKey(stores => new { stores.StoresId });
 
             modelBuilder.Entity<Stores_Audit>()
                         .HasKey(stores_audit => new { stores_audit.Id });

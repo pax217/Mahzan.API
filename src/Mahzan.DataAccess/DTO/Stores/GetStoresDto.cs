@@ -1,9 +1,9 @@
 ﻿using System;
-using Mahzan.DataAccess.Filters._Base;
+using Mahzan.DataAccess.DTO._Base;
 
-namespace Mahzan.DataAccess.Filters.Stores
+namespace Mahzan.DataAccess.DTO.Stores
 {
-    public class GetStoresFilter:FilterBase
+    public class GetStoresDto:BaseDto
     {
         public Guid StoresId { get; set; }
 

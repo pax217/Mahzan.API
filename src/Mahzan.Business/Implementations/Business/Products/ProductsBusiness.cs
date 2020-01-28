@@ -147,18 +147,18 @@ namespace Mahzan.Business.Implementations.Business.Products
 
             if (addProductsDto.AvailableInAllStores)
             {
-                List<Models.Entities.Stores> Stores = _storesRepository
-                                                       .Get(x => x.MemberId == addProductsDto.MembersId);
+                //List<Models.Entities.Stores> Stores = _storesRepository
+                //                                       .Get(x => x.MembersId == addProductsDto.MembersId);
 
-                foreach (var store in Stores)
-                {
-                    _productsStoreRepository.Add(new AddProductsStoreDto
-                    {
-                        Price = addProductsDto.Price.Value,
-                        StoresId = store.Id,
-                        ProductsId = addedProduct.Id
-                    });
-                }
+                //foreach (var store in Stores)
+                //{
+                //    _productsStoreRepository.Add(new AddProductsStoreDto
+                //    {
+                //        Price = addProductsDto.Price.Value,
+                //        StoresId = store.StoresId,
+                //        ProductsId = addedProduct.Id
+                //    });
+                //}
 
             }
             else

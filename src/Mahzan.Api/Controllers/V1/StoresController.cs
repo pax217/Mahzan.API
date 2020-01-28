@@ -58,7 +58,12 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Get([FromQuery]GetStoresFilter getStoresFilter)
         {
             GetStoresResult result = await _storesBusiness
-                                            .Get(getStoresFilter);
+                                            .Get(new GetStoresDto {
+                                                MembersId = MemberId,
+                                                StoresId = getStoresFilter.StoresId,
+                                                Name = getStoresFilter.Name,
+                                                CompaniesId = getStoresFilter.CompaniesId
+                                            });
 
             result.Paging = new Paging()
             {

@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq;
 using Mahzan.DataAccess.DTO.Stores;
+using Mahzan.Models.Expressions;
+using Mahzan.Models.Enums.Expressions;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -19,73 +21,64 @@ namespace Mahzan.DataAccess.Implementations
         {
         }
 
-        public PagedList<Stores> Get(GetStoresFilter getStoresFilter)
+        public PagedList<Stores> Get(GetStoresDto getStoresDto)
         {
             List<Stores> result = null;
+            List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getStoresFilter.StoreId == Guid.Empty
-                && getStoresFilter.Code == null
-                && getStoresFilter.Name == null
-                && getStoresFilter.CompanyId ==Guid.Empty)
+            //MembersId
+            if (getStoresDto.MembersId != null)
             {
-                result = (from g in _context.Set<Stores>()
-                          select g)
-                         .ToList();
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Stores).GetProperties().First(p => p.Name == "MembersId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getStoresDto.MembersId
+                });
             }
-            else
+
+            //StoresId
+            if (getStoresDto.StoresId != null)
             {
-                if (getStoresFilter.StoreId == Guid.Empty
-                    && getStoresFilter.Code != null
-                    && getStoresFilter.Name != null
-                    && getStoresFilter.CompanyId != Guid.Empty)
+                filterExpressions.Add(new FilterExpression
                 {
-                    result = (from g in _context.Set<Stores>()
-                              where g.Id == getStoresFilter.StoreId
-                              && g.Code == getStoresFilter.Code
-                              && g.Name.Contains(getStoresFilter.Name)
-                              && g.CompanyId.Equals(getStoresFilter.CompanyId)
-                              select g)
-                             .ToList();
-                }
-                else if (getStoresFilter.StoreId != Guid.Empty)
+                    PropertyInfo = typeof(Stores).GetProperties().First(p => p.Name == "StoresId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getStoresDto.StoresId
+                });
+            }
+
+            //Name
+            if (getStoresDto.Name != null)
+            {
+                filterExpressions.Add(new FilterExpression
                 {
-                    result = (from g in _context.Set<Stores>()
-                              where g.Id == getStoresFilter.StoreId
-                              select g)
-                              .ToList();
-                }
-                else if (getStoresFilter.Code != null)
+                    PropertyInfo = typeof(Stores).GetProperties().First(p => p.Name == "Name"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getStoresDto.Name
+                });
+            }
+
+            //Companies
+            if (getStoresDto.CompaniesId != null)
+            {
+                filterExpressions.Add(new FilterExpression
                 {
-                    result = (from g in _context.Set<Stores>()
-                              where g.Code == getStoresFilter.Code
-                              select g)
-                              .ToList();
-                }
-                else if (getStoresFilter.Name != null)
-                {
-                    result = (from g in _context.Set<Stores>()
-                              where g.Name == getStoresFilter.Name
-                              select g)
-                              .ToList();
-                }
-                else if (getStoresFilter.CompanyId != Guid.Empty)
-                {
-                    result = (from g in _context.Set<Stores>()
-                              where g.CompanyId == getStoresFilter.CompanyId
-                              select g)
-                              .ToList();
-                }
+                    PropertyInfo = typeof(Stores).GetProperties().First(p => p.Name == "CompaniesId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getStoresDto.CompaniesId
+                });
             }
 
             return PagedList<Stores>.ToPagedList(result,
-                                                 getStoresFilter.PageNumber,
-                                                 getStoresFilter.PageSize);
+                                                 getStoresDto.PageNumber,
+                                                 getStoresDto.PageSize);
         }
 
         public Stores Update(PutStoresDto putStoresDto)
         {
             Stores storesToUpdate = (from g in _context.Set<Stores>()
-                                    where g.Id.Equals(putStoresDto.StoreId)
+                                    where g.StoresId.Equals(putStoresDto.StoreId)
                                     select g)
                                    .FirstOrDefault();
 
@@ -110,10 +103,6 @@ namespace Mahzan.DataAccess.Implementations
                 storesToUpdate.Comment = putStoresDto.Comment;
             }
 
-            if (putStoresDto.Active != null)
-            {
-                storesToUpdate.Active = putStoresDto.Active.Value;
-            }
 
             EntityEntry entry = _context.Entry(storesToUpdate);
             entry.State = EntityState.Modified;
@@ -130,7 +119,7 @@ namespace Mahzan.DataAccess.Implementations
         public Stores Delete(DeleteStoresDto deleteStoresDto)
         {
             Stores storeToDelte = (from g in _context.Set<Stores>()
-                                   where g.Id.Equals(deleteStoresDto.StoreId)
+                                   where g.StoresId.Equals(deleteStoresDto.StoreId)
                                    select g)
                                    .FirstOrDefault();
 

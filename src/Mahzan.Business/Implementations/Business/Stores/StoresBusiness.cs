@@ -95,7 +95,7 @@ namespace Mahzan.Business.Implementations.Business.Stores
             return result;
         }
 
-        public async Task<GetStoresResult> Get(GetStoresFilter getStoresFilter)
+        public async Task<GetStoresResult> Get(GetStoresDto getStoresDto)
         {
             GetStoresResult result = new GetStoresResult
             {
@@ -110,7 +110,7 @@ namespace Mahzan.Business.Implementations.Business.Stores
             try
             {
                 result.Stores = _storesRepository
-                                 .Get(getStoresFilter);
+                                 .Get(getStoresDto);
 
                 if (result.Stores.Any())
                 {

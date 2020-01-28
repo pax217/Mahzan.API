@@ -91,7 +91,7 @@ namespace Mahzan.Business.Implementations.Business.Companies
             return result;
         }
 
-        public async Task<GetCompaniesResult> Get(GetCompaniesFilter getCompaniesFilter)
+        public async Task<GetCompaniesResult> Get(GetCompaniesDto getCompaniesDto)
         {
             GetCompaniesResult result = new GetCompaniesResult()
             {
@@ -105,7 +105,7 @@ namespace Mahzan.Business.Implementations.Business.Companies
             try
             {
                 result.Companies = _companiesRepository
-                                    .Get(getCompaniesFilter);
+                                    .Get(getCompaniesDto);
 
                 if (!result.Companies.Any())
                 {

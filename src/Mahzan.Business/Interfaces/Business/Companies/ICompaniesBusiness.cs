@@ -11,6 +11,6 @@ namespace Mahzan.Business.Interfaces.Business.Companies
         Task<AddCompaniesResult> Add(AddCompaniesDto addCompaniesDto);
         Task<DeleteCompaniesResult> Delete(DeleteCompaniesDto addCompaniesDto);
         Task<PutCompaniesResult> Update(PutCompaniesDto addCompaniesDto);
-        Task<GetCompaniesResult> Get(GetCompaniesFilter getCompaniesFilter);
+        Task<GetCompaniesResult> Get(GetCompaniesDto getCompaniesDto);
     }
 }

@@ -114,16 +114,11 @@ namespace Mahzan.DataAccess.Implementations
                 pointsOfSaleToUpdate.Name = putPointsOfSalesDto.Name;
             }
 
-            if (putPointsOfSalesDto.Active != null)
-            {
-                pointsOfSaleToUpdate.Active = putPointsOfSalesDto.Active.Value;
-            }
-
 
             EntityEntry entry = _context.Entry(pointsOfSaleToUpdate);
             entry.State = EntityState.Modified;
             entry.Property("Id").IsModified = false;
-            entry.Property("MemberId").IsModified = false;
+            entry.Property("MembersId").IsModified = false;
 
             _context.Set<PointsOfSales>().Update(pointsOfSaleToUpdate);
             _context.SaveChanges(putPointsOfSalesDto.TableAuditEnum,

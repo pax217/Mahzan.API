@@ -81,7 +81,7 @@ namespace Mahzan.Api.Controllers.V1
             PutGroupsResult result = await _groupsBusiness
                                             .Put(new PutGroupsDto()
                                             {
-                                                GroupId = putGroupsRequest.GroupId,
+                                                GroupsId = putGroupsRequest.GroupId,
                                                 Name = putGroupsRequest.Name,
                                                 Active = putGroupsRequest.Active,
                                                 AspNetUserId = AspNetUserId,

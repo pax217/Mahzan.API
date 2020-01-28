@@ -75,7 +75,7 @@ namespace Mahzan.DataAccess.Implementations
         public Groups Update(PutGroupsDto putGroupsDto)
         {
             Groups groupToUpdate = (from g in _context.Set<Groups>()
-                                    where g.Id.Equals(putGroupsDto.GroupId)
+                                    where g.Id.Equals(putGroupsDto.GroupsId)
                                     select g)
                                    .FirstOrDefault();
 

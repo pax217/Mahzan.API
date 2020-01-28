@@ -31,19 +31,15 @@ namespace Mahzan.Business.Mapping
             #region Groups
             CreateMap<AddGroupsDto, Groups>();
             CreateMap<PutGroupsDto, Groups>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GroupId));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GroupsId));
             #endregion
 
             #region Groups
-            CreateMap<AddCompaniesDto, Companies>()
-                .ForMember(dest => dest.GroupId,
-                           opt => opt.MapFrom(src =>src.GrupoId));
+            CreateMap<AddCompaniesDto, Companies>();
             #endregion
 
             #region Groups
-            CreateMap<AddStoresDto, Stores>()
-                .ForMember(dest => dest.CompanyId,
-                           opt => opt.MapFrom(src => src.CompanyId));
+            CreateMap<AddStoresDto, Stores>();
             #endregion
 
             #region Employees
@@ -51,9 +47,7 @@ namespace Mahzan.Business.Mapping
             #endregion
 
             #region Points Of Sales
-            CreateMap<AddPointsOfSalesDto, PointsOfSales>()
-                 .ForMember(dest => dest.StoreId,
-                            opt => opt.MapFrom(src => src.StoreId));
+            CreateMap<AddPointsOfSalesDto, PointsOfSales>();
             #endregion
 
             #region Employees of Stores
