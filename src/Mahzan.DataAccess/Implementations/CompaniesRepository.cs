@@ -67,7 +67,7 @@ namespace Mahzan.DataAccess.Implementations
         public Companies Update(PutCompaniesDto putCompaniesDto)
         {
             Companies companyToUpdate = (from g in _context.Set<Companies>()
-                                         where g.Id.Equals(putCompaniesDto.CompanyId)
+                                         where g.CompaniesId.Equals(putCompaniesDto.CompanyId)
                                          select g)
                                          .FirstOrDefault();
 
@@ -112,7 +112,7 @@ namespace Mahzan.DataAccess.Implementations
         public Companies Delete(DeleteCompaniesDto deleteCompaniesDto)
         {
             Companies companyToDelte = (from g in _context.Set<Companies>()
-                                   where g.Id.Equals(deleteCompaniesDto.CompanyId)
+                                   where g.CompaniesId.Equals(deleteCompaniesDto.CompanyId)
                                    select g)
                                     .FirstOrDefault();
 

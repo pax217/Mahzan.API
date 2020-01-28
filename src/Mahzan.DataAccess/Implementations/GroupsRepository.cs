@@ -75,7 +75,7 @@ namespace Mahzan.DataAccess.Implementations
         public Groups Update(PutGroupsDto putGroupsDto)
         {
             Groups groupToUpdate = (from g in _context.Set<Groups>()
-                                    where g.Id.Equals(putGroupsDto.GroupsId)
+                                    where g.GroupsId.Equals(putGroupsDto.GroupsId)
                                     select g)
                                    .FirstOrDefault();
 
@@ -101,7 +101,7 @@ namespace Mahzan.DataAccess.Implementations
         public Groups Delete(DeleteGroupsDto deleteGroupsDto)
         {
             Groups groupToDelte = (from g in _context.Set<Groups>()
-                                    where g.Id.Equals(deleteGroupsDto.GroupsId)
+                                    where g.GroupsId.Equals(deleteGroupsDto.GroupsId)
                                     select g)
                                     .FirstOrDefault();
 

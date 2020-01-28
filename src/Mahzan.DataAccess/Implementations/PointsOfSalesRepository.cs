@@ -24,7 +24,7 @@ namespace Mahzan.DataAccess.Implementations
         public PointsOfSales Delete(DeletePointsOfSalesDto deletePointsOfSalesDto)
         {
             PointsOfSales pointOfSaleToDelte = (from g in _context.Set<PointsOfSales>()
-                                         where g.Id.Equals(deletePointsOfSalesDto.PointOfSaleId)
+                                         where g.PointsOfSalesId.Equals(deletePointsOfSalesDto.PointOfSaleId)
                                          select g)
                                     .FirstOrDefault();
 
@@ -100,7 +100,7 @@ namespace Mahzan.DataAccess.Implementations
         public PointsOfSales Update(PutPointsOfSalesDto putPointsOfSalesDto)
         {
             PointsOfSales pointsOfSaleToUpdate = (from g in _context.Set<PointsOfSales>()
-                                          where g.Id.Equals(putPointsOfSalesDto.PointOfSalesId)
+                                          where g.PointsOfSalesId.Equals(putPointsOfSalesDto.PointOfSalesId)
                                           select g)
                                         .FirstOrDefault();
 
