@@ -6,7 +6,7 @@ namespace Mahzan.Models.Entities
     public class PointsOfSales
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid PointsOfSalesId { get; set; }
 
         public string Code { get; set; }
 

@@ -70,13 +70,13 @@ namespace Mahzan.Models
                         .HasKey(members => new { members.Id });
 
             modelBuilder.Entity<Groups>()
-                        .HasKey(Groups => new { Groups.Id });
+                        .HasKey(Groups => new { Groups.GroupsId });
 
             modelBuilder.Entity<Groups_Audit>()
                         .HasKey(groups_Audit => new { groups_Audit.Id });
 
             modelBuilder.Entity<Companies>()
-                        .HasKey(companies => new { companies.Id });
+                        .HasKey(companies => new { companies.CompaniesId });
 
             modelBuilder.Entity<Stores>()
                         .HasKey(stores => new { stores.StoresId });
@@ -91,7 +91,7 @@ namespace Mahzan.Models
                         .HasKey(employees_Audit => new { employees_Audit.Id });
 
             modelBuilder.Entity<PointsOfSales>()
-                        .HasKey(pointsOfSales => new { pointsOfSales.Id });
+                        .HasKey(pointsOfSales => new { pointsOfSales.PointsOfSalesId });
 
             modelBuilder.Entity<PointsOfSales_Audit>()
                         .HasKey(pointsOfSales_Audit => new { pointsOfSales_Audit.Id });

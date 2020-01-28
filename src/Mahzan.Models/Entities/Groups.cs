@@ -11,7 +11,7 @@ namespace Mahzan.Models.Entities
         /// Identificador único de Grupo
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid GroupsId { get; set; }
         /// <summary>
         /// Nombre del miembro
         /// </summary>

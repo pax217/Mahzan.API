@@ -10,7 +10,7 @@ namespace Mahzan.Models.Entities
         /// Identificador único del Empresa
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid CompaniesId { get; set; }
         /// <summary>
         /// Registro Federal de Contribuyentes
         /// </summary>
