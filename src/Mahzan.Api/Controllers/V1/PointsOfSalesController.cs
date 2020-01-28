@@ -41,8 +41,7 @@ namespace Mahzan.Api.Controllers.V1
                                                    {
                                                        Code = postPointOfSalesRequest.Code,
                                                        Name = postPointOfSalesRequest.Name,
-                                                       Active = postPointOfSalesRequest.Active,
-                                                       StoreId = postPointOfSalesRequest.StoreId,
+                                                       StoreId = postPointOfSalesRequest.StoresId,
                                                        MembersId = MemberId,
                                                        AspNetUserId = AspNetUserId,
                                                        TableAuditEnum = TableAuditEnum.POINTSOFSALES_AUDIT

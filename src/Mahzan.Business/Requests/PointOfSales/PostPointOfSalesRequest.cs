@@ -8,9 +8,7 @@ namespace Mahzan.Business.Requests.PointOfSales
         public string Code { get; set; }
 
         public string Name { get; set; }
-
-        public bool? Active { get; set; }
         [Required]
-        public Guid StoreId { get; set; }
+        public Guid StoresId { get; set; }
     }
 }
