@@ -8,7 +8,9 @@ namespace Mahzan.DataAccess.Interfaces
 {
     public interface IPointsOfSalesRepository: IRepositoryBase<PointsOfSales>
     {
-        PagedList<PointsOfSales> Get(GetPointsOfSalesFilter getPointsOfSalesFilter);
+        PointsOfSales Add(AddPointsOfSalesDto addPointsOfSalesDto);
+
+        PagedList<PointsOfSales> Get(GetPointsOfSalesDto getPointsOfSalesDto);
 
         PointsOfSales Update(PutPointsOfSalesDto putPointsOfSalesDto);
 

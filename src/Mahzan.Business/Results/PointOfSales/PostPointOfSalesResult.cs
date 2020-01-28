@@ -5,6 +5,6 @@ namespace Mahzan.Business.Results.PointOfSales
 {
     public class PostPointOfSalesResult:Result
     {
-
+        public Models.Entities.PointsOfSales PointOfSale { get; set; }
     }
 }

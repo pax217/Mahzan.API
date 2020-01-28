@@ -104,6 +104,8 @@
     <Folder Include="Implementations\Validations\Stores\" />
     <Folder Include="Resources\Validations\Stores\" />
     <Folder Include="Interfaces\Validations\PointsOfSales\" />
+    <Folder Include="Implementations\Validations\PointsOfSales\" />
+    <Folder Include="Resources\Validations\PointsOfSales\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -270,9 +272,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddStoresValidationsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\PointsOfSales\AddPointsOfSalesValidationsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddPointsOfSalesValidationsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
+    <Compile Remove="Resources\Validations\PointsOfSales\AddPointsOfSalesResources.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.Designer.cs">
@@ -399,6 +406,9 @@
     </Compile>
     <Compile Update="Resources\Validations\Stores\AddStoresValidationsResources.Designer.cs">
       <DependentUpon>AddStoresValidationsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\PointsOfSales\AddPointsOfSalesValidationsResources.Designer.cs">
+      <DependentUpon>AddPointsOfSalesValidationsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,6 @@ namespace Mahzan.DataAccess.DTO.PointOfSales
 
         public string Name { get; set; }
 
-        public Guid StoreId { get; set; }
+        public Guid StoresId { get; set; }
     }
 }

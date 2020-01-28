@@ -1,9 +1,9 @@
 ﻿using System;
-using Mahzan.DataAccess.Filters._Base;
+using Mahzan.DataAccess.DTO._Base;
 
-namespace Mahzan.DataAccess.Filters.PointsOfSales
+namespace Mahzan.DataAccess.DTO.PointOfSales
 {
-    public class GetPointsOfSalesFilter:FilterBase
+    public class GetPointsOfSalesDto:BaseDto
     {
         public Guid? PointOfSaleId { get; set; }
 

@@ -11,7 +11,7 @@ namespace Mahzan.Business.Interfaces.Business.PointOfSales
     {
         Task<PostPointOfSalesResult> Add(AddPointsOfSalesDto addPointOfSalesDto);
 
-        Task<GetPointsOfSalesResult> Get(GetPointsOfSalesFilter getPointsOfSalesFilter);
+        Task<GetPointsOfSalesResult> Get(GetPointsOfSalesDto getPointsOfSalesDto);
 
         Task<PutPointsOfSalesResult> Update(PutPointsOfSalesDto putPointsOfSalesDto);
 

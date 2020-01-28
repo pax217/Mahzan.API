@@ -41,7 +41,7 @@ namespace Mahzan.Api.Controllers.V1
                                                    {
                                                        Code = postPointOfSalesRequest.Code,
                                                        Name = postPointOfSalesRequest.Name,
-                                                       StoreId = postPointOfSalesRequest.StoresId,
+                                                       StoresId = postPointOfSalesRequest.StoresId,
                                                        MembersId = MemberId,
                                                        AspNetUserId = AspNetUserId,
                                                        TableAuditEnum = TableAuditEnum.POINTSOFSALES_AUDIT
@@ -55,7 +55,11 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Get([FromQuery] GetPointsOfSalesFilter getPointsOfSalesFilter)
         {
             GetPointsOfSalesResult result = await _pointOfSalesBusiness
-                                                   .Get(getPointsOfSalesFilter);
+                                                   .Get(new GetPointsOfSalesDto {
+                                                       Code = getPointsOfSalesFilter.Code,
+                                                       Name = getPointsOfSalesFilter.Name,
+                                                       StoresId = getPointsOfSalesFilter.StoresId
+                                                   });
 
             result.Paging = new Paging()
             {

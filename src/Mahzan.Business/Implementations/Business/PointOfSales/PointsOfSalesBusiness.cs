@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Interfaces.Business.PointOfSales;
+using Mahzan.Business.Interfaces.Validations.PointsOfSales;
 using Mahzan.Business.Requests.PointOfSales;
 using Mahzan.Business.Resources.Business.PointsOfSales;
 using Mahzan.Business.Results.PointOfSales;
@@ -17,13 +18,18 @@ namespace Mahzan.Business.Implementations.Business.PointOfSales
     {
         readonly IPointsOfSalesRepository _pointsOfSalesRepository;
 
+        readonly IPointsOfSalesValidations _pointsOfSalesValidations;
+
         readonly IMapper _mapper;
 
         public PointsOfSalesBusiness(
             IPointsOfSalesRepository pointsOfSalesRepository,
+            IPointsOfSalesValidations pointsOfSalesValidations,
             IMapper mapper)
         {
             _pointsOfSalesRepository = pointsOfSalesRepository;
+
+            _pointsOfSalesValidations = pointsOfSalesValidations;
 
             _mapper = mapper;
         }
@@ -42,8 +48,17 @@ namespace Mahzan.Business.Implementations.Business.PointOfSales
 
             try
             {
-                _pointsOfSalesRepository
-                    .Add(_mapper.Map<Models.Entities.PointsOfSales>(addPointOfSalesDto));
+                //Validaciones
+                PostPointOfSalesResult resultValidations = await _pointsOfSalesValidations
+                                                                 .AddPointsOfSalesValid(addPointOfSalesDto);
+
+                if (!resultValidations.IsValid)
+                {
+                    return resultValidations;
+                }
+
+                result.PointOfSale = _pointsOfSalesRepository
+                                     .Add(addPointOfSalesDto);
             }
             catch (Exception ex)
             {
@@ -84,7 +99,7 @@ namespace Mahzan.Business.Implementations.Business.PointOfSales
             return result;
         }
 
-        public async Task<GetPointsOfSalesResult> Get(GetPointsOfSalesFilter getPointsOfSalesFilter)
+        public async Task<GetPointsOfSalesResult> Get(GetPointsOfSalesDto getPointsOfSalesDto)
         {
             GetPointsOfSalesResult result = new GetPointsOfSalesResult
             {
@@ -99,7 +114,7 @@ namespace Mahzan.Business.Implementations.Business.PointOfSales
             try
             {
                 result.PointsOfSales = _pointsOfSalesRepository
-                                        .Get(getPointsOfSalesFilter);
+                                        .Get(getPointsOfSalesDto);
 
                 if (!result.PointsOfSales.Any())
                 {
