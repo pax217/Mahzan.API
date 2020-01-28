@@ -13,8 +13,6 @@ namespace Mahzan.DataAccess.DTO.Stores
 
         public string Comment { get; set; }
 
-        public bool Active { get; set; }
-
-        public Guid CompanyId { get; set; }
+        public Guid CompaniesId { get; set; }
     }
 }

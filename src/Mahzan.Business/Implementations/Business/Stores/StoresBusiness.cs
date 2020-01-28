@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Interfaces.Business.Stores;
+using Mahzan.Business.Interfaces.Validations.Stores;
 using Mahzan.Business.Requests.Stores;
 using Mahzan.Business.Resources.Business.Stores;
 using Mahzan.Business.Results.Stores;
@@ -17,13 +18,22 @@ namespace Mahzan.Business.Implementations.Business.Stores
     {
         readonly IStoresRepository _storesRepository;
 
+        readonly IAddStoresValidations _addStoresValidations;
+
         readonly IMapper _mapper;
 
         public StoresBusiness(
             IStoresRepository storesRepository,
+            IAddStoresValidations addStoresValidations,
             IMapper mapper)
         {
+            //Repositories
             _storesRepository = storesRepository;
+
+            //Validations
+            _addStoresValidations = addStoresValidations;
+
+            //Services
             _mapper = mapper;
         }
 
@@ -42,12 +52,16 @@ namespace Mahzan.Business.Implementations.Business.Stores
             try
             {
                 //Validaciones al agregar la tienda
+                AddStoresResult resultValidations = await _addStoresValidations
+                                                          .AddStoresValid(addStoresDto);
+                if (!resultValidations.IsValid)
+                {
+                    return resultValidations;
+                }
 
                 //Agrega Tienda
-                _storesRepository
-                    .Add(_mapper.Map<Models.Entities.Stores>(addStoresDto),
-                         addStoresDto.AspNetUserId,
-                         addStoresDto.TableAuditEnum);
+                result.Store = _storesRepository
+                               .Add(addStoresDto);
                        
 
 

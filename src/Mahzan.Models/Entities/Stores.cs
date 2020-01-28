@@ -18,7 +18,5 @@ namespace Mahzan.Models.Entities
 
         //Companies
         public Guid CompaniesId { get; set; }
-
-        public Companies Companies { get; set; }
     }
 }

@@ -43,8 +43,7 @@ namespace Mahzan.Api.Controllers.V1
                                               Name = addStoresRequest.Name,
                                               Phone = addStoresRequest.Phone,
                                               Comment = addStoresRequest.Comment,
-                                              Active = addStoresRequest.Active,
-                                              CompanyId = addStoresRequest.CompanyId,
+                                              CompaniesId = addStoresRequest.CompaniesId,
                                               MembersId = MemberId,
                                               AspNetUserId = AspNetUserId,
                                               TableAuditEnum = TableAuditEnum.STORES_AUDIT

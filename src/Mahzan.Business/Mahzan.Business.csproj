@@ -100,6 +100,9 @@
     <Folder Include="Interfaces\Validations\Companies\" />
     <Folder Include="Implementations\Validations\Companies\" />
     <Folder Include="Resources\Validations\Companies\" />
+    <Folder Include="Interfaces\Validations\Stores\" />
+    <Folder Include="Implementations\Validations\Stores\" />
+    <Folder Include="Resources\Validations\Stores\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -262,6 +265,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddCompaniesValidationsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\Stores\AddStoresValidationsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddStoresValidationsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -388,6 +395,9 @@
     </Compile>
     <Compile Update="Resources\Validations\Companies\AddCompaniesValidationsResources.Designer.cs">
       <DependentUpon>AddCompaniesValidationsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\Stores\AddStoresValidationsResources.Designer.cs">
+      <DependentUpon>AddStoresValidationsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

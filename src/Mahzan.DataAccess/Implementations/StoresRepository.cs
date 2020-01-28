@@ -21,21 +21,28 @@ namespace Mahzan.DataAccess.Implementations
         {
         }
 
+        public Stores Add(AddStoresDto addStoresDto)
+        {
+            Stores newStores = new Stores
+            {
+                Code = addStoresDto.Code,
+                Name = addStoresDto.Name,
+                Phone = addStoresDto.Phone,
+                Comment = addStoresDto.Comment,
+                CompaniesId = addStoresDto.CompaniesId
+            };
+
+            _context.Set<Stores>().Add(newStores);
+            _context.SaveChanges(addStoresDto.TableAuditEnum,
+                                 addStoresDto.AspNetUserId);
+
+            return newStores;
+        }
+
         public PagedList<Stores> Get(GetStoresDto getStoresDto)
         {
             List<Stores> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
-
-            //MembersId
-            if (getStoresDto.MembersId != null)
-            {
-                filterExpressions.Add(new FilterExpression
-                {
-                    PropertyInfo = typeof(Stores).GetProperties().First(p => p.Name == "MembersId"),
-                    Operator = OperationsEnum.Equals,
-                    Value = getStoresDto.MembersId
-                });
-            }
 
             //StoresId
             if (getStoresDto.StoresId != null)
@@ -68,6 +75,17 @@ namespace Mahzan.DataAccess.Implementations
                     Operator = OperationsEnum.Equals,
                     Value = getStoresDto.CompaniesId
                 });
+            }
+
+            if (filterExpressions.Any())
+            {
+                var deleg = ExpressionBuilder.GetExpression<Stores>(filterExpressions).Compile();
+
+                result = _context.Set<Stores>().Where(deleg).ToList();
+            }
+            else
+            {
+                result = _context.Set<Stores>().ToList();
             }
 
             return PagedList<Stores>.ToPagedList(result,
@@ -129,5 +147,7 @@ namespace Mahzan.DataAccess.Implementations
 
             return storeToDelte;
         }
+
+
     }
 }

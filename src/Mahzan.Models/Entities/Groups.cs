@@ -20,7 +20,6 @@ namespace Mahzan.Models.Entities
 
         //Members
         public Guid MembersId { get; set; }
-        public Members Members { get; set; }
 
     }
 }

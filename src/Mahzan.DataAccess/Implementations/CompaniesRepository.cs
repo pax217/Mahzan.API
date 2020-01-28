@@ -141,7 +141,8 @@ namespace Mahzan.DataAccess.Implementations
             };
 
             _context.Set<Companies>().Add(newCompany);
-            _context.SaveChanges();
+            _context.SaveChanges(addCompaniesDto.TableAuditEnum,
+                                 addCompaniesDto.AspNetUserId);
 
             return newCompany;
         }

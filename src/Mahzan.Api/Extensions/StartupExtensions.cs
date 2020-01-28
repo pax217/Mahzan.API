@@ -26,6 +26,7 @@ using Mahzan.Business.Implementations.Validations.Companies;
 using Mahzan.Business.Implementations.Validations.Groups;
 using Mahzan.Business.Implementations.Validations.Members;
 using Mahzan.Business.Implementations.Validations.Products;
+using Mahzan.Business.Implementations.Validations.Stores;
 using Mahzan.Business.Interfaces.Business.BarCodes;
 using Mahzan.Business.Interfaces.Business.Clients;
 using Mahzan.Business.Interfaces.Business.Companies;
@@ -48,6 +49,7 @@ using Mahzan.Business.Interfaces.Validations.Companies;
 using Mahzan.Business.Interfaces.Validations.Groups;
 using Mahzan.Business.Interfaces.Validations.Miembros;
 using Mahzan.Business.Interfaces.Validations.Products;
+using Mahzan.Business.Interfaces.Validations.Stores;
 using Mahzan.Business.Mapping;
 using Mahzan.DataAccess.Implementations;
 using Mahzan.DataAccess.Interfaces;
@@ -99,6 +101,8 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IDeleteGroupsValidations, DeleteGroupsValidations>();
 
             services.AddTransient<IAddCompaniesValidations, AddCompaniesValidations>();
+
+            services.AddTransient<IAddStoresValidations, AddStoresValidations>();
 
             services.AddTransient<IAddProductsValidations, AddProductsValidations>();
 

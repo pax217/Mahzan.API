@@ -12,9 +12,7 @@ namespace Mahzan.Business.Requests.Stores
         public string Phone { get; set; }
 
         public string Comment { get; set; }
-
-        public bool Active { get; set; }
         [Required]
-        public Guid CompanyId { get; set; }
+        public Guid CompaniesId { get; set; }
     }
 }
