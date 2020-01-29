@@ -36,9 +36,11 @@ namespace Mahzan.Api.Controllers.V1
             PostTaxesResult result = await _taxesBusiness
                                             .Add(new AddTaxesDto
                                             {
+                                                Name = postTaxesRequest.Name,
                                                 TaxRate = postTaxesRequest.TaxRate,
                                                 TaxType = postTaxesRequest.TaxType,
                                                 TaxOption = postTaxesRequest.TaxOption,
+                                                StoresIds = postTaxesRequest.StoresIds,
                                                 MembersId = MemberId,
                                                 AspNetUserId = AspNetUserId
                                             });

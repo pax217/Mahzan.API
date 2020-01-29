@@ -10,10 +10,12 @@ namespace Mahzan.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid TaxesStoresId { get; set; }
 
-        public Guid TaxesId { get; set; }
-
         public Guid StoresId { get; set; }
 
         public Guid MembersId { get; set; }
+
+        //Taxes
+        public Guid TaxesId { get; set; }
+        public Taxes Taxes { get; set; }
     }
 }

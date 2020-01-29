@@ -25,12 +25,12 @@ namespace Mahzan.DataAccess.Implementations
         public Employees Delete(DeleteEmployeesDto deleteEmployeesDto)
         {
             Employees employeeToDelte = (from g in _context.Set<Employees>()
-                                        where g.Id.Equals(deleteEmployeesDto.EmployeeId)
-                                        select g)
+                                         where g.Id.Equals(deleteEmployeesDto.EmployeeId)
+                                         select g)
                                     .FirstOrDefault();
 
             _context.Set<Employees>().Remove(employeeToDelte);
-            _context.SaveChanges(deleteEmployeesDto.TableAuditEnum,
+            _context.SaveChangesAsync(deleteEmployeesDto.TableAuditEnum,
                                  deleteEmployeesDto.AspNetUserId);
 
             return employeeToDelte;
@@ -41,12 +41,12 @@ namespace Mahzan.DataAccess.Implementations
             List<Employees> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getEmployeesFilter.EmployeId!=null)
+            if (getEmployeesFilter.EmployeId != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
                     PropertyInfo = typeof(Employees).GetProperties().First(p => p.Name == "Id"),
-                    Operator =OperationsEnum.Equals,
+                    Operator = OperationsEnum.Equals,
                     Value = getEmployeesFilter.EmployeId
                 });
             }
@@ -81,8 +81,8 @@ namespace Mahzan.DataAccess.Implementations
         public Employees Update(PutEmployeesDto putEmployeesDto)
         {
             Employees employeeToUpdate = (from g in _context.Set<Employees>()
-                                         where g.Id.Equals(putEmployeesDto.EmployeeId)
-                                         select g)
+                                          where g.Id.Equals(putEmployeesDto.EmployeeId)
+                                          select g)
                                          .FirstOrDefault();
 
             if (putEmployeesDto.CodeEmploye != null)
@@ -131,7 +131,7 @@ namespace Mahzan.DataAccess.Implementations
             entry.Property("MemberId").IsModified = false;
 
             _context.Set<Employees>().Update(employeeToUpdate);
-            _context.SaveChanges(putEmployeesDto.TableAuditEnum,
+            _context.SaveChangesAsync(putEmployeesDto.TableAuditEnum,
                                  putEmployeesDto.AspNetUserId);
 
             return employeeToUpdate;

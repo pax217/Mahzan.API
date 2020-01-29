@@ -11,6 +11,8 @@ namespace Mahzan.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid TaxesId { get; set; }
 
+        public string Name { get; set; }
+
         public decimal TaxRate { get; set; }
 
         public TaxTypeEnum TaxType { get; set; }

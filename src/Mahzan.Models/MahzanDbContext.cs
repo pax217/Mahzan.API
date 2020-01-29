@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Mahzan.Models.Entities;
 using Mahzan.Models.Enums.Audit;
+using Mahzan.Models.Enums.Taxes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -144,6 +145,18 @@ namespace Mahzan.Models
             modelBuilder.Entity<Taxes>()
                         .HasKey(taxes => new { taxes.TaxesId });
 
+            modelBuilder.Entity<Taxes>()
+                        .Property(t => t.TaxType)
+                        .HasConversion(
+                            v => v.ToString(),
+                            v => (TaxTypeEnum)Enum.Parse(typeof(TaxTypeEnum), v));
+
+            modelBuilder.Entity<Taxes>()
+                        .Property(t => t.TaxOption)
+                        .HasConversion(
+                            v => v.ToString(),
+                            v => (TaxOptionsEnum)Enum.Parse(typeof(TaxOptionsEnum), v));
+
             modelBuilder.Entity<Taxes_Stores>()
                         .HasKey(taxes_Stores => new { taxes_Stores.TaxesStoresId });
 
@@ -162,7 +175,7 @@ namespace Mahzan.Models
 
         }
 
-        public int SaveChanges(TableAuditEnum tableAuditEnum,
+        public int SaveChangesAsync(TableAuditEnum tableAuditEnum,
                                Guid aspNetUsersId)
         {
             var auditEntries = OnBeforeSaveChanges(tableAuditEnum,

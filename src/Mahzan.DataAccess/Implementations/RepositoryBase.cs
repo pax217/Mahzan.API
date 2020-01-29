@@ -57,7 +57,7 @@ namespace Mahzan.DataAccess.Implementations
                      TableAuditEnum tableAuditEnum)
         {
             this._context.Set<T>().Add(entity);
-            this._context.SaveChanges(tableAuditEnum, aspNetUserId);
+            this._context.SaveChangesAsync(tableAuditEnum, aspNetUserId);
 
             return entity;
         }
@@ -67,7 +67,7 @@ namespace Mahzan.DataAccess.Implementations
                         TableAuditEnum tableAuditEnum)
         {
             this._context.Set<T>().Update(entity);
-            this._context.SaveChanges(tableAuditEnum, aspNetUserId);
+            this._context.SaveChangesAsync(tableAuditEnum, aspNetUserId);
 
             return entity;
         }

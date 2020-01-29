@@ -91,7 +91,7 @@ namespace Mahzan.DataAccess.Implementations
             entry.Property("Id").IsModified = false;
 
             _context.Set<Groups>().Update(groupToUpdate);
-            _context.SaveChanges(putGroupsDto.TableAuditEnum,
+            _context.SaveChangesAsync(putGroupsDto.TableAuditEnum,
                                  putGroupsDto.AspNetUserId);
 
             return groupToUpdate;
@@ -106,7 +106,7 @@ namespace Mahzan.DataAccess.Implementations
                                     .FirstOrDefault();
 
             _context.Set<Groups>().Remove(groupToDelte);
-            _context.SaveChanges(deleteGroupsDto.TableAuditEnum,
+            _context.SaveChangesAsync(deleteGroupsDto.TableAuditEnum,
                                  deleteGroupsDto.AspNetUserId);
 
             return groupToDelte;

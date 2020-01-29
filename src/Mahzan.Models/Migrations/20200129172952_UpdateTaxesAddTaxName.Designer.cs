@@ -4,14 +4,16 @@ using Mahzan.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    partial class MahzanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200129172952_UpdateTaxesAddTaxName")]
+    partial class UpdateTaxesAddTaxName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -808,16 +810,14 @@ namespace Mahzan.Models.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TaxOption")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TaxOption")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TaxRate")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("TaxType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TaxType")
+                        .HasColumnType("int");
 
                     b.HasKey("TaxesId");
 
@@ -840,8 +840,6 @@ namespace Mahzan.Models.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("TaxesStoresId");
-
-                    b.HasIndex("TaxesId");
 
                     b.ToTable("Taxes_Stores");
                 });
@@ -951,15 +949,6 @@ namespace Mahzan.Models.Migrations
                     b.HasOne("Mahzan.Models.Entities.Products", "Products")
                         .WithMany()
                         .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Mahzan.Models.Entities.Taxes_Stores", b =>
-                {
-                    b.HasOne("Mahzan.Models.Entities.Taxes", "Taxes")
-                        .WithMany()
-                        .HasForeignKey("TaxesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

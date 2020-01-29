@@ -14,7 +14,7 @@ using Mahzan.Models.Enums.Expressions;
 
 namespace Mahzan.DataAccess.Implementations
 {
-    public class CompaniesRepository: RepositoryBase<Companies>, ICompaniesRepository
+    public class CompaniesRepository : RepositoryBase<Companies>, ICompaniesRepository
     {
         public CompaniesRepository(MahzanDbContext repositoryContext)
             : base(repositoryContext)
@@ -92,7 +92,7 @@ namespace Mahzan.DataAccess.Implementations
                 companyToUpdate.CommercialName = putCompaniesDto.CommercialName;
             }
 
-            if (putCompaniesDto.BusinessName!=null)
+            if (putCompaniesDto.BusinessName != null)
             {
                 companyToUpdate.BusinessName = putCompaniesDto.BusinessName;
             }
@@ -110,7 +110,7 @@ namespace Mahzan.DataAccess.Implementations
             entry.Property("GroupsId").IsModified = false;
 
             _context.Set<Companies>().Update(companyToUpdate);
-            _context.SaveChanges(putCompaniesDto.TableAuditEnum,
+            _context.SaveChangesAsync(putCompaniesDto.TableAuditEnum,
                                  putCompaniesDto.AspNetUserId);
 
             return companyToUpdate;
@@ -119,12 +119,12 @@ namespace Mahzan.DataAccess.Implementations
         public Companies Delete(DeleteCompaniesDto deleteCompaniesDto)
         {
             Companies companyToDelte = (from g in _context.Set<Companies>()
-                                   where g.CompaniesId.Equals(deleteCompaniesDto.CompanyId)
-                                   select g)
+                                        where g.CompaniesId.Equals(deleteCompaniesDto.CompanyId)
+                                        select g)
                                     .FirstOrDefault();
 
             _context.Set<Companies>().Remove(companyToDelte);
-            _context.SaveChanges(deleteCompaniesDto.TableAuditEnum,
+            _context.SaveChangesAsync(deleteCompaniesDto.TableAuditEnum,
                                  deleteCompaniesDto.AspNetUserId);
 
             return companyToDelte;
@@ -141,7 +141,7 @@ namespace Mahzan.DataAccess.Implementations
             };
 
             _context.Set<Companies>().Add(newCompany);
-            _context.SaveChanges(addCompaniesDto.TableAuditEnum,
+            _context.SaveChangesAsync(addCompaniesDto.TableAuditEnum,
                                  addCompaniesDto.AspNetUserId);
 
             return newCompany;

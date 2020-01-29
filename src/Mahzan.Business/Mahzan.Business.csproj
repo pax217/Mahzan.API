@@ -110,6 +110,10 @@
     <Folder Include="Interfaces\Business\Taxes\" />
     <Folder Include="Results\Taxes\" />
     <Folder Include="Implementations\Business\Taxes\" />
+    <Folder Include="Resources\Business\Taxes\" />
+    <Folder Include="Interfaces\Validations\Taxes\" />
+    <Folder Include="Implementations\Validations\Taxes\" />
+    <Folder Include="Resources\Validations\Taxes\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -280,6 +284,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddPointsOfSalesValidationsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Taxes\AddTaxesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddTaxesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\Taxes\AddTaxesValidationsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddTaxesValidationsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -413,6 +425,12 @@
     </Compile>
     <Compile Update="Resources\Validations\PointsOfSales\AddPointsOfSalesValidationsResources.Designer.cs">
       <DependentUpon>AddPointsOfSalesValidationsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Taxes\AddTaxesResources.Designer.cs">
+      <DependentUpon>AddTaxesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\Taxes\AddTaxesValidationsResources.Designer.cs">
+      <DependentUpon>AddTaxesValidationsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

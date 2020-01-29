@@ -31,7 +31,7 @@ namespace Mahzan.DataAccess.Implementations
             };
 
             _context.Set<PointsOfSales>().Add(newPointOfSale);
-            _context.SaveChanges(addPointsOfSalesDto.TableAuditEnum,
+            _context.SaveChangesAsync(addPointsOfSalesDto.TableAuditEnum,
                                  addPointsOfSalesDto.AspNetUserId);
 
             return newPointOfSale;
@@ -45,7 +45,7 @@ namespace Mahzan.DataAccess.Implementations
                                     .FirstOrDefault();
 
             _context.Set<PointsOfSales>().Remove(pointOfSaleToDelte);
-            _context.SaveChanges(deletePointsOfSalesDto.TableAuditEnum,
+            _context.SaveChangesAsync(deletePointsOfSalesDto.TableAuditEnum,
                                  deletePointsOfSalesDto.AspNetUserId);
 
             return pointOfSaleToDelte;
@@ -127,7 +127,7 @@ namespace Mahzan.DataAccess.Implementations
             entry.Property("MembersId").IsModified = false;
 
             _context.Set<PointsOfSales>().Update(pointsOfSaleToUpdate);
-            _context.SaveChanges(putPointsOfSalesDto.TableAuditEnum,
+            _context.SaveChangesAsync(putPointsOfSalesDto.TableAuditEnum,
                                  putPointsOfSalesDto.AspNetUserId);
 
             return pointsOfSaleToUpdate;

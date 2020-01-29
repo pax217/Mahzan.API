@@ -33,7 +33,7 @@ namespace Mahzan.DataAccess.Implementations
             };
 
             _context.Set<Stores>().Add(newStores);
-            _context.SaveChanges(addStoresDto.TableAuditEnum,
+            _context.SaveChangesAsync(addStoresDto.TableAuditEnum,
                                  addStoresDto.AspNetUserId);
 
             return newStores;
@@ -127,7 +127,7 @@ namespace Mahzan.DataAccess.Implementations
             entry.Property("Id").IsModified = false;
 
             _context.Set<Stores>().Update(storesToUpdate);
-            _context.SaveChanges(putStoresDto.TableAuditEnum,
+            _context.SaveChangesAsync(putStoresDto.TableAuditEnum,
                                  putStoresDto.AspNetUserId);
 
             return storesToUpdate;
@@ -142,7 +142,7 @@ namespace Mahzan.DataAccess.Implementations
                                    .FirstOrDefault();
 
             _context.Set<Stores>().Remove(storeToDelte);
-            _context.SaveChanges(deleteStoresDto.TableAuditEnum,
+            _context.SaveChangesAsync(deleteStoresDto.TableAuditEnum,
                                  deleteStoresDto.AspNetUserId);
 
             return storeToDelte;

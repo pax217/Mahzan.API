@@ -6,6 +6,8 @@ namespace Mahzan.Business.Requests.Taxes
 {
     public class PostTaxesRequest
     {
+        public string Name { get; set; }
+
         public decimal TaxRate { get; set; }
 
         public TaxTypeEnum TaxType { get; set; }
