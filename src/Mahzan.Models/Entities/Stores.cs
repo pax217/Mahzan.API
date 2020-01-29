@@ -18,5 +18,8 @@ namespace Mahzan.Models.Entities
 
         //Companies
         public Guid CompaniesId { get; set; }
+
+        //Members
+        public Guid MembersId { get; set; }
     }
 }

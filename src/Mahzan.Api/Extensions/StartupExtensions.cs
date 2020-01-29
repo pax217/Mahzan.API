@@ -85,6 +85,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IEmployeesStoresRepository, EmployeesStoresRepository>();
             services.AddTransient<IPointsOfSalesRepository, PointsOfSalesRepository>();
             services.AddTransient<IProductsRepository, ProductsRepository>();
+            services.AddTransient<IProductsTaxesRepository, ProductsTaxesRepository>();
             services.AddTransient<IProductsStoreRepository, ProductsStoreRepository>();
             services.AddTransient<IProductUnitsRepository, ProductUnitsRepository>();
             services.AddTransient<IProductCategoriesRepository, ProductCategoriesRepository>();

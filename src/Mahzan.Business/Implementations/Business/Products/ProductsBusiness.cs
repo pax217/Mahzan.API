@@ -9,6 +9,7 @@ using Mahzan.Business.Resources.Business.Products;
 using Mahzan.Business.Results.Products;
 using Mahzan.DataAccess.DTO.Products;
 using Mahzan.DataAccess.DTO.ProductsStore;
+using Mahzan.DataAccess.DTO.ProductsTaxes;
 using Mahzan.DataAccess.Filters.Products;
 using Mahzan.DataAccess.Interfaces;
 
@@ -18,35 +19,42 @@ namespace Mahzan.Business.Implementations.Business.Products
     {
         #region Properties
 
-        readonly IMapper _mapper;
-
+        //Repositories
         readonly IProductsRepository _productsRepository;
-
         readonly IProductsStoreRepository _productsStoreRepository;
+        readonly IProductsTaxesRepository _productsTaxesRepository;
+        readonly IStoresRepository _storesRepository;
 
+        //Validations
         readonly IAddProductsValidations _addProductsValidations;
 
-        readonly IStoresRepository _storesRepository;
+        //Services
+        readonly IMapper _mapper;
 
         #endregion
 
         #region Constructors
 
         public ProductsBusiness(
-            IMapper mapper,
             IProductsRepository productsRepository,
             IProductsStoreRepository productsStoreRepository,
+            IProductsTaxesRepository productsTaxesRepository,
+            IStoresRepository storesRepository,
             IAddProductsValidations addProductsValidations,
-            IStoresRepository storesRepository)
+            IMapper mapper)
         {
-            _mapper = mapper;
 
+            //Repositories
             _productsRepository = productsRepository;
             _productsStoreRepository = productsStoreRepository;
-            
+            _productsTaxesRepository = productsTaxesRepository;
             _storesRepository = storesRepository;
 
+            //Validations
             _addProductsValidations = addProductsValidations;
+
+            //Servcies
+            _mapper = mapper;
         }
 
         #endregion
@@ -79,7 +87,7 @@ namespace Mahzan.Business.Implementations.Business.Products
                 Models.Entities.Products addedProduct = await AddProduct(addProductsDto);
 
                 //Agrega Impuesto a Producto
-                await AddProductsTaxes();
+                AddProductsTaxes(addedProduct.Id, addProductsDto.TaxesIds);
 
                 //Agrega el Producto a seguimiento de Inventario
                 await AddProductsStore(addedProduct, addProductsDto);
@@ -160,18 +168,18 @@ namespace Mahzan.Business.Implementations.Business.Products
 
             if (addProductsDto.AvailableInAllStores)
             {
-                //List<Models.Entities.Stores> Stores = _storesRepository
-                //                                       .Get(x => x.MembersId == addProductsDto.MembersId);
+                List<Models.Entities.Stores> Stores = _storesRepository
+                                                       .Get(x => x.MembersId == addProductsDto.MembersId);
 
-                //foreach (var store in Stores)
-                //{
-                //    _productsStoreRepository.Add(new AddProductsStoreDto
-                //    {
-                //        Price = addProductsDto.Price.Value,
-                //        StoresId = store.StoresId,
-                //        ProductsId = addedProduct.Id
-                //    });
-                //}
+                foreach (var store in Stores)
+                {
+                    _productsStoreRepository.Add(new AddProductsStoreDto
+                    {
+                        Price = addProductsDto.Price.Value,
+                        StoresId = store.StoresId,
+                        ProductsId = addedProduct.Id
+                    });
+                }
 
             }
             else
@@ -186,9 +194,18 @@ namespace Mahzan.Business.Implementations.Business.Products
 
         }
 
-        private async Task AddProductsTaxes()
+        private void AddProductsTaxes(Guid productsId,
+                                      List<Guid> TaxesIds)
         {
-
+            foreach (var tax in TaxesIds)
+            {
+                _productsTaxesRepository.Add(new ProductsTaxesDto
+                {
+                    ProductsId = productsId,
+                    TaxesId = tax
+                }); ;
+                  
+            }
         }
 
         #endregion

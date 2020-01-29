@@ -114,6 +114,7 @@
     <Folder Include="Interfaces\Validations\Taxes\" />
     <Folder Include="Implementations\Validations\Taxes\" />
     <Folder Include="Resources\Validations\Taxes\" />
+    <Folder Include="Results\ProductsTaxes\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
