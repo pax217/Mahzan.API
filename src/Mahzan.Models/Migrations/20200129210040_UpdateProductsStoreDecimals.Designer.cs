@@ -4,14 +4,16 @@ using Mahzan.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    partial class MahzanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200129210040_UpdateProductsStoreDecimals")]
+    partial class UpdateProductsStoreDecimals
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -647,26 +649,6 @@ namespace Mahzan.Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductsPhotos");
-                });
-
-            modelBuilder.Entity("Mahzan.Models.Entities.ProductsTaxes", b =>
-                {
-                    b.Property<Guid>("ProductsTaxesId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MembersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TaxesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ProductsTaxesId");
-
-                    b.ToTable("ProductsTaxes");
                 });
 
             modelBuilder.Entity("Mahzan.Models.Entities.Products_Audit", b =>

@@ -16,6 +16,7 @@ namespace Mahzan.Business.Implementations.Business.Products
 {
     public class ProductsBusiness : IProductsBusiness
     {
+        #region Properties
 
         readonly IMapper _mapper;
 
@@ -26,6 +27,10 @@ namespace Mahzan.Business.Implementations.Business.Products
         readonly IAddProductsValidations _addProductsValidations;
 
         readonly IStoresRepository _storesRepository;
+
+        #endregion
+
+        #region Constructors
 
         public ProductsBusiness(
             IMapper mapper,
@@ -38,11 +43,15 @@ namespace Mahzan.Business.Implementations.Business.Products
 
             _productsRepository = productsRepository;
             _productsStoreRepository = productsStoreRepository;
-
+            
             _storesRepository = storesRepository;
 
             _addProductsValidations = addProductsValidations;
         }
+
+        #endregion
+
+        #region Public Methods
 
         public async Task<PostProductsResult> Add(AddProductsDto addProductsDto)
         {
@@ -66,8 +75,11 @@ namespace Mahzan.Business.Implementations.Business.Products
                     return resultAddValidations;
                 }
 
-                //agrega Producto
+                //Agrega Producto
                 Models.Entities.Products addedProduct = await AddProduct(addProductsDto);
+
+                //Agrega Impuesto a Producto
+                await AddProductsTaxes();
 
                 //Agrega el Producto a seguimiento de Inventario
                 await AddProductsStore(addedProduct, addProductsDto);
@@ -130,6 +142,7 @@ namespace Mahzan.Business.Implementations.Business.Products
             throw new NotImplementedException();
         }
 
+        #endregion
 
         #region Private Methods
 
@@ -170,6 +183,11 @@ namespace Mahzan.Business.Implementations.Business.Products
                     _productsStoreRepository.Add(addProductStoreDto);
                 }
             }
+
+        }
+
+        private async Task AddProductsTaxes()
+        {
 
         }
 

@@ -55,6 +55,7 @@ namespace Mahzan.Api.Controllers.V1
                                                    ProductUnitsId = postProductsRequest.ProductUnitsId,
                                                    FollowInventory = postProductsRequest.FollowInventory,
                                                    AvailableInAllStores = postProductsRequest.AvailableInAllStores,
+                                                   TaxesIds = postProductsRequest.TaxesIds,
                                                    AddProductsStoreDto = postProductsRequest.PostProductsStoreRequest
                                                                                             .Select(p => new AddProductsStoreDto
                                                                                             {

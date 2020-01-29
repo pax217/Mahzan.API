@@ -50,7 +50,7 @@ namespace Mahzan.Models
         public DbSet<PaymentTypes> PaymentTypes { get; set; }
 
         public DbSet<Clients> Clients { get; set; }
-        
+
 
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Menu_Items> Menu_Items { get; set; }
@@ -66,82 +66,72 @@ namespace Mahzan.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Audits>()
-                        .HasKey(audits => new { audits.Id });
+            OnConfiguringAudits(modelBuilder);
 
-            modelBuilder.Entity<Members>()
-                        .HasKey(members => new { members.Id });
+            OnConfiguringMembers(modelBuilder);
 
-            modelBuilder.Entity<Groups>()
-                        .HasKey(Groups => new { Groups.GroupsId });
+            OnConfiguringGroups(modelBuilder);
 
-            modelBuilder.Entity<Groups_Audit>()
-                        .HasKey(groups_Audit => new { groups_Audit.Id });
+            OnConfiguringCompanies(modelBuilder);
 
-            modelBuilder.Entity<Companies>()
-                        .HasKey(companies => new { companies.CompaniesId });
+            OnConfiguringStores(modelBuilder);
 
-            modelBuilder.Entity<Stores>()
-                        .HasKey(stores => new { stores.StoresId });
+            OnConfiguringEmployees(modelBuilder);
 
-            modelBuilder.Entity<Stores_Audit>()
-                        .HasKey(stores_audit => new { stores_audit.Id });
+            OnConfiguringPointsOfSales(modelBuilder);
 
-            modelBuilder.Entity<Employees>()
-                        .HasKey(employees => new { employees.Id });
+            OnConfiguringEmployees_Stores(modelBuilder);
 
-            modelBuilder.Entity<Employees_Audit>()
-                        .HasKey(employees_Audit => new { employees_Audit.Id });
+            OnConfiguringProducts(modelBuilder);
 
-            modelBuilder.Entity<PointsOfSales>()
-                        .HasKey(pointsOfSales => new { pointsOfSales.PointsOfSalesId });
+            OnConfiguringProducts_Store(modelBuilder);
 
-            modelBuilder.Entity<PointsOfSales_Audit>()
-                        .HasKey(pointsOfSales_Audit => new { pointsOfSales_Audit.Id });
+            OnConfiguringProductsPhotos(modelBuilder);
 
-            modelBuilder.Entity<Employees_Stores>()
-                        .HasKey(employees_Stores => new { employees_Stores.Id });
+            OnConfiguringProductsTaxes(modelBuilder);
 
-            modelBuilder.Entity<Employees_Stores_Audit>()
-                        .HasKey(employees_Stores_Audit => new { employees_Stores_Audit.Id });
+            OnConfiguringProductUnits(modelBuilder);
 
-            modelBuilder.Entity<Products>()
-                
-                        .HasKey(products => new { products.Id });
+            OnConfiguringProductCategories(modelBuilder);
 
-            modelBuilder.Entity<Products_Audit>()
-                        .HasKey(products_Audit => new { products_Audit.Id });
+            OnConfiguringTickets(modelBuilder);
 
-            modelBuilder.Entity<Products_Store>()
-                        .HasKey(products_Store => new { products_Store.Id });
+            OnConfiguringTicketDetail(modelBuilder);
 
-            modelBuilder.Entity<Products_Store_Audit>()
-                        .HasKey(products_Store_Audit => new { products_Store_Audit.Id });
+            OnConfiguringPaymentTypes(modelBuilder);
 
-            modelBuilder.Entity<ProductsPhotos>()
-                        .HasKey(productsPhotos => new { productsPhotos.Id });
+            OnConfiguringTaxes(modelBuilder);
 
-            modelBuilder.Entity<ProductUnits>()
-                        .HasKey(productUnits => new { productUnits.Id });
+            OnConfiguringTaxes_Stores(modelBuilder);
 
-            modelBuilder.Entity<ProductUnits_Audit>()
-                        .HasKey(productUnits_Audit => new { productUnits_Audit.Id });
+            OnConfiguringClients(modelBuilder);
 
-            modelBuilder.Entity<ProductCategories>()
-                        .HasKey(productCategories => new { productCategories.Id });
 
-            modelBuilder.Entity<ProductCategories_Audit>()
-                        .HasKey(productCategories_Audit => new { productCategories_Audit.Id });
+            modelBuilder.Entity<Menu>()
+                        .HasKey(menu => new { menu.Id });
 
-            modelBuilder.Entity<Tickets>()
-                        .HasKey(tickets => new { tickets.Id });
+            modelBuilder.Entity<Menu_Items>()
+                        .HasKey(menu_Items => new { menu_Items.Id });
 
-            modelBuilder.Entity<TicketDetail>()
-                        .HasKey(ticketDetail => new { ticketDetail.Id });
+            modelBuilder.Entity<Menu_SubItems>()
+                        .HasKey(menu_SubItems => new { menu_SubItems.Id });
 
-            modelBuilder.Entity<PaymentTypes>()
-                        .HasKey(paymentTypes => new { paymentTypes.Id });
+        }
 
+        private void OnConfiguringClients(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Clients>()
+                        .HasKey(clients => new { clients.ClientsId });
+        }
+
+        private void OnConfiguringTaxes_Stores(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Taxes_Stores>()
+                        .HasKey(taxes_Stores => new { taxes_Stores.TaxesStoresId });
+        }
+
+        private void OnConfiguringTaxes(ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<Taxes>()
                         .HasKey(taxes => new { taxes.TaxesId });
 
@@ -156,22 +146,144 @@ namespace Mahzan.Models
                         .HasConversion(
                             v => v.ToString(),
                             v => (TaxOptionsEnum)Enum.Parse(typeof(TaxOptionsEnum), v));
+        }
 
-            modelBuilder.Entity<Taxes_Stores>()
-                        .HasKey(taxes_Stores => new { taxes_Stores.TaxesStoresId });
+        private void OnConfiguringPaymentTypes(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PaymentTypes>()
+                        .HasKey(paymentTypes => new { paymentTypes.Id });
+        }
 
+        private void OnConfiguringTicketDetail(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TicketDetail>()
+                        .HasKey(ticketDetail => new { ticketDetail.Id });
+        }
 
-            modelBuilder.Entity<Clients>()
-                        .HasKey(clients => new { clients.ClientsId });
+        private void OnConfiguringTickets(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Tickets>()
+                        .HasKey(tickets => new { tickets.Id });
+        }
 
-            modelBuilder.Entity<Menu>()
-                        .HasKey(menu => new { menu.Id });
+        private void OnConfiguringProductCategories(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProductCategories>()
+                        .HasKey(productCategories => new { productCategories.Id });
 
-            modelBuilder.Entity<Menu_Items>()
-                        .HasKey(menu_Items => new { menu_Items.Id });
+            modelBuilder.Entity<ProductCategories_Audit>()
+                        .HasKey(productCategories_Audit => new { productCategories_Audit.Id });
+        }
 
-            modelBuilder.Entity<Menu_SubItems>()
-                        .HasKey(menu_SubItems => new { menu_SubItems.Id });
+        private void OnConfiguringProductUnits(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProductUnits>()
+                        .HasKey(productUnits => new { productUnits.Id });
+
+            modelBuilder.Entity<ProductUnits_Audit>()
+                        .HasKey(productUnits_Audit => new { productUnits_Audit.Id });
+        }
+
+        private void OnConfiguringProductsTaxes(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProductsTaxes>()
+                        .HasKey(productsTaxes => new { productsTaxes.ProductsTaxesId });
+        }
+
+        private void OnConfiguringProducts(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Products>()
+                        .HasKey(products => new { products.Id });
+
+            modelBuilder.Entity<Products_Audit>()
+                        .HasKey(products_Audit => new { products_Audit.Id });
+        }
+
+        private void OnConfiguringEmployees_Stores(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Employees_Stores>()
+                        .HasKey(employees_Stores => new { employees_Stores.Id });
+
+            modelBuilder.Entity<Employees_Stores_Audit>()
+                        .HasKey(employees_Stores_Audit => new { employees_Stores_Audit.Id });
+        }
+
+        private void OnConfiguringPointsOfSales(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PointsOfSales>()
+                        .HasKey(pointsOfSales => new { pointsOfSales.PointsOfSalesId });
+
+            modelBuilder.Entity<PointsOfSales_Audit>()
+                        .HasKey(pointsOfSales_Audit => new { pointsOfSales_Audit.Id });
+        }
+
+        private void OnConfiguringEmployees(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Employees>()
+                        .HasKey(employees => new { employees.Id });
+
+            modelBuilder.Entity<Employees_Audit>()
+                        .HasKey(employees_Audit => new { employees_Audit.Id });
+        }
+
+        private void OnConfiguringStores(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Stores>()
+                        .HasKey(stores => new { stores.StoresId });
+
+            modelBuilder.Entity<Stores_Audit>()
+                        .HasKey(stores_audit => new { stores_audit.Id });
+        }
+
+        private void OnConfiguringCompanies(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Companies>()
+                        .HasKey(companies => new { companies.CompaniesId });
+        }
+
+        private void OnConfiguringGroups(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Groups>()
+                        .HasKey(Groups => new { Groups.GroupsId });
+
+            modelBuilder.Entity<Groups_Audit>()
+                        .HasKey(groups_Audit => new { groups_Audit.Id });
+        }
+        private void OnConfiguringAudits(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Audits>()
+                        .HasKey(audits => new { audits.Id });
+        }
+
+        private void OnConfiguringProducts_Store(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Products_Store>()
+                        .HasKey(products_Store => new { products_Store.Id });
+
+            modelBuilder.Entity<Products_Store>()
+                        .Property(p => p.Price)
+                        .HasColumnType("decimal(6,2)");
+
+            modelBuilder.Entity<Products_Store>()
+                        .Property(p => p.Cost)
+                        .HasColumnType("decimal(6,2)");
+
+            modelBuilder.Entity<Products_Store_Audit>()
+                        .HasKey(products_Store_Audit => new { products_Store_Audit.Id });
+        }
+
+        private void OnConfiguringProductsPhotos(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProductsPhotos>()
+                        .HasKey(productsPhotos => new { productsPhotos.Id });
+
+        }
+
+        private void OnConfiguringMembers(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Members>()
+                        .HasKey(members => new { members.Id });
 
         }
 
@@ -251,7 +363,7 @@ namespace Mahzan.Models
             // Save audit entities that have all the modifications
             foreach (var auditEntry in auditEntries.Where(_ => !_.HasTemporaryProperties))
             {
-                
+
                 auditEntry.AspNetUserId = aspNetUsersId;
 
                 switch (tableAuditEnum)
@@ -322,5 +434,8 @@ namespace Mahzan.Models
 
             return SaveChangesAsync();
         }
+
+
+
     }
 }

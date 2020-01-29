@@ -22,6 +22,8 @@ namespace Mahzan.Business.Requests.Products
 
         public bool AvailableInAllStores { get; set; }
 
+        public List<Guid> TaxesIds { get; set; }
+
         public List<PostProductsStoreRequest> PostProductsStoreRequest { get; set; }
 
         public Guid? ProductCategoriesId { get; set; }

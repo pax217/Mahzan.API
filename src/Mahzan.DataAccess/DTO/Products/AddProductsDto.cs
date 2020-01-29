@@ -21,6 +21,8 @@ namespace Mahzan.DataAccess.DTO.Products
 
         public bool AvailableInAllStores { get; set; }
 
+        public List<Guid> TaxesIds { get; set; }
+
         public List<AddProductsStoreDto> AddProductsStoreDto { get; set; }
         
         public Guid? ProductCategoriesId { get; set; }

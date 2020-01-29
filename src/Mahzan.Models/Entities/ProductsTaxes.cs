@@ -6,6 +6,8 @@ namespace Mahzan.Models.Entities
 {
     public class ProductsTaxes
     {
+        public Guid ProductsTaxesId { get; set; }
+
         public Guid ProductsId { get; set; }
 
         public Guid TaxesId { get; set; }
