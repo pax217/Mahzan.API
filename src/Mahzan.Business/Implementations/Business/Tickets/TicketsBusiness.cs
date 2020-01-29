@@ -12,7 +12,7 @@ using Mahzan.DataAccess.Interfaces;
 
 namespace Mahzan.Business.Implementations.Business.Tickets
 {
-    public class TicketsBusiness: ITicketsBusiness
+    public class TicketsBusiness : ITicketsBusiness
     {
         readonly ITicketDetailRepository _ticketDetailRepository;
 
@@ -98,7 +98,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             foreach (var item in addTicketsDto.PostTicketDetailDto)
             {
                 List<Models.Entities.Products> foundProduct = _productsRepository
-                                                               .Get(x => x.Id == item.ProductsId);
+                                                               .Get(x => x.ProductsId == item.ProductsId);
 
                 if (foundProduct.Any())
                 {
@@ -123,7 +123,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             Models.Entities.Products_Store products_Store = _productsStoreRepository
                                                              .Get(x => x.ProductsId == ProductsId)
                                                              .FirstOrDefault();
-            if (products_Store!=null)
+            if (products_Store != null)
             {
                 products_Store.InStock--;
 

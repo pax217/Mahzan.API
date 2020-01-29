@@ -10,7 +10,7 @@ namespace Mahzan.Models.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid ProductsId { get; set; }
 
         public string SKU { get; set; }
 

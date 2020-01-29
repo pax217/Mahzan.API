@@ -87,10 +87,11 @@ namespace Mahzan.Business.Implementations.Business.Products
                 Models.Entities.Products addedProduct = await AddProduct(addProductsDto);
 
                 //Agrega Impuesto a Producto
-                AddProductsTaxes(addedProduct.Id, addProductsDto.TaxesIds);
+                AddProductsTaxes(addedProduct,
+                                 addProductsDto);
 
                 //Agrega el Producto a seguimiento de Inventario
-                await AddProductsStore(addedProduct, addProductsDto);
+                AddProductsStore(addedProduct, addProductsDto);
 
             }
             catch (Exception ex)
@@ -161,7 +162,7 @@ namespace Mahzan.Business.Implementations.Business.Products
                     .Add(addProductsDto);
         }
 
-        private async Task AddProductsStore(
+        private void AddProductsStore(
             Models.Entities.Products addedProduct,
             AddProductsDto addProductsDto)
         {
@@ -177,7 +178,7 @@ namespace Mahzan.Business.Implementations.Business.Products
                     {
                         Price = addProductsDto.Price.Value,
                         StoresId = store.StoresId,
-                        ProductsId = addedProduct.Id
+                        ProductsId = addedProduct.ProductsId
                     });
                 }
 
@@ -186,7 +187,7 @@ namespace Mahzan.Business.Implementations.Business.Products
             {
                 foreach (var addProductStoreDto in addProductsDto.AddProductsStoreDto)
                 {
-                    addProductStoreDto.ProductsId = addedProduct.Id;
+                    addProductStoreDto.ProductsId = addedProduct.ProductsId;
 
                     _productsStoreRepository.Add(addProductStoreDto);
                 }
@@ -194,14 +195,14 @@ namespace Mahzan.Business.Implementations.Business.Products
 
         }
 
-        private void AddProductsTaxes(Guid productsId,
-                                      List<Guid> TaxesIds)
+        private void AddProductsTaxes(Models.Entities.Products addedProduct,
+                                      AddProductsDto addProductsDto)
         {
-            foreach (var tax in TaxesIds)
+            foreach (var tax in addProductsDto.TaxesIds)
             {
                 _productsTaxesRepository.Add(new ProductsTaxesDto
                 {
-                    ProductsId = productsId,
+                    ProductsId = addedProduct.ProductsId,
                     TaxesId = tax
                 }); ;
                   

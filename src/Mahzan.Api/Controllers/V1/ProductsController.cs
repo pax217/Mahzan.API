@@ -50,7 +50,6 @@ namespace Mahzan.Api.Controllers.V1
                                                    Barcode = postProductsRequest.Barcode,
                                                    Description = postProductsRequest.Description,
                                                    Price = postProductsRequest.Price,
-                                                   Cost = postProductsRequest.Cost,
                                                    ProductCategoriesId = postProductsRequest.ProductCategoriesId,
                                                    ProductUnitsId = postProductsRequest.ProductUnitsId,
                                                    FollowInventory = postProductsRequest.FollowInventory,

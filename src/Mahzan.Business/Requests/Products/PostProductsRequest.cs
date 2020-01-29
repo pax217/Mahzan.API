@@ -16,8 +16,6 @@ namespace Mahzan.Business.Requests.Products
 
         public decimal? Price { get; set; }
 
-        public decimal? Cost { get; set; }
-
         public bool FollowInventory { get; set; }
 
         public bool AvailableInAllStores { get; set; }
