@@ -42,10 +42,8 @@ namespace Mahzan.Business.Implementations.Business.ProductCategories
                 //Valida información de la categoría
 
                 //Agrega Categoría
-                _productCategoriesRepository
-                    .Add(_mapper.Map<Models.Entities.ProductCategories>(addProductCategoriesDto),
-                    addProductCategoriesDto.AspNetUserId,
-                    addProductCategoriesDto.TableAuditEnum);
+                result.ProductCategory = await _productCategoriesRepository
+                                               .Add(addProductCategoriesDto);
 
             }
             catch (Exception ex)

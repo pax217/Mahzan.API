@@ -14,7 +14,7 @@ namespace Mahzan.Models.Entities
 
         public string Description { get; set; }
 
-        public Guid MemberId { get; set; }
+        public Guid MembersId { get; set; }
 
     }
 }

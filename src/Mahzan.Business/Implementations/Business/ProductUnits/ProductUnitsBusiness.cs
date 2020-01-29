@@ -40,10 +40,8 @@ namespace Mahzan.Business.Implementations.Business.ProductUnits
 
             try
             {
-                _productUnitsRepository
-                    .Add(_mapper.Map<Models.Entities.ProductUnits>(addProductUnitsDto),
-                    addProductUnitsDto.AspNetUserId,
-                    addProductUnitsDto.TableAuditEnum);
+                result.ProductUnit = await _productUnitsRepository
+                                           .Add(addProductUnitsDto);
                        
             }
             catch (Exception ex)
