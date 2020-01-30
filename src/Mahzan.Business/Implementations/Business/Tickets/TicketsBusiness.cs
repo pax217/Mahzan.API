@@ -110,6 +110,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                     foreach (var tax in productsTaxes)
                     {
                         decimal withOutTax = ticketDetail.Price * ticketDetail.Quantity;
+
                         ticketDetail.Amount += (withOutTax + (withOutTax * (tax.Taxes.TaxRate) / 100));
                     }
                 }

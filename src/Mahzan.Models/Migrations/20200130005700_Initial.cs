@@ -24,6 +24,21 @@ namespace Mahzan.Models.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Companies",
+                columns: table => new
+                {
+                    CompaniesId = table.Column<Guid>(nullable: false),
+                    RFC = table.Column<string>(maxLength: 13, nullable: false),
+                    CommercialName = table.Column<string>(maxLength: 100, nullable: true),
+                    BusinessName = table.Column<string>(maxLength: 250, nullable: false),
+                    GroupsId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companies", x => x.CompaniesId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Companies_Audit",
                 columns: table => new
                 {
@@ -112,6 +127,19 @@ namespace Mahzan.Models.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Groups",
+                columns: table => new
+                {
+                    GroupsId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    MembersId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Groups", x => x.GroupsId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Groups_Audit",
                 columns: table => new
                 {
@@ -174,6 +202,20 @@ namespace Mahzan.Models.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Menu_Items", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PointsOfSales",
+                columns: table => new
+                {
+                    PointsOfSalesId = table.Column<Guid>(nullable: false),
+                    Code = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    StoresId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PointsOfSales", x => x.PointsOfSalesId);
                 });
 
             migrationBuilder.CreateTable(
@@ -282,7 +324,7 @@ namespace Mahzan.Models.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Abbreviation = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    MemberId = table.Column<Guid>(nullable: false)
+                    MembersId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -307,6 +349,23 @@ namespace Mahzan.Models.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Stores",
+                columns: table => new
+                {
+                    StoresId = table.Column<Guid>(nullable: false),
+                    Code = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(nullable: true),
+                    CompaniesId = table.Column<Guid>(nullable: false),
+                    MembersId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stores", x => x.StoresId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Stores_Audit",
                 columns: table => new
                 {
@@ -324,10 +383,26 @@ namespace Mahzan.Models.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Taxes",
+                columns: table => new
+                {
+                    TaxesId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    TaxRate = table.Column<decimal>(nullable: false),
+                    TaxType = table.Column<string>(nullable: false),
+                    TaxOption = table.Column<string>(nullable: false),
+                    MembersId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Taxes", x => x.TaxesId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tickets",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    TicketsId = table.Column<Guid>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     Total = table.Column<decimal>(nullable: false),
                     AspNetUsersId = table.Column<Guid>(nullable: false),
@@ -336,7 +411,7 @@ namespace Mahzan.Models.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.PrimaryKey("PK_Tickets", x => x.TicketsId);
                 });
 
             migrationBuilder.CreateTable(
@@ -355,25 +430,6 @@ namespace Mahzan.Models.Migrations
                     table.PrimaryKey("PK_Clients", x => x.ClientsId);
                     table.ForeignKey(
                         name: "FK_Clients_Members_MembersId",
-                        column: x => x.MembersId,
-                        principalTable: "Members",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Groups",
-                columns: table => new
-                {
-                    GroupsId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    MembersId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Groups", x => x.GroupsId);
-                    table.ForeignKey(
-                        name: "FK_Groups_Members_MembersId",
                         column: x => x.MembersId,
                         principalTable: "Members",
                         principalColumn: "Id",
@@ -424,7 +480,7 @@ namespace Mahzan.Models.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    ProductsId = table.Column<Guid>(nullable: false),
                     SKU = table.Column<string>(nullable: true),
                     Barcode = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
@@ -436,7 +492,7 @@ namespace Mahzan.Models.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.ProductsId);
                     table.ForeignKey(
                         name: "FK_Products_Members_MembersId",
                         column: x => x.MembersId,
@@ -458,10 +514,51 @@ namespace Mahzan.Models.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductsTaxes",
+                columns: table => new
+                {
+                    ProductsTaxesId = table.Column<Guid>(nullable: false),
+                    ProductsId = table.Column<Guid>(nullable: false),
+                    MembersId = table.Column<Guid>(nullable: false),
+                    TaxesId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductsTaxes", x => x.ProductsTaxesId);
+                    table.ForeignKey(
+                        name: "FK_ProductsTaxes_Taxes_TaxesId",
+                        column: x => x.TaxesId,
+                        principalTable: "Taxes",
+                        principalColumn: "TaxesId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Taxes_Stores",
+                columns: table => new
+                {
+                    TaxesStoresId = table.Column<Guid>(nullable: false),
+                    StoresId = table.Column<Guid>(nullable: false),
+                    MembersId = table.Column<Guid>(nullable: false),
+                    TaxesId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Taxes_Stores", x => x.TaxesStoresId);
+                    table.ForeignKey(
+                        name: "FK_Taxes_Stores_Taxes_TaxesId",
+                        column: x => x.TaxesId,
+                        principalTable: "Taxes",
+                        principalColumn: "TaxesId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TicketDetail",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    TicketDetailId = table.Column<Guid>(nullable: false),
+                    ProductsId = table.Column<Guid>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
@@ -470,34 +567,12 @@ namespace Mahzan.Models.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TicketDetail", x => x.Id);
+                    table.PrimaryKey("PK_TicketDetail", x => x.TicketDetailId);
                     table.ForeignKey(
                         name: "FK_TicketDetail_Tickets_TicketsId",
                         column: x => x.TicketsId,
                         principalTable: "Tickets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Companies",
-                columns: table => new
-                {
-                    CompaniesId = table.Column<Guid>(nullable: false),
-                    RFC = table.Column<string>(maxLength: 13, nullable: false),
-                    CommercialName = table.Column<string>(maxLength: 100, nullable: true),
-                    BusinessName = table.Column<string>(maxLength: 250, nullable: false),
-                    Active = table.Column<bool>(nullable: false),
-                    GroupsId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Companies", x => x.CompaniesId);
-                    table.ForeignKey(
-                        name: "FK_Companies_Groups_GroupsId",
-                        column: x => x.GroupsId,
-                        principalTable: "Groups",
-                        principalColumn: "GroupsId",
+                        principalColumn: "TicketsId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -506,8 +581,8 @@ namespace Mahzan.Models.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
-                    Cost = table.Column<decimal>(nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    Cost = table.Column<decimal>(type: "decimal(6,2)", nullable: true),
                     InStock = table.Column<decimal>(nullable: true),
                     LowStock = table.Column<decimal>(nullable: true),
                     OptimumStock = table.Column<decimal>(nullable: true),
@@ -521,65 +596,13 @@ namespace Mahzan.Models.Migrations
                         name: "FK_Products_Store_Products_ProductsId",
                         column: x => x.ProductsId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Stores",
-                columns: table => new
-                {
-                    StoresId = table.Column<Guid>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Phone = table.Column<string>(nullable: true),
-                    Comment = table.Column<string>(nullable: true),
-                    CompaniesId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stores", x => x.StoresId);
-                    table.ForeignKey(
-                        name: "FK_Stores_Companies_CompaniesId",
-                        column: x => x.CompaniesId,
-                        principalTable: "Companies",
-                        principalColumn: "CompaniesId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PointsOfSales",
-                columns: table => new
-                {
-                    PointsOfSalesId = table.Column<Guid>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    StoresId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PointsOfSales", x => x.PointsOfSalesId);
-                    table.ForeignKey(
-                        name: "FK_PointsOfSales_Stores_StoresId",
-                        column: x => x.StoresId,
-                        principalTable: "Stores",
-                        principalColumn: "StoresId",
+                        principalColumn: "ProductsId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Clients_MembersId",
                 table: "Clients",
-                column: "MembersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Companies_GroupsId",
-                table: "Companies",
-                column: "GroupsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Groups_MembersId",
-                table: "Groups",
                 column: "MembersId");
 
             migrationBuilder.CreateIndex(
@@ -591,11 +614,6 @@ namespace Mahzan.Models.Migrations
                 name: "IX_PaymentTypes_MembersId",
                 table: "PaymentTypes",
                 column: "MembersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PointsOfSales_StoresId",
-                table: "PointsOfSales",
-                column: "StoresId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_MembersId",
@@ -618,9 +636,14 @@ namespace Mahzan.Models.Migrations
                 column: "ProductsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stores_CompaniesId",
-                table: "Stores",
-                column: "CompaniesId");
+                name: "IX_ProductsTaxes_TaxesId",
+                table: "ProductsTaxes",
+                column: "TaxesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Taxes_Stores_TaxesId",
+                table: "Taxes_Stores",
+                column: "TaxesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TicketDetail_TicketsId",
@@ -637,6 +660,9 @@ namespace Mahzan.Models.Migrations
                 name: "Clients");
 
             migrationBuilder.DropTable(
+                name: "Companies");
+
+            migrationBuilder.DropTable(
                 name: "Companies_Audit");
 
             migrationBuilder.DropTable(
@@ -650,6 +676,9 @@ namespace Mahzan.Models.Migrations
 
             migrationBuilder.DropTable(
                 name: "Employees_Stores_Audit");
+
+            migrationBuilder.DropTable(
+                name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Groups_Audit");
@@ -685,10 +714,19 @@ namespace Mahzan.Models.Migrations
                 name: "ProductsPhotos");
 
             migrationBuilder.DropTable(
+                name: "ProductsTaxes");
+
+            migrationBuilder.DropTable(
                 name: "ProductUnits_Audit");
 
             migrationBuilder.DropTable(
+                name: "Stores");
+
+            migrationBuilder.DropTable(
                 name: "Stores_Audit");
+
+            migrationBuilder.DropTable(
+                name: "Taxes_Stores");
 
             migrationBuilder.DropTable(
                 name: "TicketDetail");
@@ -697,28 +735,22 @@ namespace Mahzan.Models.Migrations
                 name: "Menu_Items");
 
             migrationBuilder.DropTable(
-                name: "Stores");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Taxes");
 
             migrationBuilder.DropTable(
                 name: "Tickets");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "Members");
 
             migrationBuilder.DropTable(
                 name: "ProductCategories");
 
             migrationBuilder.DropTable(
                 name: "ProductUnits");
-
-            migrationBuilder.DropTable(
-                name: "Groups");
-
-            migrationBuilder.DropTable(
-                name: "Members");
         }
     }
 }
