@@ -10,8 +10,10 @@ namespace Mahzan.Models.Entities
 
         public Guid ProductsId { get; set; }
 
-        public Guid TaxesId { get; set; }
-
         public Guid MembersId { get; set; }
+
+        //Taxes
+        public Guid TaxesId { get; set; }
+        public Taxes Taxes { get; set; }
     }
 }

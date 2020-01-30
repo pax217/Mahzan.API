@@ -9,7 +9,7 @@ namespace Mahzan.Models.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid TicketsId { get; set; }
 
         [Required]
         public DateTime CreatedAt { get; set; }

@@ -7,8 +7,10 @@ using Mahzan.Business.Interfaces.Business.Tickets;
 using Mahzan.Business.Resources.Business.Tickets;
 using Mahzan.Business.Results.Tickets;
 using Mahzan.DataAccess.DTO.ProductsStore;
+using Mahzan.DataAccess.DTO.ProductsTaxes;
 using Mahzan.DataAccess.DTO.Tickets;
 using Mahzan.DataAccess.Interfaces;
+using Mahzan.DataAccess.Paging;
 
 namespace Mahzan.Business.Implementations.Business.Tickets
 {
@@ -22,16 +24,21 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
         readonly IProductsStoreRepository _productsStoreRepository;
 
+        readonly IProductsTaxesRepository _productsTaxesRepository;
+
         public TicketsBusiness(
             ITicketDetailRepository ticketDetailRepository,
             ITicketsRepository ticketsRepository,
             IProductsRepository productsRepository,
-            IProductsStoreRepository productsStoreRepository)
+            IProductsStoreRepository productsStoreRepository,
+            IProductsTaxesRepository productsTaxesRepository)
         {
+            //Repositories
             _ticketDetailRepository = ticketDetailRepository;
             _ticketsRepository = ticketsRepository;
             _productsRepository = productsRepository;
             _productsStoreRepository = productsStoreRepository;
+            _productsTaxesRepository = productsTaxesRepository;
         }
 
         public async Task<PostTicketsResult> Add(AddTicketsDto addTicketsDto)
@@ -53,7 +60,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
 
                 //Calcula Monto Total
-                addTicketsDto.Total = CalculateTotal(addTicketsDto.PostTicketDetailDto);
+                addTicketsDto.Total = CalculateTotal(addTicketsDto);
 
                 //Agrega ticket
                 Models.Entities.Tickets addedTicket = await _ticketsRepository
@@ -80,14 +87,31 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
         #region Private Methods
 
-        public decimal CalculateTotal(List<PostTicketDetailDto> postTicketDetailDtos)
+        public decimal CalculateTotal(AddTicketsDto addTicketsDto)
         {
             decimal result = 0;
 
-            foreach (var ticketDetail in postTicketDetailDtos)
+            foreach (var ticketDetail in addTicketsDto.PostTicketDetailDto)
             {
-                //Obtener productos y calcular el total.
-                result += ticketDetail.Amount;
+                //Aplica impuesto
+                PagedList<Models.Entities.ProductsTaxes> productsTaxes = _productsTaxesRepository
+                                                                        .Get(new GetProductsTaxesDto
+                                                                        {
+                                                                            MembersId = addTicketsDto.MembersId,
+                                                                            ProductsId = ticketDetail.ProductsId
+                                                                        });
+
+                if (productsTaxes.Any())
+                {
+                    //Obtener productos y calcular el total.
+                    result += (ticketDetail.Amount * (productsTaxes.FirstOrDefault().Taxes.TaxRate));
+                }
+                else
+                {
+                    //Obtener productos y calcular el total.
+                    result += ticketDetail.Amount;
+                }
+
             }
 
             return result;

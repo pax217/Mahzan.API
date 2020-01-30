@@ -8,7 +8,7 @@ namespace Mahzan.Models.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid TicketDetailId { get; set; }
 
         public int Quantity { get; set; }
 

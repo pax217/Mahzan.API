@@ -26,7 +26,7 @@ namespace Mahzan.DataAccess.Implementations
                     Description = ticketDetail.Description,
                     Price = ticketDetail.Price,
                     Amount = ticketDetail.Amount,
-                    TicketsId = newTicket.Id
+                    TicketsId = newTicket.TicketsId
                 };
 
                 _context.Set<TicketDetail>().Add(newTicketDetail);

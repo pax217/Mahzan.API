@@ -157,13 +157,13 @@ namespace Mahzan.Models
         private void OnConfiguringTicketDetail(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TicketDetail>()
-                        .HasKey(ticketDetail => new { ticketDetail.Id });
+                        .HasKey(ticketDetail => new { ticketDetail.TicketDetailId });
         }
 
         private void OnConfiguringTickets(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Tickets>()
-                        .HasKey(tickets => new { tickets.Id });
+                        .HasKey(tickets => new { tickets.TicketsId });
         }
 
         private void OnConfiguringProductCategories(ModelBuilder modelBuilder)

@@ -200,10 +200,11 @@ namespace Mahzan.Business.Implementations.Business.Products
         {
             foreach (var tax in addProductsDto.TaxesIds)
             {
-                _productsTaxesRepository.Add(new ProductsTaxesDto
+                _productsTaxesRepository.Add(new AddProductsTaxesDto
                 {
                     ProductsId = addedProduct.ProductsId,
-                    TaxesId = tax
+                    TaxesId = tax,
+                    MembersId = addProductsDto.MembersId
                 }); ;
                   
             }
