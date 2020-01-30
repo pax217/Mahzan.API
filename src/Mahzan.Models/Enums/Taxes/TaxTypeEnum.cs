@@ -9,8 +9,8 @@ namespace Mahzan.Models.Enums.Taxes
     public enum TaxTypeEnum
     {
 
-        INCLUDED_PRICE,
+        INCLUDED_IN_PRICE,
 
-        ADDED_PRICE
+        ADD_IN_PRICE
     }
 }

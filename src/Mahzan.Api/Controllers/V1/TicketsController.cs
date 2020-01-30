@@ -46,7 +46,7 @@ namespace Mahzan.Api.Controllers.V1
                                                                                               Quantity = p.Quantity,
                                                                                               Description = p.Description,
                                                                                               Price = p.Price,
-                                                                                              Amount = p.Amount
+                                                                                              Amount = 0
                                                                                           })
                                                                                           .ToList(),
                                                   AspNetUserId = AspNetUserId,

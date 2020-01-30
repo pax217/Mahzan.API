@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.DataAccess.DTO.Tickets;
@@ -26,7 +27,7 @@ namespace Mahzan.DataAccess.Implementations
             Tickets newTicket = new Tickets
             {
                 CreatedAt = DateTime.Now,
-                Total = addTicketsDto.Total,
+                Total = addTicketsDto.PostTicketDetailDto.Sum(x=> x.Amount),
                 PointsOfSalesId = addTicketsDto.PointsOfSalesId,
                 PaymentTypesId = addTicketsDto.PaymentTypesId,
                 AspNetUsersId = addTicketsDto.AspNetUserId

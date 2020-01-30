@@ -10,6 +10,8 @@ namespace Mahzan.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid TicketDetailId { get; set; }
 
+        public Guid ProductsId { get; set; }
+
         public int Quantity { get; set; }
 
         public string Description { get; set; }

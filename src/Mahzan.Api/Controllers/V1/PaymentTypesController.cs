@@ -36,7 +36,8 @@ namespace Mahzan.Api.Controllers.V1
 
             PostPaymentTypesResult result = await _paymentTypesBusiness
                                                   .Add(new AddPaymentTypesDto {
-                                                      Name = postPaymentTypesRequest.Name
+                                                      Name = postPaymentTypesRequest.Name,
+                                                      MembersId = MemberId
                                                   });
 
             return StatusCode(result.StatusCode, result);

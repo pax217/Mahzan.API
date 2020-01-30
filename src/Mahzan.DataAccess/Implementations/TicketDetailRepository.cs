@@ -22,6 +22,7 @@ namespace Mahzan.DataAccess.Implementations
             {
                 TicketDetail newTicketDetail = new TicketDetail
                 {
+                    ProductsId = ticketDetail.ProductsId,
                     Quantity = ticketDetail.Quantity,
                     Description = ticketDetail.Description,
                     Price = ticketDetail.Price,

@@ -20,13 +20,8 @@ namespace Mahzan.Models.Entities
         [Required]
         public Guid AspNetUsersId { get; set; }
 
-        [Required]
-        public ICollection<TicketDetail> TicketDetail { get; set; }
-
-
         //PointsOfSale
         public Guid PointsOfSalesId{ get; set; }
-
 
         //PointsOfSale
         public Guid PaymentTypesId { get; set; }

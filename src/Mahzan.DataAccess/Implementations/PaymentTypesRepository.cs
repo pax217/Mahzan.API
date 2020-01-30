@@ -22,7 +22,10 @@ namespace Mahzan.DataAccess.Implementations
 
         public async Task<PaymentTypes> Add(AddPaymentTypesDto addPaymentTypesDto)
         {
-            PaymentTypes newPaymentTypes = _mapper.Map<PaymentTypes>(addPaymentTypesDto);
+            PaymentTypes newPaymentTypes = new PaymentTypes {
+                Name = addPaymentTypesDto.Name,
+                MembersId = addPaymentTypesDto.MembersId
+            };
 
             _context.Set<PaymentTypes>().Add(newPaymentTypes);
 

@@ -9,6 +9,7 @@ using Mahzan.Models;
 using Mahzan.Models.Entities;
 using Mahzan.Models.Enums.Expressions;
 using Mahzan.Models.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -64,11 +65,16 @@ namespace Mahzan.DataAccess.Implementations
             {
                 var deleg = ExpressionBuilder.GetExpression<ProductsTaxes>(filterExpressions).Compile();
 
-                result = _context.Set<ProductsTaxes>().Where(deleg).ToList();
+                result = _context.Set<ProductsTaxes>()
+                                 .Include(t => t.Taxes)
+                                 .Where(deleg)
+                                 .ToList();
             }
             else
             {
-                result = _context.Set<ProductsTaxes>().ToList();
+                result = _context.Set<ProductsTaxes>()
+                                 .Include(t => t.Taxes)
+                                 .ToList();
             }
 
             return PagedList<ProductsTaxes>.ToPagedList(result,
