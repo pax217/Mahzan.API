@@ -34,8 +34,8 @@ namespace Mahzan.Business.Implementations.Validations.Companies
                 IsValid = true,
                 StatusCode = 200,
                 ResultTypeEnum = ResultTypeEnum.SUCCESS,
-                Title = PutCompaniesValidationsResources.ResourceManager.GetString("Add_Valid_Title"),
-                Message = PutCompaniesValidationsResources.ResourceManager.GetString("Add_Valid_200_SUCCESS_Message")
+                Title = PutCompaniesValidationsResources.ResourceManager.GetString("Put_Valid_Title"),
+                Message = PutCompaniesValidationsResources.ResourceManager.GetString("Put_Valid_200_SUCCESS_Message")
             };
 
            
@@ -61,7 +61,7 @@ namespace Mahzan.Business.Implementations.Validations.Companies
                         result.IsValid = false;
                         result.StatusCode = 500;
                         result.ResultTypeEnum = ResultTypeEnum.WARNING;
-                        result.Message = PutCompaniesValidationsResources.ResourceManager.GetString("Add_Valid_200_SUCCESS_Message");
+                        result.Message = PutCompaniesValidationsResources.ResourceManager.GetString("Put_Valid_500_WARNING_Message_GroupsId");
 
                         return result;
                     }

@@ -1,0 +1,5 @@
+﻿# Gmail
+# Mahzan.API
+
+cuenta:     mahzan.backoffice@gmail.com
+password:   Mahzan20%

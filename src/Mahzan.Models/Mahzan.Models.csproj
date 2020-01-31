@@ -22,4 +22,7 @@
     <Folder Include="Enums\Expressions\" />
     <Folder Include="Enums\Taxes\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\documents\_config\_params.txt" />
+  </ItemGroup>
 </Project>
