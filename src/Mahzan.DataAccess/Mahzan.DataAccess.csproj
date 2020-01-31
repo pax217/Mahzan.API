@@ -39,6 +39,7 @@
     <Folder Include="DTO\Taxes\" />
     <Folder Include="DTO\TaxesStores\" />
     <Folder Include="DTO\ProductsTaxes\" />
+    <Folder Include="Filters\Clients\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />

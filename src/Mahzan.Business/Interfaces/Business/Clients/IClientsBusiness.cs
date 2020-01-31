@@ -8,6 +8,13 @@ namespace Mahzan.Business.Interfaces.Business.Clients
 {
     public interface IClientsBusiness
     {
-        Task<PostClientsResult> Add(AddClientsDto addClientsDto); 
+        Task<PostClientsResult> Add(AddClientsDto addClientsDto);
+
+        Task<GetClientsResult> Get(GetClientsDto getClientsDto);
+
+        Task<PutClientsResult> Update(PutClientsDto putClientsDto);
+
+        Task<DeleteClientsResult> Delete(DeleteClientsDto deleteClientsDto);
+
     }
 }

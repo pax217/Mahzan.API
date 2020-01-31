@@ -29,7 +29,8 @@ namespace Mahzan.DataAccess.Implementations
                 Name = addStoresDto.Name,
                 Phone = addStoresDto.Phone,
                 Comment = addStoresDto.Comment,
-                CompaniesId = addStoresDto.CompaniesId
+                CompaniesId = addStoresDto.CompaniesId,
+                MembersId = addStoresDto.MembersId
             };
 
             _context.Set<Stores>().Add(newStores);

@@ -50,22 +50,27 @@ namespace Mahzan.Business.Implementations.Validations.Stores
                 return result;
             }
 
-            //Valida que si la tienda tiene código no exista
-            PagedList<Models.Entities.Stores> storesCode = _storesRepository
-                                           .Get(new GetStoresDto
-                                           {
-                                               Code = addStoresDto.Code
-                                           });
-
-            if (storesCode.Any())
+            //Code
+            if (addStoresDto.Code!=null)
             {
-                result.IsValid = false;
-                result.StatusCode = 500;
-                result.ResultTypeEnum = ResultTypeEnum.WARNING;
-                result.Message = AddStoresValidationsResources.ResourceManager.GetString("Add_Valid_500_WARNING_Message_Code_No_Valid");
+                //Valida que si la tienda tiene código no exista
+                PagedList<Models.Entities.Stores> storesCode = _storesRepository
+                                               .Get(new GetStoresDto
+                                               {
+                                                   Code = addStoresDto.Code
+                                               });
 
-                return result;
+                if (storesCode.Any())
+                {
+                    result.IsValid = false;
+                    result.StatusCode = 500;
+                    result.ResultTypeEnum = ResultTypeEnum.WARNING;
+                    result.Message = AddStoresValidationsResources.ResourceManager.GetString("Add_Valid_500_WARNING_Message_Code_No_Valid");
+
+                    return result;
+                }
             }
+
 
             return result;
         }

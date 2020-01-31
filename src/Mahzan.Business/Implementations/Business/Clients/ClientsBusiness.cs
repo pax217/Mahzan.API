@@ -63,5 +63,20 @@ namespace Mahzan.Business.Implementations.Business.Clients
 
             return result;
         }
+
+        public Task<DeleteClientsResult> Delete(DeleteClientsDto deleteClientsDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<GetClientsResult> Get(GetClientsDto getClientsDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PutClientsResult> Update(PutClientsDto putClientsDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -8,6 +8,7 @@ using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Requests.Clients;
 using Mahzan.Business.Results.Clients;
 using Mahzan.DataAccess.DTO.Clients;
+using Mahzan.DataAccess.Filters.Clients;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace Mahzan.Api.Controllers.V1
     [ApiController]
     public class ClientsController : BaseController
     {
-        readonly IClientsBusiness _clientsBusiness ;
+        readonly IClientsBusiness _clientsBusiness;
 
         public ClientsController(
             IMembersBusiness miembrosBusiness,
@@ -46,5 +47,16 @@ namespace Mahzan.Api.Controllers.V1
             return StatusCode(result.StatusCode, result);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] GetClientsFilter getClientsFilter)
+        {
+            GetClientsResult result = await _clientsBusiness
+                                            .Get(new GetClientsDto {
+                                                Name = getClientsFilter.Name
+                                            });
+
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

@@ -104,6 +104,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                                                                             MembersId = addTicketsDto.MembersId,
                                                                             ProductsId = ticketDetail.ProductsId
                                                                         });
+                decimal amountWithTaxes = 0;
 
                 if (productsTaxes.Any())
                 {
@@ -111,8 +112,10 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                     {
                         decimal withOutTax = ticketDetail.Price * ticketDetail.Quantity;
 
-                        ticketDetail.Amount += (withOutTax + (withOutTax * (tax.Taxes.TaxRate) / 100));
+                        amountWithTaxes += (withOutTax + (withOutTax * (tax.Taxes.TaxRate) / 100));
                     }
+
+                    ticketDetail.Amount = amountWithTaxes;
                 }
                 else
                 {
@@ -121,41 +124,6 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
                 result.Add(ticketDetail);
             }
-
-
-
-            //foreach (var ticketDetail in addTicketsDto.PostTicketDetailDto)
-            //{
-            //    //Aplica impuesto
-            //    PagedList<Models.Entities.ProductsTaxes> productsTaxes = _productsTaxesRepository
-            //                                                            .Get(new GetProductsTaxesDto
-            //                                                            {
-            //                                                                MembersId = addTicketsDto.MembersId,
-            //                                                                ProductsId = ticketDetail.ProductsId
-            //                                                            });
-
-            //    if (productsTaxes.Any())
-            //    {
-            //        if (productsTaxes.FirstOrDefault().Taxes.TaxType
-            //            == TaxTypeEnum.ADD_IN_PRICE)
-            //        {
-            //            //Obtener productos y calcular el total.
-            //            result += ticketDetail.Amount + (ticketDetail.Amount * (productsTaxes.FirstOrDefault().Taxes.TaxRate)/100);
-            //        }
-            //        else
-            //        {
-            //            //Obtener productos y calcular el total.
-            //            result += ticketDetail.Amount;
-            //        }
-
-            //    }
-            //    else
-            //    {
-            //        //Obtener productos y calcular el total.
-            //        result += ticketDetail.Amount;
-            //    }
-
-            //}
 
             return result;
         }
