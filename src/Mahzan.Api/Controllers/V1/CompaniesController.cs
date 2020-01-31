@@ -57,8 +57,8 @@ namespace Mahzan.Api.Controllers.V1
             GetCompaniesResult result = await _companiesBusiness
                                                .Get(new GetCompaniesDto {
                                                    MembersId = MemberId,
-                                                   BusinessName = getCompaniesFilter.BusinessName,
-                                                   GroupsId = getCompaniesFilter.GroupsId
+                                                   CompaniesId = getCompaniesFilter.CompaniesId,
+                                                   BusinessName = getCompaniesFilter.BusinessName
                                                });
 
             return StatusCode(result.StatusCode, result);

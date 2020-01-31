@@ -137,7 +137,8 @@ namespace Mahzan.DataAccess.Implementations
                 RFC = addCompaniesDto.RFC,
                 CommercialName = addCompaniesDto.CommercialName,
                 BusinessName = addCompaniesDto.BusinessName,
-                GroupsId = addCompaniesDto.GroupsId
+                GroupsId = addCompaniesDto.GroupsId,
+                MembersId = addCompaniesDto.MembersId
             };
 
             _context.Set<Companies>().Add(newCompany);

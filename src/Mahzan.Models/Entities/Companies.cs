@@ -31,5 +31,8 @@ namespace Mahzan.Models.Entities
         //Groups
         public Guid GroupsId { get; set; }
 
+        //Members
+        public Guid MembersId { get; set; }
+
     }
 }
