@@ -11,6 +11,8 @@ namespace Mahzan.DataAccess.DTO.Companies
 
         public string BusinessName { get; set; }
 
+        public string CommercialName { get; set; }
+
         public Guid? GroupsId { get; set; }
     }
 }

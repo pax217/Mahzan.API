@@ -12,7 +12,7 @@ namespace Mahzan.Business.Requests.Companies
         public string CommercialName { get; set; }
 
         public string BusinessName { get; set; }
-
+        
         [Required]
         public Guid GroupsId { get; set; }
     }

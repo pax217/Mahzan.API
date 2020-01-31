@@ -5,6 +5,6 @@ namespace Mahzan.DataAccess.DTO.Companies
 {
     public class DeleteCompaniesDto:BaseDto
     {
-        public Guid CompanyId { get; set; }
+        public Guid CompaniesId { get; set; }
     }
 }

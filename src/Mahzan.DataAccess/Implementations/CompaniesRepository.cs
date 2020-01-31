@@ -26,6 +26,26 @@ namespace Mahzan.DataAccess.Implementations
             List<Companies> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
+            if (getCompaniesDto.MembersId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Companies).GetProperties().First(p => p.Name == "MembersId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getCompaniesDto.MembersId
+                });
+            }
+
+            if (getCompaniesDto.CompaniesId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Companies).GetProperties().First(p => p.Name == "CompaniesId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getCompaniesDto.CompaniesId
+                });
+            }
+
 
             if (getCompaniesDto.RFC != null)
             {
@@ -37,13 +57,24 @@ namespace Mahzan.DataAccess.Implementations
                 });
             }
 
+            //CommercialName
+            if (getCompaniesDto.CommercialName != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Companies).GetProperties().First(p => p.Name == "CommercialName"),
+                    Operator = OperationsEnum.Contains,
+                    Value = getCompaniesDto.CommercialName
+                });
+            }
+
             //BusinessName
             if (getCompaniesDto.BusinessName != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
                     PropertyInfo = typeof(Companies).GetProperties().First(p => p.Name == "BusinessName"),
-                    Operator = OperationsEnum.Equals,
+                    Operator = OperationsEnum.Contains,
                     Value = getCompaniesDto.BusinessName
                 });
             }
@@ -78,7 +109,7 @@ namespace Mahzan.DataAccess.Implementations
         public Companies Update(PutCompaniesDto putCompaniesDto)
         {
             Companies companyToUpdate = (from g in _context.Set<Companies>()
-                                         where g.CompaniesId.Equals(putCompaniesDto.CompanyId)
+                                         where g.CompaniesId.Equals(putCompaniesDto.CompaniesId)
                                          select g)
                                          .FirstOrDefault();
 
@@ -105,7 +136,7 @@ namespace Mahzan.DataAccess.Implementations
 
             EntityEntry entry = _context.Entry(companyToUpdate);
             entry.State = EntityState.Modified;
-            entry.Property("Id").IsModified = false;
+            entry.Property("CompaniesId").IsModified = false;
             entry.Property("MembersId").IsModified = false;
             entry.Property("GroupsId").IsModified = false;
 
@@ -119,7 +150,7 @@ namespace Mahzan.DataAccess.Implementations
         public Companies Delete(DeleteCompaniesDto deleteCompaniesDto)
         {
             Companies companyToDelte = (from g in _context.Set<Companies>()
-                                        where g.CompaniesId.Equals(deleteCompaniesDto.CompanyId)
+                                        where g.CompaniesId.Equals(deleteCompaniesDto.CompaniesId)
                                         select g)
                                     .FirstOrDefault();
 

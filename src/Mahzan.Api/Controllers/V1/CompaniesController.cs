@@ -71,11 +71,10 @@ namespace Mahzan.Api.Controllers.V1
             PutCompaniesResult result = await _companiesBusiness
                                                .Update(new PutCompaniesDto()
                                                {
-                                                   CompanyId = putCompaniesRequest.CompanyId,
+                                                   CompaniesId = putCompaniesRequest.CompaniesId,
                                                    RFC = putCompaniesRequest.RFC,
                                                    CommercialName = putCompaniesRequest.CommercialName,
                                                    BusinessName = putCompaniesRequest.BusinessName,
-                                                   Active = putCompaniesRequest.Active,
                                                    AspNetUserId = AspNetUserId,
                                                    TableAuditEnum = TableAuditEnum.COMPANIES_AUDIT
                                                });
@@ -85,12 +84,12 @@ namespace Mahzan.Api.Controllers.V1
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete]
-        public async Task<IActionResult> Delete(Guid companyId)
+        public async Task<IActionResult> Delete(Guid companiesId)
         {
             DeleteCompaniesResult result = await _companiesBusiness
                                                   .Delete(new DeleteCompaniesDto()
                                                   {
-                                                      CompanyId = companyId,
+                                                      CompaniesId = companiesId,
                                                       AspNetUserId = AspNetUserId,
                                                       TableAuditEnum = TableAuditEnum.COMPANIES_AUDIT
                                                   });

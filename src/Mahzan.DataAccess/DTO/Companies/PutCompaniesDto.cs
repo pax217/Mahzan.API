@@ -5,10 +5,9 @@ namespace Mahzan.DataAccess.DTO.Companies
 {
     public class PutCompaniesDto:BaseDto
     {
-        public Guid CompanyId { get; set; }
+        public Guid CompaniesId { get; set; }
         public string RFC { get; set; }
         public string CommercialName { get; set; }
         public string BusinessName { get; set; }
-        public bool? Active { get; set; }
     }
 }
