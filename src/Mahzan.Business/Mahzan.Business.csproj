@@ -293,6 +293,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddTaxesValidationsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\Companies\PutCompaniesValidationsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PutCompaniesValidationsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -432,6 +436,9 @@
     </Compile>
     <Compile Update="Resources\Validations\Taxes\AddTaxesValidationsResources.Designer.cs">
       <DependentUpon>AddTaxesValidationsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\Companies\PutCompaniesValidationsResources.Designer.cs">
+      <DependentUpon>PutCompaniesValidationsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

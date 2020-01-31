@@ -104,21 +104,31 @@ namespace Mahzan.Api.Extensions
             //Validaciones
             services.AddTransient<ILogInValidations, LogInValidations>();
             services.AddTransient<ISignUpValidations, SignUpValidations>();
+
+            //Members
             services.AddTransient<IAddMembersValidations, AddMembersValidations>();
 
+            //Groups
             services.AddTransient<IAddGroupsValidations, AddGroupsValidations>();
             services.AddTransient<IDeleteGroupsValidations, DeleteGroupsValidations>();
 
+            //Companies
             services.AddTransient<IAddCompaniesValidations, AddCompaniesValidations>();
-
+            services.AddTransient<IPutCompaniesValidations, PutCompaniesValidations>();
+            
+            //Stores
             services.AddTransient<IAddStoresValidations, AddStoresValidations>();
 
+            //Points of Sales
             services.AddTransient<IPointsOfSalesValidations, PointsOfSalesValidations>();
 
+            //Products
             services.AddTransient<IAddProductsValidations, AddProductsValidations>();
 
+            //Clients
             services.AddTransient<IAddClientsValidations, AddClientsValidations>();
 
+            //Taxes
             services.AddTransient<IAddTaxesValidations, AddTaxesValidations>();
 
 

@@ -20,17 +20,21 @@ namespace Mahzan.Business.Implementations.Business.Companies
 
         readonly IAddCompaniesValidations _addCompaniesValidations;
 
+        readonly IPutCompaniesValidations _putCompaniesValidations;
+
         readonly IMapper _mapper;
 
         public CompaniesBusiness(
             ICompaniesRepository companiesRepository,
             IAddCompaniesValidations addCompaniesValidations,
+            IPutCompaniesValidations putCompaniesValidations,
             IMapper mapper)
         {
             _companiesRepository = companiesRepository;
 
             //Validaciones
             _addCompaniesValidations = addCompaniesValidations;
+            _putCompaniesValidations = putCompaniesValidations;
 
             _mapper = mapper;
         }
@@ -152,6 +156,13 @@ namespace Mahzan.Business.Implementations.Business.Companies
             try
             {
                 //Validación de Actualizacion de la empresa
+                PutCompaniesResult resultVlidations = await _putCompaniesValidations
+                                                            .PutCompaniesValid(putCompaniesDto);
+
+                if (!resultVlidations.IsValid)
+                {
+                    return resultVlidations;
+                }
 
                 _companiesRepository
                     .Update(putCompaniesDto);

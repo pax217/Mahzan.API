@@ -10,5 +10,6 @@ namespace Mahzan.Business.Requests.Companies
         public string RFC { get; set; }
         public string CommercialName { get; set; }
         public string BusinessName { get; set; }
+        public Guid? GroupsId { get; set; }
     }
 }

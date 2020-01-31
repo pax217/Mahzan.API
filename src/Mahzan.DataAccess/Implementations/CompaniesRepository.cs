@@ -133,12 +133,16 @@ namespace Mahzan.DataAccess.Implementations
                 companyToUpdate.BusinessName = putCompaniesDto.BusinessName;
             }
 
+            if (putCompaniesDto.GroupsId != null)
+            {
+                companyToUpdate.GroupsId = putCompaniesDto.GroupsId.Value;
+            }
+
 
             EntityEntry entry = _context.Entry(companyToUpdate);
             entry.State = EntityState.Modified;
             entry.Property("CompaniesId").IsModified = false;
             entry.Property("MembersId").IsModified = false;
-            entry.Property("GroupsId").IsModified = false;
 
             _context.Set<Companies>().Update(companyToUpdate);
             _context.SaveChangesAsync(putCompaniesDto.TableAuditEnum,

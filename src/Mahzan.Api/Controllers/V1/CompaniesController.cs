@@ -75,6 +75,7 @@ namespace Mahzan.Api.Controllers.V1
                                                    RFC = putCompaniesRequest.RFC,
                                                    CommercialName = putCompaniesRequest.CommercialName,
                                                    BusinessName = putCompaniesRequest.BusinessName,
+                                                   GroupsId = putCompaniesRequest.GroupsId,
                                                    AspNetUserId = AspNetUserId,
                                                    TableAuditEnum = TableAuditEnum.COMPANIES_AUDIT
                                                });
