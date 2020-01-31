@@ -14,6 +14,6 @@ namespace Mahzan.Business.Requests.Companies
         public string BusinessName { get; set; }
 
         [Required]
-        public Guid GroupId { get; set; }
+        public Guid GroupsId { get; set; }
     }
 }
