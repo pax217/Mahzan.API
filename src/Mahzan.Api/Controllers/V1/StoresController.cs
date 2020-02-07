@@ -84,12 +84,11 @@ namespace Mahzan.Api.Controllers.V1
             PutStoresResult result = await _storesBusiness
                                             .Update(new PutStoresDto
                                             {
-                                                StoreId = putStoresRequest.StoreId,
+                                                StoresId = putStoresRequest.StoresId,
                                                 Code = putStoresRequest.Code,
                                                 Name = putStoresRequest.Name,
                                                 Phone = putStoresRequest.Phone,
                                                 Comment = putStoresRequest.Comment,
-                                                Active = putStoresRequest.Active,
                                                 AspNetUserId = AspNetUserId,
                                                 TableAuditEnum = TableAuditEnum.STORES_AUDIT
                                             });
@@ -99,12 +98,12 @@ namespace Mahzan.Api.Controllers.V1
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete]
-        public async Task<IActionResult> Delete(Guid StoreId)
+        public async Task<IActionResult> Delete(Guid StoresId)
         {
             DeleteStoresResult result = await _storesBusiness
                                                .Delete(new DeleteStoresDto
                                                {
-                                                   StoreId = StoreId,
+                                                   StoresId = StoresId,
                                                    AspNetUserId = AspNetUserId,
                                                    TableAuditEnum = TableAuditEnum.STORES_AUDIT
                                                });

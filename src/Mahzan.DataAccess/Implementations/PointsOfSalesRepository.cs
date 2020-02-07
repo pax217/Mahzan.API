@@ -27,7 +27,9 @@ namespace Mahzan.DataAccess.Implementations
             {
                 Code = addPointsOfSalesDto.Code,
                 Name = addPointsOfSalesDto.Name,
-                StoresId = addPointsOfSalesDto.StoresId
+                StoresId = addPointsOfSalesDto.StoresId,
+                MembersId = addPointsOfSalesDto.MembersId
+
             };
 
             _context.Set<PointsOfSales>().Add(newPointOfSale);
@@ -40,7 +42,7 @@ namespace Mahzan.DataAccess.Implementations
         public PointsOfSales Delete(DeletePointsOfSalesDto deletePointsOfSalesDto)
         {
             PointsOfSales pointOfSaleToDelte = (from g in _context.Set<PointsOfSales>()
-                                         where g.PointsOfSalesId.Equals(deletePointsOfSalesDto.PointOfSaleId)
+                                         where g.PointsOfSalesId.Equals(deletePointsOfSalesDto.PointsOfSalesId)
                                          select g)
                                     .FirstOrDefault();
 
@@ -56,13 +58,23 @@ namespace Mahzan.DataAccess.Implementations
             List<PointsOfSales> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getPointsOfSalesDto.PointOfSaleId != null)
+            if (getPointsOfSalesDto.MembersId != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
-                    PropertyInfo = typeof(PointsOfSales).GetProperties().First(p => p.Name == "Id"),
+                    PropertyInfo = typeof(PointsOfSales).GetProperties().First(p => p.Name == "MembersId"),
                     Operator = OperationsEnum.Equals,
-                    Value = getPointsOfSalesDto.PointOfSaleId
+                    Value = getPointsOfSalesDto.MembersId
+                });
+            }
+
+            if (getPointsOfSalesDto.PointsOfSalesId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(PointsOfSales).GetProperties().First(p => p.Name == "PointsOfSalesId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getPointsOfSalesDto.PointsOfSalesId
                 });
             }
 
@@ -123,7 +135,7 @@ namespace Mahzan.DataAccess.Implementations
 
             EntityEntry entry = _context.Entry(pointsOfSaleToUpdate);
             entry.State = EntityState.Modified;
-            entry.Property("Id").IsModified = false;
+            entry.Property("PointsOfSalesId").IsModified = false;
             entry.Property("MembersId").IsModified = false;
 
             _context.Set<PointsOfSales>().Update(pointsOfSaleToUpdate);

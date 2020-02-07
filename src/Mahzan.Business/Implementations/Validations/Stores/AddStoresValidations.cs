@@ -51,7 +51,7 @@ namespace Mahzan.Business.Implementations.Validations.Stores
             }
 
             //Code
-            if (addStoresDto.Code!=null)
+            if (addStoresDto.Code!=null && addStoresDto.Code !="")
             {
                 //Valida que si la tienda tiene código no exista
                 PagedList<Models.Entities.Stores> storesCode = _storesRepository

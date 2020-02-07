@@ -5,7 +5,7 @@ namespace Mahzan.DataAccess.DTO.PointOfSales
 {
     public class GetPointsOfSalesDto:BaseDto
     {
-        public Guid? PointOfSaleId { get; set; }
+        public Guid? PointsOfSalesId { get; set; }
 
         public string Code { get; set; }
 

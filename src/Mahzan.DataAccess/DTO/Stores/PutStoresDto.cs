@@ -5,7 +5,7 @@ namespace Mahzan.DataAccess.DTO.Stores
 {
     public class PutStoresDto:BaseDto
     {
-        public Guid StoreId { get; set; }
+        public Guid StoresId { get; set; }
 
         public string Code { get; set; }
 

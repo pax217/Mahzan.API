@@ -5,6 +5,6 @@ namespace Mahzan.DataAccess.DTO.PointOfSales
 {
     public class DeletePointsOfSalesDto:BaseDto
     {
-        public Guid PointOfSaleId { get; set; }
+        public Guid PointsOfSalesId { get; set; }
     }
 }

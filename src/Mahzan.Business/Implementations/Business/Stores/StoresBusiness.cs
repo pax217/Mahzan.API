@@ -116,8 +116,8 @@ namespace Mahzan.Business.Implementations.Business.Stores
                 IsValid = true,
                 StatusCode = 200,
                 ResultTypeEnum = ResultTypeEnum.SUCCESS,
-                Title = GetStoresResources.ResourceManager.GetString("Add_Title"),
-                Message = GetStoresResources.ResourceManager.GetString("Add_200_SUCCESS_Message")
+                Title = GetStoresResources.ResourceManager.GetString("Get_Title"),
+                Message = GetStoresResources.ResourceManager.GetString("Get_200_SUCCESS_Message")
 
             };
 
@@ -126,7 +126,7 @@ namespace Mahzan.Business.Implementations.Business.Stores
                 result.Stores = _storesRepository
                                  .Get(getStoresDto);
 
-                if (result.Stores.Any())
+                if (!result.Stores.Any())
                 {
                     result.ResultTypeEnum = ResultTypeEnum.INFO;
                     result.Message = GetStoresResources.ResourceManager.GetString("Get_200_INFO_Message");

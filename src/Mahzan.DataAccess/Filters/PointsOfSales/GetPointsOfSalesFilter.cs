@@ -5,7 +5,7 @@ namespace Mahzan.DataAccess.Filters.PointsOfSales
 {
     public class GetPointsOfSalesFilter:FilterBase
     {
-        public Guid? PointOfSaleId { get; set; }
+        public Guid? PointsOfSalesId { get; set; }
 
         public string Code { get; set; }
 

@@ -56,9 +56,11 @@ namespace Mahzan.Api.Controllers.V1
         {
             GetPointsOfSalesResult result = await _pointOfSalesBusiness
                                                    .Get(new GetPointsOfSalesDto {
+                                                       PointsOfSalesId = getPointsOfSalesFilter.PointsOfSalesId,
                                                        Code = getPointsOfSalesFilter.Code,
                                                        Name = getPointsOfSalesFilter.Name,
-                                                       StoresId = getPointsOfSalesFilter.StoresId
+                                                       StoresId = getPointsOfSalesFilter.StoresId,
+                                                       MembersId = MemberId
                                                    });
 
             result.Paging = new Paging()
@@ -94,15 +96,15 @@ namespace Mahzan.Api.Controllers.V1
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete]
-        public async Task<IActionResult> Delete(Guid PointOfSaleId)
+        public async Task<IActionResult> Delete(Guid PointsOfSalesId)
         {
             DeletePointsOfSalesResult result = await _pointOfSalesBusiness
                                                       .Delete(new DeletePointsOfSalesDto
                                                       {
-                                                          PointOfSaleId = PointOfSaleId,
+                                                          PointsOfSalesId = PointsOfSalesId,
                                                           AspNetUserId = AspNetUserId,
                                                           TableAuditEnum = TableAuditEnum.POINTSOFSALES_AUDIT
-
+                                                          
                                                       });
 
             return StatusCode(result.StatusCode, result);

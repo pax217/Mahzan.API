@@ -14,7 +14,7 @@ using Mahzan.Models.Enums.Expressions;
 
 namespace Mahzan.DataAccess.Implementations
 {
-    public class StoresRepository: RepositoryBase<Stores>, IStoresRepository
+    public class StoresRepository : RepositoryBase<Stores>, IStoresRepository
     {
         public StoresRepository(MahzanDbContext repositoryContext)
             : base(repositoryContext)
@@ -62,7 +62,7 @@ namespace Mahzan.DataAccess.Implementations
                 filterExpressions.Add(new FilterExpression
                 {
                     PropertyInfo = typeof(Stores).GetProperties().First(p => p.Name == "Name"),
-                    Operator = OperationsEnum.Equals,
+                    Operator = OperationsEnum.Contains,
                     Value = getStoresDto.Name
                 });
             }
@@ -97,8 +97,8 @@ namespace Mahzan.DataAccess.Implementations
         public Stores Update(PutStoresDto putStoresDto)
         {
             Stores storesToUpdate = (from g in _context.Set<Stores>()
-                                    where g.StoresId.Equals(putStoresDto.StoreId)
-                                    select g)
+                                     where g.StoresId.Equals(putStoresDto.StoresId)
+                                     select g)
                                    .FirstOrDefault();
 
             //Cambios
@@ -125,7 +125,7 @@ namespace Mahzan.DataAccess.Implementations
 
             EntityEntry entry = _context.Entry(storesToUpdate);
             entry.State = EntityState.Modified;
-            entry.Property("Id").IsModified = false;
+            entry.Property("StoresId").IsModified = false;
 
             _context.Set<Stores>().Update(storesToUpdate);
             _context.SaveChangesAsync(putStoresDto.TableAuditEnum,
@@ -138,7 +138,7 @@ namespace Mahzan.DataAccess.Implementations
         public Stores Delete(DeleteStoresDto deleteStoresDto)
         {
             Stores storeToDelte = (from g in _context.Set<Stores>()
-                                   where g.StoresId.Equals(deleteStoresDto.StoreId)
+                                   where g.StoresId.Equals(deleteStoresDto.StoresId)
                                    select g)
                                    .FirstOrDefault();
 

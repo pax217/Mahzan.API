@@ -6,7 +6,7 @@ namespace Mahzan.Business.Requests.Stores
     public class PutStoresRequest
     {
         [Required]
-        public Guid StoreId { get; set; }
+        public Guid StoresId { get; set; }
 
         public string Code { get; set; }
 
@@ -15,7 +15,5 @@ namespace Mahzan.Business.Requests.Stores
         public string Phone { get; set; }
 
         public string Comment { get; set; }
-
-        public bool? Active { get; set; }
     }
 }
