@@ -169,7 +169,7 @@ namespace Mahzan.Models
         private void OnConfiguringProductCategories(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductCategories>()
-                        .HasKey(productCategories => new { productCategories.Id });
+                        .HasKey(productCategories => new { productCategories.ProductCategoriesId });
 
             modelBuilder.Entity<ProductCategories_Audit>()
                         .HasKey(productCategories_Audit => new { productCategories_Audit.Id });
@@ -178,7 +178,7 @@ namespace Mahzan.Models
         private void OnConfiguringProductUnits(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductUnits>()
-                        .HasKey(productUnits => new { productUnits.Id });
+                        .HasKey(productUnits => new { productUnits.ProductUnitsId });
 
             modelBuilder.Entity<ProductUnits_Audit>()
                         .HasKey(productUnits_Audit => new { productUnits_Audit.Id });

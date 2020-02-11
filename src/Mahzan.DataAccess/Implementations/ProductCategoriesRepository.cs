@@ -28,7 +28,7 @@ namespace Mahzan.DataAccess.Implementations
             {
                 Description = addProductCategoriesDto.Description,
                 Color = addProductCategoriesDto.Color,
-                MemberId = addProductCategoriesDto.MembersId
+                MembersId = addProductCategoriesDto.MembersId
             };
 
             _context.Set<ProductCategories>().Add(newProductCategories);

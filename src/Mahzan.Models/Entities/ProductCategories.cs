@@ -8,12 +8,12 @@ namespace Mahzan.Models.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid ProductCategoriesId { get; set; }
 
         public string Description { get; set; }
 
         public string Color { get; set; }
 
-        public Guid MemberId { get; set; }
+        public Guid MembersId { get; set; }
     }
 }
