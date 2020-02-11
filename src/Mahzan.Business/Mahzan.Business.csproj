@@ -297,6 +297,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PutCompaniesValidationsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\ProductCategories\GetProductCategoriesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetProductCategoriesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\ProductUnits\GetProductUnitsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetProductUnitsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -439,6 +447,12 @@
     </Compile>
     <Compile Update="Resources\Validations\Companies\PutCompaniesValidationsResources.Designer.cs">
       <DependentUpon>PutCompaniesValidationsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\ProductCategories\GetProductCategoriesResources.Designer.cs">
+      <DependentUpon>GetProductCategoriesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\ProductUnits\GetProductUnitsResources.Designer.cs">
+      <DependentUpon>GetProductUnitsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -9,5 +9,7 @@ namespace Mahzan.Business.Interfaces.Business.ProductUnits
     public interface IProductUnitsBusiness
     {
         Task<PostProductUnitsResult> Add(AddProductUnitsDto addProductUnitsDto);
+
+        Task<GetGetProductUnitsResult> Get(GetProductUnitsDto getProductUnitsDto);
     }
 }

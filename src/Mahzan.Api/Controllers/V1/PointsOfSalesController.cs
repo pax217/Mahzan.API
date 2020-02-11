@@ -42,7 +42,7 @@ namespace Mahzan.Api.Controllers.V1
                                                        Code = postPointOfSalesRequest.Code,
                                                        Name = postPointOfSalesRequest.Name,
                                                        StoresId = postPointOfSalesRequest.StoresId,
-                                                       MembersId = MemberId,
+                                                       MembersId = MembersId,
                                                        AspNetUserId = AspNetUserId,
                                                        TableAuditEnum = TableAuditEnum.POINTSOFSALES_AUDIT
                                                    });
@@ -55,12 +55,13 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Get([FromQuery] GetPointsOfSalesFilter getPointsOfSalesFilter)
         {
             GetPointsOfSalesResult result = await _pointOfSalesBusiness
-                                                   .Get(new GetPointsOfSalesDto {
+                                                   .Get(new GetPointsOfSalesDto
+                                                   {
                                                        PointsOfSalesId = getPointsOfSalesFilter.PointsOfSalesId,
                                                        Code = getPointsOfSalesFilter.Code,
                                                        Name = getPointsOfSalesFilter.Name,
                                                        StoresId = getPointsOfSalesFilter.StoresId,
-                                                       MembersId = MemberId
+                                                       MembersId = MembersId
                                                    });
 
             result.Paging = new Paging()
@@ -104,7 +105,7 @@ namespace Mahzan.Api.Controllers.V1
                                                           PointsOfSalesId = PointsOfSalesId,
                                                           AspNetUserId = AspNetUserId,
                                                           TableAuditEnum = TableAuditEnum.POINTSOFSALES_AUDIT
-                                                          
+
                                                       });
 
             return StatusCode(result.StatusCode, result);

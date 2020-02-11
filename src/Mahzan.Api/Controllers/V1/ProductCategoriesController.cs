@@ -8,6 +8,8 @@ using Mahzan.Business.Interfaces.Business.ProductCategories;
 using Mahzan.Business.Requests.ProductCategories;
 using Mahzan.Business.Results.ProductCategories;
 using Mahzan.DataAccess.DTO.ProductCategories;
+using Mahzan.DataAccess.Filters.ProductCategories;
+using Mahzan.DataAccess.Paging;
 using Mahzan.Models.Enums.Audit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +41,7 @@ namespace Mahzan.Api.Controllers.V1
                                                       {
                                                           Description = postProductCategoriesRequest.Description,
                                                           Color = postProductCategoriesRequest.Color,
-                                                          MembersId = MemberId,
+                                                          MembersId = MembersId,
                                                           AspNetUserId = AspNetUserId,
                                                           TableAuditEnum = TableAuditEnum.PRODUCT_CATEGORIES_AUDIT
                                                       });
@@ -47,5 +49,28 @@ namespace Mahzan.Api.Controllers.V1
             return StatusCode(result.StatusCode, result);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery]GetProductCategories getProductCategories)
+        {
+            GetProductCategoriesResult result = await _productCategoriesBusiness
+                                .Get(new GetProductsCategoriesDto
+                                {
+                                    Description = getProductCategories.Description,
+                                    MembersId = MembersId
+                                });
+
+            result.Paging = new Paging()
+            {
+                TotalCount = result.ProductCategories.TotalCount,
+                PageSize = result.ProductCategories.PageSize,
+                CurrentPage = result.ProductCategories.CurrentPage,
+                TotalPages = result.ProductCategories.TotalPages,
+                HasNext = result.ProductCategories.HasNext,
+                HasPrevious = result.ProductCategories.HasPrevious
+            };
+
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

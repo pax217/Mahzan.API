@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.Business.Enums.Result;
@@ -45,6 +46,43 @@ namespace Mahzan.Business.Implementations.Business.ProductCategories
                 result.ProductCategory = await _productCategoriesRepository
                                                .Add(addProductCategoriesDto);
 
+            }
+            catch (Exception ex)
+            {
+                result.IsValid = false;
+                result.StatusCode = 500;
+                result.ResultTypeEnum = ResultTypeEnum.ERROR;
+                result.Message = ex.Message;
+            }
+
+            return result;
+        }
+
+        public async Task<GetProductCategoriesResult> Get(GetProductsCategoriesDto getProductsCategoriesDto)
+        {
+            GetProductCategoriesResult result = new GetProductCategoriesResult
+            {
+                IsValid = true,
+                StatusCode = 200,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = GetProductCategoriesResources.ResourceManager.GetString("Get_Title"),
+                Message = GetProductCategoriesResources.ResourceManager.GetString("Get_200_SUCCESS_Message")
+
+            };
+
+            try
+            {
+
+                result.ProductCategories = _productCategoriesRepository
+                                            .Get(getProductsCategoriesDto);
+
+                if (!result.ProductCategories.Any())
+                {
+                    result.ResultTypeEnum = ResultTypeEnum.INFO;
+                    result.Message = GetProductCategoriesResources.ResourceManager.GetString("Get_200_INFO_Message");
+
+                    return result;
+                }
             }
             catch (Exception ex)
             {

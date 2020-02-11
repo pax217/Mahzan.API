@@ -41,7 +41,7 @@ namespace Mahzan.Api.Controllers.V1
                                                     Phone = postClientsRequest.Phone,
                                                     Notes = postClientsRequest.Notes,
                                                     AspNetUserId = AspNetUserId,
-                                                    MembersId = MemberId
+                                                    MembersId = MembersId
                                                 });
 
             return StatusCode(result.StatusCode, result);

@@ -82,19 +82,19 @@ namespace Mahzan.Api.Controllers.V1
             PostEmployeesResult result = await _employeesBusiness
                                                  .Add(new AddEmployeesDto
                                                  {
-                                                    CodeEmploye = postEmployeesRequest.CodeEmploye,
-                                                    FirstName = postEmployeesRequest.FirstName,
-                                                    SecondName = postEmployeesRequest.SecondName,
-                                                    LastName = postEmployeesRequest.LastName,
-                                                    SureName = postEmployeesRequest.SureName,
-                                                    Email = postEmployeesRequest.Email,
-                                                    Phone = postEmployeesRequest.Phone,
-                                                    Active = postEmployeesRequest.Active,
-                                                    Username = postEmployeesRequest.UserName,
-                                                    Password = postEmployeesRequest.Password,
-                                                    MemberId = MemberId,
-                                                    AspNetUserId = AspNetUserId,
-                                                    TableAuditEnum = TableAuditEnum.EMPLOYEES_AUDIT
+                                                     CodeEmploye = postEmployeesRequest.CodeEmploye,
+                                                     FirstName = postEmployeesRequest.FirstName,
+                                                     SecondName = postEmployeesRequest.SecondName,
+                                                     LastName = postEmployeesRequest.LastName,
+                                                     SureName = postEmployeesRequest.SureName,
+                                                     Email = postEmployeesRequest.Email,
+                                                     Phone = postEmployeesRequest.Phone,
+                                                     Active = postEmployeesRequest.Active,
+                                                     Username = postEmployeesRequest.UserName,
+                                                     Password = postEmployeesRequest.Password,
+                                                     MemberId = MembersId,
+                                                     AspNetUserId = AspNetUserId,
+                                                     TableAuditEnum = TableAuditEnum.EMPLOYEES_AUDIT
                                                  });
 
             //Agrega prefijo de Miembro

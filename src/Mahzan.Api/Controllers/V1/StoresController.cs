@@ -44,7 +44,7 @@ namespace Mahzan.Api.Controllers.V1
                                               Phone = addStoresRequest.Phone,
                                               Comment = addStoresRequest.Comment,
                                               CompaniesId = addStoresRequest.CompaniesId,
-                                              MembersId = MemberId,
+                                              MembersId = MembersId,
                                               AspNetUserId = AspNetUserId,
                                               TableAuditEnum = TableAuditEnum.STORES_AUDIT
                                           });
@@ -57,8 +57,9 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Get([FromQuery]GetStoresFilter getStoresFilter)
         {
             GetStoresResult result = await _storesBusiness
-                                            .Get(new GetStoresDto {
-                                                MembersId = MemberId,
+                                            .Get(new GetStoresDto
+                                            {
+                                                MembersId = MembersId,
                                                 StoresId = getStoresFilter.StoresId,
                                                 Name = getStoresFilter.Name,
                                                 CompaniesId = getStoresFilter.CompaniesId

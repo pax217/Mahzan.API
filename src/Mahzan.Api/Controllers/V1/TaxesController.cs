@@ -41,7 +41,7 @@ namespace Mahzan.Api.Controllers.V1
                                                 TaxType = postTaxesRequest.TaxType,
                                                 TaxOption = postTaxesRequest.TaxOption,
                                                 StoresIds = postTaxesRequest.StoresIds,
-                                                MembersId = MemberId,
+                                                MembersId = MembersId,
                                                 AspNetUserId = AspNetUserId
                                             });
 

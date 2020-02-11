@@ -40,6 +40,8 @@
     <Folder Include="DTO\TaxesStores\" />
     <Folder Include="DTO\ProductsTaxes\" />
     <Folder Include="Filters\Clients\" />
+    <Folder Include="Filters\ProductCategories\" />
+    <Folder Include="Filters\ProductUnits\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />

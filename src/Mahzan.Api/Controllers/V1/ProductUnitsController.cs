@@ -10,6 +10,8 @@ using Mahzan.Business.Requests.ProductUnits;
 using Mahzan.Business.Results.ProductUnits;
 using Mahzan.DataAccess.DTO.ProductCategories;
 using Mahzan.DataAccess.DTO.ProductUnits;
+using Mahzan.DataAccess.Filters.ProductUnits;
+using Mahzan.DataAccess.Paging;
 using Mahzan.Models.Enums.Audit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -42,9 +44,33 @@ namespace Mahzan.Api.Controllers.V1
                                                        Abbreviation = postProductUnitsRequest.Abbreviation,
                                                        Description = postProductUnitsRequest.Description,
                                                        AspNetUserId = AspNetUserId,
-                                                       MembersId = MemberId,
+                                                       MembersId = MembersId,
                                                        TableAuditEnum = TableAuditEnum.PRODUCT_UNITS_AUDIT
                                                     });
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery]GetProductUnits getProductUnits)
+        {
+            GetGetProductUnitsResult result = await _productUnitsBusiness
+                                .Get(new GetProductUnitsDto
+                                {
+                                    Description = getProductUnits.Description,
+                                    MembersId = MembersId
+                                });
+
+            result.Paging = new Paging()
+            {
+                TotalCount = result.ProductUnits.TotalCount,
+                PageSize = result.ProductUnits.PageSize,
+                CurrentPage = result.ProductUnits.CurrentPage,
+                TotalPages = result.ProductUnits.TotalPages,
+                HasNext = result.ProductUnits.HasNext,
+                HasPrevious = result.ProductUnits.HasPrevious
+            };
 
             return StatusCode(result.StatusCode, result);
         }

@@ -88,7 +88,7 @@ namespace Mahzan.DataAccess.Implementations
 
             EntityEntry entry = _context.Entry(groupToUpdate);
             entry.State = EntityState.Modified;
-            entry.Property("Id").IsModified = false;
+            entry.Property("GroupsId").IsModified = false;
 
             _context.Set<Groups>().Update(groupToUpdate);
             _context.SaveChangesAsync(putGroupsDto.TableAuditEnum,

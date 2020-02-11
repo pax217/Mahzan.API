@@ -67,7 +67,7 @@ namespace Mahzan.Api.Controllers.V1
                                                                                             })
                                                                                             .ToList(),
                                                    AspNetUserId = AspNetUserId,
-                                                   MembersId = MemberId,
+                                                   MembersId = MembersId,
                                                    TableAuditEnum = TableAuditEnum.PRODUCTS_AUDIT
                                                });
 
@@ -83,7 +83,7 @@ namespace Mahzan.Api.Controllers.V1
                                              .Get(new GetProductsDto
                                              {
                                                  Barcode = getProductsFilter.Barcode,
-                                                 MembersId = MemberId
+                                                 MembersId = MembersId
                                              });
 
             return StatusCode(result.StatusCode, result);

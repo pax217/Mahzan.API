@@ -44,7 +44,7 @@ namespace Mahzan.Api.Controllers.V1
                                                           EmployeeId = postEmployeesStoresRequest.EmployeeId,
                                                           Active = postEmployeesStoresRequest.Active,
                                                           AspNetUserId = AspNetUserId,
-                                                          MembersId = MemberId,
+                                                          MembersId = MembersId,
                                                           TableAuditEnum = TableAuditEnum.EMPLOYEES_STORES_AUDIT
                                                       });
 

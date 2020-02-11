@@ -42,7 +42,7 @@ namespace Mahzan.Api.Controllers.V1
                                             .Add(new AddGroupsDto()
                                             {
                                                 Name = addGroupsRequest.Name,
-                                                MembersId = MemberId,
+                                                MembersId = MembersId,
                                                 AspNetUserId = AspNetUserId,
                                                 TableAuditEnum = TableAuditEnum.GROUPS_AUDIT,
                                             });
@@ -58,7 +58,7 @@ namespace Mahzan.Api.Controllers.V1
                                             .Get(new GetGroupsDto {
                                                 GroupsId = getGroupFilter.GroupsId,
                                                 Name = getGroupFilter.Name,
-                                                MembersId = MemberId
+                                                MembersId = MembersId
                                             });
 
             result.Paging = new Paging()

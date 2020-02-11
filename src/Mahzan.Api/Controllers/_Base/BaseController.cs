@@ -28,7 +28,7 @@ namespace Mahzan.Api.Controllers._Base
             }
         }
 
-        public Guid MemberId
+        public Guid MembersId
         {
             get
             {

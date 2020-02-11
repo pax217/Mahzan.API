@@ -42,7 +42,7 @@ namespace Mahzan.Api.Controllers.V1
                                                    CommercialName = postCompaniesRequest.CommercialName,
                                                    BusinessName = postCompaniesRequest.BusinessName,
                                                    GroupsId = postCompaniesRequest.GroupsId,
-                                                   MembersId = MemberId,
+                                                   MembersId = MembersId,
                                                    AspNetUserId = AspNetUserId,
                                                    TableAuditEnum = TableAuditEnum.COMPANIES_AUDIT
                                                });
@@ -55,8 +55,9 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Get([FromQuery] GetCompaniesFilter getCompaniesFilter)
         {
             GetCompaniesResult result = await _companiesBusiness
-                                               .Get(new GetCompaniesDto {
-                                                   MembersId = MemberId,
+                                               .Get(new GetCompaniesDto
+                                               {
+                                                   MembersId = MembersId,
                                                    CompaniesId = getCompaniesFilter.CompaniesId,
                                                    BusinessName = getCompaniesFilter.BusinessName
                                                });
