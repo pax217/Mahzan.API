@@ -32,16 +32,16 @@ namespace Mahzan.Business.Implementations.Validations.Products
             };
 
             //Valida el códido de barras
-            if (_productsRepository.Get( x=> x.MembersId == addProductsDto.MembersId
-                                          && x.Barcode == addProductsDto.Barcode).Any())
-            {
-                result.IsValid = false;
-                result.StatusCode = 500;
-                result.ResultTypeEnum = ResultTypeEnum.WARNING;
-                result.Message = AddProductsValidationsResources.ResourceManager.GetString("AddProductsValid_500_WARNING_Message_Barcode");
+            //if (_productsRepository.Get( x=> x.MembersId == addProductsDto.MembersId
+            //                              && x.Barcode == addProductsDto.Barcode).Any())
+            //{
+            //    result.IsValid = false;
+            //    result.StatusCode = 500;
+            //    result.ResultTypeEnum = ResultTypeEnum.WARNING;
+            //    result.Message = AddProductsValidationsResources.ResourceManager.GetString("AddProductsValid_500_WARNING_Message_Barcode");
 
-                return result;
-            }
+            //    return result;
+            //}
 
             //Todo:Validar si se sigue en el inventario que postProductsStoreRequest contenga datos
 

@@ -8,7 +8,7 @@ namespace Mahzan.Models.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid ProductsPhotosId { get; set; }
 
         public string Title { get; set; }
 
@@ -18,8 +18,6 @@ namespace Mahzan.Models.Entities
 
         public string Base64 { get; set; }
 
-        public bool Active { get; set; }
-
-        public Guid ProductId { get; set; }
+        public Guid ProductsId { get; set; }
     }
 }

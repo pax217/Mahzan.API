@@ -7,5 +7,7 @@ namespace Mahzan.Business.Results.Products
     public class GetProductsResult: Result 
     {
         public PagedList<Models.Entities.Products> Products { get; set; }
+
+        public Paging Paging { get; set; }
     }
 }

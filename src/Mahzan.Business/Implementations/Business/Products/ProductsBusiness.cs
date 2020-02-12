@@ -24,6 +24,7 @@ namespace Mahzan.Business.Implementations.Business.Products
         readonly IProductsStoreRepository _productsStoreRepository;
         readonly IProductsTaxesRepository _productsTaxesRepository;
         readonly IStoresRepository _storesRepository;
+        readonly IProductsPhotosRepository _productsPhotosRepository;
 
         //Validations
         readonly IAddProductsValidations _addProductsValidations;
@@ -41,6 +42,7 @@ namespace Mahzan.Business.Implementations.Business.Products
             IProductsTaxesRepository productsTaxesRepository,
             IStoresRepository storesRepository,
             IAddProductsValidations addProductsValidations,
+            IProductsPhotosRepository productsPhotosRepository,
             IMapper mapper)
         {
 
@@ -49,6 +51,7 @@ namespace Mahzan.Business.Implementations.Business.Products
             _productsStoreRepository = productsStoreRepository;
             _productsTaxesRepository = productsTaxesRepository;
             _storesRepository = storesRepository;
+            _productsPhotosRepository = productsPhotosRepository;
 
             //Validations
             _addProductsValidations = addProductsValidations;
@@ -84,14 +87,26 @@ namespace Mahzan.Business.Implementations.Business.Products
                 }
 
                 //Agrega Producto
-                Models.Entities.Products addedProduct = await AddProduct(addProductsDto);
+                Models.Entities.Products addedProduct =  _productsRepository
+                                                         .Add(addProductsDto);
+
+                if (addedProduct!=null)
+                {
+                    //Agrega Imagen de Producto
+
+                    addProductsDto.AddProductPhotoDto.ProductsId = addedProduct.ProductsId;
+
+                    AddProductPhoto(addProductsDto.AddProductPhotoDto);
+                }
+
+
 
                 //Agrega Impuesto a Producto
-                AddProductsTaxes(addedProduct,
-                                 addProductsDto);
+                //AddProductsTaxes(addedProduct,
+                                 //addProductsDto);
 
                 //Agrega el Producto a seguimiento de Inventario
-                AddProductsStore(addedProduct, addProductsDto);
+                //AddProductsStore(addedProduct, addProductsDto);
 
             }
             catch (Exception ex)
@@ -155,59 +170,101 @@ namespace Mahzan.Business.Implementations.Business.Products
 
         #region Private Methods
 
-        private async Task<Models.Entities.Products> AddProduct(AddProductsDto addProductsDto)
-        {
-            //Agrega el Producto
-            return _productsRepository
-                    .Add(addProductsDto);
-        }
+        //private async Task<Models.Entities.Products> AddProduct(AddProductsDto addProductsDto)
+        //{
+        //    //Agrega el Producto
+        //    return _productsRepository
+        //            .Add(addProductsDto);
+        //}
 
         private void AddProductsStore(
             Models.Entities.Products addedProduct,
             AddProductsDto addProductsDto)
         {
 
-            if (addProductsDto.AvailableInAllStores)
-            {
-                List<Models.Entities.Stores> Stores = _storesRepository
-                                                       .Get(x => x.MembersId == addProductsDto.MembersId);
+            //if (addProductsDto.AvailableInAllStores)
+            //{
+            //    List<Models.Entities.Stores> Stores = _storesRepository
+            //                                           .Get(x => x.MembersId == addProductsDto.MembersId);
 
-                foreach (var store in Stores)
-                {
-                    _productsStoreRepository.Add(new AddProductsStoreDto
-                    {
-                        Price = addProductsDto.Price.Value,
-                        StoresId = store.StoresId,
-                        ProductsId = addedProduct.ProductsId
-                    });
-                }
+            //    foreach (var store in Stores)
+            //    {
+            //        _productsStoreRepository.Add(new AddProductsStoreDto
+            //        {
+            //            Price = addProductsDto.Price.Value,
+            //            StoresId = store.StoresId,
+            //            ProductsId = addedProduct.ProductsId
+            //        });
+            //    }
 
-            }
-            else
-            {
-                foreach (var addProductStoreDto in addProductsDto.AddProductsStoreDto)
-                {
-                    addProductStoreDto.ProductsId = addedProduct.ProductsId;
+            //}
+            //else
+            //{
+            //    foreach (var addProductStoreDto in addProductsDto.AddProductsStoreDto)
+            //    {
+            //        addProductStoreDto.ProductsId = addedProduct.ProductsId;
 
-                    _productsStoreRepository.Add(addProductStoreDto);
-                }
-            }
+            //        _productsStoreRepository.Add(addProductStoreDto);
+            //    }
+            //}
 
         }
 
         private void AddProductsTaxes(Models.Entities.Products addedProduct,
                                       AddProductsDto addProductsDto)
         {
-            foreach (var tax in addProductsDto.TaxesIds)
-            {
-                _productsTaxesRepository.Add(new AddProductsTaxesDto
-                {
-                    ProductsId = addedProduct.ProductsId,
-                    TaxesId = tax,
-                    MembersId = addProductsDto.MembersId
-                }); ;
+            //foreach (var tax in addProductsDto.TaxesIds)
+            //{
+            //    _productsTaxesRepository.Add(new AddProductsTaxesDto
+            //    {
+            //        ProductsId = addedProduct.ProductsId,
+            //        TaxesId = tax,
+            //        MembersId = addProductsDto.MembersId
+            //    }); ;
                   
+            //}
+        }
+
+        private void AddProductPhoto(AddProductPhotoDto addProductPhotoDto)
+        {
+            _productsPhotosRepository.Add(new Models.Entities.ProductsPhotos
+            {
+                Title = addProductPhotoDto.Title,
+                DateTime = DateTime.Now,
+                MIMEType = addProductPhotoDto.MIMEType,
+                Base64 = addProductPhotoDto.Base64,
+                ProductsId = addProductPhotoDto.ProductsId
+            });
+                  
+        }
+
+        public async Task<DeleteProductsResult> Delete(DeleteProductsDto deleteProductsDto)
+        {
+            DeleteProductsResult result = new DeleteProductsResult
+            {
+                IsValid = true,
+                StatusCode = 200,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = DeleteProductsResources.ResourceManager.GetString("Delete_Title"),
+                Message = DeleteProductsResources.ResourceManager.GetString("Delete_200_SUCCESS_Message")
+
+            };
+
+            try
+            {
+                _productsRepository
+                .Delete(deleteProductsDto);
+
             }
+            catch (Exception ex)
+            {
+                result.IsValid = false;
+                result.StatusCode = 500;
+                result.ResultTypeEnum = ResultTypeEnum.ERROR;
+                result.Message = ex.Message;
+            }
+
+            return result;
         }
 
         #endregion

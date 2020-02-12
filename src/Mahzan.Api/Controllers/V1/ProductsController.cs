@@ -7,11 +7,13 @@ using Mahzan.Api.Controllers._Base;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Business.Products;
 using Mahzan.Business.Requests.Products;
+using Mahzan.Business.Requests.Products.Post;
 using Mahzan.Business.Requests.Products_Store;
 using Mahzan.Business.Results.Products;
 using Mahzan.DataAccess.DTO.Products;
 using Mahzan.DataAccess.DTO.ProductsStore;
 using Mahzan.DataAccess.Filters.Products;
+using Mahzan.DataAccess.Paging;
 using Mahzan.Models.Enums.Audit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -46,26 +48,23 @@ namespace Mahzan.Api.Controllers.V1
             PostProductsResult result = await _productsBusiness
                                                .Add(new AddProductsDto
                                                {
-                                                   SKU = postProductsRequest.SKU,
-                                                   Barcode = postProductsRequest.Barcode,
-                                                   Description = postProductsRequest.Description,
-                                                   Price = postProductsRequest.Price,
-                                                   ProductCategoriesId = postProductsRequest.ProductCategoriesId,
-                                                   ProductUnitsId = postProductsRequest.ProductUnitsId,
-                                                   FollowInventory = postProductsRequest.FollowInventory,
-                                                   AvailableInAllStores = postProductsRequest.AvailableInAllStores,
-                                                   TaxesIds = postProductsRequest.TaxesIds,
-                                                   AddProductsStoreDto = postProductsRequest.PostProductsStoreRequest
-                                                                                            .Select(p => new AddProductsStoreDto
-                                                                                            {
-                                                                                                Price = p.Price,
-                                                                                                Cost = postProductsRequest.FollowInventory ? p.Cost : null,
-                                                                                                InStock = postProductsRequest.FollowInventory ? p.InStock : null,
-                                                                                                LowStock = postProductsRequest.FollowInventory ? p.LowStock : null,
-                                                                                                OptimumStock = postProductsRequest.FollowInventory ? p.OptimumStock : null,
-                                                                                                StoresId = p.StoresId
-                                                                                            })
-                                                                                            .ToList(),
+                                                   AddProductPhotoDto = new AddProductPhotoDto
+                                                   {
+                                                       Title = postProductsRequest.PostProductPhotoRequest.Title,
+                                                       DateTime = DateTime.Now,
+                                                       MIMEType = postProductsRequest.PostProductPhotoRequest.MIMEType,
+                                                       Base64 = postProductsRequest.PostProductPhotoRequest.Base64
+                                                   },
+                                                   AddProductDetailDto = new AddProductDetailDto
+                                                   {
+                                                       ProductCategoriesId = postProductsRequest.PostProductDetailRequest.ProductCategoriesId,
+                                                       ProductUnitsId = postProductsRequest.PostProductDetailRequest.ProductUnitsId,
+                                                       SKU = postProductsRequest.PostProductDetailRequest.SKU,
+                                                       Barcode = postProductsRequest.PostProductDetailRequest.Barcode,
+                                                       Description = postProductsRequest.PostProductDetailRequest.Description,
+                                                       Price = postProductsRequest.PostProductDetailRequest.Price,
+                                                       Cost = postProductsRequest.PostProductDetailRequest.Cost
+                                                   },
                                                    AspNetUserId = AspNetUserId,
                                                    MembersId = MembersId,
                                                    TableAuditEnum = TableAuditEnum.PRODUCTS_AUDIT
@@ -82,9 +81,35 @@ namespace Mahzan.Api.Controllers.V1
             GetProductsResult result = await _productsBusiness
                                              .Get(new GetProductsDto
                                              {
+                                                 ProductsId = getProductsFilter.ProductsId,
                                                  Barcode = getProductsFilter.Barcode,
                                                  MembersId = MembersId
                                              });
+
+            result.Paging = new Paging()
+            {
+                TotalCount = result.Products.TotalCount,
+                PageSize = result.Products.PageSize,
+                CurrentPage = result.Products.CurrentPage,
+                TotalPages = result.Products.TotalPages,
+                HasNext = result.Products.HasNext,
+                HasPrevious = result.Products.HasPrevious
+            };
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(Guid productsId)
+        {
+            DeleteProductsResult result = await _productsBusiness
+                                               .Delete(new DeleteProductsDto()
+                                               {
+                                                   ProductsId = productsId,
+                                                   AspNetUserId = AspNetUserId,
+                                                   TableAuditEnum = TableAuditEnum.GROUPS_AUDIT
+                                               });
 
             return StatusCode(result.StatusCode, result);
         }

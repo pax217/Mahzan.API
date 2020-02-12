@@ -14,6 +14,6 @@ namespace Mahzan.Business.Interfaces.Business.Products
 
         Task<PutProductsResult> Update(PutProductsDto putProductsDto);
 
-        Task<DeleteProductsResult> Update(DeleteProductsDto deleteProductsDto);
+        Task<DeleteProductsResult> Delete(DeleteProductsDto deleteProductsDto);
     }
 }

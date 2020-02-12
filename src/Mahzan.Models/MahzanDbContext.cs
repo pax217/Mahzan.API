@@ -275,7 +275,7 @@ namespace Mahzan.Models
         private void OnConfiguringProductsPhotos(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductsPhotos>()
-                        .HasKey(productsPhotos => new { productsPhotos.Id });
+                        .HasKey(productsPhotos => new { productsPhotos.ProductsPhotosId });
 
         }
 

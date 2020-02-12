@@ -11,5 +11,9 @@ namespace Mahzan.Business.Interfaces.Business.ProductUnits
         Task<PostProductUnitsResult> Add(AddProductUnitsDto addProductUnitsDto);
 
         Task<GetGetProductUnitsResult> Get(GetProductUnitsDto getProductUnitsDto);
+
+        Task<PutProductUnitsResult> Put(PutProductUnitsDto putProductUnitsDto);
+
+        Task<DeleteProductUnitsResult> Delete(DeleteProductUnitsDto deleteProductUnitsDto);
     }
 }

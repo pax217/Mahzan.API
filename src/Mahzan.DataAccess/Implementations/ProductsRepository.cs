@@ -10,6 +10,7 @@ using Mahzan.Models;
 using Mahzan.Models.Entities;
 using Mahzan.Models.Enums.Expressions;
 using Mahzan.Models.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -27,10 +28,16 @@ namespace Mahzan.DataAccess.Implementations
 
         public Products Add(AddProductsDto addProductsDto)
         {
-            Products newProduct = null;
-
-            newProduct = _mapper.Map<Products>(addProductsDto);
-
+            Products newProduct = new Products {
+                ProductCategoriesId  = addProductsDto.AddProductDetailDto.ProductCategoriesId,
+                ProductUnitsId = addProductsDto.AddProductDetailDto.ProductUnitsId,
+                SKU = addProductsDto.AddProductDetailDto.SKU,
+                Barcode = addProductsDto.AddProductDetailDto.Barcode,
+                Description = addProductsDto.AddProductDetailDto.Description,
+                Price = addProductsDto.AddProductDetailDto.Price,
+                Cost = addProductsDto.AddProductDetailDto.Cost,
+                MembersId = addProductsDto.MembersId
+            };
 
             _context.Set<Products>().Add(newProduct);
             _context.SaveChanges();
@@ -40,7 +47,16 @@ namespace Mahzan.DataAccess.Implementations
 
         public Products Delete(DeleteProductsDto deleteProductsDto)
         {
-            throw new NotImplementedException();
+            Products productToDelte = (from g in _context.Set<Products>()
+                                   where g.ProductsId.Equals(deleteProductsDto.ProductsId)
+                                   select g)
+                                    .FirstOrDefault();
+
+            _context.Set<Products>().Remove(productToDelte);
+            _context.SaveChangesAsync(deleteProductsDto.TableAuditEnum,
+                                      deleteProductsDto.AspNetUserId);
+
+            return productToDelte;
         }
 
         public PagedList<Products> Get(GetProductsDto getProductsDto)
@@ -58,6 +74,16 @@ namespace Mahzan.DataAccess.Implementations
                 });
             }
 
+            if (getProductsDto.ProductsId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Products).GetProperties().First(p => p.Name == "ProductsId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getProductsDto.ProductsId
+                });
+            }
+
             if (getProductsDto.Barcode != null)
             {
                 filterExpressions.Add(new FilterExpression
@@ -72,11 +98,15 @@ namespace Mahzan.DataAccess.Implementations
             {
                 var deleg = ExpressionBuilder.GetExpression<Products>(filterExpressions).Compile();
 
-                result = _context.Set<Products>().Where(deleg).ToList();
+                result = _context.Set<Products>()
+                                 .Include(pp => pp.ProductsPhotos)
+                                 .Where(deleg).ToList();
             }
             else
             {
-                result = _context.Set<Products>().ToList();
+                result = _context.Set<Products>()
+                                 .Include(pp => pp.ProductsPhotos)
+                                 .ToList();
             }
 
             return PagedList<Products>.ToPagedList(result,

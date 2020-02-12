@@ -115,6 +115,7 @@
     <Folder Include="Implementations\Validations\Taxes\" />
     <Folder Include="Resources\Validations\Taxes\" />
     <Folder Include="Results\ProductsTaxes\" />
+    <Folder Include="Requests\Products\Post\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
@@ -305,6 +306,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GetProductUnitsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Products\DeleteProductsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeleteProductsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -453,6 +458,9 @@
     </Compile>
     <Compile Update="Resources\Business\ProductUnits\GetProductUnitsResources.Designer.cs">
       <DependentUpon>GetProductUnitsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Products\DeleteProductsResources.Designer.cs">
+      <DependentUpon>DeleteProductsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

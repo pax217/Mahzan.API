@@ -56,6 +56,11 @@ namespace Mahzan.Business.Implementations.Business.ProductUnits
             return result;
         }
 
+        public Task<DeleteProductUnitsResult> Delete(DeleteProductUnitsDto deleteProductUnitsDto)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<GetGetProductUnitsResult> Get(GetProductUnitsDto getProductUnitsDto)
         {
             GetGetProductUnitsResult result = new GetGetProductUnitsResult
@@ -91,6 +96,11 @@ namespace Mahzan.Business.Implementations.Business.ProductUnits
             }
 
             return result;
+        }
+
+        public Task<PutProductUnitsResult> Put(PutProductUnitsDto putProductUnitsDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

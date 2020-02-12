@@ -63,13 +63,13 @@ namespace Mahzan.Business.Mapping
 
 
             #region Products
-            CreateMap<AddProductsDto, Products>()
-                .ForMember(dest => dest.MembersId,
-                           opt => opt.MapFrom(src => src.MembersId))
-                .ForMember(dest => dest.ProductCategoriesId,
-                           opt => opt.MapFrom(src => src.ProductCategoriesId))
-                .ForMember(dest => dest.ProductUnitsId,
-                           opt => opt.MapFrom(src => src.ProductUnitsId));
+            //CreateMap<AddProductsDto, Products>()
+            //    .ForMember(dest => dest.MembersId,
+            //               opt => opt.MapFrom(src => src.MembersId))
+            //    .ForMember(dest => dest.ProductCategoriesId,
+            //               opt => opt.MapFrom(src => src.ProductCategoriesId))
+            //    .ForMember(dest => dest.ProductUnitsId,
+            //               opt => opt.MapFrom(src => src.ProductUnitsId));
             #endregion
 
             #region Products Units

@@ -74,5 +74,37 @@ namespace Mahzan.Api.Controllers.V1
 
             return StatusCode(result.StatusCode, result);
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPut]
+        public async Task<IActionResult> Put(PutProductUnitsRequest putProductUnitsRequest)
+        {
+            PutProductUnitsResult result = await _productUnitsBusiness
+                                            .Put(new PutProductUnitsDto()
+                                            {
+                                                ProductUnitsId = putProductUnitsRequest.ProductUnitsId,
+                                                Abbreviation = putProductUnitsRequest.Abbreviation,
+                                                Description = putProductUnitsRequest.Description,
+                                                AspNetUserId = AspNetUserId,
+                                                TableAuditEnum = TableAuditEnum.GROUPS_AUDIT
+                                            });
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(Guid ProductUnitsId)
+        {
+            DeleteProductUnitsResult result = await _productUnitsBusiness
+                                               .Delete(new DeleteProductUnitsDto()
+                                               {
+                                                   ProductUnitsId = ProductUnitsId,
+                                                   AspNetUserId = AspNetUserId,
+                                                   TableAuditEnum = TableAuditEnum.GROUPS_AUDIT
+                                               });
+
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

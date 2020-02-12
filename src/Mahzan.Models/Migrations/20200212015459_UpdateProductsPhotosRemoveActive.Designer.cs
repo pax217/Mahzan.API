@@ -4,14 +4,16 @@ using Mahzan.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    partial class MahzanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200212015459_UpdateProductsPhotosRemoveActive")]
+    partial class UpdateProductsPhotosRemoveActive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -597,9 +599,6 @@ namespace Mahzan.Models.Migrations
                     b.Property<string>("Barcode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Cost")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -609,10 +608,7 @@ namespace Mahzan.Models.Migrations
                     b.Property<Guid>("MembersId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("ProductCategoriesId")
+                    b.Property<Guid>("ProductCategoriesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductUnitsId")
@@ -654,9 +650,6 @@ namespace Mahzan.Models.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductsPhotosId");
-
-                    b.HasIndex("ProductsId")
-                        .IsUnique();
 
                     b.ToTable("ProductsPhotos");
                 });
@@ -975,20 +968,13 @@ namespace Mahzan.Models.Migrations
 
                     b.HasOne("Mahzan.Models.Entities.ProductCategories", "ProductCategories")
                         .WithMany()
-                        .HasForeignKey("ProductCategoriesId");
+                        .HasForeignKey("ProductCategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Mahzan.Models.Entities.ProductUnits", "ProductUnits")
                         .WithMany()
                         .HasForeignKey("ProductUnitsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Mahzan.Models.Entities.ProductsPhotos", b =>
-                {
-                    b.HasOne("Mahzan.Models.Entities.Products", null)
-                        .WithOne("ProductsPhotos")
-                        .HasForeignKey("Mahzan.Models.Entities.ProductsPhotos", "ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
