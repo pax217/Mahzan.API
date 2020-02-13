@@ -56,9 +56,32 @@ namespace Mahzan.Business.Implementations.Business.ProductUnits
             return result;
         }
 
-        public Task<DeleteProductUnitsResult> Delete(DeleteProductUnitsDto deleteProductUnitsDto)
+        public async Task<DeleteProductUnitsResult> Delete(DeleteProductUnitsDto deleteProductUnitsDto)
         {
-            throw new NotImplementedException();
+            DeleteProductUnitsResult result = new DeleteProductUnitsResult
+            {
+                IsValid = true,
+                StatusCode = 200,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = DeleteProductUnitsResources.ResourceManager.GetString("Delete_Title"),
+                Message = DeleteProductUnitsResources.ResourceManager.GetString("Delete_200_SUCCESS_Message")
+
+            };
+
+            try
+            {
+                result.ProductUnits = await _productUnitsRepository
+                                            .Delete(deleteProductUnitsDto);
+            }
+            catch (Exception ex)
+            {
+                result.IsValid = false;
+                result.StatusCode = 500;
+                result.ResultTypeEnum = ResultTypeEnum.ERROR;
+                result.Message = ex.Message;
+            }
+
+            return result;
         }
 
         public async Task<GetGetProductUnitsResult> Get(GetProductUnitsDto getProductUnitsDto)
@@ -98,9 +121,35 @@ namespace Mahzan.Business.Implementations.Business.ProductUnits
             return result;
         }
 
-        public Task<PutProductUnitsResult> Put(PutProductUnitsDto putProductUnitsDto)
+        public async Task<PutProductUnitsResult> Put(PutProductUnitsDto putProductUnitsDto)
         {
-            throw new NotImplementedException();
+            PutProductUnitsResult result = new PutProductUnitsResult
+            {
+                IsValid = true,
+                StatusCode = 200,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = PutProductUnitsResources.ResourceManager.GetString("Put_Title"),
+                Message = PutProductUnitsResources.ResourceManager.GetString("Put_200_SUCCESS_Message")
+
+            };
+
+            try
+            {
+                //Validaciones al actualizar
+
+                //Actualiza
+                result.ProductUnits = await _productUnitsRepository
+                                            .Update(putProductUnitsDto);
+            }
+            catch (Exception ex)
+            {
+                result.IsValid = false;
+                result.StatusCode = 500;
+                result.ResultTypeEnum = ResultTypeEnum.ERROR;
+                result.Message = ex.Message;
+            }
+
+            return result;
         }
     }
 }

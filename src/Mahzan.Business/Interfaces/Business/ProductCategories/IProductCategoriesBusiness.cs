@@ -10,5 +10,10 @@ namespace Mahzan.Business.Interfaces.Business.ProductCategories
         Task<PostProductCategoriesResult> Add(AddProductCategoriesDto addProductCategoriesDto);
 
         Task<GetProductCategoriesResult> Get(GetProductsCategoriesDto getProductsCategoriesDto);
+
+        Task<PutProductCategoriesResult> Put(PutProductCategoriesDto putProductCategoriesDto);
+
+        Task<DeleteProductCategoriesResult> Delete(DeleteProductsCategoriesDto deleteProductsCategoriesDto);
+
     }
 }

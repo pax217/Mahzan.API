@@ -11,5 +11,9 @@ namespace Mahzan.DataAccess.Interfaces
         Task<ProductUnits> Add(AddProductUnitsDto addProductUnitsDto);
 
         PagedList<ProductUnits> Get(GetProductUnitsDto getProductUnitsDto);
+
+        Task<ProductUnits> Delete(DeleteProductUnitsDto deleteProductUnitsDto);
+
+        Task<ProductUnits> Update(PutProductUnitsDto putProductUnitsDto);
     }
 }

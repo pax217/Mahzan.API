@@ -5,6 +5,7 @@ namespace Mahzan.DataAccess.DTO.ProductUnits
 {
     public class GetProductUnitsDto:BaseDto
     {
+        public Guid? ProductUnitsId { get; set; }
         public string Description { get; set; }
     }
 }

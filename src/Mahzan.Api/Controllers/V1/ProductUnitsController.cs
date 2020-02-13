@@ -58,6 +58,7 @@ namespace Mahzan.Api.Controllers.V1
             GetGetProductUnitsResult result = await _productUnitsBusiness
                                 .Get(new GetProductUnitsDto
                                 {
+                                    ProductUnitsId = getProductUnits.ProductUnitsId,
                                     Description = getProductUnits.Description,
                                     MembersId = MembersId
                                 });

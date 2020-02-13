@@ -37,6 +37,20 @@ namespace Mahzan.DataAccess.Implementations
             return newProductCategories;
         }
 
+        public async Task<ProductCategories> Delete(DeleteProductsCategoriesDto deleteProductsCategoriesDto)
+        {
+            ProductCategories productCategoriesToDelte = (from g in _context.Set<ProductCategories>()
+                                                where g.ProductCategoriesId.Equals(deleteProductsCategoriesDto.ProductCategoriesId)
+                                                select g)
+                                    .FirstOrDefault();
+
+            _context.Set<ProductCategories>().Remove(productCategoriesToDelte);
+            _context.SaveChangesAsync(deleteProductsCategoriesDto.TableAuditEnum,
+                                      deleteProductsCategoriesDto.AspNetUserId);
+
+            return productCategoriesToDelte;
+        }
+
         public  PagedList<ProductCategories> Get(GetProductsCategoriesDto getProductsCategoriesDto)
         {
             List<ProductCategories> result = null;
@@ -52,12 +66,22 @@ namespace Mahzan.DataAccess.Implementations
                 });
             }
 
+            if (getProductsCategoriesDto.ProductCategoriesId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(ProductCategories).GetProperties().First(p => p.Name == "ProductCategoriesId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getProductsCategoriesDto.ProductCategoriesId
+                });
+            }
+
             if (getProductsCategoriesDto.Description != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
                     PropertyInfo = typeof(ProductCategories).GetProperties().First(p => p.Name == "Description"),
-                    Operator = OperationsEnum.Equals,
+                    Operator = OperationsEnum.Contains,
                     Value = getProductsCategoriesDto.Description
                 });
             }
@@ -76,6 +100,36 @@ namespace Mahzan.DataAccess.Implementations
             return PagedList<ProductCategories>.ToPagedList(result,
                                                  getProductsCategoriesDto.PageNumber,
                                                  getProductsCategoriesDto.PageSize);
+        }
+
+        public async Task<ProductCategories> Update(PutProductCategoriesDto putProductCategoriesDto)
+        {
+            ProductCategories productCategoriesToUpdate = (from g in _context.Set<ProductCategories>()
+                                                 where g.ProductCategoriesId.Equals(putProductCategoriesDto.ProductCategoriesId)
+                                                 select g)
+                                               .FirstOrDefault();
+
+            //Description
+            if (putProductCategoriesDto.Description != null)
+            {
+                productCategoriesToUpdate.Description = putProductCategoriesDto.Description;
+            }
+
+            //Color
+            if (putProductCategoriesDto.Color != null)
+            {
+                productCategoriesToUpdate.Color = putProductCategoriesDto.Color;
+            }
+
+            EntityEntry entry = _context.Entry(productCategoriesToUpdate);
+            entry.State = EntityState.Modified;
+            entry.Property("ProductCategoriesId").IsModified = false;
+
+            _context.Set<ProductCategories>().Update(productCategoriesToUpdate);
+            _context.SaveChangesAsync(putProductCategoriesDto.TableAuditEnum,
+                                      putProductCategoriesDto.AspNetUserId);
+
+            return productCategoriesToUpdate;
         }
     }
 }

@@ -56,6 +56,7 @@ namespace Mahzan.Api.Controllers.V1
             GetProductCategoriesResult result = await _productCategoriesBusiness
                                 .Get(new GetProductsCategoriesDto
                                 {
+                                    ProductCategoriesId = getProductCategories.ProductCategoriesId,
                                     Description = getProductCategories.Description,
                                     MembersId = MembersId
                                 });
@@ -69,6 +70,38 @@ namespace Mahzan.Api.Controllers.V1
                 HasNext = result.ProductCategories.HasNext,
                 HasPrevious = result.ProductCategories.HasPrevious
             };
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPut]
+        public async Task<IActionResult> Put(PutProductCategoriesRequest putProductCategoriesRequest)
+        {
+            PutProductCategoriesResult result = await _productCategoriesBusiness
+                                            .Put(new PutProductCategoriesDto()
+                                            {
+                                                ProductCategoriesId = putProductCategoriesRequest.ProductCategoriesId,
+                                                Description = putProductCategoriesRequest.Description,
+                                                Color = putProductCategoriesRequest.Color,
+                                                AspNetUserId = AspNetUserId,
+                                                TableAuditEnum = TableAuditEnum.GROUPS_AUDIT
+                                            });
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(Guid productCategoriesId)
+        {
+            DeleteProductCategoriesResult result = await _productCategoriesBusiness
+                                               .Delete(new DeleteProductsCategoriesDto()
+                                               {
+                                                   ProductCategoriesId = productCategoriesId,
+                                                   AspNetUserId = AspNetUserId,
+                                                   TableAuditEnum = TableAuditEnum.GROUPS_AUDIT
+                                               });
 
             return StatusCode(result.StatusCode, result);
         }

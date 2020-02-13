@@ -310,6 +310,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DeleteProductsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\ProductUnits\DeleteProductUnitsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeleteProductUnitsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\ProductUnits\PutProductUnitsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PutProductUnitsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\ProductCategories\DeleteProductCategoriesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeleteProductCategoriesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\ProductCategories\PutProductCategoriesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PutProductCategoriesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -461,6 +477,18 @@
     </Compile>
     <Compile Update="Resources\Business\Products\DeleteProductsResources.Designer.cs">
       <DependentUpon>DeleteProductsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\ProductUnits\DeleteProductUnitsResources.Designer.cs">
+      <DependentUpon>DeleteProductUnitsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\ProductUnits\PutProductUnitsResources.Designer.cs">
+      <DependentUpon>PutProductUnitsResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\ProductCategories\DeleteProductCategoriesResources.Designer.cs">
+      <DependentUpon>DeleteProductCategoriesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\ProductCategories\PutProductCategoriesResources.Designer.cs">
+      <DependentUpon>PutProductCategoriesResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

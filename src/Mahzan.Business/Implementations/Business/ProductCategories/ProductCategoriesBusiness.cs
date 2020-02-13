@@ -58,6 +58,35 @@ namespace Mahzan.Business.Implementations.Business.ProductCategories
             return result;
         }
 
+        public async Task<DeleteProductCategoriesResult> Delete(DeleteProductsCategoriesDto deleteProductsCategoriesDto)
+        {
+            DeleteProductCategoriesResult result = new DeleteProductCategoriesResult
+            {
+                IsValid = true,
+                StatusCode = 200,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = DeleteProductCategoriesResources.ResourceManager.GetString("Delete_"),
+                Message = DeleteProductCategoriesResources.ResourceManager.GetString("Delete_200_SUCCESS_Message")
+
+            };
+
+            try
+            {
+
+                result.ProductCategories = await _productCategoriesRepository
+                                                .Delete(deleteProductsCategoriesDto);
+            }
+            catch (Exception ex)
+            {
+                result.IsValid = false;
+                result.StatusCode = 500;
+                result.ResultTypeEnum = ResultTypeEnum.ERROR;
+                result.Message = ex.Message;
+            }
+
+            return result;
+        }
+
         public async Task<GetProductCategoriesResult> Get(GetProductsCategoriesDto getProductsCategoriesDto)
         {
             GetProductCategoriesResult result = new GetProductCategoriesResult
@@ -83,6 +112,35 @@ namespace Mahzan.Business.Implementations.Business.ProductCategories
 
                     return result;
                 }
+            }
+            catch (Exception ex)
+            {
+                result.IsValid = false;
+                result.StatusCode = 500;
+                result.ResultTypeEnum = ResultTypeEnum.ERROR;
+                result.Message = ex.Message;
+            }
+
+            return result;
+        }
+
+        public async Task<PutProductCategoriesResult> Put(PutProductCategoriesDto putProductCategoriesDto)
+        {
+            PutProductCategoriesResult result = new PutProductCategoriesResult
+            {
+                IsValid = true,
+                StatusCode = 200,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = PutProductCategoriesResources.ResourceManager.GetString("Put_Title"),
+                Message = PutProductCategoriesResources.ResourceManager.GetString("Put_200_SUCCESS_Message")
+
+            };
+
+            try
+            {
+
+                result.ProductCategories = await _productCategoriesRepository
+                                                 .Update(putProductCategoriesDto);
             }
             catch (Exception ex)
             {
