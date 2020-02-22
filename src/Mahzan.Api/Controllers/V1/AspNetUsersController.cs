@@ -100,6 +100,7 @@ namespace Mahzan.Api.Controllers.V1
 
             try
             {
+
                 //Busca si el usuario existe
                 var aspNetUser = await _userManager
                                         .FindByNameAsync(loginRequest.UserName);
@@ -111,26 +112,40 @@ namespace Mahzan.Api.Controllers.V1
                                                                true,
                                                                false);
 
-                LogInResult signInValidResult = await _logInValidations
-                                                       .ValidSignInManager(aspNetUser,
-                                                                           signInResult);
-
-                if (!signInValidResult.IsValid)
+                if (signInResult.Succeeded)
                 {
-                    return StatusCode(signInValidResult.StatusCode, signInValidResult);
-                }
-                else
-                {
-                    //Obtiene Token
-                    result.Token = await GetToken(loginRequest);
+                    LogInResult signInValidResult = await _logInValidations
+                                                           .ValidSignInManager(aspNetUser,
+                                                                               signInResult);
 
-                    //Obtiene Role
-                    result.Role = _userManager
-                                   .GetRolesAsync(aspNetUser)
-                                   .GetAwaiter()
-                                   .GetResult()
-                                   .FirstOrDefault();
+
+                    if (!signInValidResult.IsValid)
+                    {
+                        return StatusCode(signInValidResult.StatusCode, signInValidResult);
+                    }
+                    else
+                    {
+                        //Obtiene Token
+                        result.Token = await GetToken(loginRequest);
+
+                        //Obtiene Role
+                        result.Role = _userManager
+                                       .GetRolesAsync(aspNetUser)
+                                       .GetAwaiter()
+                                       .GetResult()
+                                       .FirstOrDefault();
+                    }
+
                 }
+                else 
+                {
+                    result.IsValid = false;
+                    result.StatusCode = 400;
+                    result.ResultTypeEnum = ResultTypeEnum.ERROR;
+                    result.Message = "Usuario o Contraseña no validos, favor de validar.";
+                }
+
+
 
 
             }
