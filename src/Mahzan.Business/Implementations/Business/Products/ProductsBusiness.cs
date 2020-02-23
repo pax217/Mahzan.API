@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.Business.Enums.Result;
@@ -137,8 +138,10 @@ namespace Mahzan.Business.Implementations.Business.Products
                 result.Products = _productsRepository
                                    .Get(getProductsDto);
 
-                if (result.Products == null)
+                if (!result.Products.Any())
                 {
+                    result.IsValid = false;
+                    result.StatusCode = 404;
                     result.ResultTypeEnum = ResultTypeEnum.INFO;
                     result.Message = GetProductsResources.ResourceManager.GetString("Get_200_INFO_Message");
 

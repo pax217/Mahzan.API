@@ -134,6 +134,13 @@ namespace Mahzan.Api.Controllers.V1
                                        .GetAwaiter()
                                        .GetResult()
                                        .FirstOrDefault();
+
+                        //Obtiene AspNetUsersId
+                        result.AspNetUsersId = aspNetUser.Id;
+
+                        //Obtiene UserName
+                        result.UserName = aspNetUser.UserName;
+
                     }
 
                 }
