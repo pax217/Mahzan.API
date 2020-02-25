@@ -19,8 +19,6 @@ namespace Mahzan.Business.Requests.Employees
 
         public string Phone { get; set; }
 
-        public bool Active { get; set; }
-
         public string UserName { get; set; }
 
         public string Password { get; set; }

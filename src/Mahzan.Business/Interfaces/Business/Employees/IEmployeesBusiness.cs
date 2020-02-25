@@ -12,7 +12,7 @@ namespace Mahzan.Business.Interfaces.Business.Employees
     {
         Task<PostEmployeesResult> Add(AddEmployeesDto addEmployeesDto);
 
-        Task<GetEmployeesResult> Get(GetEmployeesFilter getEmployeesFilter);
+        Task<GetEmployeesResult> Get(GetEmployeesDto getEmployeesDto);
 
         Task<PutEmployeesResult> Update(PutEmployeesDto putEmployeesDto);
 

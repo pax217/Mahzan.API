@@ -86,7 +86,7 @@ namespace Mahzan.Business.Implementations.Business.Employees
             return result;
         }
 
-        public async Task<GetEmployeesResult> Get(GetEmployeesFilter getEmployeesFilter)
+        public async Task<GetEmployeesResult> Get(GetEmployeesDto getEmployeesDto)
         {
             GetEmployeesResult result = new GetEmployeesResult()
             {
@@ -100,7 +100,7 @@ namespace Mahzan.Business.Implementations.Business.Employees
             try
             {
                 result.Employees = _employeesRepository
-                                    .Get(getEmployeesFilter);
+                                    .Get(getEmployeesDto);
             }
             catch (Exception ex)
             {

@@ -89,7 +89,6 @@ namespace Mahzan.Api.Controllers.V1
                                                      SureName = postEmployeesRequest.SureName,
                                                      Email = postEmployeesRequest.Email,
                                                      Phone = postEmployeesRequest.Phone,
-                                                     Active = postEmployeesRequest.Active,
                                                      Username = postEmployeesRequest.UserName,
                                                      Password = postEmployeesRequest.Password,
                                                      MemberId = MembersId,
@@ -148,7 +147,12 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Get([FromQuery] GetEmployeesFilter getEmployeesFilter)
         {
             GetEmployeesResult result = await _employeesBusiness
-                                         .Get(getEmployeesFilter);
+                                         .Get(new GetEmployeesDto {
+                                             EmployeesId = getEmployeesFilter.EmployeId,
+                                             PageNumber = getEmployeesFilter.PageNumber,
+                                             PageSize = getEmployeesFilter.PageSize,
+                                             MembersId = MembersId
+                                         });
 
 
             result.Paging = new Paging()

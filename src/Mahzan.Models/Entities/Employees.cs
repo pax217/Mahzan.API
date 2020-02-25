@@ -7,7 +7,7 @@ namespace Mahzan.Models.Entities
     public class Employees
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid EmployeesId { get; set; }
 
         public string CodeEmploye { get; set; }
 
@@ -23,9 +23,7 @@ namespace Mahzan.Models.Entities
 
         public string Phone { get; set; }
 
-        public bool Active { get; set; }
-
         [Required]
-        public Guid MemberId { get; set; }
+        public Guid MembersId { get; set; }
     }
 }

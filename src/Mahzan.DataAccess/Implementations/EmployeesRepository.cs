@@ -25,7 +25,7 @@ namespace Mahzan.DataAccess.Implementations
         public Employees Delete(DeleteEmployeesDto deleteEmployeesDto)
         {
             Employees employeeToDelte = (from g in _context.Set<Employees>()
-                                         where g.Id.Equals(deleteEmployeesDto.EmployeeId)
+                                         where g.EmployeesId.Equals(deleteEmployeesDto.EmployeeId)
                                          select g)
                                     .FirstOrDefault();
 
@@ -36,28 +36,28 @@ namespace Mahzan.DataAccess.Implementations
             return employeeToDelte;
         }
 
-        public PagedList<Employees> Get(GetEmployeesFilter getEmployeesFilter)
+        public PagedList<Employees> Get(GetEmployeesDto getEmployeesDto)
         {
             List<Employees> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getEmployeesFilter.EmployeId != null)
+            if (getEmployeesDto.MembersId != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
-                    PropertyInfo = typeof(Employees).GetProperties().First(p => p.Name == "Id"),
+                    PropertyInfo = typeof(Employees).GetProperties().First(p => p.Name == "MembersId"),
                     Operator = OperationsEnum.Equals,
-                    Value = getEmployeesFilter.EmployeId
+                    Value = getEmployeesDto.MembersId
                 });
             }
 
-            if (getEmployeesFilter.MemberId != null)
+            if (getEmployeesDto.EmployeesId != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
-                    PropertyInfo = typeof(Employees).GetProperties().First(p => p.Name == "MemberId"),
+                    PropertyInfo = typeof(Employees).GetProperties().First(p => p.Name == "EmployeesId"),
                     Operator = OperationsEnum.Equals,
-                    Value = getEmployeesFilter.MemberId
+                    Value = getEmployeesDto.EmployeesId
                 });
             }
 
@@ -74,14 +74,14 @@ namespace Mahzan.DataAccess.Implementations
             }
 
             return PagedList<Employees>.ToPagedList(result,
-                                                    getEmployeesFilter.PageNumber,
-                                                    getEmployeesFilter.PageSize);
+                                                    getEmployeesDto.PageNumber,
+                                                    getEmployeesDto.PageSize);
         }
 
         public Employees Update(PutEmployeesDto putEmployeesDto)
         {
             Employees employeeToUpdate = (from g in _context.Set<Employees>()
-                                          where g.Id.Equals(putEmployeesDto.EmployeeId)
+                                          where g.EmployeesId.Equals(putEmployeesDto.EmployeeId)
                                           select g)
                                          .FirstOrDefault();
 
@@ -120,14 +120,11 @@ namespace Mahzan.DataAccess.Implementations
                 employeeToUpdate.Phone = putEmployeesDto.Phone;
             }
 
-            if (putEmployeesDto.Active != null)
-            {
-                employeeToUpdate.Active = putEmployeesDto.Active.Value;
-            }
+
 
             EntityEntry entry = _context.Entry(employeeToUpdate);
             entry.State = EntityState.Modified;
-            entry.Property("Id").IsModified = false;
+            entry.Property("EmployeesId").IsModified = false;
             entry.Property("MemberId").IsModified = false;
 
             _context.Set<Employees>().Update(employeeToUpdate);

@@ -220,7 +220,7 @@ namespace Mahzan.Models
         private void OnConfiguringEmployees(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employees>()
-                        .HasKey(employees => new { employees.Id });
+                        .HasKey(employees => new { employees.EmployeesId });
 
             modelBuilder.Entity<Employees_Audit>()
                         .HasKey(employees_Audit => new { employees_Audit.Id });

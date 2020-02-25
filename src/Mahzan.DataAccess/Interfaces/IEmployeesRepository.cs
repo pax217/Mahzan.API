@@ -8,7 +8,7 @@ namespace Mahzan.DataAccess.Interfaces
 {
     public interface IEmployeesRepository: IRepositoryBase<Employees>
     {
-        PagedList<Employees> Get(GetEmployeesFilter getEmployeesFilter);
+        PagedList<Employees> Get(GetEmployeesDto getEmployeesDto);
 
         Employees Update(PutEmployeesDto putEmployeesDto);
 
