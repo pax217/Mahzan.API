@@ -43,10 +43,8 @@ namespace Mahzan.Business.Implementations.Business.Employees
             try
             {
                 //Validaciones al agregar un Empleado
-                _employeesRepository
-                    .Add(_mapper.Map<Models.Entities.Employees>(addEmployeesDto),
-                    addEmployeesDto.AspNetUserId,
-                    addEmployeesDto.TableAuditEnum);
+                await _employeesRepository
+                      .Add(addEmployeesDto);
             }
             catch (Exception ex)
             {
@@ -72,8 +70,10 @@ namespace Mahzan.Business.Implementations.Business.Employees
 
             try
             {
-                _employeesRepository
-                 .Delete(deleteEmployeesDto);
+                //Validaciones al 
+
+                result.Employee = _employeesRepository
+                                  .Delete(deleteEmployeesDto);
             }
             catch (Exception ex)
             {

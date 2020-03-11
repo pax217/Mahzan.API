@@ -6,5 +6,6 @@ namespace Mahzan.DataAccess.DTO.Employees
     public class DeleteEmployeesDto:BaseDto
     {
         public Guid EmployeeId { get; set; }
+
     }
 }

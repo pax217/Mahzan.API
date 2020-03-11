@@ -12,6 +12,7 @@ using System.Linq;
 using Mahzan.DataAccess.DTO.Employees;
 using Mahzan.Models.Expressions;
 using Mahzan.Models.Enums.Expressions;
+using System.Threading.Tasks;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -20,6 +21,27 @@ namespace Mahzan.DataAccess.Implementations
         public EmployeesRepository(MahzanDbContext repositoryContext)
             : base(repositoryContext)
         {
+        }
+
+        public async Task<Employees> Add(AddEmployeesDto addEmployeesDto)
+        {
+            Employees newEmployee = new Employees
+            {
+                CodeEmploye = addEmployeesDto.CodeEmploye,
+                FirstName = addEmployeesDto.FirstName,
+                SecondName = addEmployeesDto.SecondName,
+                LastName = addEmployeesDto.LastName,
+                SureName = addEmployeesDto.SureName,
+                Email = addEmployeesDto.Email,
+                Phone = addEmployeesDto.Phone,
+                MembersId = addEmployeesDto.MembersId,
+                AspNetUsersId = addEmployeesDto.AspNetUsersId
+            };
+
+            _context.Set<Employees>().Add(newEmployee);
+            await _context.SaveChangesAsync();
+
+            return newEmployee;
         }
 
         public Employees Delete(DeleteEmployeesDto deleteEmployeesDto)

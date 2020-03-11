@@ -6,6 +6,9 @@ namespace Mahzan.Models.Entities
 {
     public class Employees
     {
+
+        #region Properties
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid EmployeesId { get; set; }
 
@@ -23,7 +26,15 @@ namespace Mahzan.Models.Entities
 
         public string Phone { get; set; }
 
+        #endregion
+
+        #region Relations
+
         [Required]
         public Guid MembersId { get; set; }
+
+        public Guid AspNetUsersId { get; set; }                
+
+        #endregion
     }
 }

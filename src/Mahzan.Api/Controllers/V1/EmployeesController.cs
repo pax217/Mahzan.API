@@ -79,65 +79,63 @@ namespace Mahzan.Api.Controllers.V1
         [HttpPost]
         public async Task<IActionResult> Post(PostEmployeesRequest postEmployeesRequest)
         {
-            PostEmployeesResult result = await _employeesBusiness
-                                                 .Add(new AddEmployeesDto
-                                                 {
-                                                     CodeEmploye = postEmployeesRequest.CodeEmploye,
-                                                     FirstName = postEmployeesRequest.FirstName,
-                                                     SecondName = postEmployeesRequest.SecondName,
-                                                     LastName = postEmployeesRequest.LastName,
-                                                     SureName = postEmployeesRequest.SureName,
-                                                     Email = postEmployeesRequest.Email,
-                                                     Phone = postEmployeesRequest.Phone,
-                                                     Username = postEmployeesRequest.UserName,
-                                                     Password = postEmployeesRequest.Password,
-                                                     MemberId = MembersId,
-                                                     AspNetUserId = AspNetUserId,
-                                                     TableAuditEnum = TableAuditEnum.EMPLOYEES_AUDIT
-                                                 });
+
+            PostEmployeesResult result =new PostEmployeesResult{};
 
             //Agrega prefijo de Miembro
             StringBuilder userNameWithPrefix = new StringBuilder();
             userNameWithPrefix.Append(UserName + "." + postEmployeesRequest.UserName);
             postEmployeesRequest.UserName = userNameWithPrefix.ToString().Trim();
 
-            if (result.IsValid)
+
+            IdentityResult addUserResult = await AddUser(postEmployeesRequest);
+
+            SignUpResult signUpValidResult = await _signUpValidations
+                                                    .ValidSignUp(addUserResult);
+
+            if (!signUpValidResult.IsValid)
             {
-                IdentityResult addUserResult = await AddUser(postEmployeesRequest);
+                return StatusCode(signUpValidResult.StatusCode, signUpValidResult);
+            }
+            else
+            {
+                IdentityResult AddRoleToUserResult = await AddRoleToUser(postEmployeesRequest);
 
-                SignUpResult signUpValidResult = await _signUpValidations
-                                        .ValidSignUp(addUserResult);
-
-                if (!signUpValidResult.IsValid)
+                if (AddRoleToUserResult.Succeeded)
                 {
-                    return StatusCode(signUpValidResult.StatusCode, signUpValidResult);
+                    var userCreated = await _userManager
+                                            .FindByNameAsync(postEmployeesRequest.UserName);
+
+                    result = await _employeesBusiness
+                                    .Add(new AddEmployeesDto
+                                    {
+                                        CodeEmploye = postEmployeesRequest.CodeEmploye,
+                                        FirstName = postEmployeesRequest.FirstName,
+                                        SecondName = postEmployeesRequest.SecondName,
+                                        LastName = postEmployeesRequest.LastName,
+                                        SureName = postEmployeesRequest.SureName,
+                                        Email = postEmployeesRequest.Email,
+                                        Phone = postEmployeesRequest.Phone,
+                                        Username = postEmployeesRequest.UserName,
+                                        Password = postEmployeesRequest.Password,
+                                        MembersId = MembersId,
+                                        AspNetUsersId = new Guid(userCreated.Id),
+                                        AspNetUserId = AspNetUserId,
+                                        TableAuditEnum = TableAuditEnum.EMPLOYEES_AUDIT
+                                    });
+
+                    //Envia el correo de confirmación
+                    await SendEmailConfirmation(postEmployeesRequest);
                 }
                 else
                 {
-                    IdentityResult AddRoleToUserResult = await AddRoleToUser(postEmployeesRequest);
+                    result.IsValid = false;
+                    result.StatusCode = 500;
+                    result.Message = AddRoleToUserResult.Errors.FirstOrDefault().Description;
 
-                    if (AddRoleToUserResult.Succeeded)
-                    {
-                        //Envia el correo de confirmación
-                        await SendEmailConfirmation(postEmployeesRequest);
-                    }
-                    else
-                    {
-                        result.IsValid = false;
-                        result.StatusCode = 500;
-                        result.ResultTypeEnum = ResultTypeEnum.INFO;
-
-                        StringBuilder errorMessage = new StringBuilder();
-
-                        foreach (var error in AddRoleToUserResult.Errors)
-                        {
-                            errorMessage.Append(error.Description + "|");
-                        }
-
-                        result.Message = errorMessage.ToString();
-                    }
                 }
             }
+
 
             return StatusCode(result.StatusCode, result);
         }
@@ -170,19 +168,19 @@ namespace Mahzan.Api.Controllers.V1
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
-        public async Task<IActionResult> Put(PutEmployeesRequest putEmployeesRequest)
+        public async Task<IActionResult> Put(PutEmployeesRequest putEmployeeRequest)
         {
             PutEmployeesResult result = await _employeesBusiness
                                                .Update(new PutEmployeesDto
                                                {
-                                                   EmployeeId = putEmployeesRequest.EmployeeId,
-                                                   CodeEmploye = putEmployeesRequest.CodeEmploye,
-                                                   FirstName = putEmployeesRequest.FirstName,
-                                                   SecondName = putEmployeesRequest.SecondName,
-                                                   LastName = putEmployeesRequest.LastName,
-                                                   SureName = putEmployeesRequest.SureName,
-                                                   Email = putEmployeesRequest.Email,
-                                                   Active = putEmployeesRequest.Active
+                                                   EmployeeId = putEmployeeRequest.EmployeeId,
+                                                   CodeEmploye = putEmployeeRequest.CodeEmploye,
+                                                   FirstName = putEmployeeRequest.FirstName,
+                                                   SecondName = putEmployeeRequest.SecondName,
+                                                   LastName = putEmployeeRequest.LastName,
+                                                   SureName = putEmployeeRequest.SureName,
+                                                   Email = putEmployeeRequest.Email,
+                                                   Active = putEmployeeRequest.Active
                                                });
 
             return StatusCode(result.StatusCode, result);
@@ -197,6 +195,18 @@ namespace Mahzan.Api.Controllers.V1
                                    {
                                        EmployeeId = EmployeeId
                                    });
+            
+            //Elimina el Usuario creado para el Empleado
+            if(result.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(result.Employee.AspNetUsersId.ToString());
+
+                if(user!=null)
+                {
+                    await _userManager.DeleteAsync(user);
+                }
+
+            }
 
             return StatusCode(result.StatusCode, result);
         }
