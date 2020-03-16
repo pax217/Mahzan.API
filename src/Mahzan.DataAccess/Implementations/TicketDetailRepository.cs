@@ -15,9 +15,12 @@ namespace Mahzan.DataAccess.Implementations
         {
         }
 
-        public async Task Add(Tickets newTicket,
-                              List<PostTicketDetailDto> postTicketDetailDto)
+        public async Task<List<TicketDetail>> Add(Tickets newTicket,
+                                                  List<PostTicketDetailDto> postTicketDetailDto)
         {
+            List<TicketDetail> result = new List<TicketDetail> { };
+
+
             foreach (var ticketDetail in postTicketDetailDto)
             {
                 TicketDetail newTicketDetail = new TicketDetail
@@ -33,7 +36,11 @@ namespace Mahzan.DataAccess.Implementations
                 _context.Set<TicketDetail>().Add(newTicketDetail);
 
                 await _context.SaveChangesAsync();
+
+                result.Add(newTicketDetail);
             }
+
+            return result;
         }
     }
 }

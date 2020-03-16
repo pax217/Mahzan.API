@@ -83,9 +83,7 @@
     <Folder Include="Implementations\Validations\Products\" />
     <Folder Include="Resources\Validations\Products\" />
     <Folder Include="Requests\Tickets\" />
-    <Folder Include="Interfaces\Business\Tickets\" />
     <Folder Include="Results\Tickets\" />
-    <Folder Include="Implementations\Business\Tickets\" />
     <Folder Include="Resources\Business\Tickets\" />
     <Folder Include="Requests\PaymentTypes\" />
     <Folder Include="Results\PaymentTypes\" />

@@ -34,7 +34,7 @@ namespace Mahzan.DataAccess.Implementations
             return newProductsTaxes;
         }
 
-        public PagedList<ProductsTaxes> Get(GetProductsTaxesDto getProductsTaxesDto)
+        public async Task<PagedList<ProductsTaxes>> Get(GetProductsTaxesDto getProductsTaxesDto)
         {
             List<ProductsTaxes> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();

@@ -15,6 +15,12 @@
     <Folder Include="Implemantations\Business\Tickets\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Mahzan.Business\Mahzan.Business.csproj" />
+    <ProjectReference Include="..\..\src\Mahzan.DataAccess\Mahzan.DataAccess.csproj" />
+    <ProjectReference Include="..\..\src\Mahzan.Models\Mahzan.Models.csproj" />
   </ItemGroup>
 </Project>

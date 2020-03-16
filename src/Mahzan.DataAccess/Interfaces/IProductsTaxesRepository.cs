@@ -10,6 +10,6 @@ namespace Mahzan.DataAccess.Interfaces
     {
         Task<ProductsTaxes> Add(AddProductsTaxesDto productsTaxesDto);
 
-        PagedList<ProductsTaxes> Get(GetProductsTaxesDto getProductsTaxesDto);
+        Task<PagedList<ProductsTaxes>> Get(GetProductsTaxesDto getProductsTaxesDto);
     }
 }
