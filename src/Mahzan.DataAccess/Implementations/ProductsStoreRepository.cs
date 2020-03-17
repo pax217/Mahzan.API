@@ -37,7 +37,7 @@ namespace Mahzan.DataAccess.Implementations
         public Products_Store Update(PutProductsStoreDto putProductsStoreDto)
         {
             Products_Store productsStoreToUpdate = (from g in _context.Set<Products_Store>()
-                                                    where g.Id.Equals(putProductsStoreDto.ProductsStoreId)
+                                                    where g.ProductsStoreId.Equals(putProductsStoreDto.ProductsStoreId)
                                                     select g)
                                                    .FirstOrDefault();
 

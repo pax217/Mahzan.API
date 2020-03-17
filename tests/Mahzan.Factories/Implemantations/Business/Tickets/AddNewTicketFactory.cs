@@ -65,6 +65,15 @@ namespace Mahzan.Factories.Implemantations.Business.Tickets
             mock.Setup(p => p.AddTicketDetail(newTicket, 
                                               addTicketsDto.PostTicketDetailDto))
                 .ReturnsAsync(GetReturnTicketDetail());
+
+            //Productos existentes
+            mock.Setup(p => p.GetProducts(It.IsAny<Guid>()))
+                .Returns(GetProducts());
+
+            //Productos en tienda
+            mock.Setup(p => p.GetProductsStore(It.IsAny<Guid>(),
+                                               It.IsAny<Guid>()))
+                .Returns(GetProductsStore);
                 
 
             return mock;
@@ -122,6 +131,64 @@ namespace Mahzan.Factories.Implemantations.Business.Tickets
                     Amount = 25.60M,
                     TicketsId  = new Guid("f783b38a-6ee8-47a7-b0ef-544393df3697")
                 },
+            };
+        }
+
+        private static List<Models.Entities.Products> GetProducts() 
+        {
+            return new List<Models.Entities.Products>()
+            {
+                new Models.Entities.Products
+                {
+                    ProductsId = new Guid("27C07004-2046-4958-A601-906787FD4376"),
+                    SKU = string.Empty,
+                    Barcode ="0123456789123",
+                    Description ="Jabón Zote 250 g.",
+                    Price = 25.65M,
+                    Cost = 22.48M,
+                    FollowInventory = true,
+                    AvailableInAllStores = true
+                },
+                //new Models.Entities.Products
+                //{
+                //    ProductsId = new Guid("69A87869-70BB-4736-8594-B1C197C25C63"),
+                //    SKU = string.Empty,
+                //    Barcode ="0123456789124",
+                //    Description ="Shampoo Crece 1 L.",
+                //    Price = 22.80M,
+                //    Cost = 22.80M,
+                //    FollowInventory = true,
+                //    AvailableInAllStores = true
+                //}
+            };
+        }
+
+        private static List<Models.Entities.Products_Store> GetProductsStore() 
+        {
+            return new List<Models.Entities.Products_Store>
+            {
+                new Models.Entities.Products_Store
+                {
+                    ProductsStoreId = new Guid("f0440cbb-c494-4600-8e68-46899c123935"),
+                    Price = 25.65M,
+                    Cost = 22.48M,
+                    InStock = 10,
+                    LowStock = 2,
+                    OptimumStock = 5,
+                    ProductsId = new Guid("27C07004-2046-4958-A601-906787FD4376"),
+                    StoresId = new Guid("50A9A317-2055-4BEA-95A3-DA648E67FC78")
+                },
+                new Models.Entities.Products_Store
+                {
+                    ProductsStoreId = new Guid("b7f2645b-1fb4-4ea6-9562-d3dce054b125"),
+                    Price = 22.80M,
+                    Cost = 22.80M,
+                    InStock = 8,
+                    LowStock = 1,
+                    OptimumStock = 4,
+                    ProductsId = new Guid("69A87869-70BB-4736-8594-B1C197C25C63"),
+                    StoresId = new Guid("50A9A317-2055-4BEA-95A3-DA648E67FC78")
+                }
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using Mahzan.DataAccess.DTO.ProductsTaxes;
+﻿using Mahzan.DataAccess.DTO.ProductsStore;
+using Mahzan.DataAccess.DTO.ProductsTaxes;
 using Mahzan.DataAccess.DTO.Tickets;
 using Mahzan.DataAccess.Paging;
 using Mahzan.Models.Entities;
@@ -17,5 +18,14 @@ namespace Mahzan.Business.Interfaces.Business.Tickets
 
         Task<List<TicketDetail>> AddTicketDetail(Models.Entities.Tickets newTicket,
                                                  List<PostTicketDetailDto> postTicketDetailDto);
+
+        List<Models.Entities.Products> GetProducts(Guid productsId);
+
+        List<Products_Store> GetProductsStore(Guid storesId,
+                                                              Guid productsId);
+
+        Products_Store GetProductStore(Guid productsId);
+
+        void UpdateStoreRepository(PutProductsStoreDto putProductsStoreDto);
     }
 }

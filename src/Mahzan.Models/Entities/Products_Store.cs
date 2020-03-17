@@ -8,7 +8,7 @@ namespace Mahzan.Models.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid ProductsStoreId { get; set; }
 
         public decimal Price { get; set; }
 

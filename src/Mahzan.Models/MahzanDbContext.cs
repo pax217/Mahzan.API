@@ -258,7 +258,7 @@ namespace Mahzan.Models
         private void OnConfiguringProducts_Store(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Products_Store>()
-                        .HasKey(products_Store => new { products_Store.Id });
+                        .HasKey(products_Store => new { products_Store.ProductsStoreId });
 
             modelBuilder.Entity<Products_Store>()
                         .Property(p => p.Price)

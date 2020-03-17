@@ -57,8 +57,8 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                                             .AddTicketDetail(result.Ticket,
                                                              addTicketsDto.PostTicketDetailDto);
 
-                ////Identifica si el producto se sigue en el inventario.
-                //FollowInventory(addTicketsDto); 
+                //Identifica si el producto se sigue en el inventario.
+                FollowInventory(addTicketsDto);
             }
             catch (Exception ex)
             {
@@ -111,50 +111,49 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             return result;
         }
 
-        //public void FollowInventory(AddTicketsDto addTicketsDto)
-        //{
-        //    foreach (var item in addTicketsDto.PostTicketDetailDto)
-        //    {
-        //        List<Models.Entities.Products> foundProduct = _productsRepository
-        //                                                       .Get(x => x.ProductsId == item.ProductsId);
+        public void FollowInventory(AddTicketsDto addTicketsDto)
+        {
+            foreach (var item in addTicketsDto.PostTicketDetailDto)
+            {
+                List<Models.Entities.Products> foundProduct = _ticketsRepositories
+                                                               .GetProducts(item.ProductsId);
 
-        //        if (foundProduct.Any())
-        //        {
-        //            if (foundProduct.FirstOrDefault().FollowInventory)
-        //            {
-        //                List<Models.Entities.Products_Store> foundProducts_Store = _productsStoreRepository
-        //                                                                            .Get(x => x.StoresId == addTicketsDto.StoresId
-        //                                                                            && x.ProductsId == item.ProductsId);
-        //                if (foundProducts_Store.Any())
-        //                {
-        //                    TakeFormStock(foundProducts_Store.FirstOrDefault().ProductsId);
-        //                }
-        //            }
+                if (foundProduct.Any())
+                {
+                    if (foundProduct.FirstOrDefault().FollowInventory)
+                    {
+                        List<Models.Entities.Products_Store> foundProducts_Store = _ticketsRepositories
+                                                                                    .GetProductsStore(addTicketsDto.StoresId,
+                                                                                                      item.ProductsId);
+                        if (foundProducts_Store.Any())
+                        {
+                            TakeFormStock(foundProducts_Store.FirstOrDefault().ProductsId);
+                        }
+                    }
 
-        //        }
+                }
 
-        //    }
-        //}
+            }
+        }
 
-        //public void TakeFormStock(Guid ProductsId)
-        //{
-        //    Models.Entities.Products_Store products_Store = _productsStoreRepository
-        //                                                     .Get(x => x.ProductsId == ProductsId)
-        //                                                     .FirstOrDefault();
-        //    if (products_Store != null)
-        //    {
-        //        products_Store.InStock--;
-
-
-        //        _productsStoreRepository.Update(new PutProductsStoreDto
-        //        {
-        //            ProductsStoreId = products_Store.Id,
-        //            InStock = products_Store.InStock
-        //        });
-        //    }
+        public void TakeFormStock(Guid productsId)
+        {
+            Models.Entities.Products_Store products_Store = _ticketsRepositories
+                                                             .GetProductStore(productsId);
+            if (products_Store != null)
+            {
+                products_Store.InStock--;
 
 
-        //}
+                _ticketsRepositories.UpdateStoreRepository(new PutProductsStoreDto
+                {
+                    ProductsStoreId = products_Store.ProductsStoreId,
+                    InStock = products_Store.InStock
+                });
+            }
+
+
+        }
         #endregion
     }
 }

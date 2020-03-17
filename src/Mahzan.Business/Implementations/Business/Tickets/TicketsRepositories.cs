@@ -1,4 +1,5 @@
 ﻿using Mahzan.Business.Interfaces.Business.Tickets;
+using Mahzan.DataAccess.DTO.ProductsStore;
 using Mahzan.DataAccess.DTO.ProductsTaxes;
 using Mahzan.DataAccess.DTO.Tickets;
 using Mahzan.DataAccess.Interfaces;
@@ -6,6 +7,7 @@ using Mahzan.DataAccess.Paging;
 using Mahzan.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,6 +58,36 @@ namespace Mahzan.Business.Implementations.Business.Tickets
            return  await _ticketDetailRepository
                          .Add(newTicket,
                               postTicketDetailDto);
+        }
+
+        public List<Models.Entities.Products> GetProducts(Guid productsId)
+        {
+            return  _productsRepository
+                     .Get(x => x.ProductsId == productsId);
+        }
+
+        public List<Products_Store> GetProductsStore(Guid storesId, Guid productsId)
+        {
+            return _productsStoreRepository
+                    .Get(
+                        x =>
+                        x.StoresId == storesId
+                        &&
+                        x.ProductsId == productsId
+                    );
+        }
+
+        public Products_Store GetProductStore(Guid productsId)
+        {
+            return _productsStoreRepository
+                    .Get(x => x.ProductsId == productsId)
+                    .FirstOrDefault();
+        }
+
+        public void UpdateStoreRepository(PutProductsStoreDto putProductsStoreDto) 
+        {
+            _productsStoreRepository
+            .Update(putProductsStoreDto);
         }
     }
 }
