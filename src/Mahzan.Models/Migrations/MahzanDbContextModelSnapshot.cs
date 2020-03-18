@@ -714,7 +714,7 @@ namespace Mahzan.Models.Migrations
 
             modelBuilder.Entity("Mahzan.Models.Entities.Products_Store", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("ProductsStoreId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -739,7 +739,7 @@ namespace Mahzan.Models.Migrations
                     b.Property<Guid>("StoresId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProductsStoreId");
 
                     b.HasIndex("ProductsId");
 

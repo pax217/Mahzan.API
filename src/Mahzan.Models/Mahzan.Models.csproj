@@ -25,4 +25,31 @@
   <ItemGroup>
     <None Include="..\..\documents\_config\_params.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20200130005700_Initial.cs" />
+    <Compile Remove="Migrations\20200225030842_UpdateEmployeesChangeMembersId.Designer.cs" />
+    <Compile Remove="Migrations\MahzanDbContextModelSnapshot.cs" />
+    <Compile Remove="Migrations\20200225022318_UpdateEmployeesChangeEmployeesId.cs" />
+    <Compile Remove="Migrations\20200131003253_UpdateCompaniesAddMembersId.cs" />
+    <Compile Remove="Migrations\20200212015459_UpdateProductsPhotosRemoveActive.cs" />
+    <Compile Remove="Migrations\20200225022318_UpdateEmployeesChangeEmployeesId.Designer.cs" />
+    <Compile Remove="Migrations\20200302222520_UpdateEmployeesAddAspNetUsersId.Designer.cs" />
+    <Compile Remove="Migrations\20200225030842_UpdateEmployeesChangeMembersId.cs" />
+    <Compile Remove="Migrations\20200212021539_UpdateProductsAddPriceAndCost.Designer.cs" />
+    <Compile Remove="Migrations\20200302222520_UpdateEmployeesAddAspNetUsersId.cs" />
+    <Compile Remove="Migrations\20200211205721_UpdateProductCategoriesId.cs" />
+    <Compile Remove="Migrations\20200130005700_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200211234512_UpdateProductsPhotosId.cs" />
+    <Compile Remove="Migrations\20200212030222_UpdateProductsAddProductsPhotos.Designer.cs" />
+    <Compile Remove="Migrations\20200131003253_UpdateCompaniesAddMembersId.Designer.cs" />
+    <Compile Remove="Migrations\20200207011829_UpdatePointsOfSalesAddMembersId.Designer.cs" />
+    <Compile Remove="Migrations\20200211205721_UpdateProductCategoriesId.Designer.cs" />
+    <Compile Remove="Migrations\20200212030222_UpdateProductsAddProductsPhotos.cs" />
+    <Compile Remove="Migrations\20200211234512_UpdateProductsPhotosId.Designer.cs" />
+    <Compile Remove="Migrations\20200207011829_UpdatePointsOfSalesAddMembersId.cs" />
+    <Compile Remove="Migrations\20200211210833_UpdateProductCategoriesMembersId.Designer.cs" />
+    <Compile Remove="Migrations\20200212021539_UpdateProductsAddPriceAndCost.cs" />
+    <Compile Remove="Migrations\20200212015459_UpdateProductsPhotosRemoveActive.Designer.cs" />
+    <Compile Remove="Migrations\20200211210833_UpdateProductCategoriesMembersId.cs" />
+  </ItemGroup>
 </Project>

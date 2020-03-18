@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    [Migration("20200225022318_UpdateEmployeesChangeEmployeesId")]
-    partial class UpdateEmployeesChangeEmployeesId
+    [Migration("20200318162533_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -141,6 +141,9 @@ namespace Mahzan.Models.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AspNetUsersId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("CodeEmploye")
                         .HasColumnType("nvarchar(max)");
 
@@ -153,7 +156,7 @@ namespace Mahzan.Models.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("MemberId")
+                    b.Property<Guid>("MembersId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Phone")
@@ -713,7 +716,7 @@ namespace Mahzan.Models.Migrations
 
             modelBuilder.Entity("Mahzan.Models.Entities.Products_Store", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("ProductsStoreId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -738,7 +741,7 @@ namespace Mahzan.Models.Migrations
                     b.Property<Guid>("StoresId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProductsStoreId");
 
                     b.HasIndex("ProductsId");
 

@@ -100,6 +100,9 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<ITaxesRepository, TaxesRepository>();
             services.AddTransient<ITaxesStoresRepository, TaxesStoresRepository>();
 
+            //Tickets
+            services.AddTransient<ITicketsRepositories, TicketsRepositories>();
+
 
             //Validaciones
             services.AddTransient<ILogInValidations, LogInValidations>();
@@ -150,6 +153,7 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IClientsBusiness, ClientsBusiness>();
             services.AddTransient<IBarCodesBusiness, BarCodesBusiness>();
             services.AddTransient<ITaxesBusiness, TaxesBusiness>();
+
 
 
         }
