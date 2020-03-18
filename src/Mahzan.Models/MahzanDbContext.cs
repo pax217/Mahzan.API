@@ -287,7 +287,7 @@ namespace Mahzan.Models
 
         }
 
-        public int SaveChangesAsync(TableAuditEnum tableAuditEnum,
+        public async Task<int> SaveChangesAsync(TableAuditEnum tableAuditEnum,
                                Guid aspNetUsersId)
         {
             var auditEntries = OnBeforeSaveChanges(tableAuditEnum,
@@ -295,7 +295,7 @@ namespace Mahzan.Models
 
             var result = base.SaveChanges();
 
-            OnAfterSaveChanges(tableAuditEnum,
+            await OnAfterSaveChanges(tableAuditEnum,
                                aspNetUsersId,
                                auditEntries);
 

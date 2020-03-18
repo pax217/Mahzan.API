@@ -33,7 +33,7 @@ namespace Mahzan.Business.Implementations.Validations.Groups
             };
 
             //Valida que el nombre del Grupo no exista para este miembro
-            List<Models.Entities.Groups> groupExist = _groupsRepository
+            List<Models.Entities.Groups> groupExist = await _groupsRepository
                                                        .Get(new GetGroupsDto
                                                        {
                                                            MembersId = addGroupsDto.MembersId,

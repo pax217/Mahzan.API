@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Mahzan.DataAccess.DTO.Groups;
 using Mahzan.DataAccess.Filters.Groups;
 using Mahzan.DataAccess.Interfaces;
@@ -21,7 +22,29 @@ namespace Mahzan.DataAccess.Implementations
         {
         }
 
-        public PagedList<Groups> Get(GetGroupsDto getGroupsDto)
+        /// <summary>
+        /// Agrega un Grupo
+        /// </summary>
+        /// <param name="addGroupsDto"></param>
+        /// <returns></returns>
+        public async Task<Groups> Add(AddGroupsDto addGroupsDto)
+        {
+            Groups newGroup = null;
+
+            newGroup = new Groups
+            {
+                Name = addGroupsDto.Name,
+                MembersId = addGroupsDto.MembersId
+            };
+
+            _context.Set<Groups>().Add(newGroup);
+            await _context.SaveChangesAsync();
+
+            return newGroup;
+        }
+
+
+        public async Task<PagedList<Groups>> Get(GetGroupsDto getGroupsDto)
         {
             List<Groups> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
@@ -67,12 +90,15 @@ namespace Mahzan.DataAccess.Implementations
                 result = _context.Set<Groups>().ToList();
             }
 
-            return PagedList<Groups>.ToPagedList(result,
-                                                 getGroupsDto.PageNumber,
-                                                 getGroupsDto.PageSize);
+            return await Task
+                         .Run(
+                            () => PagedList<Groups>
+                                  .ToPagedList(result,
+                                               getGroupsDto.PageNumber,
+                                               getGroupsDto.PageSize));
         }
 
-        public Groups Update(PutGroupsDto putGroupsDto)
+        public async Task<Groups> Update(PutGroupsDto putGroupsDto)
         {
             Groups groupToUpdate = (from g in _context.Set<Groups>()
                                     where g.GroupsId.Equals(putGroupsDto.GroupsId)
@@ -91,14 +117,16 @@ namespace Mahzan.DataAccess.Implementations
             entry.Property("GroupsId").IsModified = false;
 
             _context.Set<Groups>().Update(groupToUpdate);
-            _context.SaveChangesAsync(putGroupsDto.TableAuditEnum,
-                                 putGroupsDto.AspNetUserId);
+
+            await _context
+                  .SaveChangesAsync(putGroupsDto.TableAuditEnum,
+                                    putGroupsDto.AspNetUserId);
 
             return groupToUpdate;
 
         }
 
-        public Groups Delete(DeleteGroupsDto deleteGroupsDto)
+        public async Task<Groups> Delete(DeleteGroupsDto deleteGroupsDto)
         {
             Groups groupToDelte = (from g in _context.Set<Groups>()
                                     where g.GroupsId.Equals(deleteGroupsDto.GroupsId)
@@ -106,10 +134,14 @@ namespace Mahzan.DataAccess.Implementations
                                     .FirstOrDefault();
 
             _context.Set<Groups>().Remove(groupToDelte);
-            _context.SaveChangesAsync(deleteGroupsDto.TableAuditEnum,
-                                 deleteGroupsDto.AspNetUserId);
+
+            await _context
+                  .SaveChangesAsync(deleteGroupsDto.TableAuditEnum,
+                                    deleteGroupsDto.AspNetUserId);
 
             return groupToDelte;
         }
+
+
     }
 }

@@ -16,29 +16,18 @@ namespace Mahzan.Business.Implementations.Business.Groups
 {
     public class GroupsBusiness: IGroupsBusiness
     {
-
-        readonly IGroupsRepository _groupsRepository;
-
-        readonly IAddGroupsValidations _addGroupsValidations;
-        readonly IDeleteGroupsValidations _deleteGroupsValidations;
-
-        readonly IMapper _mapper;
+        private readonly IGroupsRepositories _groupsRepositories;
+        
+        private readonly IGroupsValidations _groupsValidations;
 
         public GroupsBusiness(
-            IGroupsRepository groupsRepository,
-            IAddGroupsValidations addGroupsValidations,
-            IDeleteGroupsValidations deleteGroupsValidations,
-            IMapper mapper)
+            IGroupsRepositories groupsRepositories,
+            IGroupsValidations groupsValidations)
         {
-            //Valdiations
-            _addGroupsValidations = addGroupsValidations;
-            _deleteGroupsValidations = deleteGroupsValidations;
 
-            //Repository
-            _groupsRepository = groupsRepository;
+            _groupsValidations = groupsValidations;
 
-            //Services
-            _mapper = mapper;
+            _groupsRepositories = groupsRepositories;
 
         }
 
@@ -56,7 +45,7 @@ namespace Mahzan.Business.Implementations.Business.Groups
             try
             {
                 //Valida la información del grupo a agregar
-                AddGroupsResult resultValidations = await _addGroupsValidations
+                AddGroupsResult resultValidations = await _groupsValidations
                                                           .AddGroupsValid(addGroupsDto);
 
                 if (!resultValidations.IsValid)
@@ -65,10 +54,8 @@ namespace Mahzan.Business.Implementations.Business.Groups
                 }
 
                 //Agrega Grupo
-                result.Group = _groupsRepository
-                               .Add(_mapper.Map<Models.Entities.Groups>(addGroupsDto),
-                                    addGroupsDto.AspNetUserId,
-                                    addGroupsDto.TableAuditEnum);
+                result.Group = await _groupsRepositories
+                                     .AddGroup(addGroupsDto);
 
 
             }
@@ -97,8 +84,8 @@ namespace Mahzan.Business.Implementations.Business.Groups
             try
             {
 
-                result.Groups = _groupsRepository
-                                .Get(getGroupsDto);
+                result.Groups = await _groupsRepositories
+                                       .GetGroups(getGroupsDto);
 
                 if (!result.Groups.Any())
                 {
@@ -136,8 +123,8 @@ namespace Mahzan.Business.Implementations.Business.Groups
             {
                 //Validaciones al Actualizar
 
-                _groupsRepository
-                 .Update(putGroupsDto);
+                await _groupsRepositories
+                      .UpdateGroup(putGroupsDto);
                 
             }
             catch (Exception ex)
@@ -165,7 +152,7 @@ namespace Mahzan.Business.Implementations.Business.Groups
             try
             {
                 //Valida información al eliminar el Grupo
-                DeleteGroupsResult resultValidations = await _deleteGroupsValidations
+                DeleteGroupsResult resultValidations = await _groupsValidations
                                                              .DeleteGroupsValid(deleteGroupsDto);
 
                 if (!resultValidations.IsValid)
@@ -174,8 +161,8 @@ namespace Mahzan.Business.Implementations.Business.Groups
                 }
 
                 //Agrega Grupo
-                _groupsRepository
-                .Delete(deleteGroupsDto);
+                await _groupsRepositories
+                      .DeleteGroup(deleteGroupsDto);
 
             }
             catch (Exception ex)

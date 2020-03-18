@@ -75,10 +75,11 @@ namespace Mahzan.Api.Extensions
     {
         public static void ConfigureBlServices(this IServiceCollection services)
         {
+            //Groups
+            GroupsExtensions.GroupsBlServices(services);
 
             //Data Access
             services.AddTransient<IMembersRepository, MembersRepository>();
-            services.AddTransient<IGroupsRepository, GroupsRepository>();
             services.AddTransient<ICompaniesRepository, CompaniesRepository>();
             services.AddTransient<IStoresRepository, StoresRepository>();
             services.AddTransient<IEmployeesRepository, EmployeesRepository>();
@@ -110,10 +111,6 @@ namespace Mahzan.Api.Extensions
 
             //Members
             services.AddTransient<IAddMembersValidations, AddMembersValidations>();
-
-            //Groups
-            services.AddTransient<IAddGroupsValidations, AddGroupsValidations>();
-            services.AddTransient<IDeleteGroupsValidations, DeleteGroupsValidations>();
 
             //Companies
             services.AddTransient<IAddCompaniesValidations, AddCompaniesValidations>();

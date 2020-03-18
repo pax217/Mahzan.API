@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Mahzan.DataAccess.DTO.Groups;
 using Mahzan.DataAccess.Filters.Groups;
 using Mahzan.DataAccess.Paging;
@@ -9,10 +10,12 @@ namespace Mahzan.DataAccess.Interfaces
 {
     public interface IGroupsRepository: IRepositoryBase<Groups>
     {
-        PagedList<Groups> Get(GetGroupsDto getGroupsDto);
+        Task<Groups> Add(AddGroupsDto addGroupsDto);
 
-        Groups Update(PutGroupsDto putGroupsDto);
+        Task<PagedList<Groups>> Get(GetGroupsDto getGroupsDto);
 
-        Groups Delete(DeleteGroupsDto deleteGroupsDto);
+        Task<Groups> Update(PutGroupsDto putGroupsDto);
+
+        Task<Groups> Delete(DeleteGroupsDto deleteGroupsDto);
     }
 }
