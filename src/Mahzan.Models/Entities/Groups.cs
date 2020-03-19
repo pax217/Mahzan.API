@@ -22,11 +22,13 @@ namespace Mahzan.Models.Entities
         /// <summary>
         /// Identificador único del  Miembro
         /// </summary>
+        [Required]
         public Guid MembersId { get; set; }
 
         /// <summary>
         /// Indica si se encuentra activo
         /// </summary>
+        [Required]
         public bool Active { get; set; }
     }
 }

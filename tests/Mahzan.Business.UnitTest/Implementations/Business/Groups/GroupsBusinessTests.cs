@@ -51,6 +51,7 @@ namespace Mahzan.Business.UnitTest.Implementations.Business.Groups
             Assert.True(result.IsValid);
             Assert.Equal(addGroupsDto.Name, result.Group.Name);
             Assert.Equal(addGroupsDto.MembersId, result.Group.MembersId);
+            Assert.True(result.Group.Active);
         }
 
         /// <summary>
