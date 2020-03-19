@@ -30,7 +30,8 @@ namespace Mahzan.Factories.Business.Implementations.Groups
             {
                 GroupsId = Guid.NewGuid(),
                 Name = addGroupsDto.Name,
-                MembersId = addGroupsDto.MembersId
+                MembersId = addGroupsDto.MembersId,
+                Active = true
             };
         }
     }

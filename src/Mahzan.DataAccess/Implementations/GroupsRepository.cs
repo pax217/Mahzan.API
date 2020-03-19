@@ -34,7 +34,8 @@ namespace Mahzan.DataAccess.Implementations
             newGroup = new Groups
             {
                 Name = addGroupsDto.Name,
-                MembersId = addGroupsDto.MembersId
+                MembersId = addGroupsDto.MembersId,
+                Active = true
             };
 
             _context.Set<Groups>().Add(newGroup);
@@ -42,7 +43,6 @@ namespace Mahzan.DataAccess.Implementations
 
             return newGroup;
         }
-
 
         public async Task<PagedList<Groups>> Get(GetGroupsDto getGroupsDto)
         {
