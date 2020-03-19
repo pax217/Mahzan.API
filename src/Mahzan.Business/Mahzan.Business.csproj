@@ -67,7 +67,7 @@
     <Folder Include="Resources\Business\Menu\" />
     <Folder Include="Interfaces\Validations\Groups\" />
     <Folder Include="Implementations\Validations\Groups\" />
-    <Folder Include="Resources\Validations\Gruops\" />
+    <Folder Include="Resources\Validations\Groups\" />
     <Folder Include="Requests\ProductCategories\" />
     <Folder Include="Results\ProductCategories\" />
     <Folder Include="Interfaces\Business\ProductCategories\" />
@@ -237,8 +237,9 @@
       <LastGenOutput>GetMenuResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Validations\Gruops\AddGroupsValidationsResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AddGroupsValidationsResources.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Business\ProductCategories\AddProductCategoriesResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

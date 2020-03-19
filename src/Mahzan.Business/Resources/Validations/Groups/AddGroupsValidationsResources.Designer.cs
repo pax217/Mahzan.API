@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Mahzan.Business.Resources.Validations.Gruops {
+namespace Mahzan.Business.Resources.Validations.Groups {
     using System;
     using System.Reflection;
     
@@ -16,7 +16,7 @@ namespace Mahzan.Business.Resources.Validations.Gruops {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AddGroupsValidationsResources {
+    public class AddGroupsValidationsResources {
         
         private static System.Resources.ResourceManager resourceMan;
         
@@ -27,10 +27,10 @@ namespace Mahzan.Business.Resources.Validations.Gruops {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static System.Resources.ResourceManager ResourceManager {
+        public static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Mahzan.Business.Resources.Validations.Gruops.AddGroupsValidationsResources", typeof(AddGroupsValidationsResources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Mahzan.Business.Resources.Validations.Groups.AddGroupsValidationsResources", typeof(AddGroupsValidationsResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -38,7 +38,7 @@ namespace Mahzan.Business.Resources.Validations.Gruops {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static System.Globalization.CultureInfo Culture {
+        public static System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -47,19 +47,19 @@ namespace Mahzan.Business.Resources.Validations.Gruops {
             }
         }
         
-        internal static string AddMembersValid_Title {
+        public static string AddMembersValid_Title {
             get {
                 return ResourceManager.GetString("AddMembersValid_Title", resourceCulture);
             }
         }
         
-        internal static string AddMembersValid_200_SUCCESS_Message {
+        public static string AddMembersValid_200_SUCCESS_Message {
             get {
                 return ResourceManager.GetString("AddMembersValid_200_SUCCESS_Message", resourceCulture);
             }
         }
         
-        internal static string AddMembersValid_500_WARNING_Message {
+        public static string AddMembersValid_500_WARNING_Message {
             get {
                 return ResourceManager.GetString("AddMembersValid_500_WARNING_Message", resourceCulture);
             }

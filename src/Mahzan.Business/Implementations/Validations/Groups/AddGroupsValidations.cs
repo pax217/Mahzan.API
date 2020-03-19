@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Interfaces.Validations.Groups;
-using Mahzan.Business.Resources.Validations.Gruops;
+using Mahzan.Business.Resources.Validations.Groups;
 using Mahzan.Business.Results.Groups;
 using Mahzan.DataAccess.DTO.Groups;
 using Mahzan.DataAccess.Interfaces;
