@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,7 +47,7 @@
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.19" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.22" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
   </ItemGroup>
 </Project>
