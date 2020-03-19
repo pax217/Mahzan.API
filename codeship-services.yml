@@ -1,0 +1,5 @@
+﻿docker-image:
+  build: .
+testenv:
+  build:
+    dockerfile: codeship/testenv.Dockerfile

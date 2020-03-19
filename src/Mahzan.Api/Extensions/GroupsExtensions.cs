@@ -15,7 +15,14 @@ namespace Mahzan.Api.Extensions
     {
         public static void GroupsBlServices(this IServiceCollection services)
         {
+            BusinessBlServices(services);
+            RepositoriesBlServices(services);
+            ValidationsBlServices(services);
+        }
 
+        private static void BusinessBlServices(this IServiceCollection services)
+        {
+            services.AddTransient<IGroupsBusiness, GroupsBusiness>();
         }
 
         private static void RepositoriesBlServices(this IServiceCollection services)

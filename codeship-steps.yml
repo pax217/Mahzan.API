@@ -1,0 +1,3 @@
+﻿- name: Test
+  service: testenv
+  command: sh /build/src/codeship/run-tests.sh
