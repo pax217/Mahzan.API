@@ -1,5 +1,5 @@
-﻿app:
+﻿docker-image:
+  build: .
+testenv:
   build:
-    dockerfile: codeship/test.Dockerfile
-  environment:
-    # ENV: Testing
+    dockerfile: codeship/testenv.Dockerfile
