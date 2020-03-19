@@ -16,7 +16,6 @@
     <Folder Include="Implemantations\Business\Groups\" />
     <Folder Include="Implemantations\Validations\" />
     <Folder Include="Implemantations\Validations\Groups\" />
-    <Folder Include="DataAccess\" />
     <Folder Include="Business\" />
     <Folder Include="Business\Implementations\" />
     <Folder Include="Business\Validations\" />

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    [Migration("20200318162533_Initial")]
-    partial class Initial
+    [Migration("20200319184856_UpdateGroupsAddFieldActive")]
+    partial class UpdateGroupsAddFieldActive
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,6 +102,8 @@ namespace Mahzan.Models.Migrations
                         .HasMaxLength(13);
 
                     b.HasKey("CompaniesId");
+
+                    b.HasIndex("GroupsId");
 
                     b.ToTable("Companies");
                 });
@@ -265,6 +267,9 @@ namespace Mahzan.Models.Migrations
                     b.Property<Guid>("GroupsId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("MembersId")
                         .HasColumnType("uniqueidentifier");
@@ -947,6 +952,15 @@ namespace Mahzan.Models.Migrations
                     b.HasOne("Mahzan.Models.Entities.Members", "Members")
                         .WithMany()
                         .HasForeignKey("MembersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Companies", b =>
+                {
+                    b.HasOne("Mahzan.Models.Entities.Groups", "Groups")
+                        .WithMany()
+                        .HasForeignKey("GroupsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

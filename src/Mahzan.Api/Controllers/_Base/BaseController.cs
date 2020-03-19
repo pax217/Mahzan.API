@@ -33,7 +33,7 @@ namespace Mahzan.Api.Controllers._Base
             get
             {
                 return _miembrosBusiness
-                        .Get(HttpContext.User.Claims.ToList()[0].Value).Id;
+                        .Get(HttpContext.User.Claims.ToList()[0].Value).MembersId;
             }
         }
 

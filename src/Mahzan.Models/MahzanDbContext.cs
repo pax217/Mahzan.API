@@ -283,7 +283,7 @@ namespace Mahzan.Models
         {
 
             modelBuilder.Entity<Members>()
-                        .HasKey(members => new { members.Id });
+                        .HasKey(members => new { members.MembersId });
 
         }
 

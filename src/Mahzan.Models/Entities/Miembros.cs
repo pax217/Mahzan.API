@@ -11,7 +11,7 @@ namespace Mahzan.Models.Entities
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid MembersId { get; set; }
         /// <summary>
         /// Nombre del miembro
         /// </summary>

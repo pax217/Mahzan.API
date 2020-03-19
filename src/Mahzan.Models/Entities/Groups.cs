@@ -24,5 +24,9 @@ namespace Mahzan.Models.Entities
         /// </summary>
         public Guid MembersId { get; set; }
 
+        /// <summary>
+        /// Indica si se encuentra activo
+        /// </summary>
+        public bool Active { get; set; }
     }
 }

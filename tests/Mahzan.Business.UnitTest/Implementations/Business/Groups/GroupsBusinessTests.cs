@@ -19,6 +19,7 @@ namespace Mahzan.Business.UnitTest.Implementations.Business.Groups
         public GroupsBusinessTests()
         {
         }
+
         /// <summary>
         /// Agrega un Grupo de froma exitosa.
         /// </summary>
@@ -83,5 +84,6 @@ namespace Mahzan.Business.UnitTest.Implementations.Business.Groups
             Assert.Equal(AddGroupsValidationsResources.AddMembersValid_500_WARNING_Message, result.Message);
 
         }
+
     }
 }

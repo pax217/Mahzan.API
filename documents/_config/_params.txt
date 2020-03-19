@@ -1,5 +1,18 @@
 ﻿# Gmail
 # Mahzan.API
 
-cuenta:     mahzan.backoffice@gmail.com
-password:   Mahzan20%
+	cuenta:     mahzan.backoffice@gmail.com
+	password:   Mahzan20%
+
+# Ubuntu Server
+# Mahzan.Api
+
+	usuario: root
+	password: Mahzan.Api20%
+
+# SQL Server
+# Mahzan.Api
+	Server: 64.227.21.115:1433
+	usuario: sa
+	password: Mahzan20%
+
