@@ -17,6 +17,7 @@
     <Folder Include="Implementations\" />
     <Folder Include="Implementations\Business\" />
     <Folder Include="Implementations\Business\Tickets\" />
+    <Folder Include="Implementations\Business\Groups\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Mahzan.Business\Mahzan.Business.csproj" />

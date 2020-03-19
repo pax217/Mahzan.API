@@ -134,7 +134,6 @@ namespace Mahzan.Api.Extensions
 
             //Negocio
             services.AddTransient<IMembersBusiness, MembersBusiness>();
-            services.AddTransient<IGroupsBusiness, GroupsBusiness>();
             services.AddTransient<ICompaniesBusiness, CompaniesBusiness>();
             services.AddTransient<IStoresBusiness, StoresBusiness>();
             services.AddTransient<IEmployeesBusiness, EmployeesBusiness>();

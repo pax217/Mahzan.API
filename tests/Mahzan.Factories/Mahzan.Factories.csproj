@@ -13,6 +13,17 @@
     <Folder Include="Implemantations\" />
     <Folder Include="Implemantations\Business\" />
     <Folder Include="Implemantations\Business\Tickets\" />
+    <Folder Include="Implemantations\Business\Groups\" />
+    <Folder Include="Implemantations\Validations\" />
+    <Folder Include="Implemantations\Validations\Groups\" />
+    <Folder Include="DataAccess\" />
+    <Folder Include="Business\" />
+    <Folder Include="Business\Implementations\" />
+    <Folder Include="Business\Validations\" />
+    <Folder Include="DataAccess\DTO\" />
+    <Folder Include="DataAccess\DTO\Groups\" />
+    <Folder Include="Business\Implementations\Groups\" />
+    <Folder Include="Business\Validations\Groups\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Moq" Version="4.13.1" />
