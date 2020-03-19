@@ -12,13 +12,16 @@ namespace Mahzan.Models.Entities
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid GroupsId { get; set; }
+
         /// <summary>
-        /// Nombre del miembro
+        /// Nombre del Grupo
         /// </summary>
         [Required, MaxLength(100)]
         public string Name { get; set; }
 
-        //Members
+        /// <summary>
+        /// Identificador único del  Miembro
+        /// </summary>
         public Guid MembersId { get; set; }
 
     }
