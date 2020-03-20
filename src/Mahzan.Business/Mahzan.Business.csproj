@@ -325,6 +325,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PutProductCategoriesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validations\Groups\DeleteGroupsValidationsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeleteGroupsValidationsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Business\Groups\DeleteGoupsResources.Designer.cs" />
@@ -488,6 +492,9 @@
     </Compile>
     <Compile Update="Resources\Business\ProductCategories\PutProductCategoriesResources.Designer.cs">
       <DependentUpon>PutProductCategoriesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validations\Groups\DeleteGroupsValidationsResources.Designer.cs">
+      <DependentUpon>DeleteGroupsValidationsResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

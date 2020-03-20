@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Mahzan.Business.Resources.Validations.Gruops {
+namespace Mahzan.Business.Resources.Validations.Groups {
     using System;
     using System.Reflection;
     
@@ -16,21 +16,21 @@ namespace Mahzan.Business.Resources.Validations.Gruops {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class DeleteGroupsResources {
+    internal class DeleteGroupsValidationsResources {
         
         private static System.Resources.ResourceManager resourceMan;
         
         private static System.Globalization.CultureInfo resourceCulture;
         
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DeleteGroupsResources() {
+        internal DeleteGroupsValidationsResources() {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Mahzan.Business.Resources.Validations.Gruops.DeleteGroupsResources", typeof(DeleteGroupsResources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Mahzan.Business.Resources.Validations.Groups.DeleteGroupsValidationsResources", typeof(DeleteGroupsValidationsResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -44,6 +44,30 @@ namespace Mahzan.Business.Resources.Validations.Gruops {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        internal static string Delete_Valid_Title {
+            get {
+                return ResourceManager.GetString("Delete_Valid_Title", resourceCulture);
+            }
+        }
+        
+        internal static string Delete_Valid_200_SUCCESS_Message {
+            get {
+                return ResourceManager.GetString("Delete_Valid_200_SUCCESS_Message", resourceCulture);
+            }
+        }
+        
+        internal static string Delete_Valid_400_WARNING_Message_Companies {
+            get {
+                return ResourceManager.GetString("Delete_Valid_400_WARNING_Message_Companies", resourceCulture);
+            }
+        }
+        
+        internal static string Delete_Valid_400_WARNING_Message_Group_No_Exist {
+            get {
+                return ResourceManager.GetString("Delete_Valid_400_WARNING_Message_Group_No_Exist", resourceCulture);
             }
         }
     }

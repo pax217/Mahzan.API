@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Interfaces.Validations.Stores;
-using Mahzan.Business.Resources.Validations.Gruops;
+using Mahzan.Business.Resources.Validations.Groups;
 using Mahzan.Business.Resources.Validations.Stores;
 using Mahzan.Business.Results.Stores;
 using Mahzan.DataAccess.DTO.Stores;

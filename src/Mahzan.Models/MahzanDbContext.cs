@@ -309,6 +309,9 @@ namespace Mahzan.Models
 
             ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
+
+            bool logicDelete = false;
+
             foreach (var entry in ChangeTracker.Entries())
             {
                 if (entry.Entity is Audits || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
@@ -344,6 +347,7 @@ namespace Mahzan.Models
                         case EntityState.Deleted:
                             auditEntry.OldValues[propertyName] = property.OriginalValue;
                             auditEntry.Tipo = EntityState.Deleted;
+
                             break;
 
                         case EntityState.Modified:
@@ -354,7 +358,18 @@ namespace Mahzan.Models
                                 auditEntry.NewValues[propertyName] = property.CurrentValue;
                             }
 
-                            auditEntry.Tipo = EntityState.Modified;
+                            if (propertyName == "Active")
+                            {
+                                if ((bool)property.OriginalValue && !(bool)property.CurrentValue)
+                                {
+                                    logicDelete = true;
+                                }
+                            }
+                            else
+                            {
+                                auditEntry.Tipo = EntityState.Modified;
+                            }
+
                             break;
                     }
                 }
@@ -365,6 +380,12 @@ namespace Mahzan.Models
             {
 
                 auditEntry.AspNetUserId = aspNetUsersId;
+
+                if (logicDelete)
+                {
+                    auditEntry.Tipo = EntityState.Deleted;
+                }
+
 
                 switch (tableAuditEnum)
                 {

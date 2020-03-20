@@ -21,5 +21,7 @@
     <data name="Delete_Valid_400_WARNING_Message_Companies" xml:space="preserve">
         <value>El Grupo que intentas eliminar tiene Empresas asociadas.</value>
     </data>
-    
+    <data name="Delete_Valid_400_WARNING_Message_Group_No_Exist" xml:space="preserve">
+        <value>El Grupo {0} no existe.</value>
+    </data>
 </root>
