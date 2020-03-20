@@ -59,7 +59,7 @@ namespace Mahzan.Api.Controllers.V1
                                                 GroupsId = getGroupFilter.GroupsId,
                                                 Name = getGroupFilter.Name,
                                                 MembersId = MembersId,
-                                                Active = getGroupFilter.Active
+                                                Active = true
                                             });
 
             result.Paging = new Paging()
@@ -100,7 +100,6 @@ namespace Mahzan.Api.Controllers.V1
                                                .Delete(new DeleteGroupsDto
                                                {
                                                    GroupsId = groupsId,
-                                                   Active = false,
                                                    MembersId = MembersId,
                                                    AspNetUserId = AspNetUserId,
                                                    TableAuditEnum = TableAuditEnum.GROUPS_AUDIT
