@@ -7,5 +7,6 @@ namespace Mahzan.DataAccess.DTO.Groups
     {
         public Guid? GroupsId { get; set; }
         public string Name { get; set; }
+        public bool? Active { get; set; }
     }
 }

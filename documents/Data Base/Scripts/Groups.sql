@@ -12,5 +12,9 @@ Select * from Groups
 /*	Obtiene Grupos de Miembro*/
 --------------------------------------------------------- 
 Select * from Groups
-where MembersId in('80D526D3-B763-424E-80FB-08D7A3920190')
+where MembersId in('CC0582D6-8688-476F-9082-7EBD702B2C41')
 
+---------------------------------------------------------
+/*	Tabla de Auditoria */
+--------------------------------------------------------- 
+Select * from Groups_Audit

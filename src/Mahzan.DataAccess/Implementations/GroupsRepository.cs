@@ -39,11 +39,17 @@ namespace Mahzan.DataAccess.Implementations
             };
 
             _context.Set<Groups>().Add(newGroup);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(addGroupsDto.TableAuditEnum,
+                                            addGroupsDto.AspNetUserId);
 
             return newGroup;
         }
 
+        /// <summary>
+        /// Obtiene los Grupos activos
+        /// </summary>
+        /// <param name="getGroupsDto"></param>
+        /// <returns></returns>
         public async Task<PagedList<Groups>> Get(GetGroupsDto getGroupsDto)
         {
             List<Groups> result = null;
@@ -79,11 +85,26 @@ namespace Mahzan.DataAccess.Implementations
                 });
             }
 
+            if (getGroupsDto.Active != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Groups).GetProperties().First(p => p.Name == "Active"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getGroupsDto.Active
+                });
+            }
+
             if (filterExpressions.Any())
             {
-                var deleg = ExpressionBuilder.GetExpression<Groups>(filterExpressions).Compile();
+                var deleg = ExpressionBuilder
+                            .GetExpression<Groups>(filterExpressions)
+                            .Compile();
 
-                result = _context.Set<Groups>().Where(deleg).ToList();
+                result = _context
+                         .Set<Groups>()
+                         .Where(deleg)
+                         .ToList();
             }
             else
             {
@@ -133,7 +154,14 @@ namespace Mahzan.DataAccess.Implementations
                                     select g)
                                     .FirstOrDefault();
 
-            _context.Set<Groups>().Remove(groupToDelte);
+            groupToDelte.Active = false;
+
+            EntityEntry entry = _context.Entry(groupToDelte);
+            entry.State = EntityState.Modified;
+            entry.Property("GroupsId").IsModified = false;
+
+
+            _context.Set<Groups>().Update(groupToDelte);
 
             await _context
                   .SaveChangesAsync(deleteGroupsDto.TableAuditEnum,

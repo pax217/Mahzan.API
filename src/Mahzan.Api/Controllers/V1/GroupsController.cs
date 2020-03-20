@@ -39,7 +39,7 @@ namespace Mahzan.Api.Controllers.V1
         {
 
             AddGroupsResult result = await _groupsBusiness
-                                            .Add(new AddGroupsDto()
+                                            .Add(new AddGroupsDto
                                             {
                                                 Name = addGroupsRequest.Name,
                                                 MembersId = MembersId,
@@ -58,7 +58,8 @@ namespace Mahzan.Api.Controllers.V1
                                             .Get(new GetGroupsDto {
                                                 GroupsId = getGroupFilter.GroupsId,
                                                 Name = getGroupFilter.Name,
-                                                MembersId = MembersId
+                                                MembersId = MembersId,
+                                                Active = getGroupFilter.Active
                                             });
 
             result.Paging = new Paging()
@@ -79,7 +80,7 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Put(PutGroupsRequest putGroupsRequest)
         {
             PutGroupsResult result = await _groupsBusiness
-                                            .Put(new PutGroupsDto()
+                                            .Put(new PutGroupsDto
                                             {
                                                 GroupsId = putGroupsRequest.GroupId,
                                                 Name = putGroupsRequest.Name,
@@ -96,9 +97,11 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Delete(Guid groupsId)
         {
             DeleteGroupsResult result = await _groupsBusiness
-                                               .Delete(new DeleteGroupsDto()
+                                               .Delete(new DeleteGroupsDto
                                                {
                                                    GroupsId = groupsId,
+                                                   Active = false,
+                                                   MembersId = MembersId,
                                                    AspNetUserId = AspNetUserId,
                                                    TableAuditEnum = TableAuditEnum.GROUPS_AUDIT
                                                });

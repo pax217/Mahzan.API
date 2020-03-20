@@ -6,5 +6,7 @@ namespace Mahzan.DataAccess.DTO.Groups
     public class DeleteGroupsDto:BaseDto
     {
         public Guid GroupsId { get; set; }
+
+        public bool? Active { get; set; }
     }
 }
