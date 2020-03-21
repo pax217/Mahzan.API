@@ -16,27 +16,23 @@ namespace Mahzan.Business.Implementations.Business.Companies
 {
     public class CompaniesBusiness: ICompaniesBusiness
     {
-        readonly ICompaniesRepository _companiesRepository;
+        #region Properties
 
-        readonly IAddCompaniesValidations _addCompaniesValidations;
+        private readonly ICompaniesValidations _companiesValidations;
 
-        readonly IPutCompaniesValidations _putCompaniesValidations;
+        private readonly ICompaniesRepositories _companiesRepositories;
 
-        readonly IMapper _mapper;
+        #endregion
+
+
 
         public CompaniesBusiness(
-            ICompaniesRepository companiesRepository,
-            IAddCompaniesValidations addCompaniesValidations,
-            IPutCompaniesValidations putCompaniesValidations,
-            IMapper mapper)
+            ICompaniesRepositories companiesRepositories,
+            ICompaniesValidations companiesValidations)
         {
-            _companiesRepository = companiesRepository;
+            _companiesRepositories = companiesRepositories;
 
-            //Validaciones
-            _addCompaniesValidations = addCompaniesValidations;
-            _putCompaniesValidations = putCompaniesValidations;
-
-            _mapper = mapper;
+            _companiesValidations = companiesValidations;
         }
 
         public async Task<AddCompaniesResult> Add(AddCompaniesDto addCompaniesDto)
@@ -54,7 +50,7 @@ namespace Mahzan.Business.Implementations.Business.Companies
             {
                 //Validaciones al agregar Company
 
-                AddCompaniesResult resultValidations = await _addCompaniesValidations
+                AddCompaniesResult resultValidations = await _companiesValidations
                                                               .AddCompaniesValid(addCompaniesDto);
                 if (!resultValidations.IsValid)
                 {
@@ -63,8 +59,8 @@ namespace Mahzan.Business.Implementations.Business.Companies
 
                 //Agrega Company a la base datos
 
-                result.Company= _companiesRepository
-                                .Add(addCompaniesDto);
+                result.Company= await _companiesRepositories
+                                      .AddCompany(addCompaniesDto);
 
             }
             catch (Exception ex)
@@ -93,8 +89,8 @@ namespace Mahzan.Business.Implementations.Business.Companies
             {
                 //Validaciones al eliminar la Company
 
-                _companiesRepository
-                    .Delete(deleteCompaniesDto);
+               await _companiesRepositories
+                     .DeleteCompany(deleteCompaniesDto);
             }
             catch (Exception ex)
             {
@@ -120,8 +116,8 @@ namespace Mahzan.Business.Implementations.Business.Companies
 
             try
             {
-                result.Companies = _companiesRepository
-                                    .Get(getCompaniesDto);
+                result.Companies = await _companiesRepositories
+                                         .GetCompanies(getCompaniesDto);
 
                 if (!result.Companies.Any())
                 {
@@ -156,7 +152,7 @@ namespace Mahzan.Business.Implementations.Business.Companies
             try
             {
                 //Validación de Actualizacion de la empresa
-                PutCompaniesResult resultVlidations = await _putCompaniesValidations
+                PutCompaniesResult resultVlidations = await _companiesValidations
                                                             .PutCompaniesValid(putCompaniesDto);
 
                 if (!resultVlidations.IsValid)
@@ -164,8 +160,8 @@ namespace Mahzan.Business.Implementations.Business.Companies
                     return resultVlidations;
                 }
 
-                _companiesRepository
-                    .Update(putCompaniesDto);
+                await _companiesRepositories
+                      .UpdateCompany(putCompaniesDto);
             }
             catch (Exception ex)
             {

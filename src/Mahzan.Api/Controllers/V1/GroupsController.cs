@@ -23,8 +23,13 @@ namespace Mahzan.Api.Controllers.V1
     [ApiController]
     public class GroupsController :BaseController
     {
+        #region Properties
+
         readonly IGroupsBusiness _groupsBusiness;
 
+        #endregion
+
+        #region Constructors
         public GroupsController(
             IMembersBusiness miembrosBusiness,
             IGroupsBusiness groupsBusiness
@@ -32,6 +37,9 @@ namespace Mahzan.Api.Controllers.V1
         {
             _groupsBusiness = groupsBusiness;
         }
+        #endregion
+
+        #region Public Methods
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
@@ -107,5 +115,7 @@ namespace Mahzan.Api.Controllers.V1
 
             return StatusCode(result.StatusCode, result);
         }
+
+        #endregion
     }
 }

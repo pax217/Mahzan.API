@@ -78,9 +78,11 @@ namespace Mahzan.Api.Extensions
             //Groups
             GroupsExtensions.GroupsBlServices(services);
 
+            //Companies
+            CompaniesExtensions.CompaniesBlServices(services);
+
             //Data Access
             services.AddTransient<IMembersRepository, MembersRepository>();
-            services.AddTransient<ICompaniesRepository, CompaniesRepository>();
             services.AddTransient<IStoresRepository, StoresRepository>();
             services.AddTransient<IEmployeesRepository, EmployeesRepository>();
             services.AddTransient<IEmployeesStoresRepository, EmployeesStoresRepository>();
@@ -111,10 +113,6 @@ namespace Mahzan.Api.Extensions
 
             //Members
             services.AddTransient<IAddMembersValidations, AddMembersValidations>();
-
-            //Companies
-            services.AddTransient<IAddCompaniesValidations, AddCompaniesValidations>();
-            services.AddTransient<IPutCompaniesValidations, PutCompaniesValidations>();
             
             //Stores
             services.AddTransient<IAddStoresValidations, AddStoresValidations>();
@@ -134,7 +132,6 @@ namespace Mahzan.Api.Extensions
 
             //Negocio
             services.AddTransient<IMembersBusiness, MembersBusiness>();
-            services.AddTransient<ICompaniesBusiness, CompaniesBusiness>();
             services.AddTransient<IStoresBusiness, StoresBusiness>();
             services.AddTransient<IEmployeesBusiness, EmployeesBusiness>();
             services.AddTransient<IEmployeesStoresBusiness, EmployeesStoresBusiniess>();

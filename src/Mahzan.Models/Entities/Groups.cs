@@ -7,6 +7,8 @@ namespace Mahzan.Models.Entities
 {
     public class Groups
     {
+        #region Properties
+
         /// <summary>
         /// Identificador único de Grupo
         /// </summary>
@@ -26,9 +28,11 @@ namespace Mahzan.Models.Entities
         public Guid MembersId { get; set; }
 
         /// <summary>
-        /// Indica si se encuentra activo
+        /// Indica si el registro se encuentra activo
         /// </summary>
         [Required]
         public bool Active { get; set; }
+
+        #endregion
     }
 }

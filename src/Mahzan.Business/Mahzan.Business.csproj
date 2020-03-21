@@ -28,8 +28,6 @@
     <Folder Include="Implementations\Business\Groups\" />
     <Folder Include="Resources\Business\Groups\" />
     <Folder Include="Requests\Companies\" />
-    <Folder Include="Interfaces\Business\Companies\" />
-    <Folder Include="Implementations\Business\Companies\" />
     <Folder Include="Results\Companies\" />
     <Folder Include="Resources\Business\Companies\" />
     <Folder Include="Requests\Stores\" />
@@ -456,6 +454,8 @@
     </Compile>
     <Compile Update="Resources\Validations\Companies\AddCompaniesValidationsResources.Designer.cs">
       <DependentUpon>AddCompaniesValidationsResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Update="Resources\Validations\Stores\AddStoresValidationsResources.Designer.cs">
       <DependentUpon>AddStoresValidationsResources.resx</DependentUpon>

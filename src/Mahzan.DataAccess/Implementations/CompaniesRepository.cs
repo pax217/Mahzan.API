@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
 using Mahzan.Models.Expressions;
 using Mahzan.Models.Enums.Expressions;
+using System.Threading.Tasks;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -21,7 +22,7 @@ namespace Mahzan.DataAccess.Implementations
         {
         }
 
-        public PagedList<Companies> Get(GetCompaniesDto getCompaniesDto)
+        public async Task<PagedList<Companies>> Get(GetCompaniesDto getCompaniesDto)
         {
             List<Companies> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
@@ -101,12 +102,12 @@ namespace Mahzan.DataAccess.Implementations
                 result = _context.Set<Companies>().ToList();
             }
 
-            return PagedList<Companies>.ToPagedList(result,
+            return await Task.Run(() => PagedList<Companies>.ToPagedList(result,
                                                     getCompaniesDto.PageNumber,
-                                                    getCompaniesDto.PageSize);
+                                                    getCompaniesDto.PageSize));
         }
 
-        public Companies Update(PutCompaniesDto putCompaniesDto)
+        public async Task<Companies> Update(PutCompaniesDto putCompaniesDto)
         {
             Companies companyToUpdate = (from g in _context.Set<Companies>()
                                          where g.CompaniesId.Equals(putCompaniesDto.CompaniesId)
@@ -145,13 +146,13 @@ namespace Mahzan.DataAccess.Implementations
             entry.Property("MembersId").IsModified = false;
 
             _context.Set<Companies>().Update(companyToUpdate);
-            _context.SaveChangesAsync(putCompaniesDto.TableAuditEnum,
+            await _context.SaveChangesAsync(putCompaniesDto.TableAuditEnum,
                                  putCompaniesDto.AspNetUserId);
 
             return companyToUpdate;
         }
 
-        public Companies Delete(DeleteCompaniesDto deleteCompaniesDto)
+        public async Task<Companies> Delete(DeleteCompaniesDto deleteCompaniesDto)
         {
             Companies companyToDelte = (from g in _context.Set<Companies>()
                                         where g.CompaniesId.Equals(deleteCompaniesDto.CompaniesId)
@@ -159,13 +160,13 @@ namespace Mahzan.DataAccess.Implementations
                                     .FirstOrDefault();
 
             _context.Set<Companies>().Remove(companyToDelte);
-            _context.SaveChangesAsync(deleteCompaniesDto.TableAuditEnum,
-                                 deleteCompaniesDto.AspNetUserId);
+            await _context.SaveChangesAsync(deleteCompaniesDto.TableAuditEnum,
+                                            deleteCompaniesDto.AspNetUserId);
 
             return companyToDelte;
         }
 
-        public Companies Add(AddCompaniesDto addCompaniesDto)
+        public async Task<Companies> Add(AddCompaniesDto addCompaniesDto)
         {
             Companies newCompany = new Companies
             {
@@ -173,11 +174,12 @@ namespace Mahzan.DataAccess.Implementations
                 CommercialName = addCompaniesDto.CommercialName,
                 BusinessName = addCompaniesDto.BusinessName,
                 GroupsId = addCompaniesDto.GroupsId,
-                MembersId = addCompaniesDto.MembersId
+                MembersId = addCompaniesDto.MembersId,
+                Active = true
             };
 
             _context.Set<Companies>().Add(newCompany);
-            _context.SaveChangesAsync(addCompaniesDto.TableAuditEnum,
+            await _context.SaveChangesAsync(addCompaniesDto.TableAuditEnum,
                                  addCompaniesDto.AspNetUserId);
 
             return newCompany;

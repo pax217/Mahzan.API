@@ -39,7 +39,7 @@ namespace Mahzan.Business.Implementations.Validations.Companies
             };
 
            
-            PagedList<Models.Entities.Companies> Companies = _companiesRepository
+            PagedList<Models.Entities.Companies> Companies = await _companiesRepository
                                                                 .Get(new GetCompaniesDto
                                                                 {
                                                                     CompaniesId = putCompaniesDto.CompaniesId

@@ -21,8 +21,13 @@ namespace Mahzan.Api.Controllers.V1
     [ApiController]
     public class CompaniesController : BaseController
     {
+        #region Properties
+
         readonly ICompaniesBusiness _companiesBusiness;
 
+        #endregion
+
+        #region Constructors
         public CompaniesController(
             IMembersBusiness miembrosBusiness,
             ICompaniesBusiness companiesBusiness)
@@ -30,6 +35,10 @@ namespace Mahzan.Api.Controllers.V1
         {
             _companiesBusiness = companiesBusiness;
         }
+
+        #endregion
+
+        #region Public Methods
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
@@ -98,5 +107,7 @@ namespace Mahzan.Api.Controllers.V1
 
             return StatusCode(result.StatusCode, result);
         }
+
+        #endregion
     }
 }

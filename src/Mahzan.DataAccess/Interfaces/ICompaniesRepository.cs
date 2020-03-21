@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Mahzan.DataAccess.DTO.Companies;
 using Mahzan.DataAccess.Filters.Companies;
 using Mahzan.DataAccess.Paging;
@@ -8,12 +9,12 @@ namespace Mahzan.DataAccess.Interfaces
 {
     public interface ICompaniesRepository: IRepositoryBase<Companies>
     {
-        Companies Add(AddCompaniesDto addCompaniesDto);
+        Task<Companies> Add(AddCompaniesDto addCompaniesDto);
 
-        PagedList<Companies> Get(GetCompaniesDto getCompaniesDto);
+        Task<PagedList<Companies>> Get(GetCompaniesDto getCompaniesDto);
 
-        Companies Update(PutCompaniesDto putCompaniesDto);
+        Task<Companies> Update(PutCompaniesDto putCompaniesDto);
 
-        Companies Delete(DeleteCompaniesDto deleteCompaniesDto);
+        Task<Companies> Delete(DeleteCompaniesDto deleteCompaniesDto);
     }
 }
