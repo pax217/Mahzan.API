@@ -27,7 +27,7 @@ namespace Mahzan.DataAccess.Implementations
             Tickets newTicket = new Tickets
             {
                 CreatedAt = DateTime.Now,
-                Total = addTicketsDto.PostTicketDetailDto.Sum(x=> x.Amount),
+                //Total = addTicketsDto.PostTicketDetailDto.Sum(x=> x.Amount),
                 PointsOfSalesId = addTicketsDto.PointsOfSalesId,
                 PaymentTypesId = addTicketsDto.PaymentTypesId,
                 AspNetUsersId = addTicketsDto.AspNetUserId

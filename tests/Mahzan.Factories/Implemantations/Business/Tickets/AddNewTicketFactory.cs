@@ -21,22 +21,14 @@ namespace Mahzan.Factories.Implemantations.Business.Tickets
                 StoresId = new Guid("50A9A317-2055-4BEA-95A3-DA648E67FC78"),
                 PointsOfSalesId = new Guid ("99B0C2C3-8621-4791-B59A-D4988EE94640"),
                 PaymentTypesId = new Guid("74557D9B-A59A-49A3-BBE3-57065844A1EA"),
-                Total = 0,
-                CreatedAt = DateTime.Now,
                 PostTicketDetailDto = new List<PostTicketDetailDto>(){
                     new PostTicketDetailDto{
                         ProductsId = new Guid("27C07004-2046-4958-A601-906787FD4376"),
                         Quantity =1,
-                        Description ="Jabón Zote 250 g.",
-                        Price = 25.60M,
-                        Amount = 25.60M
                     },
                     new PostTicketDetailDto{
                         ProductsId = new Guid("69A87869-70BB-4736-8594-B1C197C25C63"),
                         Quantity =1,
-                        Description ="Shampoo Crece 1 L.",
-                        Price = 22.80M,
-                        Amount = 22.80M
                     },
                 }
             };
@@ -67,7 +59,7 @@ namespace Mahzan.Factories.Implemantations.Business.Tickets
                 .ReturnsAsync(GetReturnTicketDetail());
 
             //Productos existentes
-            mock.Setup(p => p.GetProducts(It.IsAny<Guid>()))
+            mock.Setup(p => p.GetProduct(It.IsAny<Guid>()))
                 .Returns(GetProducts());
 
             //Productos en tienda

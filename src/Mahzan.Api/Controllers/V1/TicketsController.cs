@@ -44,9 +44,6 @@ namespace Mahzan.Api.Controllers.V1
                                                                                           .Select(p => new PostTicketDetailDto {
                                                                                               ProductsId = p.ProductsId,
                                                                                               Quantity = p.Quantity,
-                                                                                              Description = p.Description,
-                                                                                              Price = p.Price,
-                                                                                              Amount = 0
                                                                                           })
                                                                                           .ToList(),
                                                   AspNetUserId = AspNetUserId,

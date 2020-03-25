@@ -60,7 +60,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                               postTicketDetailDto);
         }
 
-        public List<Models.Entities.Products> GetProducts(Guid productsId)
+        public List<Models.Entities.Products> GetProduct(Guid productsId)
         {
             return  _productsRepository
                      .Get(x => x.ProductsId == productsId);

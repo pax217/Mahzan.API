@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    [Migration("20200319184856_UpdateGroupsAddFieldActive")]
-    partial class UpdateGroupsAddFieldActive
+    [Migration("20200321201225_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,6 +80,9 @@ namespace Mahzan.Models.Migrations
                     b.Property<Guid>("CompaniesId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<string>("BusinessName")
                         .IsRequired()
@@ -315,7 +318,7 @@ namespace Mahzan.Models.Migrations
 
             modelBuilder.Entity("Mahzan.Models.Entities.Members", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("MembersId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -341,7 +344,7 @@ namespace Mahzan.Models.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("MembersId");
 
                     b.ToTable("Members");
                 });
@@ -927,8 +930,15 @@ namespace Mahzan.Models.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("AspNetUsersId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BarCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -942,7 +952,14 @@ namespace Mahzan.Models.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("TotalProducts")
+                        .HasColumnType("int");
+
                     b.HasKey("TicketsId");
+
+                    b.HasIndex("PaymentTypesId");
+
+                    b.HasIndex("PointsOfSalesId");
 
                     b.ToTable("Tickets");
                 });
@@ -1041,6 +1058,21 @@ namespace Mahzan.Models.Migrations
                     b.HasOne("Mahzan.Models.Entities.Tickets", "Tickets")
                         .WithMany()
                         .HasForeignKey("TicketsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.Tickets", b =>
+                {
+                    b.HasOne("Mahzan.Models.Entities.PaymentTypes", "PaymentTypes")
+                        .WithMany()
+                        .HasForeignKey("PaymentTypesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Mahzan.Models.Entities.PointsOfSales", "PointsOfSales")
+                        .WithMany()
+                        .HasForeignKey("PointsOfSalesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

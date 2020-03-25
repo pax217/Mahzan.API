@@ -7,6 +7,8 @@ namespace Mahzan.Models.Entities
 {
     public class Tickets
     {
+        #region Properties
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid TicketsId { get; set; }
@@ -18,13 +20,26 @@ namespace Mahzan.Models.Entities
         public decimal Total { get; set; }
 
         [Required]
+        public int TotalProducts { get; set; }
+
+        [Required]
+        public string BarCode { get; set; }
+
+        [Required]
         public Guid AspNetUsersId { get; set; }
 
-        //PointsOfSale
-        public Guid PointsOfSalesId{ get; set; }
+        [Required]
+        public bool Active { get; set; }
+        #endregion
 
-        //PointsOfSale
+        #region Relations
+
+        public Guid PointsOfSalesId { get; set; }
+        public PointsOfSales PointsOfSales { get; set; }
+
+
         public Guid PaymentTypesId { get; set; }
-
+        public PaymentTypes PaymentTypes { get; set; }
+        #endregion
     }
 }
