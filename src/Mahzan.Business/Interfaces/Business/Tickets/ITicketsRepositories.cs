@@ -19,10 +19,11 @@ namespace Mahzan.Business.Interfaces.Business.Tickets
         Task<List<TicketDetail>> AddTicketDetail(Models.Entities.Tickets newTicket,
                                                  List<PostTicketDetailDto> postTicketDetailDto);
 
-        List<Models.Entities.Products> GetProduct(Guid productsId);
+        Task<PagedList<Models.Entities.Products>> GetProduct(Guid membersId,
+                                                             Guid productsId);
 
         List<Products_Store> GetProductsStore(Guid storesId,
-                                                              Guid productsId);
+                                              Guid productsId);
 
         Products_Store GetProductStore(Guid productsId);
 

@@ -59,8 +59,8 @@ namespace Mahzan.Factories.Implemantations.Business.Tickets
                 .ReturnsAsync(GetReturnTicketDetail());
 
             //Productos existentes
-            mock.Setup(p => p.GetProduct(It.IsAny<Guid>()))
-                .Returns(GetProducts());
+            //mock.Setup(p => p.GetProduct(It.IsAny<Guid>()))
+            //    .Returns(GetProducts());
 
             //Productos en tienda
             mock.Setup(p => p.GetProductsStore(It.IsAny<Guid>(),
@@ -126,34 +126,34 @@ namespace Mahzan.Factories.Implemantations.Business.Tickets
             };
         }
 
-        private static List<Models.Entities.Products> GetProducts() 
-        {
-            return new List<Models.Entities.Products>()
-            {
-                new Models.Entities.Products
-                {
-                    ProductsId = new Guid("27C07004-2046-4958-A601-906787FD4376"),
-                    SKU = string.Empty,
-                    Barcode ="0123456789123",
-                    Description ="Jabón Zote 250 g.",
-                    Price = 25.65M,
-                    Cost = 22.48M,
-                    FollowInventory = true,
-                    AvailableInAllStores = true
-                },
-                //new Models.Entities.Products
-                //{
-                //    ProductsId = new Guid("69A87869-70BB-4736-8594-B1C197C25C63"),
-                //    SKU = string.Empty,
-                //    Barcode ="0123456789124",
-                //    Description ="Shampoo Crece 1 L.",
-                //    Price = 22.80M,
-                //    Cost = 22.80M,
-                //    FollowInventory = true,
-                //    AvailableInAllStores = true
-                //}
-            };
-        }
+        //private static List<Models.Entities.Products> GetProducts() 
+        //{
+        //    return new List<Models.Entities.Products>()
+        //    {
+        //        new Models.Entities.Products
+        //        {
+        //            ProductsId = new Guid("27C07004-2046-4958-A601-906787FD4376"),
+        //            SKU = string.Empty,
+        //            Barcode ="0123456789123",
+        //            Description ="Jabón Zote 250 g.",
+        //            Price = 25.65M,
+        //            Cost = 22.48M,
+        //            FollowInventory = true,
+        //            AvailableInAllStores = true
+        //        },
+        //        //new Models.Entities.Products
+        //        //{
+        //        //    ProductsId = new Guid("69A87869-70BB-4736-8594-B1C197C25C63"),
+        //        //    SKU = string.Empty,
+        //        //    Barcode ="0123456789124",
+        //        //    Description ="Shampoo Crece 1 L.",
+        //        //    Price = 22.80M,
+        //        //    Cost = 22.80M,
+        //        //    FollowInventory = true,
+        //        //    AvailableInAllStores = true
+        //        //}
+        //    };
+        //}
 
         private static List<Models.Entities.Products_Store> GetProductsStore() 
         {

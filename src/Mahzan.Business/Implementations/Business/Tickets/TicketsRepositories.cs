@@ -1,4 +1,5 @@
 ﻿using Mahzan.Business.Interfaces.Business.Tickets;
+using Mahzan.DataAccess.DTO.Products;
 using Mahzan.DataAccess.DTO.ProductsStore;
 using Mahzan.DataAccess.DTO.ProductsTaxes;
 using Mahzan.DataAccess.DTO.Tickets;
@@ -60,10 +61,15 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                               postTicketDetailDto);
         }
 
-        public List<Models.Entities.Products> GetProduct(Guid productsId)
+        public async Task<PagedList<Models.Entities.Products>> GetProduct(Guid membersId,
+                                                                          Guid productsId)
         {
-            return  _productsRepository
-                     .Get(x => x.ProductsId == productsId);
+            return await _productsRepository
+                         .Get(new GetProductsDto
+                         {
+                             MembersId = membersId,
+                             ProductsId = productsId
+                         });
         }
 
         public List<Products_Store> GetProductsStore(Guid storesId, Guid productsId)

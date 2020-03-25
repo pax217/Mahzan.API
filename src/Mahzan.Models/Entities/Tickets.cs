@@ -22,7 +22,6 @@ namespace Mahzan.Models.Entities
         [Required]
         public int TotalProducts { get; set; }
 
-        [Required]
         public string BarCode { get; set; }
 
         [Required]

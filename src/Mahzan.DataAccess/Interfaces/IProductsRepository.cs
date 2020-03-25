@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Mahzan.DataAccess.DTO.Products;
 using Mahzan.DataAccess.Filters.Products;
 using Mahzan.DataAccess.Paging;
@@ -8,12 +9,12 @@ namespace Mahzan.DataAccess.Interfaces
 {
     public interface IProductsRepository: IRepositoryBase<Products>
     {
-        Products Add(AddProductsDto addProductsDto);
+        Task<Products> Add(AddProductsDto addProductsDto);
 
-        PagedList<Products> Get(GetProductsDto getProductsDto);
+        Task<PagedList<Products>> Get(GetProductsDto getProductsDto);
 
-        Products Update(PutProductsDto putProductsDto);
+        Task<Products> Update(PutProductsDto putProductsDto);
 
-        Products Delete(DeleteProductsDto deleteProductsDto);
+        Task<Products> Delete(DeleteProductsDto deleteProductsDto);
     }
 }
