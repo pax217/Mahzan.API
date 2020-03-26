@@ -27,6 +27,7 @@ namespace Mahzan.DataAccess.Implementations
         {
             Tickets newTicket = null;
             TicketDetail newTicketDetail = null;
+            TicketDetailTaxes newticketDetailTaxes = null;
 
             using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
@@ -62,6 +63,21 @@ namespace Mahzan.DataAccess.Implementations
                     };
 
                     _context.Set<TicketDetail>().Add(newTicketDetail);
+                }
+
+                //TicketDetailTaxes
+                foreach (var ticketDetailTaxes in addTicketsDto.TicketDetailTaxesDto)
+                {
+                    newticketDetailTaxes = new TicketDetailTaxes
+                    {
+                        TaxRate = ticketDetailTaxes.TaxRate,
+                        Amount = ticketDetailTaxes.Amount,
+                        ProductsId = ticketDetailTaxes.ProductsId,
+                        TaxesId = ticketDetailTaxes.TaxesId,
+                        TicketsId = newTicket.TicketsId
+                    };
+
+                    _context.Set<TicketDetailTaxes>().Add(newticketDetailTaxes);
                 }
 
 

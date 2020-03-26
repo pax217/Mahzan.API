@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    [Migration("20200325185131_UpdateTicketsFieldBarCodeNotRequired")]
-    partial class UpdateTicketsFieldBarCodeNotRequired
+    [Migration("20200326010248_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -683,6 +683,9 @@ namespace Mahzan.Models.Migrations
                     b.Property<Guid>("ProductsId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<decimal>("TaxRate")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<Guid>("TaxesId")
                         .HasColumnType("uniqueidentifier");
 
@@ -924,6 +927,34 @@ namespace Mahzan.Models.Migrations
                     b.ToTable("TicketDetail");
                 });
 
+            modelBuilder.Entity("Mahzan.Models.Entities.TicketDetailTaxes", b =>
+                {
+                    b.Property<Guid>("TicketDetailTaxesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("ProductsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("TaxRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("TaxesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TicketsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("TicketDetailTaxesId");
+
+                    b.HasIndex("TicketsId");
+
+                    b.ToTable("TicketDetailTaxes");
+                });
+
             modelBuilder.Entity("Mahzan.Models.Entities.Tickets", b =>
                 {
                     b.Property<Guid>("TicketsId")
@@ -1053,6 +1084,15 @@ namespace Mahzan.Models.Migrations
                 });
 
             modelBuilder.Entity("Mahzan.Models.Entities.TicketDetail", b =>
+                {
+                    b.HasOne("Mahzan.Models.Entities.Tickets", "Tickets")
+                        .WithMany()
+                        .HasForeignKey("TicketsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Mahzan.Models.Entities.TicketDetailTaxes", b =>
                 {
                     b.HasOne("Mahzan.Models.Entities.Tickets", "Tickets")
                         .WithMany()

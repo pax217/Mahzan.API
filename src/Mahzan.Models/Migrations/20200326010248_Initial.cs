@@ -498,6 +498,7 @@ namespace Mahzan.Models.Migrations
                 {
                     ProductsTaxesId = table.Column<Guid>(nullable: false),
                     ProductsId = table.Column<Guid>(nullable: false),
+                    TaxRate = table.Column<decimal>(nullable: false),
                     MembersId = table.Column<Guid>(nullable: false),
                     TaxesId = table.Column<Guid>(nullable: false)
                 },
@@ -540,7 +541,7 @@ namespace Mahzan.Models.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     Total = table.Column<decimal>(nullable: false),
                     TotalProducts = table.Column<int>(nullable: false),
-                    BarCode = table.Column<string>(nullable: false),
+                    BarCode = table.Column<string>(nullable: true),
                     AspNetUsersId = table.Column<Guid>(nullable: false),
                     Active = table.Column<bool>(nullable: false),
                     PointsOfSalesId = table.Column<Guid>(nullable: false),
@@ -632,6 +633,28 @@ namespace Mahzan.Models.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TicketDetailTaxes",
+                columns: table => new
+                {
+                    TicketDetailTaxesId = table.Column<Guid>(nullable: false),
+                    TaxRate = table.Column<decimal>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: false),
+                    ProductsId = table.Column<Guid>(nullable: false),
+                    TaxesId = table.Column<Guid>(nullable: false),
+                    TicketsId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TicketDetailTaxes", x => x.TicketDetailTaxesId);
+                    table.ForeignKey(
+                        name: "FK_TicketDetailTaxes_Tickets_TicketsId",
+                        column: x => x.TicketsId,
+                        principalTable: "Tickets",
+                        principalColumn: "TicketsId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Clients_MembersId",
                 table: "Clients",
@@ -691,6 +714,11 @@ namespace Mahzan.Models.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_TicketDetail_TicketsId",
                 table: "TicketDetail",
+                column: "TicketsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TicketDetailTaxes_TicketsId",
+                table: "TicketDetailTaxes",
                 column: "TicketsId");
 
             migrationBuilder.CreateIndex(
@@ -774,6 +802,9 @@ namespace Mahzan.Models.Migrations
 
             migrationBuilder.DropTable(
                 name: "TicketDetail");
+
+            migrationBuilder.DropTable(
+                name: "TicketDetailTaxes");
 
             migrationBuilder.DropTable(
                 name: "Groups");

@@ -49,19 +49,6 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                 result.Ticket = await _ticketsRepositories
                                       .AddTicket(ticketToAdd);
 
-                ////Calcula Monto Total
-                //List<PostTicketDetailDto> ticketDetail = await BuildTicketDetail(addTicketsDto);
-
-                //addTicketsDto.PostTicketDetailDto = ticketDetail;
-
-                ////Agrega ticket
-                //result.Ticket = await _ticketsRepositories
-                //                      .AddTicket(addTicketsDto);
-
-                ////Agrega detalle de Ticket
-                //result.TicketDetail = await _ticketsRepositories
-                //                            .AddTicketDetail(result.Ticket,
-                //                                             addTicketsDto.PostTicketDetailDto);
 
                 ////Identifica si el producto se sigue en el inventario.
                 //FollowInventory(addTicketsDto);
@@ -88,7 +75,8 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                 PaymentTypesId = addTicketsDto.PaymentTypesId,
                 AspNetUserId = addTicketsDto.AspNetUserId,
                 MembersId = addTicketsDto.MembersId,
-                PostTicketDetailDto = new List<PostTicketDetailDto>()
+                PostTicketDetailDto = new List<PostTicketDetailDto>(),
+                TicketDetailTaxesDto = new List<TicketDetailTaxesDto>(),
             };
 
             decimal total = 0;
@@ -102,6 +90,13 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                                                                .GetProduct(addTicketsDto.MembersId,
                                                                            ticketDetailDto.ProductsId);
 
+                //Asigna Precio
+                ticketDetailDto.Price = product.FirstOrDefault().Price;
+
+                //Calcula el Monto (Con o Sin Impuesto)
+                TicketDetailTaxesDto ticketDetailTaxesDto = await CalculateAmount(addTicketsDto.MembersId,
+                                                                                  ticketDetailDto);
+
 
                 //Detalle de Ticket
                 result.PostTicketDetailDto.Add(new PostTicketDetailDto
@@ -110,41 +105,20 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                     Quantity = ticketDetailDto.Quantity,
                     Description = product.FirstOrDefault().Description,
                     Price = product.FirstOrDefault().Price,
-                    Amount = product.FirstOrDefault().Price * ticketDetailDto.Quantity
+                    Amount = ticketDetailTaxesDto.Amount
                 });
+
+                //Detalle de Ticket con Impuestos
+                if (ticketDetailTaxesDto.TaxRate!=0)
+                {
+                    result.TicketDetailTaxesDto.Add(ticketDetailTaxesDto);
+                }
 
 
                 //Totales
                 totalProducts += ticketDetailDto.Quantity;
                 total += product.FirstOrDefault().Price * ticketDetailDto.Quantity;
 
-
-                ////Aplica impuesto
-                //PagedList<Models.Entities.ProductsTaxes> productsTaxes = await _ticketsRepositories
-                //                                                                .GetProductsTaxes(new GetProductsTaxesDto
-                //                                                                {
-                //                                                                    MembersId = addTicketsDto.MembersId,
-                //                                                                    ProductsId = ticketDetail.ProductsId
-                //                                                                });
-                ////decimal amountWithTaxes = 0;
-
-                //if (productsTaxes.Any())
-                //{
-                //    foreach (var tax in productsTaxes)
-                //    {
-                //        //decimal withOutTax = ticketDetail.Price * ticketDetail.Quantity;
-
-                //        //amountWithTaxes += (withOutTax + (withOutTax * (tax.Taxes.TaxRate) / 100));
-                //    }
-
-                //    //ticketDetail.Amount = amountWithTaxes;
-                //}
-                //else
-                //{
-                //    //ticketDetail.Amount += ticketDetail.Price * ticketDetail.Quantity;
-                //}
-
-                //result.Add(ticketDetail);
             }
 
             result.TotalProducts = totalProducts;
@@ -152,6 +126,53 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
             return result;
         }
+
+        private async Task<TicketDetailTaxesDto> CalculateAmount(Guid membersId,
+                                                                 PostTicketDetailDto postTicketDetailDto) 
+        {
+            TicketDetailTaxesDto result = new TicketDetailTaxesDto(); ;
+
+
+            //Identifica los impuestos aplicados a este producto
+            PagedList<Models.Entities.ProductsTaxes> productsTaxes = await _ticketsRepositories
+                                                                            .GetProductsTaxes(new GetProductsTaxesDto
+                                                                            {
+                                                                                MembersId = membersId,
+                                                                                ProductsId = postTicketDetailDto.ProductsId
+                                                                            });
+
+            if (productsTaxes.Any())
+            {
+
+
+                foreach (var tax in productsTaxes)
+                {
+                    decimal withOutTax = postTicketDetailDto.Price * postTicketDetailDto.Quantity;
+
+                    decimal amountWithTaxes = (withOutTax + (withOutTax * (tax.TaxRate) / 100));
+
+
+
+                    //Detalle de Impuestos
+                    result = new TicketDetailTaxesDto
+                    {
+                        TaxRate = tax.TaxRate,
+                        Amount = tax.Taxes.TaxType == TaxTypeEnum.ADD_IN_PRICE? amountWithTaxes: withOutTax,
+                        ProductsId = tax.ProductsId,
+                        TaxesId = tax.TaxesId
+                    };
+                }
+
+            }
+            else
+            {
+
+                result.Amount += postTicketDetailDto.Price * postTicketDetailDto.Quantity;
+            }
+
+
+            return result; 
+        } 
 
         //public void FollowInventory(AddTicketsDto addTicketsDto)
         //{
@@ -178,24 +199,24 @@ namespace Mahzan.Business.Implementations.Business.Tickets
         //    }
         //}
 
-        public void TakeFormStock(Guid productsId)
-        {
-            Models.Entities.Products_Store products_Store = _ticketsRepositories
-                                                             .GetProductStore(productsId);
-            if (products_Store != null)
-            {
-                products_Store.InStock--;
+        //public void TakeFormStock(Guid productsId)
+        //{
+        //    Models.Entities.Products_Store products_Store = _ticketsRepositories
+        //                                                     .GetProductStore(productsId);
+        //    if (products_Store != null)
+        //    {
+        //        products_Store.InStock--;
 
 
-                _ticketsRepositories.UpdateStoreRepository(new PutProductsStoreDto
-                {
-                    ProductsStoreId = products_Store.ProductsStoreId,
-                    InStock = products_Store.InStock
-                });
-            }
+        //        _ticketsRepositories.UpdateStoreRepository(new PutProductsStoreDto
+        //        {
+        //            ProductsStoreId = products_Store.ProductsStoreId,
+        //            InStock = products_Store.InStock
+        //        });
+        //    }
 
 
-        }
+        //}
 
         #endregion
     }

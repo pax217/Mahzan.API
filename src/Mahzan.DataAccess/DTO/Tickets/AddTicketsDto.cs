@@ -21,6 +21,8 @@ namespace Mahzan.DataAccess.DTO.Tickets
         public Guid PaymentTypesId { get; set; }
 
         public List<PostTicketDetailDto> PostTicketDetailDto { get; set; }
+
+        public List<TicketDetailTaxesDto> TicketDetailTaxesDto { get; set; }
     }
 
     public class PostTicketDetailDto
@@ -31,5 +33,13 @@ namespace Mahzan.DataAccess.DTO.Tickets
         public string Description { get; set; }
         public decimal Price { get; set; }
         public decimal Amount { get; set; }
+    }
+
+    public class TicketDetailTaxesDto 
+    {
+        public decimal TaxRate { get; set; }
+        public decimal Amount { get; set; }
+        public Guid ProductsId { get; set; }
+        public Guid TaxesId { get; set; }
     }
 }
