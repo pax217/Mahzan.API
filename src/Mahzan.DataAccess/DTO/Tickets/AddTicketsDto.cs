@@ -33,6 +33,7 @@ namespace Mahzan.DataAccess.DTO.Tickets
         public string Description { get; set; }
         public decimal Price { get; set; }
         public decimal Amount { get; set; }
+        public bool FollowInventory { get; set; }
     }
 
     public class TicketDetailTaxesDto 

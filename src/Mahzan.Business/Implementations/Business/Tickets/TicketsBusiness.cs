@@ -17,16 +17,29 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 {
     public class TicketsBusiness : ITicketsBusiness
     {
-        readonly ITicketsRepositories _ticketsRepositories;
+        #region Properties
 
+        private readonly ITicketsRepositories _ticketsRepositories;
 
+        private readonly ITicketsValidations _ticketsValidations;
+
+        #endregion
+
+        #region Constructors
         public TicketsBusiness(
-            ITicketsRepositories ticketsRepositories)
+            ITicketsRepositories ticketsRepositories,
+            ITicketsValidations ticketsValidations)
         {
             //Repositories
             _ticketsRepositories = ticketsRepositories;
+
+            //Validaciones
+            _ticketsValidations = ticketsValidations;
         }
 
+        #endregion
+
+        #region Public Methods
         public async Task<PostTicketsResult> Add(AddTicketsDto addTicketsDto)
         {
             PostTicketsResult result = new PostTicketsResult()
@@ -41,6 +54,13 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             try
             {
                 //Validaciones de Ticket
+                PostTicketsResult postTicketsResult = await _ticketsValidations
+                                                            .AddTicketValid(addTicketsDto);
+
+                if (!postTicketsResult.IsValid)
+                {
+                    return postTicketsResult;
+                }
 
                 //Contruye Ticket
                 AddTicketsDto ticketToAdd = await BuildTicketDetail(addTicketsDto);
@@ -49,9 +69,6 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                 result.Ticket = await _ticketsRepositories
                                       .AddTicket(ticketToAdd);
 
-
-                ////Identifica si el producto se sigue en el inventario.
-                //FollowInventory(addTicketsDto);
             }
             catch (Exception ex)
             {
@@ -63,6 +80,10 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
             return result;
         }
+
+
+
+        #endregion
 
         #region Private Methods
 
@@ -105,8 +126,9 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                     Quantity = ticketDetailDto.Quantity,
                     Description = product.FirstOrDefault().Description,
                     Price = product.FirstOrDefault().Price,
-                    Amount = ticketDetailTaxesDto.Amount
-                });
+                    Amount = ticketDetailTaxesDto.Amount,
+                    FollowInventory = product.FirstOrDefault().FollowInventory
+                }) ;
 
                 //Detalle de Ticket con Impuestos
                 if (ticketDetailTaxesDto.TaxRate!=0)
@@ -159,7 +181,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                         Amount = tax.Taxes.TaxType == TaxTypeEnum.ADD_IN_PRICE? amountWithTaxes: withOutTax,
                         ProductsId = tax.ProductsId,
                         TaxesId = tax.TaxesId,
-                        Price = postTicketDetailDto.Price
+                        Price = postTicketDetailDto.Price,
                     };
                 }
 
@@ -173,50 +195,6 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
             return result; 
         } 
-
-        //public void FollowInventory(AddTicketsDto addTicketsDto)
-        //{
-        //    foreach (var item in addTicketsDto.PostTicketDetailDto)
-        //    {
-        //        List<Models.Entities.Products> foundProduct = _ticketsRepositories
-        //                                                       .GetProduct(item.ProductsId);
-
-        //        if (foundProduct.Any())
-        //        {
-        //            if (foundProduct.FirstOrDefault().FollowInventory)
-        //            {
-        //                List<Models.Entities.Products_Store> foundProducts_Store = _ticketsRepositories
-        //                                                                            .GetProductsStore(addTicketsDto.StoresId,
-        //                                                                                              item.ProductsId);
-        //                if (foundProducts_Store.Any())
-        //                {
-        //                    TakeFormStock(foundProducts_Store.FirstOrDefault().ProductsId);
-        //                }
-        //            }
-
-        //        }
-
-        //    }
-        //}
-
-        //public void TakeFormStock(Guid productsId)
-        //{
-        //    Models.Entities.Products_Store products_Store = _ticketsRepositories
-        //                                                     .GetProductStore(productsId);
-        //    if (products_Store != null)
-        //    {
-        //        products_Store.InStock--;
-
-
-        //        _ticketsRepositories.UpdateStoreRepository(new PutProductsStoreDto
-        //        {
-        //            ProductsStoreId = products_Store.ProductsStoreId,
-        //            InStock = products_Store.InStock
-        //        });
-        //    }
-
-
-        //}
 
         #endregion
     }
