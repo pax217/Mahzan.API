@@ -117,7 +117,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
                 //Totales
                 totalProducts += ticketDetailDto.Quantity;
-                total += product.FirstOrDefault().Price * ticketDetailDto.Quantity;
+                total += ticketDetailTaxesDto.Amount;
 
             }
 
@@ -144,7 +144,6 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             if (productsTaxes.Any())
             {
 
-
                 foreach (var tax in productsTaxes)
                 {
                     decimal withOutTax = postTicketDetailDto.Price * postTicketDetailDto.Quantity;
@@ -159,7 +158,8 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                         TaxRate = tax.TaxRate,
                         Amount = tax.Taxes.TaxType == TaxTypeEnum.ADD_IN_PRICE? amountWithTaxes: withOutTax,
                         ProductsId = tax.ProductsId,
-                        TaxesId = tax.TaxesId
+                        TaxesId = tax.TaxesId,
+                        Price = postTicketDetailDto.Price
                     };
                 }
 

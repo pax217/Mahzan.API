@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Mahzan.Api
 {
@@ -37,7 +38,11 @@ namespace Mahzan.Api
 
             services.AddControllers();
 
-            services.AddMvc();
+            //Configura Ignorar valores null en json
+            services.AddMvc()
+                    .AddJsonOptions(options => {
+                        options.JsonSerializerOptions.IgnoreNullValues = true;
+                    });
 
             //Agrega Swagger
             services.AddSwagger();
@@ -82,6 +87,8 @@ namespace Mahzan.Api
                     .ConfigureApiBehaviorOptions(options => {
                         options.InvalidModelStateResponseFactory = InvalidModelStateHandler.Handler;
                     });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

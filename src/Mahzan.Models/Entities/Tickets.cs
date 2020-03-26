@@ -39,6 +39,7 @@ namespace Mahzan.Models.Entities
 
         public Guid PaymentTypesId { get; set; }
         public PaymentTypes PaymentTypes { get; set; }
+
         #endregion
     }
 }

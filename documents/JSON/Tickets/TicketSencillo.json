@@ -1,14 +1,14 @@
 {
-  "storesId": "370ECA1D-D778-4C7C-8C93-7D3CDF353297",
-  "pointsOfSalesId": "80c4b6d0-7ceb-4beb-9bde-8ed6dd5a43d5",
-  "paymentTypesId": "986564E9-B381-4A64-A01F-181C742EF98C",
+  "storesId": "29f191f3-1760-4e47-88d6-6c7b7ef8899d",
+  "pointsOfSalesId": "e768641f-3fac-4d49-907a-c908436dca1b",
+  "paymentTypesId": "2a117838-8853-42cc-a457-6d06e26ea4f4",
   "postTicketDetailRequest": [
     {
-      "productsId": "1A209E36-2A35-4003-9A38-0307F3D834B9",
+      "productsId": "a2381503-a6cf-466d-bccb-578a8f955de6",
       "quantity": 2
     },
-	{
-      "productsId": "414B7957-803F-444E-A5CD-76B42A2C2EDA",
+    {
+      "productsId": "ecbaa986-a5ed-4966-a7f0-bd31dbcb9ea6",
       "quantity": 1
     }
   ]

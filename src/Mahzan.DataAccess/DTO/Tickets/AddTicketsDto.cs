@@ -38,6 +38,7 @@ namespace Mahzan.DataAccess.DTO.Tickets
     public class TicketDetailTaxesDto 
     {
         public decimal TaxRate { get; set; }
+        public decimal Price { get; set; }
         public decimal Amount { get; set; }
         public Guid ProductsId { get; set; }
         public Guid TaxesId { get; set; }

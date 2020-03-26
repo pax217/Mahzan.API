@@ -160,7 +160,7 @@ namespace Mahzan.Models
         private void OnConfiguringPaymentTypes(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PaymentTypes>()
-                        .HasKey(paymentTypes => new { paymentTypes.Id });
+                        .HasKey(paymentTypes => new { paymentTypes.PaymentTypesId });
         }
 
         private void OnConfiguringTicketDetail(ModelBuilder modelBuilder)

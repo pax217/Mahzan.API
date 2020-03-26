@@ -71,6 +71,7 @@ namespace Mahzan.DataAccess.Implementations
                     newticketDetailTaxes = new TicketDetailTaxes
                     {
                         TaxRate = ticketDetailTaxes.TaxRate,
+                        Price = ticketDetailTaxes.Price,
                         Amount = ticketDetailTaxes.Amount,
                         ProductsId = ticketDetailTaxes.ProductsId,
                         TaxesId = ticketDetailTaxes.TaxesId,
