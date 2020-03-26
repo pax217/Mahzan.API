@@ -44,6 +44,7 @@ namespace Mahzan.Models
 
         public DbSet<Tickets> Tickets { get; set; }
         public DbSet<TicketDetail> TicketDetail { get; set; }
+        public DbSet<TicketDetailTaxes> TicketDetailTaxes { get; set; }
         public DbSet<Taxes> Taxes { get; set; }
         public DbSet<Taxes_Stores> Taxes_Stores { get; set; }
 
@@ -98,6 +99,8 @@ namespace Mahzan.Models
 
             OnConfiguringTicketDetail(modelBuilder);
 
+            OnConfiguringTicketDetailTaxes(modelBuilder);
+
             OnConfiguringPaymentTypes(modelBuilder);
 
             OnConfiguringTaxes(modelBuilder);
@@ -116,6 +119,12 @@ namespace Mahzan.Models
             modelBuilder.Entity<Menu_SubItems>()
                         .HasKey(menu_SubItems => new { menu_SubItems.Id });
 
+        }
+
+        private void OnConfiguringTicketDetailTaxes(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TicketDetailTaxes>()
+                        .HasKey(ticketDetailTaxes => new { ticketDetailTaxes.TicketDetailTaxesId });
         }
 
         private void OnConfiguringClients(ModelBuilder modelBuilder)

@@ -88,8 +88,8 @@ namespace Mahzan.Business.Implementations.Business.Products
                 }
 
                 //Agrega Producto
-                Models.Entities.Products addedProduct =  _productsRepository
-                                                         .Add(addProductsDto);
+                Models.Entities.Products addedProduct = await  _productsRepository
+                                                               .Add(addProductsDto);
 
                 if (addedProduct!=null)
                 {
@@ -135,8 +135,8 @@ namespace Mahzan.Business.Implementations.Business.Products
 
             try
             {
-                result.Products = _productsRepository
-                                   .Get(getProductsDto);
+                result.Products =await _productsRepository
+                                       .Get(getProductsDto);
 
                 if (!result.Products.Any())
                 {
@@ -255,8 +255,8 @@ namespace Mahzan.Business.Implementations.Business.Products
 
             try
             {
-                _productsRepository
-                .Delete(deleteProductsDto);
+                await _productsRepository
+                      .Delete(deleteProductsDto);
 
             }
             catch (Exception ex)

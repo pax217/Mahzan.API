@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.DataAccess.DTO.Products;
 using Mahzan.DataAccess.Filters.Products;
@@ -26,7 +27,7 @@ namespace Mahzan.DataAccess.Implementations
             _mapper = mapper;
         }
 
-        public Products Add(AddProductsDto addProductsDto)
+        public async Task<Products> Add(AddProductsDto addProductsDto)
         {
             Products newProduct = new Products {
                 ProductCategoriesId  = addProductsDto.AddProductDetailDto.ProductCategoriesId,
@@ -40,12 +41,12 @@ namespace Mahzan.DataAccess.Implementations
             };
 
             _context.Set<Products>().Add(newProduct);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return newProduct;
         }
 
-        public Products Delete(DeleteProductsDto deleteProductsDto)
+        public async Task<Products> Delete(DeleteProductsDto deleteProductsDto)
         {
             Products productToDelte = (from g in _context.Set<Products>()
                                    where g.ProductsId.Equals(deleteProductsDto.ProductsId)
@@ -53,13 +54,13 @@ namespace Mahzan.DataAccess.Implementations
                                     .FirstOrDefault();
 
             _context.Set<Products>().Remove(productToDelte);
-            _context.SaveChangesAsync(deleteProductsDto.TableAuditEnum,
+            await _context.SaveChangesAsync(deleteProductsDto.TableAuditEnum,
                                       deleteProductsDto.AspNetUserId);
 
             return productToDelte;
         }
 
-        public PagedList<Products> Get(GetProductsDto getProductsDto)
+        public async Task<PagedList<Products>> Get(GetProductsDto getProductsDto)
         {
             List<Products> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
@@ -109,13 +110,14 @@ namespace Mahzan.DataAccess.Implementations
                                  .ToList();
             }
 
-            return PagedList<Products>.ToPagedList(result,
-                                                 getProductsDto.PageNumber,
-                                                 getProductsDto.PageSize);
+            return await Task.Run(() => PagedList<Products>
+                                        .ToPagedList(result,
+                                                     getProductsDto.PageNumber,
+                                                     getProductsDto.PageSize));
 
         }
 
-        public Products Update(PutProductsDto putProductsDto)
+        public Task<Products> Update(PutProductsDto putProductsDto)
         {
             throw new NotImplementedException();
         }

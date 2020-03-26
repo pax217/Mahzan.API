@@ -42,23 +42,16 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             {
                 //Validaciones de Ticket
 
+                //Contruye Ticket
+                AddTicketsDto ticketToAdd = await BuildTicketDetail(addTicketsDto);
 
-                //Calcula Monto Total
-                List<PostTicketDetailDto> detailTicketCalculate = await CalculateTotal(addTicketsDto);
-
-                addTicketsDto.PostTicketDetailDto = detailTicketCalculate;
-
-                //Agrega ticket
+                //Agrega Ticket/TikcetDetail
                 result.Ticket = await _ticketsRepositories
-                                      .AddTicket(addTicketsDto);
+                                      .AddTicket(ticketToAdd);
 
-                //Agrega detalle de Ticket
-                result.TicketDetail = await _ticketsRepositories
-                                            .AddTicketDetail(result.Ticket,
-                                                             addTicketsDto.PostTicketDetailDto);
 
-                //Identifica si el producto se sigue en el inventario.
-                FollowInventory(addTicketsDto);
+                ////Identifica si el producto se sigue en el inventario.
+                //FollowInventory(addTicketsDto);
             }
             catch (Exception ex)
             {
@@ -73,87 +66,158 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
         #region Private Methods
 
-        public async Task<List<PostTicketDetailDto>> CalculateTotal(AddTicketsDto addTicketsDto)
+        public async Task<AddTicketsDto> BuildTicketDetail(AddTicketsDto addTicketsDto)
         {
-            List<PostTicketDetailDto> result = new List<PostTicketDetailDto>();
-
-
-            foreach (var ticketDetail in addTicketsDto.PostTicketDetailDto)
+            AddTicketsDto result = new AddTicketsDto()
             {
-                //Aplica impuesto
-                PagedList<Models.Entities.ProductsTaxes> productsTaxes = await _ticketsRepositories
-                                                                                .GetProductsTaxes(new GetProductsTaxesDto
-                                                                                {
-                                                                                    MembersId = addTicketsDto.MembersId,
-                                                                                    ProductsId = ticketDetail.ProductsId
-                                                                                });
-                decimal amountWithTaxes = 0;
+                StoresId = addTicketsDto.StoresId,
+                PointsOfSalesId = addTicketsDto.PointsOfSalesId,
+                PaymentTypesId = addTicketsDto.PaymentTypesId,
+                AspNetUserId = addTicketsDto.AspNetUserId,
+                MembersId = addTicketsDto.MembersId,
+                PostTicketDetailDto = new List<PostTicketDetailDto>(),
+                TicketDetailTaxesDto = new List<TicketDetailTaxesDto>(),
+            };
 
-                if (productsTaxes.Any())
+            decimal total = 0;
+            int totalProducts = 0;
+
+            foreach (var ticketDetailDto in addTicketsDto.PostTicketDetailDto)
+            {
+
+                //Busca el producto
+                List<Models.Entities.Products> product = await _ticketsRepositories
+                                                               .GetProduct(addTicketsDto.MembersId,
+                                                                           ticketDetailDto.ProductsId);
+
+                //Asigna Precio
+                ticketDetailDto.Price = product.FirstOrDefault().Price;
+
+                //Calcula el Monto (Con o Sin Impuesto)
+                TicketDetailTaxesDto ticketDetailTaxesDto = await CalculateAmount(addTicketsDto.MembersId,
+                                                                                  ticketDetailDto);
+
+
+                //Detalle de Ticket
+                result.PostTicketDetailDto.Add(new PostTicketDetailDto
                 {
-                    foreach (var tax in productsTaxes)
-                    {
-                        decimal withOutTax = ticketDetail.Price * ticketDetail.Quantity;
+                    ProductsId = ticketDetailDto.ProductsId,
+                    Quantity = ticketDetailDto.Quantity,
+                    Description = product.FirstOrDefault().Description,
+                    Price = product.FirstOrDefault().Price,
+                    Amount = ticketDetailTaxesDto.Amount
+                });
 
-                        amountWithTaxes += (withOutTax + (withOutTax * (tax.Taxes.TaxRate) / 100));
-                    }
-
-                    ticketDetail.Amount = amountWithTaxes;
-                }
-                else
+                //Detalle de Ticket con Impuestos
+                if (ticketDetailTaxesDto.TaxRate!=0)
                 {
-                    ticketDetail.Amount += ticketDetail.Price * ticketDetail.Quantity;
+                    result.TicketDetailTaxesDto.Add(ticketDetailTaxesDto);
                 }
 
-                result.Add(ticketDetail);
+
+                //Totales
+                totalProducts += ticketDetailDto.Quantity;
+                total += product.FirstOrDefault().Price * ticketDetailDto.Quantity;
+
             }
+
+            result.TotalProducts = totalProducts;
+            result.Total = total;
 
             return result;
         }
 
-        public void FollowInventory(AddTicketsDto addTicketsDto)
+        private async Task<TicketDetailTaxesDto> CalculateAmount(Guid membersId,
+                                                                 PostTicketDetailDto postTicketDetailDto) 
         {
-            foreach (var item in addTicketsDto.PostTicketDetailDto)
+            TicketDetailTaxesDto result = new TicketDetailTaxesDto(); ;
+
+
+            //Identifica los impuestos aplicados a este producto
+            PagedList<Models.Entities.ProductsTaxes> productsTaxes = await _ticketsRepositories
+                                                                            .GetProductsTaxes(new GetProductsTaxesDto
+                                                                            {
+                                                                                MembersId = membersId,
+                                                                                ProductsId = postTicketDetailDto.ProductsId
+                                                                            });
+
+            if (productsTaxes.Any())
             {
-                List<Models.Entities.Products> foundProduct = _ticketsRepositories
-                                                               .GetProducts(item.ProductsId);
 
-                if (foundProduct.Any())
+
+                foreach (var tax in productsTaxes)
                 {
-                    if (foundProduct.FirstOrDefault().FollowInventory)
-                    {
-                        List<Models.Entities.Products_Store> foundProducts_Store = _ticketsRepositories
-                                                                                    .GetProductsStore(addTicketsDto.StoresId,
-                                                                                                      item.ProductsId);
-                        if (foundProducts_Store.Any())
-                        {
-                            TakeFormStock(foundProducts_Store.FirstOrDefault().ProductsId);
-                        }
-                    }
+                    decimal withOutTax = postTicketDetailDto.Price * postTicketDetailDto.Quantity;
 
+                    decimal amountWithTaxes = (withOutTax + (withOutTax * (tax.TaxRate) / 100));
+
+
+
+                    //Detalle de Impuestos
+                    result = new TicketDetailTaxesDto
+                    {
+                        TaxRate = tax.TaxRate,
+                        Amount = tax.Taxes.TaxType == TaxTypeEnum.ADD_IN_PRICE? amountWithTaxes: withOutTax,
+                        ProductsId = tax.ProductsId,
+                        TaxesId = tax.TaxesId
+                    };
                 }
 
             }
-        }
-
-        public void TakeFormStock(Guid productsId)
-        {
-            Models.Entities.Products_Store products_Store = _ticketsRepositories
-                                                             .GetProductStore(productsId);
-            if (products_Store != null)
+            else
             {
-                products_Store.InStock--;
 
-
-                _ticketsRepositories.UpdateStoreRepository(new PutProductsStoreDto
-                {
-                    ProductsStoreId = products_Store.ProductsStoreId,
-                    InStock = products_Store.InStock
-                });
+                result.Amount += postTicketDetailDto.Price * postTicketDetailDto.Quantity;
             }
 
 
-        }
+            return result; 
+        } 
+
+        //public void FollowInventory(AddTicketsDto addTicketsDto)
+        //{
+        //    foreach (var item in addTicketsDto.PostTicketDetailDto)
+        //    {
+        //        List<Models.Entities.Products> foundProduct = _ticketsRepositories
+        //                                                       .GetProduct(item.ProductsId);
+
+        //        if (foundProduct.Any())
+        //        {
+        //            if (foundProduct.FirstOrDefault().FollowInventory)
+        //            {
+        //                List<Models.Entities.Products_Store> foundProducts_Store = _ticketsRepositories
+        //                                                                            .GetProductsStore(addTicketsDto.StoresId,
+        //                                                                                              item.ProductsId);
+        //                if (foundProducts_Store.Any())
+        //                {
+        //                    TakeFormStock(foundProducts_Store.FirstOrDefault().ProductsId);
+        //                }
+        //            }
+
+        //        }
+
+        //    }
+        //}
+
+        //public void TakeFormStock(Guid productsId)
+        //{
+        //    Models.Entities.Products_Store products_Store = _ticketsRepositories
+        //                                                     .GetProductStore(productsId);
+        //    if (products_Store != null)
+        //    {
+        //        products_Store.InStock--;
+
+
+        //        _ticketsRepositories.UpdateStoreRepository(new PutProductsStoreDto
+        //        {
+        //            ProductsStoreId = products_Store.ProductsStoreId,
+        //            InStock = products_Store.InStock
+        //        });
+        //    }
+
+
+        //}
+
         #endregion
     }
 }
