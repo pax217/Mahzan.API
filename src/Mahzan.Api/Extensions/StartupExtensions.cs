@@ -81,6 +81,9 @@ namespace Mahzan.Api.Extensions
             //Companies
             CompaniesExtensions.CompaniesBlServices(services);
 
+            //Tickets
+            TicketsExtensions.TicketsBlServices(services);
+
             //Data Access
             services.AddTransient<IMembersRepository, MembersRepository>();
             services.AddTransient<IStoresRepository, StoresRepository>();
@@ -93,7 +96,6 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IProductUnitsRepository, ProductUnitsRepository>();
             services.AddTransient<IProductCategoriesRepository, ProductCategoriesRepository>();
             services.AddTransient<IProductsPhotosRepository, ProductsPhotosRepository>();
-            services.AddTransient<ITicketsRepository, TicketsRepository>();
             services.AddTransient<ITicketDetailRepository, TicketDetailRepository>();
             services.AddTransient<IMenuRepository, MenuRepository>();
             services.AddTransient<IMenuItemsRepository, MenuItemsRepository>();
@@ -103,8 +105,6 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<ITaxesRepository, TaxesRepository>();
             services.AddTransient<ITaxesStoresRepository, TaxesStoresRepository>();
 
-            //Tickets
-            services.AddTransient<ITicketsRepositories, TicketsRepositories>();
 
 
             //Validaciones
@@ -140,7 +140,6 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IProductUnitsBusiness, ProductUnitsBusiness>();
             services.AddTransient<IProductsPhotosBusiness, ProductsPhotosBusiness>();
             services.AddTransient<IProductsBusiness, ProductsBusiness>();
-            services.AddTransient<ITicketsBusiness, TicketsBusiness>();
             services.AddTransient<IMenuBusiness, MenuBusiness>();
             services.AddTransient<IPaymentTypesBusiness, PaymentTypesBusiness>();
             services.AddTransient<IClientsBusiness, ClientsBusiness>();

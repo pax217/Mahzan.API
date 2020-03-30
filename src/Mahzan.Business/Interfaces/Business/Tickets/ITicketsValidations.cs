@@ -8,20 +8,8 @@ using System.Threading.Tasks;
 
 namespace Mahzan.Business.Interfaces.Business.Tickets
 {
-    public class ITicketsValidations
+    public interface ITicketsValidations
     {
-        public IAddTicketsValidations _addTicketsValidations { get; set; }
-
-        public ITicketsValidations(
-            IAddTicketsValidations ticketsValidations) 
-        {
-            _addTicketsValidations = ticketsValidations;
-        }
-
-        public async Task<PostTicketsResult> AddTicketValid(AddTicketsDto addTicketsDto) 
-        {
-            return await _addTicketsValidations
-                         .AddTicketValid(addTicketsDto);
-        }
+        Task<PostTicketsResult> AddTicketValid(AddTicketsDto addTicketsDto);
     }
 }
