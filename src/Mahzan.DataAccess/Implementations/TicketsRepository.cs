@@ -7,6 +7,8 @@ using Mahzan.DataAccess.DTO.Tickets;
 using Mahzan.DataAccess.Interfaces;
 using Mahzan.Models;
 using Mahzan.Models.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -81,6 +83,27 @@ namespace Mahzan.DataAccess.Implementations
                     _context.Set<TicketDetailTaxes>().Add(newticketDetailTaxes);
                 }
 
+                //ProductsStore
+                foreach (var ticketDetail in addTicketsDto.PostTicketDetailDto)
+                {
+                    if (ticketDetail.FollowInventory)
+                    {
+                        Products_Store product_Store = (from ps in _context.Set<Products_Store>()
+                                                        where ps.ProductsId == ticketDetail.ProductsId
+                                                        && ps.StoresId == addTicketsDto.StoresId
+                                                        select ps)
+                                                       .FirstOrDefault();
+
+                        product_Store.InStock--;
+
+                        EntityEntry entry = _context.Entry(product_Store);
+                        entry.State = EntityState.Modified;
+                        entry.Property("ProductsStoreId").IsModified = false;
+
+                        _context.Set<Products_Store>().Update(product_Store);
+
+                    }
+                }
 
                 await _context.SaveChangesAsync();
                 scope.Complete();

@@ -13,7 +13,6 @@
     <Folder Include="Enums\Result\" />
     <Folder Include="Results\AspNetUsers\" />
     <Folder Include="Resources\Business\AspNetUsers\" />
-    <Folder Include="Interfaces\Validations\" />
     <Folder Include="Interfaces\Validations\AspNetUsers\" />
     <Folder Include="Resources\Validations\AspNetUsers\" />
     <Folder Include="Implementations\Validations\AspNetUsers\" />
