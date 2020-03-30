@@ -21,8 +21,6 @@ namespace Mahzan.Business.Implementations.Business.Members
 
         readonly IAddMembersValidations _addMiembrosValidations;
 
-        readonly IMapper _mapper;
-
         public MembersBusiness(
             IMembersRepository miembrosRepository,
             IAddMembersValidations addValidations,
@@ -31,7 +29,6 @@ namespace Mahzan.Business.Implementations.Business.Members
         {
             _membersRepository = miembrosRepository;
             _addMiembrosValidations = addValidations;
-            _mapper = mapper;
         }
 
 
@@ -45,8 +42,11 @@ namespace Mahzan.Business.Implementations.Business.Members
                                                                       .Equals(userName)
                                                               );
 
-            if (miembroExistente != null)
+            if (miembroExistente != null) 
+            {
                 result = miembroExistente.FirstOrDefault();
+            }
+
 
 
             return result;
@@ -75,8 +75,8 @@ namespace Mahzan.Business.Implementations.Business.Members
                 }
 
                 //Guarda en Base de Datos
-                _membersRepository
-                 .Add(_mapper.Map<Models.Entities.Members>(addMembersDto));
+                await _membersRepository
+                      .Add(addMembersDto);
 
             }
             catch (Exception ex)

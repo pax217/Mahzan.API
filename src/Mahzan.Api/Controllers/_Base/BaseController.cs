@@ -32,8 +32,10 @@ namespace Mahzan.Api.Controllers._Base
         {
             get
             {
-                return _miembrosBusiness
-                        .Get(HttpContext.User.Claims.ToList()[0].Value).MembersId;
+                Models.Entities.Members member = _miembrosBusiness
+                        .Get(HttpContext.User.Claims.ToList()[0].Value);
+
+                return member.MembersPatternId==null? member.MembersId: member.MembersPatternId.Value;
             }
         }
 

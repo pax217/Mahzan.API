@@ -33,7 +33,7 @@ namespace Mahzan.Business.Implementations.Validations.PointsOfSales
             };
 
             //Valida el Nombre del punto de venta dentro de la misma tienda.
-            PagedList<Models.Entities.PointsOfSales> pointsOfSalesName = _pointsOfSalesRepository
+            PagedList<Models.Entities.PointsOfSales> pointsOfSalesName = await _pointsOfSalesRepository
                                                                          .Get(new GetPointsOfSalesDto
                                                                          {
                                                                              StoresId = addPointsOfSalesDto.StoresId,
@@ -52,7 +52,7 @@ namespace Mahzan.Business.Implementations.Validations.PointsOfSales
             }
 
             //Valida el Codigo del punto de venta dentro de la misma tienda.
-            PagedList<Models.Entities.PointsOfSales> pointsOfSalesCode = _pointsOfSalesRepository
+            PagedList<Models.Entities.PointsOfSales> pointsOfSalesCode = await _pointsOfSalesRepository
                                                                          .Get(new GetPointsOfSalesDto
                                                                          {
                                                                              StoresId = addPointsOfSalesDto.StoresId,

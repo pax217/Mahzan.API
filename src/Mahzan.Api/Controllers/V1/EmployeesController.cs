@@ -15,6 +15,7 @@ using Mahzan.Business.Requests.Employees;
 using Mahzan.Business.Results.AspNetUsers;
 using Mahzan.Business.Results.Employees;
 using Mahzan.DataAccess.DTO.Employees;
+using Mahzan.DataAccess.DTO.Members;
 using Mahzan.DataAccess.Filters.Employees;
 using Mahzan.DataAccess.Paging;
 using Mahzan.Models.Enums.Audit;
@@ -42,6 +43,8 @@ namespace Mahzan.Api.Controllers.V1
 
         readonly IEmailSender _emailSender;
 
+        private readonly IMembersBusiness _miembrosBusiness;
+
         public IConfiguration _config
         {
             get
@@ -63,6 +66,7 @@ namespace Mahzan.Api.Controllers.V1
         {
             //Business
             _employeesBusiness = employeesBusiness;
+            _miembrosBusiness = membersBusiness;
 
             //Validaciónes
             _signUpValidations = signUpValidations;
@@ -123,6 +127,23 @@ namespace Mahzan.Api.Controllers.V1
                                         AspNetUserId = AspNetUserId,
                                         TableAuditEnum = TableAuditEnum.EMPLOYEES_AUDIT
                                     });
+
+                    //Agrega MembersPatternId
+                    //Crea Miembro
+                    await _miembrosBusiness
+                           .Add(new AddMembersDto()
+                           {
+                               Name = postEmployeesRequest.FirstName + " " +
+                                      postEmployeesRequest.SecondName + " " +
+                                      postEmployeesRequest.LastName + " " +
+                                      postEmployeesRequest.SureName + " ",
+                               Phone = postEmployeesRequest.Phone,
+                               Email = postEmployeesRequest.Email,
+                               UserName = postEmployeesRequest.UserName,
+                               AspNetUsersId = new Guid(userCreated.Id),
+                               MembersPatternId = MembersId
+                           });
+
 
                     //Envia el correo de confirmación
                     await SendEmailConfirmation(postEmployeesRequest);

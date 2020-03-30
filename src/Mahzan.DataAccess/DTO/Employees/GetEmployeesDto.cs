@@ -6,5 +6,7 @@ namespace Mahzan.DataAccess.DTO.Employees
     public class GetEmployeesDto:BaseDto
     {
         public Guid? EmployeesId { get; set; }
+
+        public Guid? AspNetUsersId { get; set; }
     }
 }

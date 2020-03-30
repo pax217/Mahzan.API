@@ -63,7 +63,7 @@ namespace Mahzan.DataAccess.Implementations
             List<Employees> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getEmployeesDto.MembersId != null)
+            if (getEmployeesDto.MembersId != Guid.Empty)
             {
                 filterExpressions.Add(new FilterExpression
                 {

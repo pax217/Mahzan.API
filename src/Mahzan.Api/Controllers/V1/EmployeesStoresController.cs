@@ -56,7 +56,10 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Get([FromQuery] GetEmployeesStoresFilter getEmployeesStoresFilter)
         {
             GetEmployeesStoresResult result = await _employeesStoresBusiness
-                                                     .Get(getEmployeesStoresFilter);
+                                                     .Get(new GetEmployeesStoresDto { 
+                                                        EmployeesId = getEmployeesStoresFilter.EmployeesId,
+                                                        MembersId = MembersId
+                                                     });
 
             return StatusCode(result.StatusCode, result);
         }

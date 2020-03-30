@@ -16,3 +16,10 @@
 	usuario: sa
 	password: Mahzan20%
 
+# Docker/Digital Ocean
+# Mahzan.Api
+# *Levantar aplicación en Digital Ocean con Docker
+
+CMD > docker-machine create --driver digitalocean --digitalocean-access-token c29f58808e7adf495250f72da5cdc52df49bd0fd6d4b74cc615960c38d02b1b9 mahzan-api-sandbox
+CMD > docker-machine env mahzan-api-sandbox | iex
+

@@ -5,19 +5,27 @@ namespace Mahzan.Models.Entities
 {
     public class Employees_Stores
     {
+        #region Properties
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid EmployeesStoresId { get; set; }
 
         public Guid GroupId { get; set; }
 
-        public Guid CompanyId { get; set; }
+        public Guid CompaniesId { get; set; }
 
-        public Guid StoreId { get; set; }
+        public Guid StoresId { get; set; }
 
-        public Guid EmployeeId { get; set; }
+        public Guid MembersId { get; set; }
 
-        public bool Active { get; set; }
+        #endregion
 
-        public Guid MemberId { get; set; }
+        #region Relations
+
+        public Guid EmployeesId { get; set; }
+        public Employees Employees { get; set; }
+
+        #endregion
+
     }
 }

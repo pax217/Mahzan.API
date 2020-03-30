@@ -16,7 +16,7 @@ COPY src ./src
 RUN dotnet publish "./src/Mahzan.Api/Mahzan.Api.csproj" -c Release -o "../../dist"
 
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
 WORKDIR /app
 COPY --from=build /dist .
 

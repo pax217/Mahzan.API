@@ -6,6 +6,7 @@ namespace Mahzan.Models.Entities
 {
     public class Members
     {
+        #region Properties
         /// <summary>
         /// Identificador unico de Miembro
         /// </summary>
@@ -31,8 +32,15 @@ namespace Mahzan.Models.Entities
         [Required]
         public string UserName { get; set; }
 
+        public Guid? MembersPatternId { get; set; }
+
+        #endregion
+
+
+        #region Relations
         [Required]
         public Guid AspNetUsersId { get; set; }
 
+         #endregion
     }
 }

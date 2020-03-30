@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Mahzan.DataAccess.DTO.PointOfSales;
 using Mahzan.DataAccess.Filters.PointsOfSales;
 using Mahzan.DataAccess.Paging;
@@ -10,7 +11,7 @@ namespace Mahzan.DataAccess.Interfaces
     {
         PointsOfSales Add(AddPointsOfSalesDto addPointsOfSalesDto);
 
-        PagedList<PointsOfSales> Get(GetPointsOfSalesDto getPointsOfSalesDto);
+        Task<PagedList<PointsOfSales>> Get(GetPointsOfSalesDto getPointsOfSalesDto);
 
         PointsOfSales Update(PutPointsOfSalesDto putPointsOfSalesDto);
 

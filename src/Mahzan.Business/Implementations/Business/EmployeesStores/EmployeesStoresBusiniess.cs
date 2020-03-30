@@ -64,7 +64,7 @@ namespace Mahzan.Business.Implementations.Business.EmployeesStores
             return result;
         }
 
-        public async Task<GetEmployeesStoresResult> Get(GetEmployeesStoresFilter getEmployeesStoresFilter)
+        public async Task<GetEmployeesStoresResult> Get(GetEmployeesStoresDto getEmployeesStoresDto)
         {
             GetEmployeesStoresResult result = new GetEmployeesStoresResult()
             {
@@ -77,8 +77,8 @@ namespace Mahzan.Business.Implementations.Business.EmployeesStores
 
             try
             {
-                List<Models.Entities.Employees_Stores> employees_Stores = _employeesStoresRepository
-                                                                             .Get(getEmployeesStoresFilter);
+                List<Models.Entities.Employees_Stores> employees_Stores = await _employeesStoresRepository
+                                                                                .Get(getEmployeesStoresDto);
 
                 if (!employees_Stores.Any())
                 {
@@ -96,7 +96,7 @@ namespace Mahzan.Business.Implementations.Business.EmployeesStores
                         Models.Entities.Stores storeFind = _storesRepository
                                                             .Get(new GetStoresDto
                                                             {
-                                                                StoresId = employee_store.StoreId
+                                                                StoresId = employee_store.StoresId
                                                             }).FirstOrDefault();
                         if (storeFind!=null)
                         {

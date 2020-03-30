@@ -57,9 +57,6 @@ namespace Mahzan.Api.Controllers.V1
             GetPointsOfSalesResult result = await _pointOfSalesBusiness
                                                    .Get(new GetPointsOfSalesDto
                                                    {
-                                                       PointsOfSalesId = getPointsOfSalesFilter.PointsOfSalesId,
-                                                       Code = getPointsOfSalesFilter.Code,
-                                                       Name = getPointsOfSalesFilter.Name,
                                                        StoresId = getPointsOfSalesFilter.StoresId,
                                                        MembersId = MembersId
                                                    });

@@ -12,5 +12,5 @@ services:
         ports:
           - "1433:1433"
         environment:
-          SA_PASSWORD: "Mahzan19%"
+          SA_PASSWORD: "Mahzan20%"
           ACCEPT_EULA: "Y"

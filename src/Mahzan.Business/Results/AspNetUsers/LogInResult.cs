@@ -12,5 +12,7 @@ namespace Mahzan.Business.Results.AspNetUsers
         public string AspNetUsersId { get; set; }
 
         public string UserName { get; set; }
+
+        public Guid? EmployeesId { get; set; }
     }
 }

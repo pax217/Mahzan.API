@@ -5,6 +5,6 @@ namespace Mahzan.DataAccess.Filters.EmployeesStores
 {
     public class GetEmployeesStoresFilter:FilterBase
     {
-        public Guid EmployeeId { get; set; }
+        public Guid EmployeesId { get; set; }
     }
 }

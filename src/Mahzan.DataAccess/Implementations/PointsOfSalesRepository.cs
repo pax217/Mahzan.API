@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Mahzan.DataAccess.DTO.PointOfSales;
 using Mahzan.DataAccess.Filters.PointsOfSales;
 using Mahzan.DataAccess.Interfaces;
@@ -53,48 +54,18 @@ namespace Mahzan.DataAccess.Implementations
             return pointOfSaleToDelte;
         }
 
-        public PagedList<PointsOfSales> Get(GetPointsOfSalesDto getPointsOfSalesDto)
+        public Task<PagedList<PointsOfSales>> Get(GetPointsOfSalesDto getPointsOfSalesDto)
         {
             List<PointsOfSales> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getPointsOfSalesDto.MembersId != null)
+            if (getPointsOfSalesDto.MembersId != Guid.Empty)
             {
                 filterExpressions.Add(new FilterExpression
                 {
                     PropertyInfo = typeof(PointsOfSales).GetProperties().First(p => p.Name == "MembersId"),
                     Operator = OperationsEnum.Equals,
                     Value = getPointsOfSalesDto.MembersId
-                });
-            }
-
-            if (getPointsOfSalesDto.PointsOfSalesId != null)
-            {
-                filterExpressions.Add(new FilterExpression
-                {
-                    PropertyInfo = typeof(PointsOfSales).GetProperties().First(p => p.Name == "PointsOfSalesId"),
-                    Operator = OperationsEnum.Equals,
-                    Value = getPointsOfSalesDto.PointsOfSalesId
-                });
-            }
-
-            if (getPointsOfSalesDto.Code != null)
-            {
-                filterExpressions.Add(new FilterExpression
-                {
-                    PropertyInfo = typeof(PointsOfSales).GetProperties().First(p => p.Name == "Code"),
-                    Operator = OperationsEnum.Equals,
-                    Value = getPointsOfSalesDto.Code
-                });
-            }
-
-            if (getPointsOfSalesDto.Name != null)
-            {
-                filterExpressions.Add(new FilterExpression
-                {
-                    PropertyInfo = typeof(PointsOfSales).GetProperties().First(p => p.Name == "Name"),
-                    Operator = OperationsEnum.Equals,
-                    Value = getPointsOfSalesDto.Name
                 });
             }
 
@@ -110,9 +81,9 @@ namespace Mahzan.DataAccess.Implementations
                 result = _context.Set<PointsOfSales>().ToList();
             }
 
-            return PagedList<PointsOfSales>.ToPagedList(result,
+            return Task.Run(()=> PagedList<PointsOfSales>.ToPagedList(result,
                                                         getPointsOfSalesDto.PageNumber,
-                                                        getPointsOfSalesDto.PageSize);
+                                                        getPointsOfSalesDto.PageSize));
         }
 
         public PointsOfSales Update(PutPointsOfSalesDto putPointsOfSalesDto)

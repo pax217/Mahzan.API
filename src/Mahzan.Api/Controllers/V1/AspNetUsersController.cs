@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -20,6 +19,12 @@ using Mahzan.Api.Services;
 using System.Text.Encodings.Web;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.DataAccess.DTO.Members;
+using Mahzan.Business.Interfaces.Business.EmployeesStores;
+using Mahzan.DataAccess.Filters.EmployeesStores;
+using Mahzan.Business.Results.EmployeesStores;
+using Mahzan.Business.Interfaces.Business.Employees;
+using Mahzan.Business.Results.Employees;
+using Mahzan.DataAccess.DTO.Employees;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,15 +35,18 @@ namespace Mahzan.Api.Controllers.V1
     public class AspNetUsersController : Controller
     {
         #region ReadOnly Properties
-        readonly UserManager<AspNetUsers> _userManager;
-        readonly SignInManager<AspNetUsers> _signInManager;
-        readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<AspNetUsers> _userManager;
+        private readonly SignInManager<AspNetUsers> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        readonly ILogInValidations _logInValidations;
-        readonly ISignUpValidations _signUpValidations;
-        readonly IMembersBusiness _miembrosBusiness;
+        private readonly ILogInValidations _logInValidations;
+        private readonly ISignUpValidations _signUpValidations;
+        private readonly IMembersBusiness _miembrosBusiness;
 
-        readonly IEmailSender _emailSender;
+        private readonly IEmailSender _emailSender;
+
+
+        private readonly IEmployeesBusiness _employeesBusiness;
 
         #endregion
 
@@ -64,7 +72,8 @@ namespace Mahzan.Api.Controllers.V1
                                      ILogInValidations logInValidations,
                                      ISignUpValidations signUpValidations,
                                      IMembersBusiness miembrosBusiness,
-                                     IEmailSender emailSender)
+                                     IEmailSender emailSender,
+                                     IEmployeesBusiness employeesBusiness)
         {
             //Identity
             _userManager = userManager;
@@ -80,6 +89,7 @@ namespace Mahzan.Api.Controllers.V1
 
             //Business
             _miembrosBusiness = miembrosBusiness;
+            _employeesBusiness = employeesBusiness;
         }
         #endregion
 
@@ -140,6 +150,9 @@ namespace Mahzan.Api.Controllers.V1
 
                         //Obtiene UserName
                         result.UserName = aspNetUser.UserName;
+
+                        //Obtiene EmployeesId
+                        result.EmployeesId = await GetEmployeesId(aspNetUser.Id);
 
                     }
 
@@ -225,7 +238,8 @@ namespace Mahzan.Api.Controllers.V1
                                    Phone = signUpRequest.Phone,
                                    Email = signUpRequest.Email,
                                    UserName = signUpRequest.UserName,
-                                   AspNetUsersId = new Guid(userCreated.Id)
+                                   AspNetUsersId = new Guid(userCreated.Id),
+                                   MembersPatternId = null
                                });
 
                         //Envia el correo de confirmación
@@ -360,6 +374,30 @@ namespace Mahzan.Api.Controllers.V1
             await _emailSender.SendEmailAsync(aspNetUser.Email, "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+        }
+
+        private async Task<Guid?> GetEmployeesId(string aspNetUserId) 
+        {
+            Guid? result = null;
+
+            GetEmployeesResult getEmployeesResult = await _employeesBusiness
+                                                          .Get(new GetEmployeesDto 
+                                                          {
+                                                            AspNetUserId = new Guid(aspNetUserId)
+                                                          });
+
+            if (getEmployeesResult.IsValid)
+            {
+                if (getEmployeesResult.Employees.Any())
+                {
+                    result = getEmployeesResult
+                             .Employees
+                             .FirstOrDefault()
+                             .EmployeesId;
+                }
+            }
+
+            return result;
         }
 
         #endregion

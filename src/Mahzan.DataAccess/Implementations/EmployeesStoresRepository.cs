@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Mahzan.DataAccess.DTO.EmployeesStores;
 using Mahzan.DataAccess.Filters.EmployeesStores;
 using Mahzan.DataAccess.Interfaces;
 using Mahzan.DataAccess.Paging;
@@ -19,18 +21,28 @@ namespace Mahzan.DataAccess.Implementations
         {
         }
 
-        public PagedList<Employees_Stores> Get(GetEmployeesStoresFilter getEmployeesStoresFilter)
+        public async Task<PagedList<Employees_Stores>> Get(GetEmployeesStoresDto getEmployeesStoresDto)
         {
             List<Employees_Stores> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
-            if (getEmployeesStoresFilter.EmployeeId != null)
+            if (getEmployeesStoresDto.MembersId != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
-                    PropertyInfo = typeof(Employees_Stores).GetProperties().First(p => p.Name == "EmployeeId"),
+                    PropertyInfo = typeof(Employees_Stores).GetProperties().First(p => p.Name == "MembersId"),
                     Operator = OperationsEnum.Equals,
-                    Value = getEmployeesStoresFilter.EmployeeId
+                    Value = getEmployeesStoresDto.MembersId
+                });
+            }
+
+            if (getEmployeesStoresDto.EmployeesId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Employees_Stores).GetProperties().First(p => p.Name == "EmployeesId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getEmployeesStoresDto.EmployeesId
                 });
             }
 
@@ -46,9 +58,9 @@ namespace Mahzan.DataAccess.Implementations
                 result = _context.Set<Employees_Stores>().ToList();
             }
 
-            return PagedList<Employees_Stores>.ToPagedList(result,
-                                                    getEmployeesStoresFilter.PageNumber,
-                                                    getEmployeesStoresFilter.PageSize);
+            return await Task.Run(()=> PagedList<Employees_Stores>.ToPagedList(result,
+                                                    getEmployeesStoresDto.PageNumber,
+                                                    getEmployeesStoresDto.PageSize));
         }
     }
 }

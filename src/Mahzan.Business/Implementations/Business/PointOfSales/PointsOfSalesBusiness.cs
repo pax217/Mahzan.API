@@ -113,8 +113,8 @@ namespace Mahzan.Business.Implementations.Business.PointOfSales
 
             try
             {
-                result.PointsOfSales = _pointsOfSalesRepository
-                                        .Get(getPointsOfSalesDto);
+                result.PointsOfSales = await _pointsOfSalesRepository
+                                             .Get(getPointsOfSalesDto);
 
                 if (!result.PointsOfSales.Any())
                 {

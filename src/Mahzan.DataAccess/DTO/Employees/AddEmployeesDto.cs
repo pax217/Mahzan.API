@@ -23,8 +23,7 @@ namespace Mahzan.DataAccess.DTO.Employees
 
         public string Password { get; set; }
 
-        public Guid MembersId { get; set; }
-
         public Guid AspNetUsersId { get; set; }
+
     }
 }

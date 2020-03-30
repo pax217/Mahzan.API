@@ -10,6 +10,6 @@ namespace Mahzan.Business.Interfaces.Business.EmployeesStores
     {
         Task<PostEmployeesStoresResult> Add(AddEmployeesStoresDto addEmployeesStoresDto);
 
-        Task<GetEmployeesStoresResult> Get(GetEmployeesStoresFilter getEmployeesStoresFilter);
+        Task<GetEmployeesStoresResult> Get(GetEmployeesStoresDto getEmployeesStoresDto);
     }
 }

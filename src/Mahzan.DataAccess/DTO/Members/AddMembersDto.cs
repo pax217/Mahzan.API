@@ -12,5 +12,7 @@ namespace Mahzan.DataAccess.DTO.Members
         public string UserName { get; set; }
 
         public Guid AspNetUsersId { get; set; }
+
+        public Guid? MembersPatternId { get; set; }
     }
 }

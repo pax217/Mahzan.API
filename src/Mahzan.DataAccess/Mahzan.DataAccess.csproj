@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Implementations\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="DTO\" />
     <Folder Include="DTO\Members\" />
     <Folder Include="DTO\Groups\" />
     <Folder Include="DTO\_Base\" />
@@ -22,7 +21,6 @@
     <Folder Include="Filters\Employees\" />
     <Folder Include="DTO\PointOfSales\" />
     <Folder Include="Filters\PointsOfSales\" />
-    <Folder Include="DTO\EmployeesStores\" />
     <Folder Include="Filters\EmployeesStores\" />
     <Folder Include="DTO\Products\" />
     <Folder Include="Filters\Products\" />
