@@ -19,7 +19,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             _addTicketsValidations = ticketsValidations;
         }
 
-        public async Task<PostTicketsResult> AddTicketValid(AddTicketsDto addTicketsDto)
+        public async Task<PostTicketCalculationResult> AddTicketValid(TicketCalculationDto addTicketsDto)
         {
             return await _addTicketsValidations
                          .AddTicketValid(addTicketsDto);

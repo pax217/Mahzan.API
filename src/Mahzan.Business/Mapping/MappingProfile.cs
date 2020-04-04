@@ -82,7 +82,7 @@ namespace Mahzan.Business.Mapping
             #endregion
 
             #region Tickets
-            CreateMap<AddTicketsDto, Tickets>();
+            CreateMap<TicketCalculationDto, Tickets>();
             #endregion
         }
     }

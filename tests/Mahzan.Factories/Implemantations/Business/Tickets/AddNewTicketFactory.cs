@@ -14,19 +14,19 @@ namespace Mahzan.Factories.Implemantations.Business.Tickets
         /// Obtiene Información valida para generar Ticket
         /// </summary>
         /// <returns></returns>
-        public static AddTicketsDto GetAddTicketsDtoValid() 
+        public static TicketCalculationDto GetAddTicketsDtoValid() 
         {
-            return new AddTicketsDto
+            return new TicketCalculationDto
             {
                 StoresId = new Guid("50A9A317-2055-4BEA-95A3-DA648E67FC78"),
                 PointsOfSalesId = new Guid ("99B0C2C3-8621-4791-B59A-D4988EE94640"),
                 PaymentTypesId = new Guid("74557D9B-A59A-49A3-BBE3-57065844A1EA"),
-                PostTicketDetailDto = new List<PostTicketDetailDto>(){
-                    new PostTicketDetailDto{
+                PostTicketCalculationDetailDto = new List<PostTicketCalculationDetailDto>(){
+                    new PostTicketCalculationDetailDto{
                         ProductsId = new Guid("27C07004-2046-4958-A601-906787FD4376"),
                         Quantity =1,
                     },
-                    new PostTicketDetailDto{
+                    new PostTicketCalculationDetailDto{
                         ProductsId = new Guid("69A87869-70BB-4736-8594-B1C197C25C63"),
                         Quantity =1,
                     },
@@ -39,7 +39,7 @@ namespace Mahzan.Factories.Implemantations.Business.Tickets
         /// </summary>
         /// <param name="addTicketsDto"></param>
         /// <returns></returns>
-        public static Mock<ITicketsRepositories> CreateMockITicketsRepositories(AddTicketsDto addTicketsDto) 
+        public static Mock<ITicketsRepositories> CreateMockITicketsRepositories(TicketCalculationDto addTicketsDto) 
         {
             Mock<ITicketsRepositories> mock = new Mock<ITicketsRepositories>();
 
@@ -55,7 +55,7 @@ namespace Mahzan.Factories.Implemantations.Business.Tickets
 
             //Detalle de Ticket
             mock.Setup(p => p.AddTicketDetail(newTicket, 
-                                              addTicketsDto.PostTicketDetailDto))
+                                              addTicketsDto.PostTicketCalculationDetailDto))
                 .ReturnsAsync(GetReturnTicketDetail());
 
             //Productos existentes

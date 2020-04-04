@@ -31,7 +31,6 @@
     <Folder Include="DTO\ProductCategories\" />
     <Folder Include="DTO\ProductUnits\" />
     <Folder Include="DTO\ProductsStore\" />
-    <Folder Include="DTO\Tickets\" />
     <Folder Include="DTO\PaymentTypes\" />
     <Folder Include="DTO\BarCodes\" />
     <Folder Include="DTO\Taxes\" />

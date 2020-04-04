@@ -4,7 +4,7 @@ using Mahzan.DataAccess.DTO._Base;
 
 namespace Mahzan.DataAccess.DTO.Tickets
 {
-    public class AddTicketsDto:BaseDto
+    public class TicketCalculationDto:BaseDto
     {
         public DateTime CreatedAt { get; set; }
 
@@ -20,12 +20,12 @@ namespace Mahzan.DataAccess.DTO.Tickets
 
         public Guid PaymentTypesId { get; set; }
 
-        public List<PostTicketDetailDto> PostTicketDetailDto { get; set; }
+        public List<PostTicketCalculationDetailDto> PostTicketCalculationDetailDto { get; set; }
 
-        public List<TicketDetailTaxesDto> TicketDetailTaxesDto { get; set; }
+        public List<TicketDetailCalculationTaxesDto> TicketDetailCalculationTaxesDto { get; set; }
     }
 
-    public class PostTicketDetailDto
+    public class PostTicketCalculationDetailDto
     {
         public Guid ProductsId { get; set; }
 
@@ -36,7 +36,7 @@ namespace Mahzan.DataAccess.DTO.Tickets
         public bool FollowInventory { get; set; }
     }
 
-    public class TicketDetailTaxesDto 
+    public class TicketDetailCalculationTaxesDto 
     {
         public decimal TaxRate { get; set; }
         public decimal Price { get; set; }

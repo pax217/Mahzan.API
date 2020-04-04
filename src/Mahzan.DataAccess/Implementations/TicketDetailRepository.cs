@@ -16,7 +16,7 @@ namespace Mahzan.DataAccess.Implementations
         }
 
         public async Task<List<TicketDetail>> Add(Tickets newTicket,
-                                                  List<PostTicketDetailDto> postTicketDetailDto)
+                                                  List<PostTicketCalculationDetailDto> postTicketDetailDto)
         {
             List<TicketDetail> result = new List<TicketDetail> { };
 

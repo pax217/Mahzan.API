@@ -40,9 +40,9 @@ namespace Mahzan.Business.Implementations.Business.Tickets
         #endregion
 
         #region Public Methods
-        public async Task<PostTicketsResult> Add(AddTicketsDto addTicketsDto)
+        public async Task<PostTicketCalculationResult> Calculate(TicketCalculationDto addTicketsDto)
         {
-            PostTicketsResult result = new PostTicketsResult()
+            PostTicketCalculationResult result = new PostTicketCalculationResult()
             {
                 IsValid = true,
                 StatusCode = 200,
@@ -54,20 +54,25 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             try
             {
                 //Validaciones de Ticket
-                PostTicketsResult postTicketsResult = await _ticketsValidations
-                                                            .AddTicketValid(addTicketsDto);
+                //PostTicketsResult postTicketsResult = await _ticketsValidations
+                //                                            .AddTicketValid(addTicketsDto);
 
-                if (!postTicketsResult.IsValid)
-                {
-                    return postTicketsResult;
-                }
+                //if (!postTicketsResult.IsValid)
+                //{
+                //    return postTicketsResult;
+                //}
 
                 //Contruye Ticket
-                AddTicketsDto ticketToAdd = await BuildTicketDetail(addTicketsDto);
+                TicketCalculationDto ticketToAdd = await BuildTicketDetail(addTicketsDto);
+
+                result.Total = ticketToAdd.Total;
+                result.TotalProducts = ticketToAdd.TotalProducts;
+                result.PostTicketDetailDto = ticketToAdd.PostTicketCalculationDetailDto;
+                result.TicketDetailTaxesDto = ticketToAdd.TicketDetailCalculationTaxesDto;
 
                 //Agrega Ticket/TikcetDetail
-                result.Ticket = await _ticketsRepositories
-                                      .AddTicket(ticketToAdd);
+                //result.Ticket = await _ticketsRepositories
+                //                      .AddTicket(ticketToAdd);
 
             }
             catch (Exception ex)
@@ -87,23 +92,23 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
         #region Private Methods
 
-        public async Task<AddTicketsDto> BuildTicketDetail(AddTicketsDto addTicketsDto)
+        public async Task<TicketCalculationDto> BuildTicketDetail(TicketCalculationDto addTicketsDto)
         {
-            AddTicketsDto result = new AddTicketsDto()
+            TicketCalculationDto result = new TicketCalculationDto()
             {
                 StoresId = addTicketsDto.StoresId,
                 PointsOfSalesId = addTicketsDto.PointsOfSalesId,
                 PaymentTypesId = addTicketsDto.PaymentTypesId,
                 AspNetUserId = addTicketsDto.AspNetUserId,
                 MembersId = addTicketsDto.MembersId,
-                PostTicketDetailDto = new List<PostTicketDetailDto>(),
-                TicketDetailTaxesDto = new List<TicketDetailTaxesDto>(),
+                PostTicketCalculationDetailDto = new List<PostTicketCalculationDetailDto>(),
+                TicketDetailCalculationTaxesDto = new List<TicketDetailCalculationTaxesDto>(),
             };
 
             decimal total = 0;
             int totalProducts = 0;
 
-            foreach (var ticketDetailDto in addTicketsDto.PostTicketDetailDto)
+            foreach (var ticketDetailDto in addTicketsDto.PostTicketCalculationDetailDto)
             {
 
                 //Busca el producto
@@ -115,12 +120,12 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                 ticketDetailDto.Price = product.FirstOrDefault().Price;
 
                 //Calcula el Monto (Con o Sin Impuesto)
-                TicketDetailTaxesDto ticketDetailTaxesDto = await CalculateAmount(addTicketsDto.MembersId,
+                TicketDetailCalculationTaxesDto ticketDetailTaxesDto = await CalculateAmount(addTicketsDto.MembersId,
                                                                                   ticketDetailDto);
 
 
                 //Detalle de Ticket
-                result.PostTicketDetailDto.Add(new PostTicketDetailDto
+                result.PostTicketCalculationDetailDto.Add(new PostTicketCalculationDetailDto
                 {
                     ProductsId = ticketDetailDto.ProductsId,
                     Quantity = ticketDetailDto.Quantity,
@@ -133,7 +138,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                 //Detalle de Ticket con Impuestos
                 if (ticketDetailTaxesDto.TaxRate!=0)
                 {
-                    result.TicketDetailTaxesDto.Add(ticketDetailTaxesDto);
+                    result.TicketDetailCalculationTaxesDto.Add(ticketDetailTaxesDto);
                 }
 
 
@@ -149,10 +154,10 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             return result;
         }
 
-        private async Task<TicketDetailTaxesDto> CalculateAmount(Guid membersId,
-                                                                 PostTicketDetailDto postTicketDetailDto) 
+        private async Task<TicketDetailCalculationTaxesDto> CalculateAmount(Guid membersId,
+                                                                 PostTicketCalculationDetailDto postTicketDetailDto) 
         {
-            TicketDetailTaxesDto result = new TicketDetailTaxesDto(); ;
+            TicketDetailCalculationTaxesDto result = new TicketDetailCalculationTaxesDto(); ;
 
 
             //Identifica los impuestos aplicados a este producto
@@ -175,7 +180,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
 
                     //Detalle de Impuestos
-                    result = new TicketDetailTaxesDto
+                    result = new TicketDetailCalculationTaxesDto
                     {
                         TaxRate = tax.TaxRate,
                         Amount = tax.Taxes.TaxType == TaxTypeEnum.ADD_IN_PRICE? amountWithTaxes: withOutTax,

@@ -10,7 +10,7 @@ namespace Mahzan.Business.Implementations.Validations.Tickets
 {
     public class AddTicketsValidations : IAddTicketsValidations
     {
-        public Task<PostTicketsResult> AddTicketValid(AddTicketsDto addTicketsDto)
+        public Task<PostTicketCalculationResult> AddTicketValid(TicketCalculationDto addTicketsDto)
         {
             //Todo: Valida StoreId
 

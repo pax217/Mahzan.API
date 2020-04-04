@@ -9,7 +9,7 @@ namespace Mahzan.Business.Interfaces.Validations.Tickets
 {
     public interface IAddTicketsValidations
     {
-        Task<PostTicketsResult> AddTicketValid(AddTicketsDto addTicketsDto);
+        Task<PostTicketCalculationResult> AddTicketValid(TicketCalculationDto addTicketsDto);
 
     }
 }

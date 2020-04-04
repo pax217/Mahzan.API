@@ -7,6 +7,6 @@ namespace Mahzan.DataAccess.Interfaces
 {
     public interface ITicketsRepository
     {
-        Task<Tickets> Add(AddTicketsDto addTicketsDto);
+        Task<Tickets> Add(TicketCalculationDto addTicketsDto);
     }
 }

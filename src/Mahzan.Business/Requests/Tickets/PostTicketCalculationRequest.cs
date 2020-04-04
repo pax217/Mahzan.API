@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mahzan.Business.Requests.Tickets
 {
-    public class PostTicketsRequest
+    public class PostTicketCalculationRequest
     {
         [Required]
         public Guid StoresId { get; set; }
@@ -13,10 +13,10 @@ namespace Mahzan.Business.Requests.Tickets
         [Required]
         public Guid PaymentTypesId { get; set; }
         [Required]
-        public List<PostTicketDetailRequest> PostTicketDetailRequest { get; set; }
+        public List<PostTicketCalculationDetailRequest> PostTicketCalculationDetailRequest { get; set; }
     }
 
-    public class PostTicketDetailRequest
+    public class PostTicketCalculationDetailRequest
     {
         public Guid ProductsId { get; set; }
 

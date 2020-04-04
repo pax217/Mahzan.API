@@ -9,6 +9,6 @@ namespace Mahzan.DataAccess.Interfaces
     public interface ITicketDetailRepository: IRepositoryBase<TicketDetail>
     {
         Task<List<TicketDetail>> Add(Tickets newTicket,
-                                     List<PostTicketDetailDto> postTicketDetailDto);
+                                     List<PostTicketCalculationDetailDto> postTicketDetailDto);
     }
 }

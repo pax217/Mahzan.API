@@ -12,12 +12,12 @@ namespace Mahzan.Business.Interfaces.Business.Tickets
 {
     public interface ITicketsRepositories
     {
-        Task<Models.Entities.Tickets> AddTicket(AddTicketsDto addTicketsDto);
+        Task<Models.Entities.Tickets> AddTicket(TicketCalculationDto addTicketsDto);
 
         Task<PagedList<ProductsTaxes>> GetProductsTaxes(GetProductsTaxesDto getProductsTaxesDto);
 
         Task<List<TicketDetail>> AddTicketDetail(Models.Entities.Tickets newTicket,
-                                                 List<PostTicketDetailDto> postTicketDetailDto);
+                                                 List<PostTicketCalculationDetailDto> postTicketDetailDto);
 
         Task<PagedList<Models.Entities.Products>> GetProduct(Guid membersId,
                                                              Guid productsId);

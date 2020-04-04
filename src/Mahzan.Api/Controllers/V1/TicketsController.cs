@@ -31,21 +31,22 @@ namespace Mahzan.Api.Controllers.V1
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPost]
-        public async Task<IActionResult> Post(PostTicketsRequest postTicketsRequest)
+        [HttpPost("ticket-calculation")]
+        public async Task<IActionResult> TicketCalculation(PostTicketCalculationRequest postTicketsRequest)
         {
-            PostTicketsResult result = await _ticketsBusiness
-                                              .Add(new AddTicketsDto
+            PostTicketCalculationResult result = await _ticketsBusiness
+                                              .Calculate(new TicketCalculationDto
                                               {
                                                   StoresId = postTicketsRequest.StoresId,
                                                   PointsOfSalesId = postTicketsRequest.PointsOfSalesId,
                                                   PaymentTypesId = postTicketsRequest.PaymentTypesId,
-                                                  PostTicketDetailDto = postTicketsRequest.PostTicketDetailRequest
-                                                                                          .Select(p => new PostTicketDetailDto {
-                                                                                              ProductsId = p.ProductsId,
-                                                                                              Quantity = p.Quantity,
-                                                                                          })
-                                                                                          .ToList(),
+                                                  PostTicketCalculationDetailDto = postTicketsRequest
+                                                                                   .PostTicketCalculationDetailRequest
+                                                                                   .Select(p => new PostTicketCalculationDetailDto {
+                                                                                        ProductsId = p.ProductsId,
+                                                                                        Quantity = p.Quantity,
+                                                                                    })
+                                                                                   .ToList(),
                                                   AspNetUserId = AspNetUserId,
                                                   MembersId = MembersId
                                               });

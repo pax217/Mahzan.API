@@ -41,7 +41,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             _productsTaxesRepository = productsTaxesRepository;
         }
 
-        public async Task<Models.Entities.Tickets> AddTicket(AddTicketsDto addTicketsDto)
+        public async Task<Models.Entities.Tickets> AddTicket(TicketCalculationDto addTicketsDto)
         {
             return await _ticketsRepository
                          .Add(addTicketsDto);
@@ -54,7 +54,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
         }
 
         public async Task<List<TicketDetail>> AddTicketDetail(Models.Entities.Tickets newTicket,
-                                                              List<PostTicketDetailDto> postTicketDetailDto) 
+                                                              List<PostTicketCalculationDetailDto> postTicketDetailDto) 
         {
            return  await _ticketDetailRepository
                          .Add(newTicket,

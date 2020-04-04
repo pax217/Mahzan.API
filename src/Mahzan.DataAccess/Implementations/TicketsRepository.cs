@@ -25,7 +25,7 @@ namespace Mahzan.DataAccess.Implementations
             _mapper = mapper;
         }
 
-        public async Task<Tickets> Add(AddTicketsDto addTicketsDto)
+        public async Task<Tickets> Add(TicketCalculationDto addTicketsDto)
         {
             Tickets newTicket = null;
             TicketDetail newTicketDetail = null;
@@ -52,7 +52,7 @@ namespace Mahzan.DataAccess.Implementations
 
                 //TicketDetail
 
-                foreach (var ticketDetail in addTicketsDto.PostTicketDetailDto)
+                foreach (var ticketDetail in addTicketsDto.PostTicketCalculationDetailDto)
                 {
                     newTicketDetail = new TicketDetail
                     {
@@ -68,7 +68,7 @@ namespace Mahzan.DataAccess.Implementations
                 }
 
                 //TicketDetailTaxes
-                foreach (var ticketDetailTaxes in addTicketsDto.TicketDetailTaxesDto)
+                foreach (var ticketDetailTaxes in addTicketsDto.TicketDetailCalculationTaxesDto)
                 {
                     newticketDetailTaxes = new TicketDetailTaxes
                     {
@@ -84,7 +84,7 @@ namespace Mahzan.DataAccess.Implementations
                 }
 
                 //ProductsStore
-                foreach (var ticketDetail in addTicketsDto.PostTicketDetailDto)
+                foreach (var ticketDetail in addTicketsDto.PostTicketCalculationDetailDto)
                 {
                     if (ticketDetail.FollowInventory)
                     {
