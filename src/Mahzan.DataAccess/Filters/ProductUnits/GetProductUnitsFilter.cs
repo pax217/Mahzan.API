@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Mahzan.DataAccess.Filters.ProductUnits
 {
-    public class GetProductUnits
+    public class GetProductUnitsFilter
     {
         public Guid? ProductUnitsId { get; set; }
 

@@ -10,6 +10,10 @@ namespace Mahzan.DataAccess.DTO.Tickets
 
         public decimal Total { get; set; }
 
+        public decimal? CashPayment { get; set; }
+
+        public decimal? CashExchange { get; set; }
+
         public int TotalProducts { get; set; }
 
         public string BarCode { get; set; }

@@ -19,6 +19,10 @@ namespace Mahzan.Models.Entities
         [Required]
         public decimal Total { get; set; }
 
+        public decimal? CashPayment { get; set; }
+
+        public decimal? CashExchange { get; set; }
+
         [Required]
         public int TotalProducts { get; set; }
 

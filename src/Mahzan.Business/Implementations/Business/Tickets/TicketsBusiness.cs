@@ -86,6 +86,27 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             return result;
         }
 
+        public async Task<PostTicketCloseSaleResult> CloseSale(TicketCalculationDto ticketCalculationDto)
+        {
+            PostTicketCloseSaleResult result = new PostTicketCloseSaleResult()
+            {
+                IsValid = true,
+                StatusCode = 200,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = CloseSaleResource.ResourceManager.GetString("CloseSale_Title"),
+                Message = CloseSaleResource.ResourceManager.GetString("CloseSale_200_SUCCESS_Message")
+            };
+
+            //Contruye Ticket
+            TicketCalculationDto ticketToAdd = await BuildTicketDetail(ticketCalculationDto);
+
+
+            //Agrega Ticket/TikcetDetail
+            result.Ticket = await _ticketsRepositories
+                                  .AddTicket(ticketToAdd);
+
+            return result;
+        }
 
 
         #endregion
@@ -115,41 +136,48 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                 List<Models.Entities.Products> product = await _ticketsRepositories
                                                                .GetProduct(addTicketsDto.MembersId,
                                                                            ticketDetailDto.ProductsId);
-
-                //Asigna Precio
-                ticketDetailDto.Price = product.FirstOrDefault().Price;
-
-                //Calcula el Monto (Con o Sin Impuesto)
-                TicketDetailCalculationTaxesDto ticketDetailTaxesDto = await CalculateAmount(addTicketsDto.MembersId,
-                                                                                  ticketDetailDto);
-
-
-                //Detalle de Ticket
-                result.PostTicketCalculationDetailDto.Add(new PostTicketCalculationDetailDto
+                if (product.Any())
                 {
-                    ProductsId = ticketDetailDto.ProductsId,
-                    Quantity = ticketDetailDto.Quantity,
-                    Description = product.FirstOrDefault().Description,
-                    Price = product.FirstOrDefault().Price,
-                    Amount = ticketDetailTaxesDto.Amount,
-                    FollowInventory = product.FirstOrDefault().FollowInventory
-                }) ;
+                    //Asigna Precio
+                    ticketDetailDto.Price = product.FirstOrDefault().Price;
 
-                //Detalle de Ticket con Impuestos
-                if (ticketDetailTaxesDto.TaxRate!=0)
-                {
-                    result.TicketDetailCalculationTaxesDto.Add(ticketDetailTaxesDto);
+                    //Calcula el Monto (Con o Sin Impuesto)
+                    TicketDetailCalculationTaxesDto ticketDetailTaxesDto = await CalculateAmount(addTicketsDto.MembersId,
+                                                                                      ticketDetailDto);
+
+
+                    //Detalle de Ticket
+                    result.PostTicketCalculationDetailDto.Add(new PostTicketCalculationDetailDto
+                    {
+                        ProductsId = ticketDetailDto.ProductsId,
+                        Quantity = ticketDetailDto.Quantity,
+                        Description = product.FirstOrDefault().Description,
+                        Price = product.FirstOrDefault().Price,
+                        Amount = ticketDetailTaxesDto.Amount,
+                        FollowInventory = product.FirstOrDefault().FollowInventory
+                    });
+
+                    //Detalle de Ticket con Impuestos
+                    if (ticketDetailTaxesDto.TaxRate != 0)
+                    {
+                        result.TicketDetailCalculationTaxesDto.Add(ticketDetailTaxesDto);
+                    }
+
+
+                    //Totales
+                    totalProducts += ticketDetailDto.Quantity;
+                    total += ticketDetailTaxesDto.Amount;
                 }
 
-
-                //Totales
-                totalProducts += ticketDetailDto.Quantity;
-                total += ticketDetailTaxesDto.Amount;
 
             }
 
             result.TotalProducts = totalProducts;
             result.Total = total;
+
+            //Pago en Efectivo
+            result.CashPayment = addTicketsDto.CashPayment;
+            result.CashExchange = (addTicketsDto.CashPayment - total);
 
             return result;
         }
@@ -199,7 +227,9 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
 
             return result; 
-        } 
+        }
+
+
 
         #endregion
     }

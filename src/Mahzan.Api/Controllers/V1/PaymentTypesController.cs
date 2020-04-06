@@ -8,6 +8,7 @@ using Mahzan.Business.Interfaces.Business.PaymentTypes;
 using Mahzan.Business.Requests.PaymentTypes;
 using Mahzan.Business.Results.PaymentTypes;
 using Mahzan.DataAccess.DTO.PaymentTypes;
+using Mahzan.DataAccess.Filters.PaymentTypes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,21 @@ namespace Mahzan.Api.Controllers.V1
                                                   .Add(new AddPaymentTypesDto {
                                                       Name = postPaymentTypesRequest.Name,
                                                       MembersId = MembersId
+                                                  });
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery]GetPaymentTypesFilter getPaymentTypesFilter)
+        {
+
+            GetPaymentTypesResult result = await _paymentTypesBusiness
+                                                  .Get(new GetPaymentTypesDto
+                                                  {
+                                                      MembersId = MembersId,
+                                                      AspNetUserId = AspNetUserId
                                                   });
 
             return StatusCode(result.StatusCode, result);

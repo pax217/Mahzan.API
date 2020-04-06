@@ -38,6 +38,8 @@ namespace Mahzan.DataAccess.Implementations
                 {
                     CreatedAt = DateTime.Now,
                     Total = addTicketsDto.Total,
+                    CashPayment = addTicketsDto.CashPayment,
+                    CashExchange = addTicketsDto.CashExchange,
                     TotalProducts = addTicketsDto.TotalProducts,
                     BarCode = addTicketsDto.BarCode,
                     Active = true,

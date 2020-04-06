@@ -8,5 +8,7 @@ namespace Mahzan.Business.Interfaces.Business.PaymentTypes
     public interface IPaymentTypesBusiness
     {
         Task<PostPaymentTypesResult> Add(AddPaymentTypesDto addPaymentTypesDto);
+
+        Task<GetPaymentTypesResult> Get(GetPaymentTypesDto getPaymentTypesDto);
     }
 }

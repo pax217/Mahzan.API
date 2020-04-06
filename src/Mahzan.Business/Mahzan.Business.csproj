@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Requests\AspNetUsers\" />
-    <Folder Include="Resources\Business\" />
     <Folder Include="Results\_Base\" />
     <Folder Include="Enums\" />
     <Folder Include="Enums\Result\" />
@@ -78,12 +77,8 @@
     <Folder Include="Interfaces\Validations\Products\" />
     <Folder Include="Implementations\Validations\Products\" />
     <Folder Include="Resources\Validations\Products\" />
-    <Folder Include="Resources\Business\Tickets\" />
     <Folder Include="Requests\PaymentTypes\" />
-    <Folder Include="Results\PaymentTypes\" />
     <Folder Include="Interfaces\Business\PaymentTypes\" />
-    <Folder Include="Implementations\Business\PaymentTypes\" />
-    <Folder Include="Resources\Business\PaymentTypes\" />
     <Folder Include="Requests\BarCodes\" />
     <Folder Include="Results\BarCodes\" />
     <Folder Include="Interfaces\Business\BarCodes\" />
@@ -113,6 +108,14 @@
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AspNetUsersBusinessResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\PaymentTypes\GetPaymentTypesResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetPaymentTypesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Tickets\CloseSaleResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CloseSaleResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Validations\AspNetUsers\LogInValidationsResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -331,6 +334,16 @@
   <ItemGroup>
     <Compile Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.Designer.cs">
       <DependentUpon>AspNetUsersBusinessResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\PaymentTypes\GetPaymentTypesResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>GetPaymentTypesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Tickets\CloseSaleResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CloseSaleResource.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Validations\AspNetUsers\LogInValidationsResources.Designer.cs">
       <DependentUpon>LogInValidationsResources.resx</DependentUpon>

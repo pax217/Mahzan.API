@@ -53,7 +53,7 @@ namespace Mahzan.Api.Controllers.V1
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]GetProductUnits getProductUnits)
+        public async Task<IActionResult> Get([FromQuery]GetProductUnitsFilter getProductUnits)
         {
             GetGetProductUnitsResult result = await _productUnitsBusiness
                                 .Get(new GetProductUnitsDto

@@ -12,6 +12,9 @@ namespace Mahzan.Business.Requests.Tickets
         public Guid PointsOfSalesId { get; set; }
         [Required]
         public Guid PaymentTypesId { get; set; }
+
+        public decimal? CashPayment { get; set; }
+
         [Required]
         public List<PostTicketCalculationDetailRequest> PostTicketCalculationDetailRequest { get; set; }
     }

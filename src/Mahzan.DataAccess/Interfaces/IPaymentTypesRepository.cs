@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Mahzan.DataAccess.DTO.PaymentTypes;
+using Mahzan.DataAccess.Paging;
 using Mahzan.Models.Entities;
 
 namespace Mahzan.DataAccess.Interfaces
@@ -9,5 +10,6 @@ namespace Mahzan.DataAccess.Interfaces
     {
         Task<PaymentTypes> Add(AddPaymentTypesDto addPaymentTypesDto);
 
+        Task<PagedList<PaymentTypes>> Get(GetPaymentTypesDto getPaymentTypesDto);
     }
 }

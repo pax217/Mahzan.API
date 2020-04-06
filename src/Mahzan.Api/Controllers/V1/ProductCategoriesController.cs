@@ -51,7 +51,7 @@ namespace Mahzan.Api.Controllers.V1
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]GetProductCategories getProductCategories)
+        public async Task<IActionResult> Get([FromQuery]GetProductCategoriesFilter getProductCategories)
         {
             GetProductCategoriesResult result = await _productCategoriesBusiness
                                 .Get(new GetProductsCategoriesDto

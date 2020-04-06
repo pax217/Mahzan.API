@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.DataAccess.DTO.PaymentTypes;
 using Mahzan.DataAccess.Interfaces;
+using Mahzan.DataAccess.Paging;
 using Mahzan.Models;
 using Mahzan.Models.Entities;
+using Mahzan.Models.Enums.Expressions;
+using Mahzan.Models.Expressions;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -32,6 +37,39 @@ namespace Mahzan.DataAccess.Implementations
             await _context.SaveChangesAsync();
 
             return newPaymentTypes;
+        }
+
+        public async Task<PagedList<PaymentTypes>> Get(GetPaymentTypesDto getPaymentTypesDto)
+        {
+            List<PaymentTypes> result = null;
+            List<FilterExpression> filterExpressions = new List<FilterExpression>();
+
+            if (getPaymentTypesDto.MembersId != Guid.Empty)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(PaymentTypes).GetProperties().First(p => p.Name == "MembersId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getPaymentTypesDto.MembersId
+                });
+            }
+
+
+            if (filterExpressions.Any())
+            {
+                var deleg = ExpressionBuilder.GetExpression<PaymentTypes>(filterExpressions).Compile();
+
+                result = _context.Set<PaymentTypes>().Where(deleg).ToList();
+            }
+            else
+            {
+                result = _context.Set<PaymentTypes>().ToList();
+            }
+
+            return await Task.Run(() => PagedList<PaymentTypes>
+                                        .ToPagedList(result,
+                                                     getPaymentTypesDto.PageNumber,
+                                                     getPaymentTypesDto.PageSize));
         }
     }
 }

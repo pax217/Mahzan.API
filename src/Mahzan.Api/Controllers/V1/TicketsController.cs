@@ -42,10 +42,37 @@ namespace Mahzan.Api.Controllers.V1
                                                   PaymentTypesId = postTicketsRequest.PaymentTypesId,
                                                   PostTicketCalculationDetailDto = postTicketsRequest
                                                                                    .PostTicketCalculationDetailRequest
-                                                                                   .Select(p => new PostTicketCalculationDetailDto {
-                                                                                        ProductsId = p.ProductsId,
-                                                                                        Quantity = p.Quantity,
-                                                                                    })
+                                                                                   .Select(p => new PostTicketCalculationDetailDto
+                                                                                   {
+                                                                                       ProductsId = p.ProductsId,
+                                                                                       Quantity = p.Quantity,
+                                                                                   })
+                                                                                   .ToList(),
+                                                  AspNetUserId = AspNetUserId,
+                                                  MembersId = MembersId
+                                              });
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("ticket-close-sale")]
+        public async Task<IActionResult> TicketCloseSale(PostTicketCalculationRequest postTicketCalculationRequest)
+        {
+            PostTicketCloseSaleResult result = await _ticketsBusiness
+                                              .CloseSale(new TicketCalculationDto
+                                              {
+                                                  StoresId = postTicketCalculationRequest.StoresId,
+                                                  PointsOfSalesId = postTicketCalculationRequest.PointsOfSalesId,
+                                                  PaymentTypesId = postTicketCalculationRequest.PaymentTypesId,
+                                                  CashPayment = postTicketCalculationRequest.CashPayment,
+                                                  PostTicketCalculationDetailDto = postTicketCalculationRequest
+                                                                                   .PostTicketCalculationDetailRequest
+                                                                                   .Select(p => new PostTicketCalculationDetailDto
+                                                                                   {
+                                                                                       ProductsId = p.ProductsId,
+                                                                                       Quantity = p.Quantity,
+                                                                                   })
                                                                                    .ToList(),
                                                   AspNetUserId = AspNetUserId,
                                                   MembersId = MembersId

@@ -101,7 +101,8 @@ namespace Mahzan.DataAccess.Implementations
 
                 result = _context.Set<Products>()
                                  .Include(pp => pp.ProductsPhotos)
-                                 .Where(deleg).ToList();
+                                 .Where(deleg)
+                                 .ToList();
             }
             else
             {

@@ -10,7 +10,6 @@
     <Folder Include="DTO\Members\" />
     <Folder Include="DTO\Groups\" />
     <Folder Include="DTO\_Base\" />
-    <Folder Include="Filters\" />
     <Folder Include="Filters\_Base\" />
     <Folder Include="Paging\" />
     <Folder Include="DTO\Companies\" />
@@ -31,14 +30,11 @@
     <Folder Include="DTO\ProductCategories\" />
     <Folder Include="DTO\ProductUnits\" />
     <Folder Include="DTO\ProductsStore\" />
-    <Folder Include="DTO\PaymentTypes\" />
     <Folder Include="DTO\BarCodes\" />
     <Folder Include="DTO\Taxes\" />
     <Folder Include="DTO\TaxesStores\" />
     <Folder Include="DTO\ProductsTaxes\" />
     <Folder Include="Filters\Clients\" />
-    <Folder Include="Filters\ProductCategories\" />
-    <Folder Include="Filters\ProductUnits\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj" />
