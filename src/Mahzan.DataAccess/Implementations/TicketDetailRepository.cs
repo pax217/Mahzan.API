@@ -42,5 +42,10 @@ namespace Mahzan.DataAccess.Implementations
 
             return result;
         }
+
+        public async Task<TicketDetail> Add(Tickets newTicket)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

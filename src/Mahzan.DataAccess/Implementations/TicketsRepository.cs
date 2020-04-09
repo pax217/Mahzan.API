@@ -28,88 +28,109 @@ namespace Mahzan.DataAccess.Implementations
         public async Task<Tickets> Add(TicketCalculationDto addTicketsDto)
         {
             Tickets newTicket = null;
-            TicketDetail newTicketDetail = null;
-            TicketDetailTaxes newticketDetailTaxes = null;
 
-            using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            //Ticket
+            newTicket = new Tickets
             {
-                //Ticket
-                newTicket = new Tickets
-                {
-                    CreatedAt = DateTime.Now,
-                    Total = addTicketsDto.Total,
-                    CashPayment = addTicketsDto.CashPayment,
-                    CashExchange = addTicketsDto.CashExchange,
-                    TotalProducts = addTicketsDto.TotalProducts,
-                    BarCode = addTicketsDto.BarCode,
-                    Active = true,
-                    PointsOfSalesId = addTicketsDto.PointsOfSalesId,
-                    PaymentTypesId = addTicketsDto.PaymentTypesId,
-                    AspNetUsersId = addTicketsDto.AspNetUserId,
-                    
-                };
+                CreatedAt = DateTime.Now,
+                Total = addTicketsDto.Total,
+                CashPayment = addTicketsDto.CashPayment,
+                CashExchange = addTicketsDto.CashExchange,
+                TotalProducts = addTicketsDto.TotalProducts,
+                BarCode = addTicketsDto.BarCode,
+                Active = true,
+                PointsOfSalesId = addTicketsDto.PointsOfSalesId,
+                PaymentTypesId = addTicketsDto.PaymentTypesId,
+                AspNetUsersId = addTicketsDto.AspNetUserId,
 
-                _context.Set<Tickets>().Add(newTicket);
+            };
+
+            _context.Set<Tickets>().Add(newTicket);
+            await _context.SaveChangesAsync();
+
+            //Tickets newTicket = null;
+            //TicketDetail newTicketDetail = null;
+            //TicketDetailTaxes newticketDetailTaxes = null;
+
+            //using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            //{
+            //    //Ticket
+            //    newTicket = new Tickets
+            //    {
+            //        CreatedAt = DateTime.Now,
+            //        Total = addTicketsDto.Total,
+            //        CashPayment = addTicketsDto.CashPayment,
+            //        CashExchange = addTicketsDto.CashExchange,
+            //        TotalProducts = addTicketsDto.TotalProducts,
+            //        BarCode = addTicketsDto.BarCode,
+            //        Active = true,
+            //        PointsOfSalesId = addTicketsDto.PointsOfSalesId,
+            //        PaymentTypesId = addTicketsDto.PaymentTypesId,
+            //        AspNetUsersId = addTicketsDto.AspNetUserId,
+
+            //    };
+
+            //    _context.Set<Tickets>().Add(newTicket);
 
 
-                //TicketDetail
+            //    //TicketDetail
 
-                foreach (var ticketDetail in addTicketsDto.PostTicketCalculationDetailDto)
-                {
-                    newTicketDetail = new TicketDetail
-                    {
-                        ProductsId = ticketDetail.ProductsId,
-                        Quantity = ticketDetail.Quantity,
-                        Description = ticketDetail.Description,
-                        Price = ticketDetail.Price,
-                        Amount = ticketDetail.Amount,
-                        TicketsId = newTicket.TicketsId
-                    };
+            //    foreach (var ticketDetail in addTicketsDto.PostTicketCalculationDetailDto)
+            //    {
+            //        newTicketDetail = new TicketDetail
+            //        {
+            //            ProductsId = ticketDetail.ProductsId,
+            //            Quantity = ticketDetail.Quantity,
+            //            Description = ticketDetail.Description,
+            //            Price = ticketDetail.Price,
+            //            Amount = ticketDetail.Amount,
+            //            TicketsId = newTicket.TicketsId
+            //        };
 
-                    _context.Set<TicketDetail>().Add(newTicketDetail);
-                }
+            //        _context.Set<TicketDetail>().Add(newTicketDetail);
+            //    }
 
-                //TicketDetailTaxes
-                foreach (var ticketDetailTaxes in addTicketsDto.TicketDetailCalculationTaxesDto)
-                {
-                    newticketDetailTaxes = new TicketDetailTaxes
-                    {
-                        TaxRate = ticketDetailTaxes.TaxRate,
-                        Price = ticketDetailTaxes.Price,
-                        Amount = ticketDetailTaxes.Amount,
-                        ProductsId = ticketDetailTaxes.ProductsId,
-                        TaxesId = ticketDetailTaxes.TaxesId,
-                        TicketsId = newTicket.TicketsId
-                    };
+            //    //TicketDetailTaxes
+            //    foreach (var ticketDetailTaxes in addTicketsDto.TicketDetailCalculationTaxesDto)
+            //    {
+            //        newticketDetailTaxes = new TicketDetailTaxes
+            //        {
+            //            TaxRate = ticketDetailTaxes.TaxRate,
+            //            Price = ticketDetailTaxes.Price,
+            //            Amount = ticketDetailTaxes.Amount,
+            //            ProductsId = ticketDetailTaxes.ProductsId,
+            //            TaxesId = ticketDetailTaxes.TaxesId,
+            //            TicketsId = newTicket.TicketsId
+            //        };
 
-                    _context.Set<TicketDetailTaxes>().Add(newticketDetailTaxes);
-                }
+            //        _context.Set<TicketDetailTaxes>().Add(newticketDetailTaxes);
+            //    }
 
-                //ProductsStore
-                foreach (var ticketDetail in addTicketsDto.PostTicketCalculationDetailDto)
-                {
-                    if (ticketDetail.FollowInventory)
-                    {
-                        Products_Store product_Store = (from ps in _context.Set<Products_Store>()
-                                                        where ps.ProductsId == ticketDetail.ProductsId
-                                                        && ps.StoresId == addTicketsDto.StoresId
-                                                        select ps)
-                                                       .FirstOrDefault();
+            //    //ProductsStore
+            //    foreach (var ticketDetail in addTicketsDto.PostTicketCalculationDetailDto)
+            //    {
+            //        if (ticketDetail.FollowInventory)
+            //        {
+            //            Products_Store product_Store = (from ps in _context.Set<Products_Store>()
+            //                                            where ps.ProductsId == ticketDetail.ProductsId
+            //                                            && ps.StoresId == addTicketsDto.StoresId
+            //                                            select ps)
+            //                                           .FirstOrDefault();
 
-                        product_Store.InStock--;
+            //            product_Store.InStock--;
 
-                        EntityEntry entry = _context.Entry(product_Store);
-                        entry.State = EntityState.Modified;
-                        entry.Property("ProductsStoreId").IsModified = false;
+            //            EntityEntry entry = _context.Entry(product_Store);
+            //            entry.State = EntityState.Modified;
+            //            entry.Property("ProductsStoreId").IsModified = false;
 
-                        _context.Set<Products_Store>().Update(product_Store);
+            //            _context.Set<Products_Store>().Update(product_Store);
 
-                    }
-                }
+            //        }
+            //    }
 
-                await _context.SaveChangesAsync();
-                scope.Complete();
-            }
+            //    await _context.SaveChangesAsync();
+            //    scope.Complete();
+            //}
 
 
 

@@ -7,6 +7,7 @@ using Mahzan.Models.Entities;
 using System.Linq;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -34,12 +35,24 @@ namespace Mahzan.DataAccess.Implementations
             return newProductsStore;
         }
 
-        public Products_Store Update(PutProductsStoreDto putProductsStoreDto)
+        public async Task<Products_Store> Get(Guid productsStoreId, 
+                                              Guid storesId)
         {
-            Products_Store productsStoreToUpdate = (from g in _context.Set<Products_Store>()
+            Products_Store product_Store = await (from ps in _context.Set<Products_Store>()
+                                            where ps.ProductsId == productsStoreId
+                                            && ps.StoresId == storesId
+                                            select ps)
+                                           .FirstOrDefaultAsync();
+
+            return product_Store;
+        }
+
+        public async Task<Products_Store> Update(PutProductsStoreDto putProductsStoreDto)
+        {
+            Products_Store productsStoreToUpdate = await (from g in _context.Set<Products_Store>()
                                                     where g.ProductsStoreId.Equals(putProductsStoreDto.ProductsStoreId)
                                                     select g)
-                                                   .FirstOrDefault();
+                                                   .FirstOrDefaultAsync();
 
             //InStock
             if (putProductsStoreDto.InStock!=null)
@@ -52,7 +65,7 @@ namespace Mahzan.DataAccess.Implementations
             entry.Property("Id").IsModified = false;
 
             _context.Set<Products_Store>().Update(productsStoreToUpdate);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return productsStoreToUpdate;
         }

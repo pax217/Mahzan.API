@@ -10,6 +10,7 @@ using Mahzan.DataAccess.DTO.ProductsStore;
 using Mahzan.DataAccess.DTO.ProductsTaxes;
 using Mahzan.DataAccess.DTO.Tickets;
 using Mahzan.DataAccess.Interfaces;
+using Mahzan.DataAccess.Interfaces.TicketsRepositoryServices;
 using Mahzan.DataAccess.Paging;
 using Mahzan.Models.Enums.Taxes;
 
@@ -19,18 +20,22 @@ namespace Mahzan.Business.Implementations.Business.Tickets
     {
         #region Properties
 
-        private readonly ITicketsRepositories _ticketsRepositories;
-
         private readonly ITicketsValidations _ticketsValidations;
+
+        private readonly IAddTicketRepositoryService _addTicketRepositoryService;
+
+        private readonly ITicketsRepositories _ticketsRepositories;
 
         #endregion
 
         #region Constructors
         public TicketsBusiness(
-            ITicketsRepositories ticketsRepositories,
-            ITicketsValidations ticketsValidations)
+            IAddTicketRepositoryService addTicketRepositoryService,
+            ITicketsValidations ticketsValidations,
+            ITicketsRepositories ticketsRepositories)
         {
             //Repositories
+            _addTicketRepositoryService = addTicketRepositoryService;
             _ticketsRepositories = ticketsRepositories;
 
             //Validaciones
@@ -98,12 +103,12 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             };
 
             //Contruye Ticket
-            TicketCalculationDto ticketToAdd = await BuildTicketDetail(ticketCalculationDto);
+            TicketCalculationDto ticketCalculation = await BuildTicketDetail(ticketCalculationDto);
 
 
-            //Agrega Ticket/TikcetDetail
-            result.Ticket = await _ticketsRepositories
-                                  .AddTicket(ticketToAdd);
+            //Agrega Ticket/TikcetDetail/TicketDetailTaxes
+            result.Ticket = await _addTicketRepositoryService
+                                  .Add(ticketCalculation);
 
             return result;
         }
