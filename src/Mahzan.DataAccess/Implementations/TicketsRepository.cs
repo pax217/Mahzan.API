@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 using AutoMapper;
 using Mahzan.DataAccess.DTO.Tickets;
 using Mahzan.DataAccess.Interfaces;
+using Mahzan.DataAccess.Paging;
 using Mahzan.Models;
 using Mahzan.Models.Entities;
+using Mahzan.Models.Enums.Expressions;
+using Mahzan.Models.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -48,94 +52,55 @@ namespace Mahzan.DataAccess.Implementations
             _context.Set<Tickets>().Add(newTicket);
             await _context.SaveChangesAsync();
 
-            //Tickets newTicket = null;
-            //TicketDetail newTicketDetail = null;
-            //TicketDetailTaxes newticketDetailTaxes = null;
-
-            //using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            //{
-            //    //Ticket
-            //    newTicket = new Tickets
-            //    {
-            //        CreatedAt = DateTime.Now,
-            //        Total = addTicketsDto.Total,
-            //        CashPayment = addTicketsDto.CashPayment,
-            //        CashExchange = addTicketsDto.CashExchange,
-            //        TotalProducts = addTicketsDto.TotalProducts,
-            //        BarCode = addTicketsDto.BarCode,
-            //        Active = true,
-            //        PointsOfSalesId = addTicketsDto.PointsOfSalesId,
-            //        PaymentTypesId = addTicketsDto.PaymentTypesId,
-            //        AspNetUsersId = addTicketsDto.AspNetUserId,
-
-            //    };
-
-            //    _context.Set<Tickets>().Add(newTicket);
-
-
-            //    //TicketDetail
-
-            //    foreach (var ticketDetail in addTicketsDto.PostTicketCalculationDetailDto)
-            //    {
-            //        newTicketDetail = new TicketDetail
-            //        {
-            //            ProductsId = ticketDetail.ProductsId,
-            //            Quantity = ticketDetail.Quantity,
-            //            Description = ticketDetail.Description,
-            //            Price = ticketDetail.Price,
-            //            Amount = ticketDetail.Amount,
-            //            TicketsId = newTicket.TicketsId
-            //        };
-
-            //        _context.Set<TicketDetail>().Add(newTicketDetail);
-            //    }
-
-            //    //TicketDetailTaxes
-            //    foreach (var ticketDetailTaxes in addTicketsDto.TicketDetailCalculationTaxesDto)
-            //    {
-            //        newticketDetailTaxes = new TicketDetailTaxes
-            //        {
-            //            TaxRate = ticketDetailTaxes.TaxRate,
-            //            Price = ticketDetailTaxes.Price,
-            //            Amount = ticketDetailTaxes.Amount,
-            //            ProductsId = ticketDetailTaxes.ProductsId,
-            //            TaxesId = ticketDetailTaxes.TaxesId,
-            //            TicketsId = newTicket.TicketsId
-            //        };
-
-            //        _context.Set<TicketDetailTaxes>().Add(newticketDetailTaxes);
-            //    }
-
-            //    //ProductsStore
-            //    foreach (var ticketDetail in addTicketsDto.PostTicketCalculationDetailDto)
-            //    {
-            //        if (ticketDetail.FollowInventory)
-            //        {
-            //            Products_Store product_Store = (from ps in _context.Set<Products_Store>()
-            //                                            where ps.ProductsId == ticketDetail.ProductsId
-            //                                            && ps.StoresId == addTicketsDto.StoresId
-            //                                            select ps)
-            //                                           .FirstOrDefault();
-
-            //            product_Store.InStock--;
-
-            //            EntityEntry entry = _context.Entry(product_Store);
-            //            entry.State = EntityState.Modified;
-            //            entry.Property("ProductsStoreId").IsModified = false;
-
-            //            _context.Set<Products_Store>().Update(product_Store);
-
-            //        }
-            //    }
-
-            //    await _context.SaveChangesAsync();
-            //    scope.Complete();
-            //}
-
-
-
             return newTicket;
 
+        }
+
+        public async Task<Tickets> Get(GetTicketDto getTicketDto)
+        {
+            Tickets result = await (_context.Set<Tickets>()
+                                    .Include(dt => dt.TicketDetails)
+                                    .Include(dtt => dtt.TicketDetailTaxes)
+                                   ).FirstOrDefaultAsync();
+
+            return result;
+        }
+
+        public async Task<PagedList<Tickets>> GetAll(GetTicketsDto getTicketsDto)
+        {
+            List<Tickets> result = null;
+            List<FilterExpression> filterExpressions = new List<FilterExpression>();
+
+            if (getTicketsDto.MembersId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Tickets).GetProperties().First(p => p.Name == "MembersId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getTicketsDto.MembersId
+                });
+            }
+            if (filterExpressions.Any())
+            {
+                var deleg = ExpressionBuilder
+                            .GetExpression<Tickets>(filterExpressions)
+                            .Compile();
+
+                result = _context.Set<Tickets>()
+                                 .Where(deleg)
+                                 .ToList();
+            }
+            else
+            {
+                result = _context.Set<Tickets>().ToList();
+            }
+
+            return await Task
+                         .Run(
+                            () => PagedList<Tickets>
+                                  .ToPagedList(result,
+                                               getTicketsDto.PageNumber,
+                                               getTicketsDto.PageSize));
         }
     }
 }

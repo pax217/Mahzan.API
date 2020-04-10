@@ -80,5 +80,32 @@ namespace Mahzan.Api.Controllers.V1
 
             return StatusCode(result.StatusCode, result);
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            GetTicketsResult result = await _ticketsBusiness
+                                           .GetAll(new GetTicketsDto
+                                           {
+                                               MembersId = MembersId
+                                           });
+
+            return StatusCode(result.StatusCode, result);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("{ticketsId}")]
+        public async Task<IActionResult> GetAll(Guid ticketsId)
+        {
+            GetTicketResult result = await _ticketsBusiness
+                                           .Get(new GetTicketDto
+                                           {
+                                               ticketsId = ticketsId,
+                                               MembersId = MembersId
+                                           });
+
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

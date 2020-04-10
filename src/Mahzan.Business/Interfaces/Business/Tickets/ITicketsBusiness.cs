@@ -10,5 +10,9 @@ namespace Mahzan.Business.Interfaces.Business.Tickets
         Task<PostTicketCalculationResult> Calculate(TicketCalculationDto ticketCalculationDto);
 
         Task<PostTicketCloseSaleResult> CloseSale(TicketCalculationDto ticketCalculationDto);
+
+        Task<GetTicketsResult> GetAll(GetTicketsDto getTicketsDto);
+
+        Task<GetTicketResult> Get(GetTicketDto getTicketDto);
     }
 }

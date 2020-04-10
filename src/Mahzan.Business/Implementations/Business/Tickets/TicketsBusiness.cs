@@ -26,17 +26,21 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
         private readonly ITicketsRepositories _ticketsRepositories;
 
+        private readonly ITicketsRepository _ticketsRepository;
+
         #endregion
 
         #region Constructors
         public TicketsBusiness(
             IAddTicketRepositoryService addTicketRepositoryService,
             ITicketsValidations ticketsValidations,
-            ITicketsRepositories ticketsRepositories)
+            ITicketsRepositories ticketsRepositories,
+            ITicketsRepository ticketsRepository)
         {
             //Repositories
             _addTicketRepositoryService = addTicketRepositoryService;
             _ticketsRepositories = ticketsRepositories;
+            _ticketsRepository = ticketsRepository;
 
             //Validaciones
             _ticketsValidations = ticketsValidations;
@@ -232,6 +236,43 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
 
             return result; 
+        }
+
+        public async Task<GetTicketsResult> GetAll(GetTicketsDto getTicketsDto)
+        {
+            GetTicketsResult result = new GetTicketsResult
+            {
+                IsValid = true,
+                StatusCode = 200,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = GetAllResource.ResourceManager.GetString("GetAll_Title"),
+                Message = GetAllResource.ResourceManager.GetString("GetAll_200_SUCCESS_Message")
+            };
+
+            //Validaciones
+
+            result.Tickets = await _ticketsRepository
+                                   .GetAll(getTicketsDto);
+
+
+            return result;
+        }
+
+        public async Task<GetTicketResult> Get(GetTicketDto getTicketDto)
+        {
+            GetTicketResult result = new GetTicketResult
+            {
+                IsValid = true,
+                StatusCode = 200,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = GetResource.ResourceManager.GetString("Get_Title"),
+                Message = GetResource.ResourceManager.GetString("Get_200_SUCCESS_Message")
+            };
+
+            result.Ticket = await _ticketsRepository
+                                  .Get(getTicketDto);
+
+            return result;
         }
 
 

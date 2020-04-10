@@ -43,6 +43,11 @@ namespace Mahzan.Api
                     .AddJsonOptions(options => {
                         options.JsonSerializerOptions.IgnoreNullValues = true;
                     });
+            //Configura Ignorar referencias circulares
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             //Agrega Swagger
             services.AddSwagger();
@@ -87,8 +92,6 @@ namespace Mahzan.Api
                     .ConfigureApiBehaviorOptions(options => {
                         options.InvalidModelStateResponseFactory = InvalidModelStateHandler.Handler;
                     });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

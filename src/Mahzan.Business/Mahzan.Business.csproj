@@ -117,6 +117,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CloseSaleResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Tickets\GetAllResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetAllResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\Tickets\GetResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Validations\AspNetUsers\LogInValidationsResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LogInValidationsResources.Designer.cs</LastGenOutput>
@@ -344,6 +352,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CloseSaleResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Tickets\GetAllResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>GetAllResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\Tickets\GetResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>GetResource.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Validations\AspNetUsers\LogInValidationsResources.Designer.cs">
       <DependentUpon>LogInValidationsResources.resx</DependentUpon>

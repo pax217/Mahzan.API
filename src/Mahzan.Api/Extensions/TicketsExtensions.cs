@@ -3,7 +3,9 @@ using Mahzan.Business.Implementations.Validations.Tickets;
 using Mahzan.Business.Interfaces.Business.Tickets;
 using Mahzan.Business.Interfaces.Validations.Tickets;
 using Mahzan.DataAccess.Implementations;
+using Mahzan.DataAccess.Implementations.TicketsRepositoryServices;
 using Mahzan.DataAccess.Interfaces;
+using Mahzan.DataAccess.Interfaces.TicketsRepositoryServices;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -33,6 +35,9 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<ITicketsRepository, TicketsRepository>();
 
             services.AddTransient<ITicketsRepositories, TicketsRepositories>();
+
+            services.AddTransient<IAddTicketRepositoryService, AddTicketRepositoryService>();
+            
         }
 
         private static void ValidationsBlServices(this IServiceCollection services)
