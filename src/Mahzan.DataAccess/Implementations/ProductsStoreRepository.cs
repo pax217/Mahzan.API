@@ -8,6 +8,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Mahzan.DataAccess.Implementations
 {
@@ -23,16 +24,32 @@ namespace Mahzan.DataAccess.Implementations
             _mapper = mapper;
         }
 
-        public  Products_Store Add(AddProductsStoreDto addProductsStoreDto)
+        public async Task<List<Products_Store>> Add(AddProductsStoreDto addProductsStoreDto)
         {
-            Products_Store newProductsStore = null;
+            List<Products_Store> result = new List<Products_Store>();
 
-            newProductsStore = _mapper.Map<Products_Store>(addProductsStoreDto);
+            foreach (var addProductStoreDto in addProductsStoreDto.ProductsStoreDto)
+            {
+                Products_Store newProductsStore = new Products_Store
+                {
+                    Price = addProductStoreDto.Price,
+                    Cost = addProductStoreDto.Cost,
+                    InStock = addProductStoreDto.InStock,
+                    LowStock = addProductStoreDto.LowStock,
+                    OptimumStock = addProductStoreDto.OptimumStock,
+                    ProductsId = addProductStoreDto.ProductsId,
+                    StoresId = addProductStoreDto.StoresId
+                };
 
-            _context.Set<Products_Store>().Add(newProductsStore);
-            _context.SaveChanges();
+                _context.Set<Products_Store>().Add(newProductsStore);
+                await _context.SaveChangesAsync();
 
-            return newProductsStore;
+                result.Add(newProductsStore);
+            }
+
+
+
+            return result;
         }
 
         public async Task<Products_Store> Get(Guid productsStoreId, 

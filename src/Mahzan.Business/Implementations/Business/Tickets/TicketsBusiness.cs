@@ -117,7 +117,6 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             return result;
         }
 
-
         #endregion
 
         #region Private Methods

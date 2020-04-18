@@ -88,14 +88,14 @@ namespace Mahzan.Business.Implementations.Business.Products
                 }
 
                 //Agrega Producto
-                Models.Entities.Products addedProduct = await  _productsRepository
-                                                               .Add(addProductsDto);
+                result.Product = await  _productsRepository
+                                        .Add(addProductsDto);
 
-                if (addedProduct!=null)
+                if (result.Product != null)
                 {
                     //Agrega Imagen de Producto
 
-                    addProductsDto.AddProductPhotoDto.ProductsId = addedProduct.ProductsId;
+                    addProductsDto.AddProductPhotoDto.ProductsId = result.Product.ProductsId;
 
                     AddProductPhoto(addProductsDto.AddProductPhotoDto);
                 }

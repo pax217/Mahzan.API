@@ -61,8 +61,7 @@ namespace Mahzan.Api.Controllers.V1
                                             {
                                                 MembersId = MembersId,
                                                 StoresId = getStoresFilter.StoresId,
-                                                Name = getStoresFilter.Name,
-                                                CompaniesId = getStoresFilter.CompaniesId
+                                                Name = getStoresFilter.Name
                                             });
 
             result.Paging = new Paging()

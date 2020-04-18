@@ -113,6 +113,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GetPaymentTypesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Business\ProductsStore\AddProductsStoreResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddProductsStoreResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Business\Tickets\CloseSaleResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CloseSaleResource.Designer.cs</LastGenOutput>
@@ -347,6 +351,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>GetPaymentTypesResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Business\ProductsStore\AddProductsStoreResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AddProductsStoreResource.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Business\Tickets\CloseSaleResource.Designer.cs">
       <DesignTime>True</DesignTime>

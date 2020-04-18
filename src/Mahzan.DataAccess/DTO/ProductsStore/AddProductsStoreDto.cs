@@ -1,7 +1,15 @@
-﻿using System;
+﻿using Mahzan.DataAccess.DTO._Base;
+using System;
+using System.Collections.Generic;
+
 namespace Mahzan.DataAccess.DTO.ProductsStore
 {
-    public class AddProductsStoreDto
+    public class AddProductsStoreDto:BaseDto
+    {
+        public List<ProductsStoreDto> ProductsStoreDto { get; set; }
+    }
+
+    public class ProductsStoreDto 
     {
         public decimal Price { get; set; }
 

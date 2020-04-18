@@ -87,6 +87,9 @@ namespace Mahzan.Api.Extensions
             //TicketDetailTaxes
             TicketDetailTaxesExtensions.TicketDetailTaxesBlServices(services);
 
+            //ProductsStore
+            ProductsStoreExtensions.ProductsStoreBlServices(services);
+
             //Data Access
             services.AddTransient<IMembersRepository, MembersRepository>();
             services.AddTransient<IStoresRepository, StoresRepository>();

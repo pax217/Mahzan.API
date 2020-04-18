@@ -10,7 +10,5 @@ namespace Mahzan.DataAccess.Filters.Stores
         public string Code { get; set; }
 
         public string Name { get; set; }
-
-        public Guid? CompaniesId { get; set; }
     }
 }

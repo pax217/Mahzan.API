@@ -45,6 +45,18 @@ namespace Mahzan.DataAccess.Implementations
             List<Stores> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();
 
+            //Members
+            if (getStoresDto.MembersId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Stores).GetProperties()
+                    .First(p => p.Name == "MembersId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getStoresDto.MembersId
+                });
+            }
+
             //StoresId
             if (getStoresDto.StoresId != null)
             {

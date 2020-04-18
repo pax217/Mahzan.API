@@ -1,7 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Mahzan.Business.Requests.Products_Store
 {
     public class PostProductsStoreRequest
+    {
+        public List<ProductsStoreRequest> ProductsStoreRequest { get; set; }
+    }
+
+    public class ProductsStoreRequest 
     {
         public decimal Price { get; set; }
 
@@ -12,6 +19,8 @@ namespace Mahzan.Business.Requests.Products_Store
         public decimal? LowStock { get; set; }
 
         public decimal? OptimumStock { get; set; }
+
+        public Guid ProductsId { get; set; }
 
         public Guid StoresId { get; set; }
     }
