@@ -63,7 +63,8 @@ namespace Mahzan.Api.Controllers.V1
                                                        Barcode = postProductsRequest.PostProductDetailRequest.Barcode,
                                                        Description = postProductsRequest.PostProductDetailRequest.Description,
                                                        Price = postProductsRequest.PostProductDetailRequest.Price,
-                                                       Cost = postProductsRequest.PostProductDetailRequest.Cost
+                                                       Cost = postProductsRequest.PostProductDetailRequest.Cost,
+                                                       FollowInventory = postProductsRequest.PostProductDetailRequest.FollowInventory
                                                    },
                                                    AspNetUserId = AspNetUserId,
                                                    MembersId = MembersId,

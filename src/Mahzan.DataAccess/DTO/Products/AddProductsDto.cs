@@ -45,5 +45,11 @@ namespace Mahzan.DataAccess.DTO.Products
 
         public decimal? Cost { get; set; }
 
+        public decimal? CommercialMargin { get; set; }
+
+        public decimal? CommercialMarginPercentaje { get; set; }
+
+        public bool FollowInventory { get; set; }
+
     }
 }

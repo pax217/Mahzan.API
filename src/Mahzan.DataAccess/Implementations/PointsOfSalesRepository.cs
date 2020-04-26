@@ -69,6 +69,16 @@ namespace Mahzan.DataAccess.Implementations
                 });
             }
 
+            if (getPointsOfSalesDto.StoresId != Guid.Empty)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(PointsOfSales).GetProperties().First(p => p.Name == "StoresId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getPointsOfSalesDto.StoresId
+                });
+            }
+
 
             if (filterExpressions.Any())
             {

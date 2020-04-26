@@ -15,7 +15,7 @@ namespace Mahzan.DataAccess.Implementations
         {
         }
 
-        public async Task<List<TicketDetail>> Add(Tickets newTicket,
+        public async Task<List<TicketDetail>> AddListTicketDetail(Tickets newTicket,
                                                   List<PostTicketCalculationDetailDto> postTicketDetailDto)
         {
             List<TicketDetail> result = new List<TicketDetail> { };
@@ -43,9 +43,25 @@ namespace Mahzan.DataAccess.Implementations
             return result;
         }
 
-        public async Task<TicketDetail> Add(Tickets newTicket)
+        public async Task<TicketDetail> AddTicketDetail(TicketDetail ticketDetail)
         {
-            throw new NotImplementedException();
+            TicketDetail newTicketDetail = null;
+
+            //Ticket
+            newTicketDetail = new TicketDetail
+            {
+                ProductsId = ticketDetail.ProductsId,
+                Quantity = ticketDetail.Quantity,
+                Description = ticketDetail.Description,
+                Price = ticketDetail.Price,
+                Amount = ticketDetail.Amount,
+                TicketsId = ticketDetail.TicketsId
+            };
+
+            _context.Set<TicketDetail>().Add(newTicketDetail);
+            await _context.SaveChangesAsync();
+
+            return newTicketDetail;
         }
     }
 }

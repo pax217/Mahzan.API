@@ -79,7 +79,7 @@ namespace Mahzan.DataAccess.Implementations
 
             EntityEntry entry = _context.Entry(productsStoreToUpdate);
             entry.State = EntityState.Modified;
-            entry.Property("Id").IsModified = false;
+            entry.Property("ProductsStoreId").IsModified = false;
 
             _context.Set<Products_Store>().Update(productsStoreToUpdate);
             await _context.SaveChangesAsync();

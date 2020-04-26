@@ -1,4 +1,6 @@
-﻿using Mahzan.Business.Implementations.Business.ProductsStore;
+﻿using Mahzan.Business.Implementations.Business.Products.Add;
+using Mahzan.Business.Implementations.Business.ProductsStore;
+using Mahzan.Business.Interfaces.Business.Products.Add;
 using Mahzan.Business.Interfaces.Business.ProductsStore;
 using Mahzan.DataAccess.Implementations;
 using Mahzan.DataAccess.Interfaces;
@@ -24,6 +26,8 @@ namespace Mahzan.Api.Extensions
         private static void BusinessBlServices(this IServiceCollection services)
         {
             services.AddTransient<IProductsStoreBusiness, ProductsStoreBusiness>();
+            services.AddTransient<IGetProductCommercialMaginService, GetProductCommercialMaginService>();
+            
         }
 
         private static void RepositoriesBlServices(this IServiceCollection services)

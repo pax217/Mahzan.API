@@ -22,6 +22,10 @@ namespace Mahzan.Models.Entities
 
         public decimal? Cost { get; set; }
 
+        public decimal? CommercialMargin { get; set; }
+
+        public decimal? CommercialMarginPercentaje { get; set; }
+
         public bool FollowInventory { get; set; }
 
         public bool AvailableInAllStores { get; set; }

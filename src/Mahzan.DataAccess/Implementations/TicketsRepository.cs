@@ -46,7 +46,7 @@ namespace Mahzan.DataAccess.Implementations
                 PointsOfSalesId = addTicketsDto.PointsOfSalesId,
                 PaymentTypesId = addTicketsDto.PaymentTypesId,
                 AspNetUsersId = addTicketsDto.AspNetUserId,
-
+                MembersId = addTicketsDto.MembersId
             };
 
             _context.Set<Tickets>().Add(newTicket);

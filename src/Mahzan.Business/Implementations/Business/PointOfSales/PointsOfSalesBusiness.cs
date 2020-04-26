@@ -118,6 +118,8 @@ namespace Mahzan.Business.Implementations.Business.PointOfSales
 
                 if (!result.PointsOfSales.Any())
                 {
+                    result.IsValid = false;
+                    result.StatusCode = 404;
                     result.ResultTypeEnum = ResultTypeEnum.INFO;
                     result.Message = GetPointsOfSalesResources.ResourceManager.GetString("Get_200_INFO_Message");
 

@@ -49,8 +49,6 @@
     <Folder Include="Resources\Business\EmployeesStores\" />
     <Folder Include="Requests\Products\" />
     <Folder Include="Results\Products\" />
-    <Folder Include="Interfaces\Business\Products\" />
-    <Folder Include="Implementations\Business\Products\" />
     <Folder Include="Resources\Business\Products\" />
     <Folder Include="Results\ProductsPhotos\" />
     <Folder Include="Interfaces\Business\ProductsPhotos\" />

@@ -37,6 +37,8 @@ namespace Mahzan.Business.Implementations.Business.PaymentTypes
                 //Agrega Tipo de Pago
                 result.PaymentTypes = await _paymentTypesRepository
                                             .Add(addPaymentTypesDto);
+
+
             }
             catch (Exception ex)
             {
@@ -68,7 +70,7 @@ namespace Mahzan.Business.Implementations.Business.PaymentTypes
 
                 if (!result.PaymentTypes.Any())
                 {
-                    result.IsValid = true;
+                    result.IsValid = false;
                     result.StatusCode = 404;
                     result.ResultTypeEnum = ResultTypeEnum.INFO;
                     result.Message = AddPaymentTypesResources.ResourceManager.GetString("Get_Title");

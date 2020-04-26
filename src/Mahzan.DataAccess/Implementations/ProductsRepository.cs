@@ -30,14 +30,17 @@ namespace Mahzan.DataAccess.Implementations
         public async Task<Products> Add(AddProductsDto addProductsDto)
         {
             Products newProduct = new Products {
-                ProductCategoriesId  = addProductsDto.AddProductDetailDto.ProductCategoriesId,
+                ProductCategoriesId = addProductsDto.AddProductDetailDto.ProductCategoriesId,
                 ProductUnitsId = addProductsDto.AddProductDetailDto.ProductUnitsId,
                 SKU = addProductsDto.AddProductDetailDto.SKU,
                 Barcode = addProductsDto.AddProductDetailDto.Barcode,
                 Description = addProductsDto.AddProductDetailDto.Description,
-                Price = addProductsDto.AddProductDetailDto.Price,
                 Cost = addProductsDto.AddProductDetailDto.Cost,
-                MembersId = addProductsDto.MembersId
+                Price = addProductsDto.AddProductDetailDto.Price,
+                CommercialMargin = addProductsDto.AddProductDetailDto.CommercialMargin,
+                CommercialMarginPercentaje = addProductsDto.AddProductDetailDto.CommercialMarginPercentaje,
+                MembersId = addProductsDto.MembersId,
+                FollowInventory = addProductsDto.AddProductDetailDto.FollowInventory
             };
 
             _context.Set<Products>().Add(newProduct);

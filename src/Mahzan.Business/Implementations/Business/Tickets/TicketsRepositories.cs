@@ -57,8 +57,8 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                                                               List<PostTicketCalculationDetailDto> postTicketDetailDto) 
         {
            return  await _ticketDetailRepository
-                         .Add(newTicket,
-                              postTicketDetailDto);
+                         .AddListTicketDetail(newTicket,
+                                          postTicketDetailDto);
         }
 
         public async Task<PagedList<Models.Entities.Products>> GetProduct(Guid membersId,

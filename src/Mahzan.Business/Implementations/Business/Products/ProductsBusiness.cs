@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Interfaces.Business.Products;
+using Mahzan.Business.Interfaces.Business.Products.Add;
 using Mahzan.Business.Interfaces.Validations.Products;
 using Mahzan.Business.Resources.Business.Products;
 using Mahzan.Business.Results.Products;
@@ -22,6 +23,8 @@ namespace Mahzan.Business.Implementations.Business.Products
 
         //Repositories
         readonly IProductsRepository _productsRepository;
+        private readonly IGetProductCommercialMaginService _getProductCommercialMaginService; 
+
         readonly IProductsStoreRepository _productsStoreRepository;
         readonly IProductsTaxesRepository _productsTaxesRepository;
         readonly IStoresRepository _storesRepository;
@@ -44,6 +47,7 @@ namespace Mahzan.Business.Implementations.Business.Products
             IStoresRepository storesRepository,
             IAddProductsValidations addProductsValidations,
             IProductsPhotosRepository productsPhotosRepository,
+            IGetProductCommercialMaginService getProductCommercialMaginService,
             IMapper mapper)
         {
 
@@ -53,6 +57,7 @@ namespace Mahzan.Business.Implementations.Business.Products
             _productsTaxesRepository = productsTaxesRepository;
             _storesRepository = storesRepository;
             _productsPhotosRepository = productsPhotosRepository;
+            _getProductCommercialMaginService = getProductCommercialMaginService;
 
             //Validations
             _addProductsValidations = addProductsValidations;
@@ -87,9 +92,15 @@ namespace Mahzan.Business.Implementations.Business.Products
                     return resultAddValidations;
                 }
 
+
+
                 //Agrega Producto
+                AddProductsDto addProductsDtoWithCommercialMargin;
+                addProductsDtoWithCommercialMargin = _getProductCommercialMaginService
+                                                     .GetCommercialMargin(addProductsDto);
+
                 result.Product = await  _productsRepository
-                                        .Add(addProductsDto);
+                                        .Add(addProductsDtoWithCommercialMargin);
 
                 if (result.Product != null)
                 {

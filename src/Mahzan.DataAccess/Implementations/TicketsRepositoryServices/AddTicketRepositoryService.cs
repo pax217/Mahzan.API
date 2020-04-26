@@ -58,7 +58,7 @@ namespace Mahzan.DataAccess.Implementations.TicketsRepositoryServices
                         TicketsId = newTicket.TicketsId
                     };
 
-                    _ticketDetailRepository.Add(newTicketDetail);
+                    await _ticketDetailRepository.AddTicketDetail(newTicketDetail);
                 }
 
                 //TicketDetailTaxes
