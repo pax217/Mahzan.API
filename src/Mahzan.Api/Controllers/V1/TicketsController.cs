@@ -8,6 +8,7 @@ using Mahzan.Business.Interfaces.Business.Tickets;
 using Mahzan.Business.Requests.Tickets;
 using Mahzan.Business.Results.Tickets;
 using Mahzan.DataAccess.DTO.Tickets;
+using Mahzan.DataAccess.Filters.Tickets;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -83,11 +84,12 @@ namespace Mahzan.Api.Controllers.V1
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetWhereFilter([FromQuery]GetTicketsFilter getTicketsFilter)
         {
             GetTicketsResult result = await _ticketsBusiness
                                            .GetAll(new GetTicketsDto
                                            {
+                                               CreatedAt = getTicketsFilter.CreatedAt,
                                                MembersId = MembersId
                                            });
 
@@ -96,7 +98,7 @@ namespace Mahzan.Api.Controllers.V1
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{ticketsId}")]
-        public async Task<IActionResult> GetAll(Guid ticketsId)
+        public async Task<IActionResult> GetById(Guid ticketsId)
         {
             GetTicketResult result = await _ticketsBusiness
                                            .Get(new GetTicketDto

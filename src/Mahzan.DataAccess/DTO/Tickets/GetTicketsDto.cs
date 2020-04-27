@@ -7,5 +7,6 @@ namespace Mahzan.DataAccess.DTO.Tickets
 {
     public class GetTicketsDto:BaseDto
     {
+        public DateTime? CreatedAt { get; set; }
     }
 }

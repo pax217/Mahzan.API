@@ -61,6 +61,15 @@ namespace Mahzan.Business.Resources.Business.Tickets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No se encontraton Tickes de Venta..
+        /// </summary>
+        internal static string Get_404_INFO_Message {
+            get {
+                return ResourceManager.GetString("Get_404_INFO_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Se han obtenido correctamente todos los tickets.
         /// </summary>
         internal static string GetAll_200_SUCCESS_Message {

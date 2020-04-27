@@ -59,6 +59,7 @@ namespace Mahzan.DataAccess.Implementations
         public async Task<Tickets> Get(GetTicketDto getTicketDto)
         {
             Tickets result = await (_context.Set<Tickets>()
+                                    .Where(x => x.TicketsId== getTicketDto.ticketsId)
                                     .Include(dt => dt.TicketDetails)
                                     .Include(dtt => dtt.TicketDetailTaxes)
                                    ).FirstOrDefaultAsync();
@@ -80,15 +81,30 @@ namespace Mahzan.DataAccess.Implementations
                     Value = getTicketsDto.MembersId
                 });
             }
+
+
+            /*Los Filtros de Fechas se manejan despues de aplicar el delegado*/
+
             if (filterExpressions.Any())
             {
                 var deleg = ExpressionBuilder
                             .GetExpression<Tickets>(filterExpressions)
                             .Compile();
 
-                result = _context.Set<Tickets>()
-                                 .Where(deleg)
-                                 .ToList();
+                result = _context
+                         .Set<Tickets>()
+                         .Where(deleg)
+                         .OrderByDescending(x => x.CreatedAt)
+                         .ToList();
+
+                //Filtros de Fecha
+                if (getTicketsDto.CreatedAt != null)
+                {
+                    result = (from ca in result
+                              where ca.CreatedAt.Date == getTicketsDto.CreatedAt.Value.Date
+                              select ca)
+                             .ToList();
+                }
             }
             else
             {

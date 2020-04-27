@@ -123,4 +123,7 @@
   <data name="GetAll_Title" xml:space="preserve">
     <value>Obtiene todo los Tickets</value>
   </data>
+  <data name="Get_404_INFO_Message" xml:space="preserve">
+    <value>No se encontraton Tickes de Venta.</value>
+  </data>
 </root>

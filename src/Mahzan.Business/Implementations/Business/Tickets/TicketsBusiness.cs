@@ -253,6 +253,16 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             result.Tickets = await _ticketsRepository
                                    .GetAll(getTicketsDto);
 
+            if (!result.Tickets.Any())
+            {
+                result.IsValid = false;
+                result.StatusCode = 404;
+                result.ResultTypeEnum = ResultTypeEnum.INFO;
+                result.Message = GetAllResource.ResourceManager.GetString("Get_404_INFO_Message");
+
+                return result;
+            }
+
 
             return result;
         }
