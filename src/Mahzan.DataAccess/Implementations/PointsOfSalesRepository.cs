@@ -69,7 +69,17 @@ namespace Mahzan.DataAccess.Implementations
                 });
             }
 
-            if (getPointsOfSalesDto.StoresId != Guid.Empty)
+            if (getPointsOfSalesDto.PointsOfSalesId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(PointsOfSales).GetProperties().First(p => p.Name == "PointsOfSalesId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getPointsOfSalesDto.PointsOfSalesId
+                });
+            }
+
+            if (getPointsOfSalesDto.StoresId != null)
             {
                 filterExpressions.Add(new FilterExpression
                 {
