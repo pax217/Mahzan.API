@@ -1,29 +1,34 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5BCCE6CA-3C85-4320-AA18-811ECFBD83EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.Api", "src\Mahzan.Api\Mahzan.Api.csproj", "{42BE0745-B69F-44E9-B074-DD61DC627F51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mahzan.Api", "src\Mahzan.Api\Mahzan.Api.csproj", "{42BE0745-B69F-44E9-B074-DD61DC627F51}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{29D1CE63-1BE0-45FD-9702-427EB9EC586C}"
 	ProjectSection(SolutionItems) = preProject
-		dockerfile = dockerfile
-		docker-compose.yml = docker-compose.yml
 		codeship-services.yml = codeship-services.yml
 		codeship-steps.yml = codeship-steps.yml
+		docker-compose.yml = docker-compose.yml
+		dockerfile = dockerfile
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.Business", "src\Mahzan.Business\Mahzan.Business.csproj", "{28E72D55-815B-4418-82D3-AC3022650F72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mahzan.Business", "src\Mahzan.Business\Mahzan.Business.csproj", "{28E72D55-815B-4418-82D3-AC3022650F72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.Models", "src\Mahzan.Models\Mahzan.Models.csproj", "{3289ACD4-1132-40A8-ABCF-2E5DCB967641}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mahzan.Models", "src\Mahzan.Models\Mahzan.Models.csproj", "{3289ACD4-1132-40A8-ABCF-2E5DCB967641}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.DataAccess", "src\Mahzan.DataAccess\Mahzan.DataAccess.csproj", "{4E24C1FC-642C-4DA3-979A-7CDD164E7B79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mahzan.DataAccess", "src\Mahzan.DataAccess\Mahzan.DataAccess.csproj", "{4E24C1FC-642C-4DA3-979A-7CDD164E7B79}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C3DFB6C0-AB5F-407A-8B07-13C423CDD8ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.Factories", "tests\Mahzan.Factories\Mahzan.Factories.csproj", "{1C5D186E-1FCE-491D-9CAE-9637B0C9D69D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mahzan.Factories", "tests\Mahzan.Factories\Mahzan.Factories.csproj", "{1C5D186E-1FCE-491D-9CAE-9637B0C9D69D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.Business.UnitTest", "tests\Mahzan.Business.UnitTest\Mahzan.Business.UnitTest.csproj", "{A84549D1-C73A-4723-9FAF-12A561FD9E11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mahzan.Business.UnitTest", "tests\Mahzan.Business.UnitTest\Mahzan.Business.UnitTest.csproj", "{A84549D1-C73A-4723-9FAF-12A561FD9E11}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{EB99668E-7996-4AE1-BF82-D95BBF21F548}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.Facturacion.Electronica", "tools\Mahzan.Facturacion.Electronica\Mahzan.Facturacion.Electronica.csproj", "{EDB6FD9B-4F3F-453A-AA35-ED414147BF3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +60,13 @@ Global
 		{A84549D1-C73A-4723-9FAF-12A561FD9E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A84549D1-C73A-4723-9FAF-12A561FD9E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A84549D1-C73A-4723-9FAF-12A561FD9E11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDB6FD9B-4F3F-453A-AA35-ED414147BF3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDB6FD9B-4F3F-453A-AA35-ED414147BF3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDB6FD9B-4F3F-453A-AA35-ED414147BF3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDB6FD9B-4F3F-453A-AA35-ED414147BF3F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{42BE0745-B69F-44E9-B074-DD61DC627F51} = {5BCCE6CA-3C85-4320-AA18-811ECFBD83EF}
@@ -63,5 +75,9 @@ Global
 		{4E24C1FC-642C-4DA3-979A-7CDD164E7B79} = {5BCCE6CA-3C85-4320-AA18-811ECFBD83EF}
 		{1C5D186E-1FCE-491D-9CAE-9637B0C9D69D} = {C3DFB6C0-AB5F-407A-8B07-13C423CDD8ED}
 		{A84549D1-C73A-4723-9FAF-12A561FD9E11} = {C3DFB6C0-AB5F-407A-8B07-13C423CDD8ED}
+		{EDB6FD9B-4F3F-453A-AA35-ED414147BF3F} = {EB99668E-7996-4AE1-BF82-D95BBF21F548}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D84E5CD3-2ACF-4AF1-9009-8B69D9457E4C}
 	EndGlobalSection
 EndGlobal
