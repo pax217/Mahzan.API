@@ -32,7 +32,6 @@ namespace Mahzan.DataAccess.Implementations
 
             newClient = new Clients
             {
-                Name = addClientsDto.Name,
                 Email = addClientsDto.Email,
                 Phone = addClientsDto.Phone,
                 Notes = addClientsDto.Notes,

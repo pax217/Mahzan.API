@@ -7,7 +7,7 @@ using Mahzan.Business.Interfaces.Business.Clients;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Requests.Clients;
 using Mahzan.Business.Results.Clients;
-using Mahzan.DataAccess.DTO.Clients;
+using Mahzan.Dapper.V1.DTO.Clients;
 using Mahzan.DataAccess.Filters.Clients;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,8 +35,10 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Post(PostClientsRequest postClientsRequest)
         {
             PostClientsResult result = await _clientsBusiness
-                                                .Add(new AddClientsDto {
-                                                    Name = postClientsRequest.Name,
+                                                .Add(new InsertClientDto {
+                                                    RFC = postClientsRequest.RFC,
+                                                    BusinessName = postClientsRequest.BusinessName,
+                                                    CommercialName = postClientsRequest.CommercialName,
                                                     Email = postClientsRequest.Email,
                                                     Phone = postClientsRequest.Phone,
                                                     Notes = postClientsRequest.Notes,
@@ -52,8 +54,11 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Get([FromQuery] GetClientsFilter getClientsFilter)
         {
             GetClientsResult result = await _clientsBusiness
-                                            .Get(new GetClientsDto {
-                                                Name = getClientsFilter.Name
+                                            .Get(new GetClientsDto
+                                            {
+                                                ClientsId = getClientsFilter.ClientsId,
+                                                RFC = getClientsFilter.RFC,
+                                                BusinessName = getClientsFilter.BusinessName
                                             });
 
             return StatusCode(result.StatusCode, result);

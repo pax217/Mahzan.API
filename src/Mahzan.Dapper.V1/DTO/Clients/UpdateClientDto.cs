@@ -1,11 +1,14 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using Mahzan.Dapper.V1.DTO._Base;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Mahzan.Business.Requests.Clients
+namespace Mahzan.Dapper.V1.DTO.Clients
 {
-    public class PostClientsRequest
+    public class UpdateClientDto:BaseDto
     {
-        [Required]
+        public Guid ClientsId { get; set; }
+
         public string RFC { get; set; }
 
         public string CommercialName { get; set; }
@@ -17,5 +20,7 @@ namespace Mahzan.Business.Requests.Clients
         public string Phone { get; set; }
 
         public string Notes { get; set; }
+
+        public Guid MembersId { get; set; }
     }
 }

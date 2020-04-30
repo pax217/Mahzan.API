@@ -5,6 +5,8 @@ namespace Mahzan.DataAccess.Filters.Clients
     {
         public Guid? ClientsId { get; set; }
 
-        public string Name { get; set; }
+        public string RFC { get; set; }
+
+        public string BusinessName { get; set; }
     }
 }

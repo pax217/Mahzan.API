@@ -44,7 +44,8 @@ namespace Mahzan.Business.Implementations.Business.Clients
             _mapper = mapper;
         }
 
-        public async Task<PostClientsResult> Add(AddClientsDto addClientsDto)
+
+        public async Task<PostClientsResult> Add(InsertClientDto insertClientDto)
         {
             PostClientsResult result = new PostClientsResult()
             {
@@ -55,43 +56,26 @@ namespace Mahzan.Business.Implementations.Business.Clients
                 Message = AddClientsResources.ResourceManager.GetString("Add_200_SUCCESS_Message")
             };
 
-            try
-            {
-                //Validaciones al agregar un cliente
-                //PostClientsResult resulAddValidations = await _addClientsValidations
-                //                                              .AddClientsValid(addClientsDto);
 
-                //if (!resulAddValidations.IsValid)
-                //{
-                //    return resulAddValidations;
-                //}
 
-                //Agrega el Cliente
-                result.ClientsId = await _clientsDapper
-                                         .InsertAsync(_mapper.Map<InsertClientDto>(addClientsDto));
-            }
-            catch (Exception ex)
-            {
-                result.IsValid = false;
-                result.StatusCode = 500;
-                result.ResultTypeEnum = ResultTypeEnum.ERROR;
-                result.Message = ex.Message;
-            }
+            //Agrega el Cliente
+            result.ClientsId = await _clientsDapper
+                                     .InsertAsync(insertClientDto);
 
             return result;
         }
 
-        public Task<DeleteClientsResult> Delete(DeleteClientsDto deleteClientsDto)
+        public Task<DeleteClientsResult> Delete(DeleteClientDto deleteClientsDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<GetClientsResult> Get(GetClientsDto getClientsDto)
+        public Task<GetClientsResult> Get(Dapper.V1.DTO.Clients.GetClientsDto getClientsDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PutClientsResult> Update(PutClientsDto putClientsDto)
+        public Task<PutClientsResult> Update(UpdateClientDto updateClientDto)
         {
             throw new NotImplementedException();
         }
