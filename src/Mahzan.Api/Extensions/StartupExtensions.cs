@@ -73,8 +73,12 @@ namespace Mahzan.Api.Extensions
     [ExcludeFromCodeCoverage]
     public static class StartupExtensions
     {
-        public static void ConfigureBlServices(this IServiceCollection services)
+        public static void ConfigureBlServices(this IServiceCollection services,
+                                               string connectionString)
         {
+
+            ClientsExtensions.ConfigureClientsServices(services, connectionString);
+
             //Groups
             GroupsExtensions.GroupsBlServices(services);
 

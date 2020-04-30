@@ -72,7 +72,7 @@ namespace Mahzan.Api
             services.AddIdentityProvider();
 
             //Inyección de dependencias
-            services.ConfigureBlServices();
+            services.ConfigureBlServices(_configuration.GetConnectionString("Mahzan"));
 
             //Email Sender
             services.AddEmailSender(_configuration);

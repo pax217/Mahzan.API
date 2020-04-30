@@ -4,6 +4,11 @@
 	cuenta:     mahzan.backoffice@gmail.com
 	password:   Mahzan20%
 
+# Mahzan.Mobile
+
+	cuenta:     mahzan.mobile@gmail.com
+	password:   Mahzan20%
+
 # Ubuntu Server
 # Mahzan.Api
 

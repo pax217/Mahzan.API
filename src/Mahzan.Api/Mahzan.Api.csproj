@@ -39,6 +39,7 @@
     <ProjectReference Include="..\Mahzan.Business\Mahzan.Business.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\Mahzan.Dapper.V1\Mahzan.Dapper.V1.csproj" />
     <ProjectReference Include="..\Mahzan.Models\Mahzan.Models.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

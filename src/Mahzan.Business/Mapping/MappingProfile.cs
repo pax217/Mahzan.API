@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Mahzan.Business.Requests.Products_Store;
+using Mahzan.Dapper.V1.DTO.Clients;
+using Mahzan.DataAccess.DTO.Clients;
 using Mahzan.DataAccess.DTO.Companies;
 using Mahzan.DataAccess.DTO.Employees;
 using Mahzan.DataAccess.DTO.EmployeesStores;
@@ -24,6 +26,9 @@ namespace Mahzan.Business.Mapping
     {
         public MappingProfile() 
         {
+            //Clients
+            CreateMap<AddClientsDto, InsertClientDto>();
+
             #region Members
             CreateMap<AddMembersDto, Members>();
             #endregion
