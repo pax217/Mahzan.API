@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="DTO\Clients\" />
     <Folder Include="Requests\AspNetUsers\" />
     <Folder Include="Results\_Base\" />
     <Folder Include="Enums\" />
@@ -93,7 +94,6 @@
     <Folder Include="Resources\Validations\PointsOfSales\" />
     <Folder Include="Requests\Taxes\" />
     <Folder Include="Interfaces\Business\Taxes\" />
-    <Folder Include="Results\Taxes\" />
     <Folder Include="Implementations\Business\Taxes\" />
     <Folder Include="Resources\Business\Taxes\" />
     <Folder Include="Interfaces\Validations\Taxes\" />
@@ -537,7 +537,7 @@
     <PackageReference Include="Syncfusion.Pdf.Net.Core" Version="17.4.0.44" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mahzan.Dapper.V1\Mahzan.Dapper.V1.csproj" />
+    <ProjectReference Include="..\Mahzan.Dapper.V1\Mahzan.Dapper.csproj" />
     <ProjectReference Include="..\Mahzan.DataAccess\Mahzan.DataAccess.csproj" />
   </ItemGroup>
 </Project>

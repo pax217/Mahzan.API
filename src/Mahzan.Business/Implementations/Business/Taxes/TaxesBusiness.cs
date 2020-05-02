@@ -3,77 +3,69 @@ using System.Threading.Tasks;
 using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Interfaces.Business.Taxes;
 using Mahzan.Business.Interfaces.Validations.Taxes;
-using Mahzan.Business.Resources.Business.Companies;
-using Mahzan.Business.Resources.Business.Taxes;
 using Mahzan.Business.Results.Taxes;
-using Mahzan.DataAccess.DTO.Taxes;
-using Mahzan.DataAccess.DTO.TaxesStores;
 using Mahzan.DataAccess.Interfaces;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Linq;
+using Mahzan.Business.Exceptions.Taxes;
+using Mahzan.Dapper.Interfaces.Taxes;
+using Mahzan.Dapper.DTO.Taxes;
+using Mahzan.Dapper.Paging;
 
 namespace Mahzan.Business.Implementations.Business.Taxes
 {
     public class TaxesBusiness: ITaxesBusiness
     {
-        //Repository
-        readonly ITaxesRepository _taxesRepository;
-        readonly ITaxesStoresRepository _taxesStoresRepository;
+        //Dapper 
+        private readonly ITaxesDapper _taxesDapper;
 
-        readonly IAddTaxesValidations _addTaxesValidations;
 
         public TaxesBusiness(
-            ITaxesRepository taxesRepository,
-            ITaxesStoresRepository taxesStoresRepository,
-            IAddTaxesValidations addTaxesValidations)
+            ITaxesDapper taxesDapper)
         {
-            //Repositories
-            _taxesRepository = taxesRepository;
-            _taxesStoresRepository = taxesStoresRepository;
-
-            //Validations
-            _addTaxesValidations = addTaxesValidations;
+            //Dapper 
+            _taxesDapper = taxesDapper;
         }
 
-        public async Task<PostTaxesResult> Add(AddTaxesDto addTaxesDto)
+        public async Task<PostTaxesResult> Add(InsertTaxDto insertTaxDto)
         {
-            PostTaxesResult result = new PostTaxesResult()
+            PostTaxesResult result = new PostTaxesResult
             {
                 IsValid = true,
-                StatusCode = 200,
-                ResultTypeEnum = ResultTypeEnum.SUCCESS,
-                Title = AddTaxesResources.ResourceManager.GetString("Add_Title"),
-                Message = AddTaxesResources.ResourceManager.GetString("Add_200_SUCCESS_Message")
+                ResultTypeEnum = ResultTypeEnum.SUCCESS
             };
 
-            try
+            result.TaxesId = await _taxesDapper
+                                   .InsertAsync(insertTaxDto);
+
+            return result;
+        }
+
+        public async Task<GetTaxesResult> GetWhere(GetTaxesDto getTaxesDto)
+        {
+            GetTaxesResult result = new GetTaxesResult
             {
-                //Validaciones de Impuestos
-                PostTaxesResult resultValidations = await _addTaxesValidations
-                                                           .AddTaxesValid(addTaxesDto);
+                IsValid = true,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS
+            };
 
-                if (!resultValidations.IsValid)
-                {
-                    return resultValidations;
-                }
+            result.Taxes = await _taxesDapper
+                                 .GetWhereAsync(getTaxesDto);
 
-                //Agrega Impuesto
-                Models.Entities.Taxes newTax = _taxesRepository.Add(addTaxesDto);
-
-
-                //Agrega Impuesto a Tienda
-                result.Taxes_Stores = _taxesStoresRepository.Add(new AddTaxesStoresDto {
-                    MembersId = addTaxesDto.MembersId,
-                    TaxesId = newTax.TaxesId,
-                    StoresIds = addTaxesDto.StoresIds
-                });
-
-            }
-            catch (Exception ex)
+            if (!result.Taxes.Any())
             {
-                result.IsValid = false;
-                result.StatusCode = 500;
-                result.ResultTypeEnum = ResultTypeEnum.ERROR;
-                result.Message = ex.Message;
+                throw new TaxesKeyNotFoundException($"No se encontraron Impuestos");
             }
+
+            result.Paging = new Paging
+            {
+                TotalCount = result.Taxes.TotalCount,
+                PageSize = result.Taxes.PageSize,
+                CurrentPage = result.Taxes.CurrentPage,
+                TotalPages = result.Taxes.TotalPages,
+                HasNext = result.Taxes.HasNext,
+                HasPrevious = result.Taxes.HasPrevious
+            };
 
             return result;
         }

@@ -67,6 +67,7 @@ namespace Mahzan.Api.Controllers.V1
                                                   PointsOfSalesId = postTicketCalculationRequest.PointsOfSalesId,
                                                   PaymentTypesId = postTicketCalculationRequest.PaymentTypesId,
                                                   CashPayment = postTicketCalculationRequest.CashPayment,
+                                                  ClientsId = postTicketCalculationRequest.ClientsId,
                                                   PostTicketCalculationDetailDto = postTicketCalculationRequest
                                                                                    .PostTicketCalculationDetailRequest
                                                                                    .Select(p => new PostTicketCalculationDetailDto
@@ -89,6 +90,7 @@ namespace Mahzan.Api.Controllers.V1
             GetTicketsResult result = await _ticketsBusiness
                                            .GetAll(new GetTicketsDto
                                            {
+                                               TicketsId = getTicketsFilter.TicketsId,
                                                CreatedAt = getTicketsFilter.CreatedAt,
                                                MembersId = MembersId
                                            });

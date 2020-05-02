@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mahzan.Dapper.V1.Paging
+namespace Mahzan.Dapper.Paging
 {
     public class Paging
     {

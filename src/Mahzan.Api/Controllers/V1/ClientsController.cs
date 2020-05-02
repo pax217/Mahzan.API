@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Mahzan.Api.Controllers._Base;
+using Mahzan.Api.Exeptions;
 using Mahzan.Business.Interfaces.Business.Clients;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Requests.Clients;
 using Mahzan.Business.Results.Clients;
-using Mahzan.Dapper.V1.DTO.Clients;
+using Mahzan.Dapper.DTO.Clients;
 using Mahzan.DataAccess.Filters.Clients;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,19 +35,28 @@ namespace Mahzan.Api.Controllers.V1
         [HttpPost]
         public async Task<IActionResult> Post(PostClientsRequest postClientsRequest)
         {
-            PostClientsResult result = await _clientsBusiness
-                                                .Add(new InsertClientDto {
-                                                    RFC = postClientsRequest.RFC,
-                                                    BusinessName = postClientsRequest.BusinessName,
-                                                    CommercialName = postClientsRequest.CommercialName,
-                                                    Email = postClientsRequest.Email,
-                                                    Phone = postClientsRequest.Phone,
-                                                    Notes = postClientsRequest.Notes,
-                                                    AspNetUserId = AspNetUserId,
-                                                    MembersId = MembersId
-                                                });
+            PostClientsResult result = new PostClientsResult();
+            try
+            {
+                result = await _clientsBusiness
+                                .Add(new InsertClientDto
+                                {
+                                    RFC = postClientsRequest.RFC,
+                                    BusinessName = postClientsRequest.BusinessName,
+                                    CommercialName = postClientsRequest.CommercialName,
+                                    Email = postClientsRequest.Email,
+                                    Phone = postClientsRequest.Phone,
+                                    Notes = postClientsRequest.Notes,
+                                    AspNetUserId = AspNetUserId,
+                                    MembersId = MembersId
+                                });
+            }
+            catch (ArgumentException ex)
+            {
+                throw new ServiceArgumentException(ex);
+            }
 
-            return StatusCode(result.StatusCode, result);
+            return Ok(result);
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
@@ -58,7 +68,8 @@ namespace Mahzan.Api.Controllers.V1
                                             {
                                                 ClientsId = getClientsFilter.ClientsId,
                                                 RFC = getClientsFilter.RFC,
-                                                BusinessName = getClientsFilter.BusinessName
+                                                BusinessName = getClientsFilter.BusinessName,
+                                                MembersId = MembersId
                                             });
 
             return StatusCode(result.StatusCode, result);

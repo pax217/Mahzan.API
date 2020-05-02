@@ -45,7 +45,6 @@ namespace Mahzan.Models
         public DbSet<Tickets> Tickets { get; set; }
         public DbSet<TicketDetail> TicketDetail { get; set; }
         public DbSet<TicketDetailTaxes> TicketDetailTaxes { get; set; }
-        public DbSet<Taxes> Taxes { get; set; }
         public DbSet<Taxes_Stores> Taxes_Stores { get; set; }
 
         public DbSet<PaymentTypes> PaymentTypes { get; set; }
@@ -103,8 +102,6 @@ namespace Mahzan.Models
 
             OnConfiguringPaymentTypes(modelBuilder);
 
-            OnConfiguringTaxes(modelBuilder);
-
             OnConfiguringTaxes_Stores(modelBuilder);
 
             OnConfiguringClients(modelBuilder);
@@ -139,23 +136,7 @@ namespace Mahzan.Models
                         .HasKey(taxes_Stores => new { taxes_Stores.TaxesStoresId });
         }
 
-        private void OnConfiguringTaxes(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Taxes>()
-                        .HasKey(taxes => new { taxes.TaxesId });
 
-            modelBuilder.Entity<Taxes>()
-                        .Property(t => t.TaxType)
-                        .HasConversion(
-                            v => v.ToString(),
-                            v => (TaxTypeEnum)Enum.Parse(typeof(TaxTypeEnum), v));
-
-            modelBuilder.Entity<Taxes>()
-                        .Property(t => t.TaxOption)
-                        .HasConversion(
-                            v => v.ToString(),
-                            v => (TaxOptionsEnum)Enum.Parse(typeof(TaxOptionsEnum), v));
-        }
 
         private void OnConfiguringPaymentTypes(ModelBuilder modelBuilder)
         {

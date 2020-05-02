@@ -22,7 +22,6 @@ using Mahzan.Business.Implementations.Business.Stores;
 using Mahzan.Business.Implementations.Business.Taxes;
 using Mahzan.Business.Implementations.Business.Tickets;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
-using Mahzan.Business.Implementations.Validations.Clients;
 using Mahzan.Business.Implementations.Validations.Companies;
 using Mahzan.Business.Implementations.Validations.Groups;
 using Mahzan.Business.Implementations.Validations.Members;
@@ -48,7 +47,6 @@ using Mahzan.Business.Interfaces.Business.Stores;
 using Mahzan.Business.Interfaces.Business.Taxes;
 using Mahzan.Business.Interfaces.Business.Tickets;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
-using Mahzan.Business.Interfaces.Validations.Clients;
 using Mahzan.Business.Interfaces.Validations.Companies;
 using Mahzan.Business.Interfaces.Validations.Groups;
 using Mahzan.Business.Interfaces.Validations.Miembros;
@@ -77,7 +75,11 @@ namespace Mahzan.Api.Extensions
                                                string connectionString)
         {
 
+            //Clients
             ClientsExtensions.ConfigureClientsServices(services, connectionString);
+
+            //Taxes
+            TaxesExtensions.ConfigureTaxesServices(services, connectionString);
 
             //Groups
             GroupsExtensions.GroupsBlServices(services);
@@ -93,6 +95,7 @@ namespace Mahzan.Api.Extensions
 
             //ProductsStore
             ProductsStoreExtensions.ProductsStoreBlServices(services);
+
 
             //Data Access
             services.AddTransient<IMembersRepository, MembersRepository>();
@@ -112,7 +115,6 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IMenuSubItemsRepository, MenuSubItemsRepository>();
             services.AddTransient<IPaymentTypesRepository, PaymentTypesRepository>();
             services.AddTransient<IClientsRepository, ClientsRepository>();
-            services.AddTransient<ITaxesRepository, TaxesRepository>();
             services.AddTransient<ITaxesStoresRepository, TaxesStoresRepository>();
 
             
@@ -133,11 +135,6 @@ namespace Mahzan.Api.Extensions
             //Products
             services.AddTransient<IAddProductsValidations, AddProductsValidations>();
 
-            //Clients
-            services.AddTransient<IAddClientsValidations, AddClientsValidations>();
-
-            //Taxes
-            services.AddTransient<IAddTaxesValidations, AddTaxesValidations>();
 
 
             //Negocio
@@ -154,7 +151,6 @@ namespace Mahzan.Api.Extensions
             services.AddTransient<IPaymentTypesBusiness, PaymentTypesBusiness>();
             services.AddTransient<IClientsBusiness, ClientsBusiness>();
             services.AddTransient<IBarCodesBusiness, BarCodesBusiness>();
-            services.AddTransient<ITaxesBusiness, TaxesBusiness>();
 
 
 

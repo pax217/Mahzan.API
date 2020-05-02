@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mahzan.Dapper.V1.DTO.Clients
+namespace Mahzan.Dapper.DTO.Clients
 {
     public class DeleteClientDto
     {

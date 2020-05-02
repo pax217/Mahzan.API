@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace Mahzan.Dapper.V1
+namespace Mahzan.Dapper
 {
     public class DataConnection : IDisposable
     {

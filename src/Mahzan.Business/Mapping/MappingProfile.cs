@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Mahzan.Business.Requests.Products_Store;
-using Mahzan.Dapper.V1.DTO.Clients;
+using Mahzan.Dapper.DTO.Clients;
 using Mahzan.DataAccess.DTO.Clients;
 using Mahzan.DataAccess.DTO.Companies;
 using Mahzan.DataAccess.DTO.Employees;

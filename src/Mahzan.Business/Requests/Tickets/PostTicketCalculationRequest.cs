@@ -13,6 +13,8 @@ namespace Mahzan.Business.Requests.Tickets
         [Required]
         public Guid PaymentTypesId { get; set; }
 
+        public Guid? ClientsId { get; set; }
+
         public decimal? CashPayment { get; set; }
 
         [Required]

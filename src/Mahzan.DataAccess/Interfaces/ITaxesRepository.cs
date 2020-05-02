@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Mahzan.DataAccess.DTO.Taxes;
 using Mahzan.DataAccess.Paging;
 using Mahzan.Models.Entities;
@@ -9,6 +10,6 @@ namespace Mahzan.DataAccess.Interfaces
     {
         Taxes Add(AddTaxesDto addTaxesDto);
 
-        PagedList<Taxes> Get(GetTaxesDto getTaxesDto);
+        Task <PagedList<Taxes>> GetWhere(GetTaxesDto getTaxesDto);
     }
 }

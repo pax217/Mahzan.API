@@ -55,7 +55,7 @@ namespace Mahzan.DataAccess.Implementations.TicketsRepositoryServices
                         Description = ticketDetail.Description,
                         Price = ticketDetail.Price,
                         Amount = ticketDetail.Amount,
-                        TicketsId = newTicket.TicketsId
+                        TicketsId = newTicket.TicketsId,
                     };
 
                     await _ticketDetailRepository.AddTicketDetail(newTicketDetail);

@@ -6,6 +6,7 @@ namespace Mahzan.DataAccess.Filters.Tickets
 {
     public class GetTicketsFilter
     {
+        public Guid? TicketsId { get; set; }
         public DateTime? CreatedAt { get; set; }
     }
 }

@@ -1,17 +1,21 @@
 ﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mahzan.Business.Enums.Result;
+using Mahzan.Business.Exceptions.Clients;
 using Mahzan.Business.Interfaces.Business.Clients;
 using Mahzan.Business.Interfaces.Validations.Clients;
 using Mahzan.Business.Requests.Clients;
 using Mahzan.Business.Resources.Business.Clients;
 using Mahzan.Business.Resources.Business.Groups;
 using Mahzan.Business.Results.Clients;
-using Mahzan.Dapper.V1.DTO.Clients;
-using Mahzan.Dapper.V1.Interfaces.Clients;
+using Mahzan.Dapper.DTO.Clients;
+using Mahzan.Dapper.Interfaces.Clients;
 using Mahzan.DataAccess.DTO.Clients;
 using Mahzan.DataAccess.Interfaces;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Mahzan.Business.Implementations.Business.Clients
 {
@@ -19,26 +23,20 @@ namespace Mahzan.Business.Implementations.Business.Clients
     {
         private readonly IClientsDapper _clientsDapper;
 
+        private readonly IAddClientValidations _addClientValidations;
+
         private readonly IMapper _mapper;
-
-        readonly IAddClientsValidations _addClientsValidations;
-
-        readonly IClientsRepository _clientsRepository;
 
         public ClientsBusiness(
             IClientsDapper clientsDapper,
-            IAddClientsValidations addClientsValidations,
-            IClientsRepository clientsRepository,
+            IAddClientValidations addClientValidations,
             IMapper mapper)
         {
             //Dapper
             _clientsDapper = clientsDapper;
 
             //Validaciones
-            _addClientsValidations = addClientsValidations;
-
-            //Repository
-            _clientsRepository = clientsRepository;
+            _addClientValidations = addClientValidations;
 
             //Mapper
             _mapper = mapper;
@@ -47,18 +45,15 @@ namespace Mahzan.Business.Implementations.Business.Clients
 
         public async Task<PostClientsResult> Add(InsertClientDto insertClientDto)
         {
-            PostClientsResult result = new PostClientsResult()
-            {
-                IsValid = true,
-                StatusCode = 200,
+            PostClientsResult result = new PostClientsResult 
+            { 
+                IsValid= true,
                 ResultTypeEnum = ResultTypeEnum.SUCCESS,
-                Title = AddClientsResources.ResourceManager.GetString("Add_Title"),
-                Message = AddClientsResources.ResourceManager.GetString("Add_200_SUCCESS_Message")
             };
 
+            //Valida formato de RFC
+            _addClientValidations.AddClientInfoValid(insertClientDto);
 
-
-            //Agrega el Cliente
             result.ClientsId = await _clientsDapper
                                      .InsertAsync(insertClientDto);
 
@@ -70,10 +65,25 @@ namespace Mahzan.Business.Implementations.Business.Clients
             throw new NotImplementedException();
         }
 
-        public Task<GetClientsResult> Get(Dapper.V1.DTO.Clients.GetClientsDto getClientsDto)
+        public async Task<GetClientsResult> Get(Dapper.DTO.Clients.GetClientsDto getClientsDto)
         {
-            throw new NotImplementedException();
+            GetClientsResult result = new GetClientsResult
+            {
+                IsValid = true,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+            };
+
+            result.Clients = await _clientsDapper
+                                   .GetWhereAsync(getClientsDto);
+
+            if (!result.Clients.Any())
+            {
+                throw new ClientsKeyNotFoundException($"No se encontró información de Clientes");
+            }
+
+            return result;
         }
+
 
         public Task<PutClientsResult> Update(UpdateClientDto updateClientDto)
         {

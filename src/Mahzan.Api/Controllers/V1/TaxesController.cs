@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Mahzan.Api.Controllers._Base;
+using Mahzan.Api.Exeptions;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Business.Taxes;
 using Mahzan.Business.Requests.Taxes;
 using Mahzan.Business.Results.Taxes;
-using Mahzan.DataAccess.DTO.Taxes;
+using Mahzan.Dapper.DTO.Taxes;
+using Mahzan.Dapper.Filters.Taxes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,18 +36,43 @@ namespace Mahzan.Api.Controllers.V1
         public async Task<IActionResult> Post(PostTaxesRequest postTaxesRequest)
         {
             PostTaxesResult result = await _taxesBusiness
-                                            .Add(new AddTaxesDto
+                                            .Add(new InsertTaxDto
                                             {
                                                 Name = postTaxesRequest.Name,
-                                                TaxRate = postTaxesRequest.TaxRate,
-                                                TaxType = postTaxesRequest.TaxType,
-                                                TaxOption = postTaxesRequest.TaxOption,
-                                                StoresIds = postTaxesRequest.StoresIds,
+                                                TaxRateVariable = postTaxesRequest.TaxRateVariable,
+                                                TaxRatePercentage = postTaxesRequest.TaxRatePercentage,
+                                                Active = postTaxesRequest.Active,
+                                                Printed = postTaxesRequest.Printed,
                                                 MembersId = MembersId,
                                                 AspNetUserId = AspNetUserId
                                             });
 
             return StatusCode(result.StatusCode, result);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
+        public async Task<IActionResult> GetWhere([FromQuery]GetTaxesFilter filter) 
+        {
+
+            GetTaxesResult result;
+
+            try
+            {
+                result = await _taxesBusiness
+                               .GetWhere(new GetTaxesDto
+                               {
+                                   TaxesId = filter.TaxesId,
+                                   MembersId = MembersId
+                               });
+            }
+            catch (KeyNotFoundException ex)
+            {
+
+                throw new ServiceKeyNotFoundException(ex);
+            }
+
+            return Ok();
         }
     }
 }

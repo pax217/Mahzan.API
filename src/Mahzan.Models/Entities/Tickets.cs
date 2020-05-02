@@ -45,6 +45,8 @@ namespace Mahzan.Models.Entities
         public PaymentTypes PaymentTypes { get; set; }
 
         //Members
+        public Guid? ClientsId { get; set; }
+
         public Guid MembersId { get; set; }
 
         public List<TicketDetail> TicketDetails { get; set; }

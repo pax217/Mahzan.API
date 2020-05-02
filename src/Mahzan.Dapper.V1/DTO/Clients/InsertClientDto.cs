@@ -1,9 +1,9 @@
-﻿using Mahzan.Dapper.V1.DTO._Base;
+﻿using Mahzan.Dapper.DTO._Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mahzan.Dapper.V1.DTO.Clients
+namespace Mahzan.Dapper.DTO.Clients
 {
     public class InsertClientDto:BaseDto
     {

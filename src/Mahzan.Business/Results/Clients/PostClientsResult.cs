@@ -6,7 +6,5 @@ namespace Mahzan.Business.Results.Clients
     public class PostClientsResult:Result
     {
         public Guid  ClientsId { get; set; }
-
-        public Models.Entities.Clients Clients { get; set; }
     }
 }

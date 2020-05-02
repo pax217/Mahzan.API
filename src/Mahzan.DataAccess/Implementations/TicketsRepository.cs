@@ -46,6 +46,7 @@ namespace Mahzan.DataAccess.Implementations
                 PointsOfSalesId = addTicketsDto.PointsOfSalesId,
                 PaymentTypesId = addTicketsDto.PaymentTypesId,
                 AspNetUsersId = addTicketsDto.AspNetUserId,
+                ClientsId = addTicketsDto.ClientsId,
                 MembersId = addTicketsDto.MembersId
             };
 
@@ -79,6 +80,16 @@ namespace Mahzan.DataAccess.Implementations
                     PropertyInfo = typeof(Tickets).GetProperties().First(p => p.Name == "MembersId"),
                     Operator = OperationsEnum.Equals,
                     Value = getTicketsDto.MembersId
+                });
+            }
+
+            if (getTicketsDto.TicketsId != null)
+            {
+                filterExpressions.Add(new FilterExpression
+                {
+                    PropertyInfo = typeof(Tickets).GetProperties().First(p => p.Name == "TicketsId"),
+                    Operator = OperationsEnum.Equals,
+                    Value = getTicketsDto.TicketsId
                 });
             }
 

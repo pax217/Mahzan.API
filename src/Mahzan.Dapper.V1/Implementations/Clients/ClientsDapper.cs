@@ -1,9 +1,9 @@
 ﻿using Dapper;
-using Mahzan.Dapper.V1.DTO.Clients;
-using Mahzan.Dapper.V1.Exceptions.Clients;
-using Mahzan.Dapper.V1.Filters.Clients;
-using Mahzan.Dapper.V1.Interfaces.Clients;
-using Mahzan.Dapper.V1.Paging;
+using Mahzan.Dapper.DTO.Clients;
+using Mahzan.Dapper.Exceptions.Clients;
+using Mahzan.Dapper.Filters.Clients;
+using Mahzan.Dapper.Interfaces.Clients;
+using Mahzan.Dapper.Paging;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mahzan.Dapper.V1.Implementations.Clients
+namespace Mahzan.Dapper.Implementations.Clients
 {
     public class ClientsDapper: DataConnection,IClientsDapper
     {
@@ -41,7 +41,7 @@ namespace Mahzan.Dapper.V1.Implementations.Clients
 
             if (clients.Count() > 0)
             {
-                throw new InvalidClientArgumentDataException($"El cliente con ID {clientsId} no existe.");
+                throw new ClientArgumentDataException($"El cliente con ID {clientsId} no existe.");
             }
 
 
@@ -58,7 +58,7 @@ namespace Mahzan.Dapper.V1.Implementations.Clients
                   });
         }
 
-        public async Task<PagedList<Models.Entities.Clients>> GetAsync(GetClientsDto getClientsDto)
+        public async Task<PagedList<Models.Entities.Clients>> GetWhereAsync(GetClientsDto getClientsDto)
         {
 
             //SQL
@@ -137,7 +137,7 @@ namespace Mahzan.Dapper.V1.Implementations.Clients
 
             if (clients.Count()>0)
             {
-                throw new InvalidClientArgumentDataException($"El cliente con RFC {insertClientDto.RFC} ya existe.");
+                throw new ClientArgumentDataException($"El cliente con RFC {insertClientDto.RFC} ya existe.");
             }
 
             commandText.Clear();
@@ -187,7 +187,7 @@ namespace Mahzan.Dapper.V1.Implementations.Clients
 
                 if (client ==null)
                 {
-                    throw new InvalidClientArgumentDataException($"El cliente con ID {updateClientDto.ClientsId} no existe.");
+                    throw new ClientArgumentDataException($"El cliente con ID {updateClientDto.ClientsId} no existe.");
                 }
 
                 //RFC

@@ -24,6 +24,8 @@ namespace Mahzan.DataAccess.DTO.Tickets
 
         public Guid PaymentTypesId { get; set; }
 
+        public Guid? ClientsId { get; set; }
+
         public List<PostTicketCalculationDetailDto> PostTicketCalculationDetailDto { get; set; }
 
         public List<TicketDetailCalculationTaxesDto> TicketDetailCalculationTaxesDto { get; set; }

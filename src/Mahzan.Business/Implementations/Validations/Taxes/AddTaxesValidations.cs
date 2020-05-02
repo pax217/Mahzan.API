@@ -32,24 +32,24 @@ namespace Mahzan.Business.Implementations.Validations.Taxes
                 Message = AddTaxesValidationsResources.ResourceManager.GetString("Add_Valid_200_SUCCESS_Message")
             };
 
-            //Valida que el Nombre del Impuesto no exista
-            PagedList<Models.Entities.Taxes> taxesName =  _taxesRepository
-                                                          .Get(new GetTaxesDto
-                                                            {
-                                                                MembersId= addTaxesDto.MembersId,
-                                                                Name = addTaxesDto.Name
-                                                            }
-                                                          );
+            ////Valida que el Nombre del Impuesto no exista
+            //PagedList<Models.Entities.Taxes> taxesName =  _taxesRepository
+            //                                              .Get(new GetTaxesDto
+            //                                                {
+            //                                                    MembersId= addTaxesDto.MembersId,
+            //                                                    Name = addTaxesDto.Name
+            //                                                }
+            //                                              );
 
-            if (taxesName.Any())
-            {
-                result.IsValid = false;
-                result.StatusCode = 500;
-                result.ResultTypeEnum = ResultTypeEnum.WARNING;
-                result.Message = AddTaxesValidationsResources.ResourceManager.GetString("Add_Valid_500_WARNING_Message_Name");
+            //if (taxesName.Any())
+            //{
+            //    result.IsValid = false;
+            //    result.StatusCode = 500;
+            //    result.ResultTypeEnum = ResultTypeEnum.WARNING;
+            //    result.Message = AddTaxesValidationsResources.ResourceManager.GetString("Add_Valid_500_WARNING_Message_Name");
 
-                return result;
-            }
+            //    return result;
+            //}
 
             return result;
         }

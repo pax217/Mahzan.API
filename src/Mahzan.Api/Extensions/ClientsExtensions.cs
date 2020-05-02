@@ -1,5 +1,9 @@
-﻿using Mahzan.Dapper.V1.Implementations.Clients;
-using Mahzan.Dapper.V1.Interfaces.Clients;
+﻿using Mahzan.Business.Implementations.Business.Clients;
+using Mahzan.Business.Implementations.Validations.Clients;
+using Mahzan.Business.Interfaces.Business.Clients;
+using Mahzan.Business.Interfaces.Validations.Clients;
+using Mahzan.Dapper.Implementations.Clients;
+using Mahzan.Dapper.Interfaces.Clients;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +20,15 @@ namespace Mahzan.Api.Extensions
             IServiceCollection services,
             string connectionString)
         {
+
+            //Dapper
             services.AddScoped<IClientsDapper, ClientsDapper>(_ => new ClientsDapper(new SqlConnection(connectionString)));
+
+            //Validations
+            services.AddTransient<IAddClientValidations, AddClientValidations>();
+
+            //Busienss
+            services.AddTransient<IClientsBusiness, ClientsBusiness>();
         }
     }
 }

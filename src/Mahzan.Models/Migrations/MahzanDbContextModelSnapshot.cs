@@ -51,19 +51,25 @@ namespace Mahzan.Models.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("BusinessName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CommercialName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("MembersId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RFC")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ClientsId");
@@ -984,6 +990,9 @@ namespace Mahzan.Models.Migrations
 
                     b.Property<decimal?>("CashPayment")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid?>("ClientsId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Mahzan.Business.Requests.Clients;
 using Mahzan.Business.Results.Clients;
-using Mahzan.Dapper.V1.DTO.Clients;
+using Mahzan.Dapper.DTO.Clients;
 
 namespace Mahzan.Business.Interfaces.Business.Clients
 {

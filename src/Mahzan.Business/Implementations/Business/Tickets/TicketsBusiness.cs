@@ -128,6 +128,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                 StoresId = addTicketsDto.StoresId,
                 PointsOfSalesId = addTicketsDto.PointsOfSalesId,
                 PaymentTypesId = addTicketsDto.PaymentTypesId,
+                ClientsId = addTicketsDto.ClientsId,
                 AspNetUserId = addTicketsDto.AspNetUserId,
                 MembersId = addTicketsDto.MembersId,
                 PostTicketCalculationDetailDto = new List<PostTicketCalculationDetailDto>(),
@@ -219,7 +220,6 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                     result = new TicketDetailCalculationTaxesDto
                     {
                         TaxRate = tax.TaxRate,
-                        Amount = tax.Taxes.TaxType == TaxTypeEnum.ADD_IN_PRICE? amountWithTaxes: withOutTax,
                         ProductsId = tax.ProductsId,
                         TaxesId = tax.TaxesId,
                         Price = postTicketDetailDto.Price,

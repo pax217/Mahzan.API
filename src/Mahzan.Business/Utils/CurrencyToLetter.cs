@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Mahzan.Business.Utils
 {
-    public class MonedaLetra
+    public class CurrencyToLetter
     {
         private String[] UNIDADES = { "", "un ", "dos ", "tres ", "cuatro ", "cinco ", "seis ", "siete ", "ocho ", "nueve " };
         private String[] DECENAS = {"diez ", "once ", "doce ", "trece ", "catorce ", "quince ", "dieciseis ",

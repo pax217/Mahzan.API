@@ -1,4 +1,5 @@
-﻿using Mahzan.Business.Enums.Result;
+﻿using Mahzan.Api.Exeptions;
+using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Results._Base;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Mahzan.Api.Filters
@@ -23,6 +25,21 @@ namespace Mahzan.Api.Filters
         {
             var error = context.Exception;
 
+            //Arguments Error
+            if (error is ServiceArgumentException serviceArgumentException)
+            {
+                HandleServiceArgumentDataException(context, serviceArgumentException);
+                return;
+            }
+
+            //
+            if (error is ServiceKeyNotFoundException serviceKeyNotFoundException)
+            {
+                HandleServiceKeyNotFoundException(context, serviceKeyNotFoundException);
+                return;
+            }
+            
+
             _logger.LogError(error, "Error ocurrido");
 
             var result = new Result
@@ -34,6 +51,42 @@ namespace Mahzan.Api.Filters
             };
 
             context.Result = new BadRequestObjectResult(result);
+        }
+
+        private void HandleServiceKeyNotFoundException(
+            ExceptionContext context, 
+            ServiceKeyNotFoundException serviceKeyNotFoundException)
+        {
+            Result responseBase = new Result
+            {
+                IsValid = false,
+                ResultTypeEnum = ResultTypeEnum.INFO,
+                Title = "Datos no encontrados.",
+                Message = serviceKeyNotFoundException.Message
+            };
+
+            context.Result = new ObjectResult(responseBase)
+            {
+                StatusCode = (int)HttpStatusCode.Conflict
+            };
+        }
+
+        private void HandleServiceArgumentDataException(
+            ExceptionContext context, 
+            ServiceArgumentException serviceArgumentException)
+        {
+            Result responseBase = new Result
+            {
+                IsValid = false,
+                ResultTypeEnum = ResultTypeEnum.WARNING,
+                Title="Datos no validos.",
+                Message = serviceArgumentException.Message
+            };
+
+            context.Result = new ObjectResult(responseBase)
+            {
+                StatusCode = (int)HttpStatusCode.Conflict
+            };
         }
     }
 }

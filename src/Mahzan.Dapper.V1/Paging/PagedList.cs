@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mahzan.Dapper.V1.Paging
+namespace Mahzan.Dapper.Paging
 {
     public class PagedList<T> : List<T>
     {

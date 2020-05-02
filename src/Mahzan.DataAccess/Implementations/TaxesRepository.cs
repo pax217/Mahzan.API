@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Mahzan.DataAccess.DTO.Taxes;
 using Mahzan.DataAccess.Interfaces;
 using Mahzan.DataAccess.Paging;
@@ -23,9 +24,6 @@ namespace Mahzan.DataAccess.Implementations
             Taxes newTax = new Taxes
             {
                 Name = addTaxesDto.Name,
-                TaxRate = addTaxesDto.TaxRate,
-                TaxType = addTaxesDto.TaxType,
-                TaxOption = addTaxesDto.TaxOption,
                 MembersId = addTaxesDto.MembersId
             };
 
@@ -36,7 +34,8 @@ namespace Mahzan.DataAccess.Implementations
             return newTax;
         }
 
-        public PagedList<Taxes> Get(GetTaxesDto getTaxesDto)
+        public async Task<PagedList<Taxes>> GetWhere(GetTaxesDto getTaxesDto)
+
         {
             List<Taxes> result = null;
             List<FilterExpression> filterExpressions = new List<FilterExpression>();

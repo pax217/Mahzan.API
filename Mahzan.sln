@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{EB99668E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mahzan.Facturacion.Electronica", "tools\Mahzan.Facturacion.Electronica\Mahzan.Facturacion.Electronica.csproj", "{EDB6FD9B-4F3F-453A-AA35-ED414147BF3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mahzan.Dapper.V1", "src\Mahzan.Dapper.V1\Mahzan.Dapper.V1.csproj", "{DB9C119C-48DD-4855-8C72-B5F04231A2A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mahzan.Dapper", "src\Mahzan.Dapper.V1\Mahzan.Dapper.csproj", "{DB9C119C-48DD-4855-8C72-B5F04231A2A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
