@@ -72,7 +72,7 @@ namespace Mahzan.Api.Controllers.V1
                 throw new ServiceKeyNotFoundException(ex);
             }
 
-            return Ok();
+            return Ok(result);
         }
     }
 }

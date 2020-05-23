@@ -10,7 +10,7 @@ namespace Mahzan.Business.Requests.Taxes
         [Required]
         public string Name { get; set; }
         [Required]
-        public decimal TaxRateVariable { get; set; }
+        public bool TaxRateVariable { get; set; }
         [Required]
         public decimal TaxRatePercentage { get; set; }
         [Required]

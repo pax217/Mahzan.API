@@ -130,9 +130,10 @@ namespace Mahzan.Dapper.Implementations.Taxes
                             new
                             {
                                 Name = insertTaxDto.Name,
+                                MembersId = insertTaxDto.MembersId
                             });
 
-            if (!taxes.Any())
+            if (taxes.Any())
             {
                 throw new TaxArgumentException($"El impuesto con el nombre {insertTaxDto.Name} ya existe.");
             }
@@ -147,6 +148,7 @@ namespace Mahzan.Dapper.Implementations.Taxes
             commandInsertText.Append("Printed,");
             commandInsertText.Append("MembersId");
             commandInsertText.Append(") ");
+            commandInsertText.Append("OUTPUT Inserted.TaxesId "); 
             commandInsertText.Append("VALUES ");
             commandInsertText.Append("(");
             commandInsertText.Append("@Name,");
@@ -155,7 +157,9 @@ namespace Mahzan.Dapper.Implementations.Taxes
             commandInsertText.Append("@Active,");
             commandInsertText.Append("@Printed,");
             commandInsertText.Append("@MembersId");
-            commandInsertText.Append(") ");
+            commandInsertText.Append("); ");
+
+
 
             Guid clientsId = await Connection
                        .ExecuteScalarAsync<Guid>
