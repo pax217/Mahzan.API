@@ -8,6 +8,6 @@ namespace Mahzan.Dapper.Repositories.Products.CreateProduct
 {
     public interface ICreateProductRepository
     {
-        Task Handle(CreateProductDto createProductDto);
+        Task<Guid> Handle(CreateProductDto createProductDto);
     }
 }

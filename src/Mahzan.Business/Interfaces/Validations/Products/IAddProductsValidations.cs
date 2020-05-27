@@ -7,6 +7,6 @@ namespace Mahzan.Business.Interfaces.Validations.Products
 {
     public interface IAddProductsValidations
     {
-        Task<PostProductsResult> AddProductsValid(AddProductsDto addProductsDto);
+        Task<CreateProductResult> AddProductsValid(AddProductsDto addProductsDto);
     }
 }

@@ -4,9 +4,9 @@ using Mahzan.Business.Results._Base;
 
 namespace Mahzan.Business.Results.Products
 {
-    public class PostProductsResult:Result
+    public class CreateProductResult:Result
     {
-        public Models.Entities.Products Product { get; set; }
+        public Guid ProductsId { get; set; }
 
     }
 }

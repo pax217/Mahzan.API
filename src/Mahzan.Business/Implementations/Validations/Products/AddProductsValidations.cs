@@ -20,9 +20,9 @@ namespace Mahzan.Business.Implementations.Validations.Products
             _productsRepository = productsRepository;
         }
 
-        public async Task<PostProductsResult> AddProductsValid(AddProductsDto addProductsDto)
+        public async Task<CreateProductResult> AddProductsValid(AddProductsDto addProductsDto)
         {
-            PostProductsResult result = new PostProductsResult()
+            CreateProductResult result = new CreateProductResult()
             {
                 IsValid = true,
                 StatusCode = 200,

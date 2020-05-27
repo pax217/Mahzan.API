@@ -5,11 +5,13 @@ using AutoMapper;
 using Mahzan.Api.Commands.Products.CreateProduct;
 using Mahzan.Api.Controllers._Base;
 using Mahzan.Api.Exeptions;
+using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Events.Products.CreateProduct;
 using Mahzan.Business.EventsHandlers.Products.CreateProduct;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Business.Products;
 using Mahzan.Business.Requests.Products.Post;
+using Mahzan.Business.Results._Base;
 using Mahzan.Business.Results.Products;
 using Mahzan.DataAccess.DTO.Products;
 using Mahzan.DataAccess.Filters.Products;
@@ -45,15 +47,23 @@ namespace Mahzan.Api.Controllers.V1
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Post(CreateProductCommand createProductCommand)
         {
+            CreateProductResult result = new CreateProductResult
+            {
+                IsValid= true,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = $"Crea nuevo producto",
+                Message = $"Se ha creado correctamente el producto {createProductCommand.CreateProductDetailCommand.Description}.",
+            }; 
 
             try
             {
-                 await _createProductEventHandler
-                    .Handle(new CreateProductEvent { 
-                    CreateProductDetailEvent = new CreateProductDetailEvent {
+                CreateProductEvent createProductEvent = new CreateProductEvent
+                {
+                    CreateProductDetailEvent = new CreateProductDetailEvent
+                    {
                         ProductCategoriesId = createProductCommand.CreateProductDetailCommand.ProductCategoriesId,
                         ProductUnitsId = createProductCommand.CreateProductDetailCommand.ProductUnitsId,
                         SKU = createProductCommand.CreateProductDetailCommand.SKU,
@@ -70,24 +80,29 @@ namespace Mahzan.Api.Controllers.V1
                         MIMEType = createProductCommand.CreateProductPhotoCommand.MIMEType,
                         Base64 = createProductCommand.CreateProductPhotoCommand.Base64
                     },
-                    CreateProductTaxesEvent = createProductCommand.CreateProductTaxesCommand
+                    CreateProductTaxesEvent = createProductCommand.CreateProductTaxesCommand != null ?
+                                                createProductCommand.CreateProductTaxesCommand
                                                 .Select(p => new CreateProductTaxesEvent
                                                 {
                                                     TaxesId = p.TaxesId,
                                                     TaxRate = p.TaxRate
                                                 })
-                                                .ToList(),
+                                                .ToList()
+                                                : null,
                     AspNetUserId = AspNetUserId,
                     MembersId = MembersId,
                     TableAuditEnum = TableAuditEnum.PRODUCTS_AUDIT
-                    });
+                };
+
+                result.ProductsId= await _createProductEventHandler
+                    .Handle(createProductEvent);
             }
             catch (InvalidOperationException ex)
             {
                 throw new ServiceInvalidOperationException(ex);
             }
 
-            return Ok();
+            return Ok(result);
         }
 
 

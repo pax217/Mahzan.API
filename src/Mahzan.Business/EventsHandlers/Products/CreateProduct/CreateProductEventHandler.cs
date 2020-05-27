@@ -25,8 +25,10 @@ namespace Mahzan.Business.EventsHandlers.Products.CreateProduct
             _createProductValidator = createProductValidator;
         }
 
-        public async Task Handle(CreateProductEvent createProductEvent)
+        public async Task<Guid> Handle(CreateProductEvent createProductEvent)
         {
+            Guid productsId = Guid.Empty;
+
             //Validaciones de producto
             await _createProductValidator.Hanlde(createProductEvent);
 
@@ -34,7 +36,7 @@ namespace Mahzan.Business.EventsHandlers.Products.CreateProduct
             HandlerCommercialMargin(createProductEvent.CreateProductDetailEvent);
 
             //Inserta en Repositorio
-            await _createProductRepository
+            productsId = await _createProductRepository
                 .Handle(new CreateProductDto
                 {
                     CreateProductDetailDto = new CreateProductDetailDto
@@ -56,18 +58,21 @@ namespace Mahzan.Business.EventsHandlers.Products.CreateProduct
                         MIMEType = createProductEvent.CreateProductPhotoEvent.MIMEType,
                         Base64 = createProductEvent.CreateProductPhotoEvent.Base64
                     },
-                    CreateProductTaxesDto = createProductEvent
+                    CreateProductTaxesDto = createProductEvent.CreateProductTaxesEvent!=null?
+                                            createProductEvent
                                             .CreateProductTaxesEvent
                                             .Select(p => new CreateProductTaxesDto {
                                                 TaxesId = p.TaxesId,
                                                 TaxRate = p.TaxRate
                                             })
-                                            .ToList(),
+                                            .ToList():
+                                            null,
                     AspNetUserId = createProductEvent.AspNetUserId,
                     MembersId = createProductEvent.MembersId,
                     TableAuditEnum = createProductEvent.TableAuditEnum
                 });
 
+            return productsId;
         }
 
         private void HandlerCommercialMargin(CreateProductDetailEvent createProductDetailEvent) 

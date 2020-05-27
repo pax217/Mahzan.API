@@ -22,15 +22,18 @@ namespace Mahzan.Dapper.Repositories.Products.CreateProduct
             _createProductRules = createProductRules;
         }
 
-        public async Task Handle(CreateProductDto createProductDto)
+        public async Task<Guid> Handle(CreateProductDto createProductDto)
         {
+            Guid productsId = Guid.Empty;
+
+
             //Rules
             await _createProductRules.Handle(createProductDto);
 
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 //Product
-                Guid productsId = await HandleInsertProduct(createProductDto);
+                productsId = await HandleInsertProduct(createProductDto);
 
                 //ProductPhoto
                 await HandleInsertProductPhoto(
@@ -45,6 +48,8 @@ namespace Mahzan.Dapper.Repositories.Products.CreateProduct
 
                 transaction.Complete();
             }
+
+            return productsId;
         }
 
         #region :: Private Methods ::
@@ -150,35 +155,38 @@ namespace Mahzan.Dapper.Repositories.Products.CreateProduct
             Guid membersId,
             List<CreateProductTaxesDto> createProductTaxesDto)
         {
-            foreach (var createProductTaxDto in createProductTaxesDto)
+            if (createProductTaxesDto!=null)
             {
-                StringBuilder sql = new StringBuilder();
-                sql.Append("INSERT INTO ProductsTaxes");
-                sql.Append("(");
-                sql.Append("ProductsId,");
-                sql.Append("TaxRate,");
-                sql.Append("MembersId,");
-                sql.Append("TaxesId");
-                sql.Append(") ");
-                sql.Append("VALUES");
-                sql.Append("(");
-                sql.Append("@ProductsId,");
-                sql.Append("@TaxRate,");
-                sql.Append("@MembersId,");
-                sql.Append("@TaxesId");
-                sql.Append(");");
+                foreach (var createProductTaxDto in createProductTaxesDto)
+                {
+                    StringBuilder sql = new StringBuilder();
+                    sql.Append("INSERT INTO ProductsTaxes");
+                    sql.Append("(");
+                    sql.Append("ProductsId,");
+                    sql.Append("TaxRate,");
+                    sql.Append("MembersId,");
+                    sql.Append("TaxesId");
+                    sql.Append(") ");
+                    sql.Append("VALUES");
+                    sql.Append("(");
+                    sql.Append("@ProductsId,");
+                    sql.Append("@TaxRate,");
+                    sql.Append("@MembersId,");
+                    sql.Append("@TaxesId");
+                    sql.Append(");");
 
 
-                await Connection
-                    .ExecuteScalarAsync<Guid>(
-                    sql.ToString(),
-                    new
-                    {
-                        ProductsId = productsId,
-                        TaxRate = createProductTaxDto.TaxRate,
-                        MembersId = membersId,
-                        TaxesId = createProductTaxDto.TaxesId
-                    });
+                    await Connection
+                        .ExecuteScalarAsync<Guid>(
+                        sql.ToString(),
+                        new
+                        {
+                            ProductsId = productsId,
+                            TaxRate = createProductTaxDto.TaxRate,
+                            MembersId = membersId,
+                            TaxesId = createProductTaxDto.TaxesId
+                        });
+                }
             }
         }
 

@@ -8,7 +8,6 @@ namespace Mahzan.Business.Interfaces.Business.Products
 {
     public interface IProductsBusiness
     {
-        Task<PostProductsResult> Add(AddProductsDto addProductsDto);
 
         Task<GetProductsResult> Get(GetProductsDto getProductsDto);
 

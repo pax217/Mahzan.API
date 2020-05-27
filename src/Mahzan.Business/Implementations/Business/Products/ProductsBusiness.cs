@@ -70,67 +70,6 @@ namespace Mahzan.Business.Implementations.Business.Products
 
         #region Public Methods
 
-        public async Task<PostProductsResult> Add(AddProductsDto addProductsDto)
-        {
-            PostProductsResult result = new PostProductsResult
-            {
-                IsValid = true,
-                StatusCode = 200,
-                ResultTypeEnum = ResultTypeEnum.SUCCESS,
-                Title = AddProductsResources.ResourceManager.GetString("Add_Title"),
-                Message = AddProductsResources.ResourceManager.GetString("Add_200_SUCCESS_Message")
-
-            };
-
-            try
-            {
-                //Validaciones de Producto
-                PostProductsResult resultAddValidations = await _addProductsValidations
-                                                                .AddProductsValid(addProductsDto);
-                if (!resultAddValidations.IsValid)
-                {
-                    return resultAddValidations;
-                }
-
-
-
-                //Agrega Producto
-                AddProductsDto addProductsDtoWithCommercialMargin;
-                addProductsDtoWithCommercialMargin = _getProductCommercialMaginService
-                                                     .GetCommercialMargin(addProductsDto);
-
-                result.Product = await  _productsRepository
-                                        .Add(addProductsDtoWithCommercialMargin);
-
-                if (result.Product != null)
-                {
-                    //Agrega Imagen de Producto
-
-                    addProductsDto.AddProductPhotoDto.ProductsId = result.Product.ProductsId;
-
-                    AddProductPhoto(addProductsDto.AddProductPhotoDto);
-                }
-
-
-
-                //Agrega Impuesto a Producto
-                await AddProductsTaxes(result.Product,
-                                 addProductsDto);
-
-                //Agrega el Producto a seguimiento de Inventario
-                //AddProductsStore(addedProduct, addProductsDto);
-
-            }
-            catch (Exception ex)
-            {
-                result.IsValid = false;
-                result.StatusCode = 500;
-                result.ResultTypeEnum = ResultTypeEnum.ERROR;
-                result.Message = ex.Message;
-            }
-
-            return result;
-        }
 
         public async Task<GetProductsResult> Get(GetProductsDto getProductsDto)
         {

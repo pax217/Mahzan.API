@@ -8,6 +8,6 @@ namespace Mahzan.Business.EventsHandlers.Products.CreateProduct
 {
     public interface ICreateProductEventHandler
     {
-        Task Handle(CreateProductEvent createProductEvent);
+        Task<Guid> Handle(CreateProductEvent createProductEvent);
     }
 }
