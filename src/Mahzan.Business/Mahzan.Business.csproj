@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="DTO\Clients\" />
+    <Folder Include="EventsServices\" />
     <Folder Include="Requests\AspNetUsers\" />
     <Folder Include="Results\_Base\" />
     <Folder Include="Enums\" />
@@ -48,7 +49,6 @@
     <Folder Include="Interfaces\Business\EmployeesStores\" />
     <Folder Include="Implementations\Business\EmployeesStores\" />
     <Folder Include="Resources\Business\EmployeesStores\" />
-    <Folder Include="Requests\Products\" />
     <Folder Include="Results\Products\" />
     <Folder Include="Resources\Business\Products\" />
     <Folder Include="Results\ProductsPhotos\" />
@@ -100,7 +100,6 @@
     <Folder Include="Implementations\Validations\Taxes\" />
     <Folder Include="Resources\Validations\Taxes\" />
     <Folder Include="Results\ProductsTaxes\" />
-    <Folder Include="Requests\Products\Post\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Business\AspNetUsers\AspNetUsersBusinessResources.resx">

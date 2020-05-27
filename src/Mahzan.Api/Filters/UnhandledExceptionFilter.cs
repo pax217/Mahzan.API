@@ -32,10 +32,16 @@ namespace Mahzan.Api.Filters
                 return;
             }
 
-            //
+            //Key Not Found
             if (error is ServiceKeyNotFoundException serviceKeyNotFoundException)
             {
                 HandleServiceKeyNotFoundException(context, serviceKeyNotFoundException);
+                return;
+            }
+
+            if (error is InvalidOperationException serviceInvalidOperationException)
+            {
+                HandleInvalidOperationException(context, serviceInvalidOperationException);
                 return;
             }
             
@@ -51,6 +57,24 @@ namespace Mahzan.Api.Filters
             };
 
             context.Result = new BadRequestObjectResult(result);
+        }
+
+        private void HandleInvalidOperationException(
+            ExceptionContext context, 
+            InvalidOperationException serviceInvalidOperationException)
+        {
+            Result responseBase = new Result
+            {
+                IsValid = false,
+                ResultTypeEnum = ResultTypeEnum.WARNING,
+                Title = "Operación no valida.",
+                Message = serviceInvalidOperationException.Message
+            };
+
+            context.Result = new ObjectResult(responseBase)
+            {
+                StatusCode = (int)HttpStatusCode.Conflict
+            };
         }
 
         private void HandleServiceKeyNotFoundException(
@@ -79,7 +103,7 @@ namespace Mahzan.Api.Filters
             {
                 IsValid = false,
                 ResultTypeEnum = ResultTypeEnum.WARNING,
-                Title="Datos no validos.",
+                Title="Argumento no valido.",
                 Message = serviceArgumentException.Message
             };
 

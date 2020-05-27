@@ -222,7 +222,8 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                         TaxRate = tax.TaxRate,
                         ProductsId = tax.ProductsId,
                         TaxesId = tax.TaxesId,
-                        Price = postTicketDetailDto.Price,
+                        Price = decimal.Round(withOutTax,2,MidpointRounding.AwayFromZero),
+                        Amount = decimal.Round(amountWithTaxes, 2, MidpointRounding.AwayFromZero)
                     };
                 }
 

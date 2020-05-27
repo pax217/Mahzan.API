@@ -1,4 +1,5 @@
 ﻿using Mahzan.DataAccess.Interfaces;
+using Mahzan.Models;
 using Mahzan.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,21 @@ using System.Threading.Tasks;
 
 namespace Mahzan.DataAccess.Implementations
 {
-    public class TicketDetailTaxesRepository : ITicketDetailTaxesRepository
+    public class TicketDetailTaxesRepository : RepositoryBase<TicketDetailTaxes>, ITicketDetailTaxesRepository
     {
-        public Task<TicketDetailTaxes> Add(TicketDetailTaxes ticketDetailTaxes)
+
+        public TicketDetailTaxesRepository(
+            MahzanDbContext repositoryContext)
+            : base(repositoryContext)
         {
-            throw new NotImplementedException();
+        }
+
+        public async Task<TicketDetailTaxes> Add(TicketDetailTaxes ticketDetailTaxes)
+        {
+            _context.Set<TicketDetailTaxes>().Add(ticketDetailTaxes);
+            await _context.SaveChangesAsync();
+
+            return ticketDetailTaxes;
         }
     }
 }

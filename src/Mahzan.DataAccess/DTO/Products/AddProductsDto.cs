@@ -11,6 +11,8 @@ namespace Mahzan.DataAccess.DTO.Products
         public AddProductPhotoDto AddProductPhotoDto { get; set; }
 
         public AddProductDetailDto AddProductDetailDto { get; set; }
+
+        public List<ProductTaxesDto> AddProductTaxesDto { get; set; }
     }
 
     public class AddProductPhotoDto
@@ -52,4 +54,12 @@ namespace Mahzan.DataAccess.DTO.Products
         public bool FollowInventory { get; set; }
 
     }
+
+    public class ProductTaxesDto 
+    {
+        public decimal TaxRate { get; set; }
+        public Guid TaxesId { get; set; }
+    }
+
+
 }

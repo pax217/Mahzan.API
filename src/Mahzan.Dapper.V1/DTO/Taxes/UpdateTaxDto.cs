@@ -11,7 +11,7 @@ namespace Mahzan.Dapper.DTO.Taxes
 
         public string Name { get; set; }
 
-        public decimal? TaxRateVariable { get; set; }
+        public bool? TaxRateVariable { get; set; }
 
         public decimal? TaxRatePercentage { get; set; }
 

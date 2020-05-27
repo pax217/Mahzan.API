@@ -25,7 +25,9 @@ namespace Mahzan.DataAccess.Implementations
             ProductsTaxes newProductsTaxes = new ProductsTaxes
             {
                 ProductsId = productsTaxesDto.ProductsId,
-                TaxesId = productsTaxesDto.TaxesId
+                TaxRate = productsTaxesDto.TaxRate,
+                TaxesId = productsTaxesDto.TaxesId,
+                MembersId = productsTaxesDto.MembersId
             };
 
             _context.Set<ProductsTaxes>().Add(newProductsTaxes);

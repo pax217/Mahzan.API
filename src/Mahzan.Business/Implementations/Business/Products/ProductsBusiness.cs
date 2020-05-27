@@ -114,8 +114,8 @@ namespace Mahzan.Business.Implementations.Business.Products
 
 
                 //Agrega Impuesto a Producto
-                //AddProductsTaxes(addedProduct,
-                                 //addProductsDto);
+                await AddProductsTaxes(result.Product,
+                                 addProductsDto);
 
                 //Agrega el Producto a seguimiento de Inventario
                 //AddProductsStore(addedProduct, addProductsDto);
@@ -224,19 +224,21 @@ namespace Mahzan.Business.Implementations.Business.Products
 
         }
 
-        private void AddProductsTaxes(Models.Entities.Products addedProduct,
+        private async Task AddProductsTaxes(Models.Entities.Products addedProduct,
                                       AddProductsDto addProductsDto)
         {
-            //foreach (var tax in addProductsDto.TaxesIds)
-            //{
-            //    _productsTaxesRepository.Add(new AddProductsTaxesDto
-            //    {
-            //        ProductsId = addedProduct.ProductsId,
-            //        TaxesId = tax,
-            //        MembersId = addProductsDto.MembersId
-            //    }); ;
-                  
-            //}
+            foreach (var tax in addProductsDto.AddProductTaxesDto)
+            {
+
+                await _productsTaxesRepository.Add(new AddProductsTaxesDto
+                {
+                    ProductsId = addedProduct.ProductsId,
+                    TaxRate = tax.TaxRate,
+                    TaxesId = tax.TaxesId,
+                    MembersId = addProductsDto.MembersId
+                });
+
+            }
         }
 
         private void AddProductPhoto(AddProductPhotoDto addProductPhotoDto)

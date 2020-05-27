@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Mahzan.Api.Commands.Products.CreateProduct;
 using Mahzan.Api.Controllers._Base;
+using Mahzan.Api.Exeptions;
+using Mahzan.Business.Events.Products.CreateProduct;
+using Mahzan.Business.EventsHandlers.Products.CreateProduct;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Business.Products;
-using Mahzan.Business.Requests.Products;
 using Mahzan.Business.Requests.Products.Post;
-using Mahzan.Business.Requests.Products_Store;
 using Mahzan.Business.Results.Products;
 using Mahzan.DataAccess.DTO.Products;
-using Mahzan.DataAccess.DTO.ProductsStore;
 using Mahzan.DataAccess.Filters.Products;
 using Mahzan.DataAccess.Paging;
 using Mahzan.Models.Enums.Audit;
@@ -28,50 +28,66 @@ namespace Mahzan.Api.Controllers.V1
     {
         readonly IProductsBusiness _productsBusiness;
 
+        private readonly ICreateProductEventHandler _createProductEventHandler;
+
         public ProductsController(
             IMembersBusiness miembrosBusiness,
             IProductsBusiness productsBusiness,
+            ICreateProductEventHandler createProductEventHandler,
             IMapper mapper)
             : base(miembrosBusiness)
         {
+
             _productsBusiness = productsBusiness;
+
+            _createProductEventHandler = createProductEventHandler;
 
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
-        public async Task<IActionResult> Post(PostProductsRequest postProductsRequest)
+        public async Task<IActionResult> Post(CreateProductCommand createProductCommand)
         {
 
+            try
+            {
+                 await _createProductEventHandler
+                    .Handle(new CreateProductEvent { 
+                    CreateProductDetailEvent = new CreateProductDetailEvent {
+                        ProductCategoriesId = createProductCommand.CreateProductDetailCommand.ProductCategoriesId,
+                        ProductUnitsId = createProductCommand.CreateProductDetailCommand.ProductUnitsId,
+                        SKU = createProductCommand.CreateProductDetailCommand.SKU,
+                        Barcode = createProductCommand.CreateProductDetailCommand.Barcode,
+                        Description = createProductCommand.CreateProductDetailCommand.Description,
+                        Price = createProductCommand.CreateProductDetailCommand.Price,
+                        Cost = createProductCommand.CreateProductDetailCommand.Cost,
+                        FollowInventory = createProductCommand.CreateProductDetailCommand.FollowInventory
+                    },
+                    CreateProductPhotoEvent = new CreateProductPhotoEvent
+                    {
+                        Title = createProductCommand.CreateProductPhotoCommand.Title,
+                        DateTime = DateTime.Now,
+                        MIMEType = createProductCommand.CreateProductPhotoCommand.MIMEType,
+                        Base64 = createProductCommand.CreateProductPhotoCommand.Base64
+                    },
+                    CreateProductTaxesEvent = createProductCommand.CreateProductTaxesCommand
+                                                .Select(p => new CreateProductTaxesEvent
+                                                {
+                                                    TaxesId = p.TaxesId,
+                                                    TaxRate = p.TaxRate
+                                                })
+                                                .ToList(),
+                    AspNetUserId = AspNetUserId,
+                    MembersId = MembersId,
+                    TableAuditEnum = TableAuditEnum.PRODUCTS_AUDIT
+                    });
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new ServiceInvalidOperationException(ex);
+            }
 
-
-            PostProductsResult result = await _productsBusiness
-                                               .Add(new AddProductsDto
-                                               {
-                                                   AddProductPhotoDto = new AddProductPhotoDto
-                                                   {
-                                                       Title = postProductsRequest.PostProductPhotoRequest.Title,
-                                                       DateTime = DateTime.Now,
-                                                       MIMEType = postProductsRequest.PostProductPhotoRequest.MIMEType,
-                                                       Base64 = postProductsRequest.PostProductPhotoRequest.Base64
-                                                   },
-                                                   AddProductDetailDto = new AddProductDetailDto
-                                                   {
-                                                       ProductCategoriesId = postProductsRequest.PostProductDetailRequest.ProductCategoriesId,
-                                                       ProductUnitsId = postProductsRequest.PostProductDetailRequest.ProductUnitsId,
-                                                       SKU = postProductsRequest.PostProductDetailRequest.SKU,
-                                                       Barcode = postProductsRequest.PostProductDetailRequest.Barcode,
-                                                       Description = postProductsRequest.PostProductDetailRequest.Description,
-                                                       Price = postProductsRequest.PostProductDetailRequest.Price,
-                                                       Cost = postProductsRequest.PostProductDetailRequest.Cost,
-                                                       FollowInventory = postProductsRequest.PostProductDetailRequest.FollowInventory
-                                                   },
-                                                   AspNetUserId = AspNetUserId,
-                                                   MembersId = MembersId,
-                                                   TableAuditEnum = TableAuditEnum.PRODUCTS_AUDIT
-                                               });
-
-            return StatusCode(result.StatusCode, result);
+            return Ok();
         }
 
 

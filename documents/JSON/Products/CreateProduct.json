@@ -1,0 +1,25 @@
+{
+  "createProductDetailCommand": {
+    "productCategoriesId": "F9750E7C-253A-453A-65B4-08D7E3BCC24A",
+    "productUnitsId": "F44409AA-8FE5-42DF-96D8-08D7E3BD0D19",
+    "sku": null,
+    "barcode": "7501057006432",
+    "description": "Lubriderm Priel Normal 400 mL",
+    "price": 52.80,
+    "cost": 40.32,
+    "followInventory": true
+  },
+  "createProductPhotoCommand": {
+    "title": "string",
+    "dateTime": "2020-05-27T17:41:10.657Z",
+    "mimeType": "string",
+    "base64": "string",
+    "productsId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  },
+  "createProductTaxesCommand": [
+    {
+      "taxRate": 16,
+      "taxesId": "0E590A54-CE96-4C15-9567-3CBECA6F71BB"
+    }
+  ]
+}

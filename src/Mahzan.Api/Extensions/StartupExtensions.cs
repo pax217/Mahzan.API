@@ -3,6 +3,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using AutoMapper;
 using Mahzan.Api.Context;
+using Mahzan.Api.Extensions.EventsHandlers.Products;
+using Mahzan.Api.Extensions.Repositories.Products;
+using Mahzan.Api.Extensions.Rules.Products.CreateProduct;
+using Mahzan.Api.Extensions.Validators.Products.CreateProduct;
 using Mahzan.Api.Services;
 using Mahzan.Business.Implementations.Business.BarCodes;
 using Mahzan.Business.Implementations.Business.Clients;
@@ -74,6 +78,27 @@ namespace Mahzan.Api.Extensions
         public static void ConfigureBlServices(this IServiceCollection services,
                                                string connectionString)
         {
+            //Events Handlers
+            CreateProductEventHandlerExtension
+                .Configure(services);
+
+            //Repositories
+            CreateProductRepositoryExtension
+                .Configure(services, connectionString);
+
+            //Validators
+            CreateProductValidatorExtension
+                .Configure(services);
+
+            //Rules
+            CreateProductRulesExtension
+                .Configure(services, connectionString);
+
+
+
+
+
+
 
             //Clients
             ClientsExtensions.ConfigureClientsServices(services, connectionString);
