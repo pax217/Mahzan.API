@@ -2,12 +2,10 @@
 using Mahzan.Business.Interfaces.Business.Taxes;
 using Mahzan.Dapper.Implementations.Taxes;
 using Mahzan.Dapper.Interfaces.Taxes;
+using Mahzan.DataAccess.Implementations;
+using Mahzan.DataAccess.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mahzan.Api.Extensions
 {
@@ -24,6 +22,11 @@ namespace Mahzan.Api.Extensions
 
             //Busienss
             services.AddTransient<ITaxesBusiness, TaxesBusiness>();
+
+            services.AddTransient<ITaxesRepository, TaxesRepository>();
+
+            
+
         }
     }
 }

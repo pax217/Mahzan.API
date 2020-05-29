@@ -34,6 +34,19 @@ namespace Mahzan.DataAccess.Implementations
             return newTax;
         }
 
+        public async Task<Taxes> GetById(Guid taxesId)
+        {
+            Taxes result = null;
+
+            result = (from t in _context.Set<Taxes>()
+                      where t.TaxesId.Equals(taxesId)
+                      select t)
+                    .FirstOrDefault();
+
+
+            return result;
+        }
+
         public async Task<PagedList<Taxes>> GetWhere(GetTaxesDto getTaxesDto)
 
         {

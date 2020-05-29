@@ -78,7 +78,7 @@ namespace Mahzan.DataAccess.Implementations
                 });
             }
 
-            if (getProductsDto.ProductsId != null)
+            if (getProductsDto.ProductsId != null && getProductsDto.ProductsId != Guid.Empty)
             {
                 filterExpressions.Add(new FilterExpression
                 {

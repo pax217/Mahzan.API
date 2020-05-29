@@ -151,9 +151,13 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                     ticketDetailDto.Price = product.FirstOrDefault().Price;
 
                     //Calcula el Monto (Con o Sin Impuesto)
-                    TicketDetailCalculationTaxesDto ticketDetailTaxesDto = await CalculateAmount(addTicketsDto.MembersId,
+                    List<TicketDetailCalculationTaxesDto> ticketDetailTaxesDto = await CalculateAmount(addTicketsDto.MembersId,
                                                                                       ticketDetailDto);
 
+                    foreach (var ticketDetailTaxDto in ticketDetailTaxesDto)
+                    {
+                        result.TicketDetailCalculationTaxesDto.Add(ticketDetailTaxDto);
+                    }
 
                     //Detalle de Ticket
                     result.PostTicketCalculationDetailDto.Add(new PostTicketCalculationDetailDto
@@ -161,21 +165,16 @@ namespace Mahzan.Business.Implementations.Business.Tickets
                         ProductsId = ticketDetailDto.ProductsId,
                         Quantity = ticketDetailDto.Quantity,
                         Description = product.FirstOrDefault().Description,
-                        Price = product.FirstOrDefault().Price,
-                        Amount = ticketDetailTaxesDto.Amount,
+                        Price = decimal.Round((product.FirstOrDefault().Price) + ticketDetailTaxesDto.Sum(x => x.AmountTax), 2, MidpointRounding.AwayFromZero),
+                        Amount = decimal.Round((product.FirstOrDefault().Price * ticketDetailDto.Quantity) + ticketDetailTaxesDto.Sum(x => x.AmountTax), 2, MidpointRounding.AwayFromZero),
                         FollowInventory = product.FirstOrDefault().FollowInventory
                     });
 
-                    //Detalle de Ticket con Impuestos
-                    if (ticketDetailTaxesDto.TaxRate != 0)
-                    {
-                        result.TicketDetailCalculationTaxesDto.Add(ticketDetailTaxesDto);
-                    }
 
 
                     //Totales
                     totalProducts += ticketDetailDto.Quantity;
-                    total += ticketDetailTaxesDto.Amount;
+                    total += decimal.Round(result.PostTicketCalculationDetailDto.Sum(x=>x.Amount), 2, MidpointRounding.AwayFromZero);
                 }
 
 
@@ -191,10 +190,10 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             return result;
         }
 
-        private async Task<TicketDetailCalculationTaxesDto> CalculateAmount(Guid membersId,
+        private async Task<List<TicketDetailCalculationTaxesDto>> CalculateAmount(Guid membersId,
                                                                  PostTicketCalculationDetailDto postTicketDetailDto) 
         {
-            TicketDetailCalculationTaxesDto result = new TicketDetailCalculationTaxesDto(); ;
+            List<TicketDetailCalculationTaxesDto> result = new List<TicketDetailCalculationTaxesDto>(); ;
 
 
             //Identifica los impuestos aplicados a este producto
@@ -208,32 +207,63 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             if (productsTaxes.Any())
             {
 
-                foreach (var tax in productsTaxes)
+                foreach (var productsTax in productsTaxes)
                 {
-                    decimal withOutTax = postTicketDetailDto.Price * postTicketDetailDto.Quantity;
-
-                    decimal amountWithTaxes = (withOutTax + (withOutTax * (tax.TaxRate) / 100));
 
 
+                    Models.Entities.Taxes tax = await _ticketsRepositories.GetTax(productsTax.TaxesId);
 
-                    //Detalle de Impuestos
-                    result = new TicketDetailCalculationTaxesDto
+                    if (tax.Active)
                     {
-                        TaxRate = tax.TaxRate,
-                        ProductsId = tax.ProductsId,
-                        TaxesId = tax.TaxesId,
-                        Price = decimal.Round(withOutTax,2,MidpointRounding.AwayFromZero),
-                        Amount = decimal.Round(amountWithTaxes, 2, MidpointRounding.AwayFromZero)
-                    };
+                        if (tax.Type == TaxTypeEnum.INCLUDED_IN_PRICE.ToString())
+                        {
+                            decimal withOutTax = postTicketDetailDto.Price * postTicketDetailDto.Quantity;
+
+                            decimal amountWithOutTaxes = (withOutTax - (withOutTax * (productsTax.TaxRate) / 100));
+
+
+                            //Detalle de Impuestos
+                            result.Add(new TicketDetailCalculationTaxesDto
+                            {
+                                TaxRate = productsTax.TaxRate,
+                                ProductsId = productsTax.ProductsId,
+                                TaxesId = productsTax.TaxesId,
+                                Quantity = postTicketDetailDto.Quantity,
+                                Price = decimal.Round(postTicketDetailDto.Price, 2, MidpointRounding.AwayFromZero),
+                                Amount = decimal.Round(withOutTax, 2, MidpointRounding.AwayFromZero),
+                                AmountTax = 0,
+                                Tax = withOutTax - amountWithOutTaxes
+                            });
+                        }
+
+                        if (tax.Type == TaxTypeEnum.ADD_TO_PRICE.ToString())
+                        {
+                            decimal withOutTax = postTicketDetailDto.Price * postTicketDetailDto.Quantity;
+
+                            decimal amountWithTaxes = (withOutTax + (withOutTax * (productsTax.TaxRate) / 100));
+
+
+
+                            //Detalle de Impuestos
+                            result.Add(new TicketDetailCalculationTaxesDto
+                            {
+                                TaxRate = productsTax.TaxRate,
+                                ProductsId = productsTax.ProductsId,
+                                TaxesId = productsTax.TaxesId,
+                                Quantity = postTicketDetailDto.Quantity,
+                                Price = decimal.Round(postTicketDetailDto.Price, 2, MidpointRounding.AwayFromZero),
+                                Amount = decimal.Round(amountWithTaxes, 2, MidpointRounding.AwayFromZero),
+                                AmountTax = amountWithTaxes - withOutTax,
+                                Tax = amountWithTaxes - withOutTax
+                            });
+                        }
+                    }
+
+
                 }
 
-            }
-            else
-            {
 
-                result.Amount += postTicketDetailDto.Price * postTicketDetailDto.Quantity;
             }
-
 
             return result; 
         }

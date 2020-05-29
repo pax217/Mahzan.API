@@ -18,7 +18,11 @@ namespace Mahzan.Models.Entities
 
         public decimal Price { get; set; }
 
+        public decimal Tax { get; set; }
+
         public decimal Amount { get; set; }
+
+        public int Quantity { get; set; }
 
         #endregion
 

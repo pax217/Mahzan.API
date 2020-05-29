@@ -16,6 +16,8 @@ namespace Mahzan.Business.Interfaces.Business.Tickets
 
         Task<PagedList<ProductsTaxes>> GetProductsTaxes(GetProductsTaxesDto getProductsTaxesDto);
 
+        Task<Models.Entities.Taxes> GetTax(Guid daxesId);
+
         Task<List<TicketDetail>> AddTicketDetail(Models.Entities.Tickets newTicket,
                                                  List<PostTicketCalculationDetailDto> postTicketDetailDto);
 

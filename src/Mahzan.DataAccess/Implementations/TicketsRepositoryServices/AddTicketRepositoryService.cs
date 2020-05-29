@@ -67,11 +67,13 @@ namespace Mahzan.DataAccess.Implementations.TicketsRepositoryServices
                     newticketDetailTaxes = new TicketDetailTaxes
                     {
                         TaxRate = ticketDetailTaxes.TaxRate,
+                        Quantity = ticketDetailTaxes.Quantity,
                         Price = ticketDetailTaxes.Price,
                         Amount = ticketDetailTaxes.Amount,
                         ProductsId = ticketDetailTaxes.ProductsId,
                         TaxesId = ticketDetailTaxes.TaxesId,
-                        TicketsId = newTicket.TicketsId
+                        TicketsId = newTicket.TicketsId,
+                        Tax = ticketDetailTaxes.Tax
                     };
 
                     await _ticketDetailTaxesRepository.Add(newticketDetailTaxes);

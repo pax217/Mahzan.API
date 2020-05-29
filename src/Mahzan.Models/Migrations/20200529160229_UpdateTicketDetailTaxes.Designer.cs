@@ -4,14 +4,16 @@ using Mahzan.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mahzan.Models.Migrations
 {
     [DbContext(typeof(MahzanDbContext))]
-    partial class MahzanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200529160229_UpdateTicketDetailTaxes")]
+    partial class UpdateTicketDetailTaxes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -952,17 +954,14 @@ namespace Mahzan.Models.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("AmountTax")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("ProductsId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("TaxRate")
                         .HasColumnType("decimal(18,2)");

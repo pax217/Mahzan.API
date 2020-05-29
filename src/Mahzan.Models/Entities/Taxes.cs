@@ -12,6 +12,8 @@ namespace Mahzan.Models.Entities
         public Guid TaxesId { get; set; }
 
         public string Name { get; set; }
+        
+        public string Type { get; set; }
 
         public bool TaxRateVariable { get; set; }
 

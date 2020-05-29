@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Mahzan.Business.Implementations.Business.Tickets
 {
+
     public class TicketsRepositories: ITicketsRepositories
     {
         readonly ITicketDetailRepository _ticketDetailRepository;
@@ -26,12 +27,15 @@ namespace Mahzan.Business.Implementations.Business.Tickets
 
         readonly IProductsTaxesRepository _productsTaxesRepository;
 
+        readonly ITaxesRepository _taxesRepository;
+
         public TicketsRepositories(
             ITicketDetailRepository ticketDetailRepository,
             ITicketsRepository ticketsRepository,
             IProductsRepository productsRepository,
             IProductsStoreRepository productsStoreRepository,
-            IProductsTaxesRepository productsTaxesRepository) 
+            IProductsTaxesRepository productsTaxesRepository,
+            ITaxesRepository taxesRepository)
         {
             //Repositories
             _ticketDetailRepository = ticketDetailRepository;
@@ -39,6 +43,7 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             _productsRepository = productsRepository;
             _productsStoreRepository = productsStoreRepository;
             _productsTaxesRepository = productsTaxesRepository;
+            _taxesRepository = taxesRepository;
         }
 
         public async Task<Models.Entities.Tickets> AddTicket(TicketCalculationDto addTicketsDto)
@@ -52,6 +57,8 @@ namespace Mahzan.Business.Implementations.Business.Tickets
             return await _productsTaxesRepository
                          .Get(getProductsTaxesDto);
         }
+
+
 
         public async Task<List<TicketDetail>> AddTicketDetail(Models.Entities.Tickets newTicket,
                                                               List<PostTicketCalculationDetailDto> postTicketDetailDto) 
@@ -94,6 +101,11 @@ namespace Mahzan.Business.Implementations.Business.Tickets
         {
             _productsStoreRepository
             .Update(putProductsStoreDto);
+        }
+
+        public Task<Models.Entities.Taxes> GetTax(Guid daxesId)
+        {
+            return _taxesRepository.GetById(daxesId);
         }
     }
 }
