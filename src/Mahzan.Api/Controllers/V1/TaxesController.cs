@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Mahzan.Api.Commands.Taxes.CreateTax;
 using Mahzan.Api.Controllers._Base;
 using Mahzan.Api.Exeptions;
+using Mahzan.Business.Enums.Result;
+using Mahzan.Business.Events.Taxes.CreateTax;
+using Mahzan.Business.EventsHandlers.Taxes.CreateTax;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Business.Taxes;
 using Mahzan.Business.Requests.Taxes;
@@ -23,31 +27,50 @@ namespace Mahzan.Api.Controllers.V1
     {
         readonly ITaxesBusiness _taxesBusiness;
 
+        private readonly ICreateTaxEventHandler _createTaxEventHandler;
+
         public TaxesController(
             IMembersBusiness miembrosBusiness,
-            ITaxesBusiness taxesBusiness)
+            ITaxesBusiness taxesBusiness, 
+            ICreateTaxEventHandler createTaxEventHandler)
             : base(miembrosBusiness)
         {
             _taxesBusiness = taxesBusiness;
+            _createTaxEventHandler = createTaxEventHandler;
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPost]
-        public async Task<IActionResult> Post(PostTaxesRequest postTaxesRequest)
+        [HttpPost("create")]
+        public async Task<IActionResult> Post(CreateTaxCommand command)
         {
-            PostTaxesResult result = await _taxesBusiness
-                                            .Add(new InsertTaxDto
-                                            {
-                                                Name = postTaxesRequest.Name,
-                                                TaxRateVariable = postTaxesRequest.TaxRateVariable,
-                                                TaxRatePercentage = postTaxesRequest.TaxRatePercentage,
-                                                Active = postTaxesRequest.Active,
-                                                Printed = postTaxesRequest.Printed,
-                                                MembersId = MembersId,
-                                                AspNetUserId = AspNetUserId
-                                            });
+            CreateTaxResult result = new CreateTaxResult
+            {
+                IsValid= true,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Title = $"Crea Impuesto",
+                Message =$"Se ha creado correctamente el impuesto {command.Name} ."
+            };
 
-            return StatusCode(result.StatusCode, result);
+            try
+            {
+                await _createTaxEventHandler.Handle(new CreateTaxEvent
+                {
+                    Name = command.Name,
+                    Type = command.Type,
+                    TaxRateVariable = command.TaxRateVariable,
+                    TaxRatePercentage = command.TaxRatePercentage,
+                    Active = command.Active,
+                    Printed = command.Printed,
+                    MembersId = MembersId,
+                    AspNetUserId = AspNetUserId
+                });
+            }
+            catch (ServiceArgumentException ex)
+            {
+                throw new ServiceArgumentException(ex);
+            }
+
+            return Ok(result);
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]

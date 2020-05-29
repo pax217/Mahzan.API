@@ -114,7 +114,7 @@ namespace Mahzan.Dapper.Implementations.Taxes
                    getTaxesDto.PageSize);
         }
 
-        public async Task<Guid> InsertAsync(InsertTaxDto insertTaxDto)
+        public async Task<Guid> InsertAsync(CreateTaxDto insertTaxDto)
         {
             StringBuilder commandSelectText = new StringBuilder();
 

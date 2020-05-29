@@ -9,7 +9,7 @@ namespace Mahzan.Dapper.Interfaces.Taxes
 {
     public interface ITaxesDapper
     {
-        Task<Guid> InsertAsync(InsertTaxDto insertTaxesDto);
+        Task<Guid> InsertAsync(CreateTaxDto insertTaxesDto);
 
         Task<Models.Entities.Taxes> GetByIdAsync(Guid taxesId);
 

@@ -21,6 +21,10 @@
 	usuario: sa
 	password: Mahzan20%
 
+# Digital Ocean
+	user:mahzan.digital.ocean@gmail.com
+	password:Mahzan20%
+
 # Docker/Digital Ocean
 # Mahzan.Api
 # *Levantar aplicación en Digital Ocean con Docker

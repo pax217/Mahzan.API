@@ -4,8 +4,11 @@ using System.Text;
 using AutoMapper;
 using Mahzan.Api.Context;
 using Mahzan.Api.Extensions.EventsHandlers.Products;
+using Mahzan.Api.Extensions.EventsHandlers.Taxes;
 using Mahzan.Api.Extensions.Repositories.Products;
+using Mahzan.Api.Extensions.Repositories.Taxes;
 using Mahzan.Api.Extensions.Rules.Products.CreateProduct;
+using Mahzan.Api.Extensions.Rules.Taxes.CreateTax;
 using Mahzan.Api.Extensions.Validators.Products.CreateProduct;
 using Mahzan.Api.Services;
 using Mahzan.Business.Implementations.Business.BarCodes;
@@ -81,9 +84,14 @@ namespace Mahzan.Api.Extensions
             //Events Handlers
             CreateProductEventHandlerExtension
                 .Configure(services);
+            CreateTaxEventHandlerExtension
+                .Configure(services);
+
 
             //Repositories
             CreateProductRepositoryExtension
+                .Configure(services, connectionString);
+            CreateTaxRepositoryExtension
                 .Configure(services, connectionString);
 
             //Validators
@@ -92,6 +100,8 @@ namespace Mahzan.Api.Extensions
 
             //Rules
             CreateProductRulesExtension
+                .Configure(services, connectionString);
+            CreateTaxRulesExtension
                 .Configure(services, connectionString);
 
 

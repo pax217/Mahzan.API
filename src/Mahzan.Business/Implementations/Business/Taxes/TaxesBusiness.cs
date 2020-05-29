@@ -27,7 +27,7 @@ namespace Mahzan.Business.Implementations.Business.Taxes
             _taxesDapper = taxesDapper;
         }
 
-        public async Task<PostTaxesResult> Add(InsertTaxDto insertTaxDto)
+        public async Task<PostTaxesResult> Add(CreateTaxDto insertTaxDto)
         {
             PostTaxesResult result = new PostTaxesResult
             {

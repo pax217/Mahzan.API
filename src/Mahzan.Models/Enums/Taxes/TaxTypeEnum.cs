@@ -11,6 +11,6 @@ namespace Mahzan.Models.Enums.Taxes
 
         INCLUDED_IN_PRICE,
 
-        ADD_IN_PRICE
+        ADD_TO_PRICE
     }
 }

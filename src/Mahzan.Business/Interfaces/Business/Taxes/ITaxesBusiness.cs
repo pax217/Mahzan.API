@@ -8,7 +8,7 @@ namespace Mahzan.Business.Interfaces.Business.Taxes
 {
     public interface ITaxesBusiness
     {
-        Task<PostTaxesResult> Add(InsertTaxDto insertTaxDto);
+        Task<PostTaxesResult> Add(CreateTaxDto insertTaxDto);
 
         Task<GetTaxesResult> GetWhere(GetTaxesDto getTaxesDto);
     }

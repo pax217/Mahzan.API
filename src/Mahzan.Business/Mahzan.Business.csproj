@@ -93,7 +93,6 @@
     <Folder Include="Resources\Validations\PointsOfSales\" />
     <Folder Include="Requests\Taxes\" />
     <Folder Include="Interfaces\Business\Taxes\" />
-    <Folder Include="Implementations\Business\Taxes\" />
     <Folder Include="Resources\Business\Taxes\" />
     <Folder Include="Interfaces\Validations\Taxes\" />
     <Folder Include="Implementations\Validations\Taxes\" />

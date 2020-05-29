@@ -28,7 +28,7 @@ namespace Mahzan.Models.Entities
 
         public bool FollowInventory { get; set; }
 
-        public bool AvailableInAllStores { get; set; }
+        public bool? AvailableInAllStores { get; set; }
 
         //Members
         public Guid MembersId { get; set; }
