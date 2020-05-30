@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Mahzan.Api.Controllers._Base;
+using Mahzan.Business.Enums.Result;
+using Mahzan.Business.Events.Tickets.GetTicketToPrint;
+using Mahzan.Business.EventsHandlers.Tickets.GetTicketToPrint;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Business.Tickets;
 using Mahzan.Business.Requests.Tickets;
@@ -20,15 +23,19 @@ namespace Mahzan.Api.Controllers.V1
     [ApiController]
     public class TicketsController : BaseController
     {
+        private readonly IGetTicketToPrintEventHandler _getTicketToPrintEventHandler;
+
         readonly ITicketsBusiness _ticketsBusiness;
 
         public TicketsController(
             IMembersBusiness miembrosBusiness,
-            ITicketsBusiness ticketsBusiness)
+            ITicketsBusiness ticketsBusiness, 
+            IGetTicketToPrintEventHandler getTicketToPrintEventHandler)
             : base(miembrosBusiness)
         {
 
             _ticketsBusiness = ticketsBusiness;
+            _getTicketToPrintEventHandler = getTicketToPrintEventHandler;
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
@@ -111,5 +118,35 @@ namespace Mahzan.Api.Controllers.V1
 
             return StatusCode(result.StatusCode, result);
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("{id}/get-ticket-to-print")]
+        public async Task<IActionResult> GetTicketToPrint(Guid id) 
+        {
+            GetTicketToPrintResult result = new GetTicketToPrintResult
+            {
+                IsValid = true,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS,
+                Ticket = "Obtiene ticket a imprimir",
+                Message =$"Se obtuvo de forma correcta el ticket {id}."
+            };
+
+            try
+            {
+                result.Ticket=  await _getTicketToPrintEventHandler
+                    .Handle(new GetTicketToPrintEvent
+                    {
+                        TicketsId = id,
+                        MembersId = MembersId
+                    });
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return Ok(result);
+        }
+
     }
 }

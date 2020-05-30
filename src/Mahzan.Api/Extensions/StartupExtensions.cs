@@ -5,8 +5,13 @@ using AutoMapper;
 using Mahzan.Api.Context;
 using Mahzan.Api.Extensions.EventsHandlers.Products;
 using Mahzan.Api.Extensions.EventsHandlers.Taxes;
+using Mahzan.Api.Extensions.EventsHandlers.Tickets;
+using Mahzan.Api.Extensions.Repositories.CompanyAdress;
+using Mahzan.Api.Extensions.Repositories.CompanyContact;
 using Mahzan.Api.Extensions.Repositories.Products;
 using Mahzan.Api.Extensions.Repositories.Taxes;
+using Mahzan.Api.Extensions.Repositories.TicketDetail.GetTicketDetail;
+using Mahzan.Api.Extensions.Repositories.Tickets;
 using Mahzan.Api.Extensions.Rules.Products.CreateProduct;
 using Mahzan.Api.Extensions.Rules.Taxes.CreateTax;
 using Mahzan.Api.Extensions.Validators.Products.CreateProduct;
@@ -86,12 +91,25 @@ namespace Mahzan.Api.Extensions
                 .Configure(services);
             CreateTaxEventHandlerExtension
                 .Configure(services);
-
+            GetTicketToPrintEventHandlerExtension
+                .Configure(services);
 
             //Repositories
             CreateProductRepositoryExtension
                 .Configure(services, connectionString);
             CreateTaxRepositoryExtension
+                .Configure(services, connectionString);
+            GetCompanyRepositoryExtension
+                .Configure(services, connectionString);
+            GetCompanyAdressRepositoryExtension
+                .Configure(services, connectionString);
+            GetTicketToPrintRepositoryExtension
+                .Configure(services, connectionString);
+            GetCompanyContactRepositoryExtension
+                .Configure(services, connectionString);
+            GetTicketDetailRepositoryExtension
+                .Configure(services, connectionString);
+            GetTicketRepositoryExtension
                 .Configure(services, connectionString);
 
             //Validators

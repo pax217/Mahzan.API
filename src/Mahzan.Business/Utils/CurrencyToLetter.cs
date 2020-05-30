@@ -5,18 +5,18 @@ using System.Text.RegularExpressions;
 
 namespace Mahzan.Business.Utils
 {
-    public class CurrencyToLetter
+    public static class CurrencyToLetter
     {
-        private String[] UNIDADES = { "", "un ", "dos ", "tres ", "cuatro ", "cinco ", "seis ", "siete ", "ocho ", "nueve " };
-        private String[] DECENAS = {"diez ", "once ", "doce ", "trece ", "catorce ", "quince ", "dieciseis ",
+        private static String[] UNIDADES = { "", "un ", "dos ", "tres ", "cuatro ", "cinco ", "seis ", "siete ", "ocho ", "nueve " };
+        private static String[] DECENAS = {"diez ", "once ", "doce ", "trece ", "catorce ", "quince ", "dieciseis ",
         "diecisiete ", "dieciocho ", "diecinueve", "veinte ", "treinta ", "cuarenta ",
         "cincuenta ", "sesenta ", "setenta ", "ochenta ", "noventa "};
-        private String[] CENTENAS = {"", "ciento ", "doscientos ", "trecientos ", "cuatrocientos ", "quinientos ", "seiscientos ",
+        private static String[] CENTENAS = {"", "ciento ", "doscientos ", "trecientos ", "cuatrocientos ", "quinientos ", "seiscientos ",
         "setecientos ", "ochocientos ", "novecientos "};
 
-        private Regex r;
+        private static Regex r;
 
-        public String Convertir(String numero, bool mayusculas, string moneda = "PESOS")
+        public static String Convertir(String numero, bool mayusculas, string moneda = "PESOS")
         {
 
             String literal = "";
@@ -86,14 +86,14 @@ namespace Mahzan.Business.Utils
 
         /* funciones para convertir los numeros a literales */
 
-        private String getUnidades(String numero)
+        private static String getUnidades(String numero)
         {   // 1 - 9
             //si tuviera algun 0 antes se lo quita -> 09 = 9 o 009=9
             String num = numero.Substring(numero.Length - 1);
             return UNIDADES[int.Parse(num)];
         }
 
-        private String getDecenas(String num)
+        private static String getDecenas(String num)
         {// 99
             int n = int.Parse(num);
             if (n < 10)
@@ -118,7 +118,7 @@ namespace Mahzan.Business.Utils
             }
         }
 
-        private String getCentenas(String num)
+        private static String getCentenas(String num)
         {// 999 o 099
             if (int.Parse(num) > 99)
             {//es centena
@@ -138,7 +138,7 @@ namespace Mahzan.Business.Utils
             }
         }
 
-        private String getMiles(String numero)
+        private static String getMiles(String numero)
         {// 999 999
             //obtiene las centenas
             String c = numero.Substring(numero.Length - 3);
@@ -158,7 +158,7 @@ namespace Mahzan.Business.Utils
 
         }
 
-        private String getMillones(String numero)
+        private static String getMillones(String numero)
         { //000 000 000
             //se obtiene los miles
             String miles = numero.Substring(numero.Length - 6);
