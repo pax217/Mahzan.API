@@ -1,16 +1,27 @@
 ﻿using Mahzan.Business.Events.Tickets.GetTicketToPrint;
+using Mahzan.Business.Exceptions.Tickets.GetTicketToPrint;
 using Mahzan.Business.Utils;
 using Mahzan.Dapper.DTO.Tickets.GetTicketToPrint;
 using Mahzan.Dapper.Repositories.Companies.GetCompany;
 using Mahzan.Dapper.Repositories.Company_Adress.GetCompanyAdress;
 using Mahzan.Dapper.Repositories.Company_Contact.GetCompanyContact;
 using Mahzan.Dapper.Repositories.TicketDetail.GetTicketDetail;
+using Mahzan.Dapper.Repositories.TicketDetailTaxes.GetTicketDetailTaxes;
 using Mahzan.Dapper.Repositories.Tickets.GetTicket;
 using Mahzan.Dapper.Repositories.Tickets.GetTicketToPrint;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
+using Mahzan.Dapper.Repositories.Taxes.GetTax;
+using System.Xml.Linq;
+using Mahzan.Dapper.Repositories.Stores.GetStore;
+using Mahzan.Dapper.Repositories.PointsOfSales.GetPointsOfSale;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Mahzan.Dapper.Repositories.AspNetUsers.GetAspNetUsers;
+using System.Security.Cryptography.Xml;
 
 namespace Mahzan.Business.EventsHandlers.Tickets.GetTicketToPrint
 {
@@ -30,13 +41,29 @@ namespace Mahzan.Business.EventsHandlers.Tickets.GetTicketToPrint
 
         private readonly IGetTicketRepository _getTicketRepository;
 
+        private readonly IGetTicketDetailTaxesRepository _getTicketDetailTaxesRepository;
+
+        private readonly IGetTaxRepository _getTaxRepository;
+
+        private readonly IGetStoreRepository _getStoreRepository;
+
+        private readonly IGetPointsOfSaleRepository _getPointsOfSaleRepository;
+
+        private readonly IGetAspNetUsersRepository _getAspNetUsersRepository;
+
+
         public GetTicketToPrintEventHandler(
             IGetTicketToPrintRepository getTicketToPrintRepository,
             IGetCompanyRepository getCompanyRepository, 
             IGetCompanyAdressRepository getCompanyAdressRepository,
             IGetCompanyContactRepository getCompanyContactRepository,
             IGetTicketDetailRepository getTicketDetailRepository,
-            IGetTicketRepository getTicketRepository)
+            IGetTicketRepository getTicketRepository,
+            IGetTicketDetailTaxesRepository getTicketDetailTaxesRepository,
+            IGetTaxRepository getTaxRepository,
+            IGetStoreRepository getStoreRepository,
+            IGetPointsOfSaleRepository getPointsOfSaleRepository,
+            IGetAspNetUsersRepository getAspNetUsersRepository)
         {
             _getTicketToPrintRepository = getTicketToPrintRepository;
             _getCompanyRepository = getCompanyRepository;
@@ -44,6 +71,11 @@ namespace Mahzan.Business.EventsHandlers.Tickets.GetTicketToPrint
             _getCompanyContactRepository = getCompanyContactRepository;
             _getTicketDetailRepository = getTicketDetailRepository;
             _getTicketRepository = getTicketRepository;
+            _getTicketDetailTaxesRepository = getTicketDetailTaxesRepository;
+            _getTaxRepository = getTaxRepository;
+            _getStoreRepository = getStoreRepository;
+            _getPointsOfSaleRepository = getPointsOfSaleRepository;
+            _getAspNetUsersRepository = getAspNetUsersRepository;
         }
 
         public async Task<string> Handle(GetTicketToPrintEvent getTicketToPrintEvent)
@@ -71,6 +103,15 @@ namespace Mahzan.Business.EventsHandlers.Tickets.GetTicketToPrint
                                                     MembersId = getTicketToPrintEvent.MembersId
                                                 });
 
+            if (tickets==null)
+            {
+                throw new GetTicketToPrintKeyNotFoundException(
+                    $"No se encontró el ticket {getTicketToPrintEvent.TicketsId}"
+                    );
+            }
+
+
+
             ticket = await BluidTicketFromEntities(tickets);
 
             return ticket;
@@ -82,23 +123,26 @@ namespace Mahzan.Business.EventsHandlers.Tickets.GetTicketToPrint
         {
             StringBuilder ticketFromEntities = new StringBuilder();
 
-            ticketFromEntities.Append("-------------------------------\n");
+            ticketFromEntities.Append("--------------------------------\n");
             ticketFromEntities.Append(FormatRow(await GetCompanyCommercialName(ticket.PointsOfSalesId)));
-            ticketFromEntities.Append("-------------------------------\n");
+            ticketFromEntities.Append("--------------------------------\n");
             ticketFromEntities.Append(await GetCompanyAdress(ticket.PointsOfSalesId));
-            ticketFromEntities.Append("-------------------------------\n");
-            ticketFromEntities.Append(await GetCompanyContact(ticket.PointsOfSalesId));
-            ticketFromEntities.Append("-------------------------------\n"); //Separador
-            ticketFromEntities.Append("Descripcion        C.     Monto\n"); //Cabecero Detalle de Ticket
-            ticketFromEntities.Append("-------------------------------\n"); //Separador
+            ticketFromEntities.Append("--------------------------------\n");
+            ticketFromEntities.Append(await GetSaleUserName(ticket.AspNetUsersId));
+            ticketFromEntities.Append(await GetStoreName(ticket.PointsOfSalesId) + " | "+ await GetPointsOfSaleName(ticket.PointsOfSalesId) + "\n");
+            ticketFromEntities.Append("--------------------------------\n");
+            ticketFromEntities.Append("Descripcion        C.      Monto\n");
+            ticketFromEntities.Append("--------------------------------\n");
             ticketFromEntities.Append(await GetTicketDetail(ticket.TicketsId));
-            ticketFromEntities.Append("-------------------------------\n");
             ticketFromEntities.Append(await GetTicketTotal(ticket.TicketsId));
-            ticketFromEntities.Append("-------------------------------\n");
-            ticketFromEntities.Append("     ***COPIA DE CLIENTE***    \n");
-            ticketFromEntities.Append("-------------------------------\n");
-            ticketFromEntities.Append(" *** Gracias por su compra *** \n");
-            ticketFromEntities.Append("-------------------------------\n");
+            ticketFromEntities.Append("--------------------------------\n");
+            ticketFromEntities.Append(await GetTicketDetailTaxes(ticket.TicketsId));
+            ticketFromEntities.Append("--------------------------------\n");
+            ticketFromEntities.Append("     ***COPIA DE CLIENTE***     \n");
+            ticketFromEntities.Append("--------------------------------\n");
+            ticketFromEntities.Append("   ***Gracias por su compra***  \n");
+            ticketFromEntities.Append("--------------------------------\n");
+            ticketFromEntities.Append(await GetCompanyContact(ticket.PointsOfSalesId));
 
             return ticketFromEntities.ToString();
 
@@ -140,6 +184,36 @@ namespace Mahzan.Business.EventsHandlers.Tickets.GetTicketToPrint
             return companyAdressString.ToString();
         }
 
+        private async Task<string> GetStoreName(Guid pointsOfSaleId) 
+        {
+            StringBuilder storeNameString = new StringBuilder();
+
+            Models.Entities.Stores store = await _getStoreRepository
+                .GetByPointsOfSales(pointsOfSaleId);
+
+            if (store!=null)
+            {
+                storeNameString.Append(store.Name);
+            }
+
+            return storeNameString.ToString();
+        }
+
+        private async Task<string> GetPointsOfSaleName(Guid pointsOfSaleId)
+        {
+            StringBuilder pointsOfSaleNameString = new StringBuilder();
+
+            Models.Entities.PointsOfSales pointsOfSales = await _getPointsOfSaleRepository
+                .GetByPointsOfSalesId(pointsOfSaleId);
+
+            if (pointsOfSales!= null)
+            {
+                pointsOfSaleNameString.Append(pointsOfSales.Name);
+            }
+
+            return pointsOfSaleNameString.ToString();
+        }
+
         private async Task<string> GetCompanyContact(Guid pointsOfSaleId) 
         {
             StringBuilder companyContactString = new StringBuilder();
@@ -175,7 +249,7 @@ namespace Mahzan.Business.EventsHandlers.Tickets.GetTicketToPrint
                 ticketDetailString.Append(ticketDetail.Description + "\n");
                 ticketDetailString.Append(FormatQuantityAmountRow(ticketDetail.Quantity.ToString(),
                                                      ticketDetail.Amount.ToString()));
-                ticketDetailString.Append("-------------------------------\n");
+                ticketDetailString.Append("--------------------------------\n");
             }
 
             return ticketDetailString.ToString();
@@ -188,21 +262,73 @@ namespace Mahzan.Business.EventsHandlers.Tickets.GetTicketToPrint
             Models.Entities.Tickets ticket = await _getTicketRepository
                 .GetByTicketsId(ticketsId);
 
-            ticketTotal.Append(FormatTotalProducts(ticket.TotalProducts.ToString()));
-            ticketTotal.Append("-------------------------------\n");
             ticketTotal.Append(FormatDescriptionMoneyRow("Total", ticket.Total.ToString()));
-            ticketTotal.Append("-------------------------------\n");
+            ticketTotal.Append("--------------------------------\n");
             ticketTotal.Append(FormatDescriptionMoneyRow("Pago", ticket.CashPayment.ToString()));
             ticketTotal.Append(FormatDescriptionMoneyRow("Cambio", ticket.CashExchange.ToString()));
-            ticketTotal.Append("-------------------------------\n");
+            ticketTotal.Append("--------------------------------\n");
             string totalLetter = CurrencyToLetter.Convertir(ticket.Total.ToString(),
                                                             true);
             ticketTotal.Append(totalLetter + "\n");
-            ticketTotal.Append("-------------------------------\n");
+            ticketTotal.Append("--------------------------------\n");
+            ticketTotal.Append(FormatTotalProducts(ticket.TotalProducts.ToString()));
 
 
             return ticketTotal.ToString();
         }
+
+        private async Task<string> GetTicketDetailTaxes(Guid ticketsId) 
+        {
+            StringBuilder ticketDetailTaxesString = new StringBuilder();
+
+            //Obtener Detalle de Impuesto
+
+            List<Models.Entities.TicketDetailTaxes> ticketDetailTaxes;
+            ticketDetailTaxes = await _getTicketDetailTaxesRepository
+                .GetByTicketsId(ticketsId);
+
+            if (ticketDetailTaxes.Any())
+            {
+                foreach (var ticketDetailTax in ticketDetailTaxes
+                                                .GroupBy(x=> x.TaxesId)
+                                                .Select(g=> g.First())
+                                                .ToList())
+                {
+                    Models.Entities.Taxes tax = await _getTaxRepository.GetByTaxesId(ticketDetailTax.TaxesId);
+
+                    if (tax.Printed)
+                    {
+                        decimal sumTax = ticketDetailTaxes
+                                        .Where(x => x.TaxesId == tax.TaxesId)
+                                        .Sum(x => x.Tax);
+
+
+                        ticketDetailTaxesString.Append(FormatTaxDetail(tax.Name, 
+                                                                       tax.TaxRatePercentage.ToString(), 
+                                                                       sumTax.ToString()));
+                    }
+                }
+            }
+
+            return ticketDetailTaxesString.ToString();
+        }
+
+        private async Task<string> GetSaleUserName(Guid aspNetUsersId) 
+        {
+            StringBuilder saleUserNamestring = new StringBuilder();
+
+            Models.Entities.AspNetUsers aspNetUsers = await _getAspNetUsersRepository
+                .GetById(aspNetUsersId);
+
+            if (aspNetUsers!=null)
+            {
+                saleUserNamestring.Append(FormatRow(aspNetUsers.UserName));
+            }
+
+
+            return saleUserNamestring.ToString();
+        }
+
 
 
         #region Utils Ticket Format
@@ -282,6 +408,35 @@ namespace Mahzan.Business.EventsHandlers.Tickets.GetTicketToPrint
             return stringBuilder.ToString();
         }
 
+        private string FormatTaxDetail(
+            string taxName,
+            string taxRate,
+            string tax)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            int LENGTH_TAX_NAME = 14;
+            int WHITE_SAPCE_TAX_NAME = LENGTH_TAX_NAME - taxName.Length;
+
+            stringBuilder.Append(taxName);
+            stringBuilder.Append(' ', (int)WHITE_SAPCE_TAX_NAME);
+
+            int LENGTH_TAX_RATE = 7;
+            int WHITE_SAPCE_TAX_RATE = (LENGTH_TAX_RATE - (taxRate.Length + 2));
+
+            stringBuilder.Append(' ', (int)WHITE_SAPCE_TAX_RATE);
+            stringBuilder.Append(taxRate + " %");
+
+            int LENGTH_TAX = 11;
+            int WHITE_SAPCE_TAX = LENGTH_TAX - tax.Length;
+
+            stringBuilder.Append(' ', (int)WHITE_SAPCE_TAX);
+            stringBuilder.Append(tax);
+
+            stringBuilder.Append("\n");
+
+            return stringBuilder.ToString();
+        }
         #endregion
     }
 }

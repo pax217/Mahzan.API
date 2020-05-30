@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using AutoMapper;
@@ -6,11 +6,15 @@ using Mahzan.Api.Context;
 using Mahzan.Api.Extensions.EventsHandlers.Products;
 using Mahzan.Api.Extensions.EventsHandlers.Taxes;
 using Mahzan.Api.Extensions.EventsHandlers.Tickets;
+using Mahzan.Api.Extensions.Repositories.AspNetUsers;
 using Mahzan.Api.Extensions.Repositories.CompanyAdress;
 using Mahzan.Api.Extensions.Repositories.CompanyContact;
+using Mahzan.Api.Extensions.Repositories.PointsOfSales;
 using Mahzan.Api.Extensions.Repositories.Products;
+using Mahzan.Api.Extensions.Repositories.Stores.GetStore;
 using Mahzan.Api.Extensions.Repositories.Taxes;
 using Mahzan.Api.Extensions.Repositories.TicketDetail.GetTicketDetail;
+using Mahzan.Api.Extensions.Repositories.TicketDetailTaxes.GetTicketDetailTaxes;
 using Mahzan.Api.Extensions.Repositories.Tickets;
 using Mahzan.Api.Extensions.Rules.Products.CreateProduct;
 using Mahzan.Api.Extensions.Rules.Taxes.CreateTax;
@@ -18,10 +22,8 @@ using Mahzan.Api.Extensions.Validators.Products.CreateProduct;
 using Mahzan.Api.Services;
 using Mahzan.Business.Implementations.Business.BarCodes;
 using Mahzan.Business.Implementations.Business.Clients;
-using Mahzan.Business.Implementations.Business.Companies;
 using Mahzan.Business.Implementations.Business.Employees;
 using Mahzan.Business.Implementations.Business.EmployeesStores;
-using Mahzan.Business.Implementations.Business.Groups;
 using Mahzan.Business.Implementations.Business.Members;
 using Mahzan.Business.Implementations.Business.Menu;
 using Mahzan.Business.Implementations.Business.PaymentTypes;
@@ -31,22 +33,15 @@ using Mahzan.Business.Implementations.Business.Products;
 using Mahzan.Business.Implementations.Business.ProductsPhotos;
 using Mahzan.Business.Implementations.Business.ProductUnits;
 using Mahzan.Business.Implementations.Business.Stores;
-using Mahzan.Business.Implementations.Business.Taxes;
-using Mahzan.Business.Implementations.Business.Tickets;
 using Mahzan.Business.Implementations.Validations.AspNetUsers;
-using Mahzan.Business.Implementations.Validations.Companies;
-using Mahzan.Business.Implementations.Validations.Groups;
 using Mahzan.Business.Implementations.Validations.Members;
 using Mahzan.Business.Implementations.Validations.PointsOfSales;
 using Mahzan.Business.Implementations.Validations.Products;
 using Mahzan.Business.Implementations.Validations.Stores;
-using Mahzan.Business.Implementations.Validations.Taxes;
 using Mahzan.Business.Interfaces.Business.BarCodes;
 using Mahzan.Business.Interfaces.Business.Clients;
-using Mahzan.Business.Interfaces.Business.Companies;
 using Mahzan.Business.Interfaces.Business.Employees;
 using Mahzan.Business.Interfaces.Business.EmployeesStores;
-using Mahzan.Business.Interfaces.Business.Groups;
 using Mahzan.Business.Interfaces.Business.Members;
 using Mahzan.Business.Interfaces.Business.Menu;
 using Mahzan.Business.Interfaces.Business.PaymentTypes;
@@ -56,16 +51,11 @@ using Mahzan.Business.Interfaces.Business.Products;
 using Mahzan.Business.Interfaces.Business.ProductsPhotos;
 using Mahzan.Business.Interfaces.Business.ProductUnits;
 using Mahzan.Business.Interfaces.Business.Stores;
-using Mahzan.Business.Interfaces.Business.Taxes;
-using Mahzan.Business.Interfaces.Business.Tickets;
 using Mahzan.Business.Interfaces.Validations.AspNetUsers;
-using Mahzan.Business.Interfaces.Validations.Companies;
-using Mahzan.Business.Interfaces.Validations.Groups;
 using Mahzan.Business.Interfaces.Validations.Miembros;
 using Mahzan.Business.Interfaces.Validations.PointsOfSales;
 using Mahzan.Business.Interfaces.Validations.Products;
 using Mahzan.Business.Interfaces.Validations.Stores;
-using Mahzan.Business.Interfaces.Validations.Taxes;
 using Mahzan.Business.Mapping;
 using Mahzan.DataAccess.Implementations;
 using Mahzan.DataAccess.Interfaces;
@@ -110,6 +100,16 @@ namespace Mahzan.Api.Extensions
             GetTicketDetailRepositoryExtension
                 .Configure(services, connectionString);
             GetTicketRepositoryExtension
+                .Configure(services, connectionString);
+            GetTicketDetailTaxesRepositoryExtension
+                .Configure(services, connectionString);
+            GetTaxRepositoryExtension
+                .Configure(services, connectionString);
+            GetStoreRepositoryExtension
+                .Configure(services, connectionString);
+            GetPointsOfSaleRepositoryExtension
+                .Configure(services, connectionString);
+            GetAspNetUsersRepositoryExtension
                 .Configure(services, connectionString);
 
             //Validators

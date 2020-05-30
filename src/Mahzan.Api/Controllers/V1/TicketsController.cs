@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Mahzan.Api.Controllers._Base;
+using Mahzan.Api.Exeptions;
 using Mahzan.Business.Enums.Result;
 using Mahzan.Business.Events.Tickets.GetTicketToPrint;
 using Mahzan.Business.EventsHandlers.Tickets.GetTicketToPrint;
@@ -140,11 +141,11 @@ namespace Mahzan.Api.Controllers.V1
                         MembersId = MembersId
                     });
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException ex)
             {
-
-                throw;
+                throw new ServiceKeyNotFoundException(ex);
             }
+
             return Ok(result);
         }
 
