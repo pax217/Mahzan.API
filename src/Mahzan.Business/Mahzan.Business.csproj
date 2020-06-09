@@ -35,7 +35,6 @@
     <Folder Include="Implementations\Business\Stores\" />
     <Folder Include="Resources\Business\Stores\" />
     <Folder Include="Requests\Employees\" />
-    <Folder Include="Results\Employees\" />
     <Folder Include="Interfaces\Business\Employees\" />
     <Folder Include="Implementations\Business\Employees\" />
     <Folder Include="Resources\Business\Employees\" />

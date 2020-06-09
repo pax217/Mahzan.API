@@ -6,6 +6,7 @@ using Mahzan.Api.Context;
 using Mahzan.Api.Extensions.EventsHandlers.Products;
 using Mahzan.Api.Extensions.EventsHandlers.Taxes;
 using Mahzan.Api.Extensions.EventsHandlers.Tickets;
+using Mahzan.Api.Extensions.Repositories.AspNetRoles;
 using Mahzan.Api.Extensions.Repositories.AspNetUsers;
 using Mahzan.Api.Extensions.Repositories.CompanyAdress;
 using Mahzan.Api.Extensions.Repositories.CompanyContact;
@@ -110,6 +111,8 @@ namespace Mahzan.Api.Extensions
             GetPointsOfSaleRepositoryExtension
                 .Configure(services, connectionString);
             GetAspNetUsersRepositoryExtension
+                .Configure(services, connectionString);
+            GetAspNetRolesRepositoryExtension
                 .Configure(services, connectionString);
 
             //Validators

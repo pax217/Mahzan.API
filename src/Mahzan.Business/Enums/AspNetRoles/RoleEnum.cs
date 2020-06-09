@@ -4,6 +4,6 @@ namespace Mahzan.Business.Enums.AspNetRoles
     public enum RoleEnum
     {
         MEMBER,
-        EMPLOYEE_CASHIER,
+        CASHIER,
     }
 }

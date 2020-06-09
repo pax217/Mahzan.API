@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Mahzan.Api.Context;
 using Mahzan.Api.Extensions;
 using Mahzan.Api.Filters;
@@ -15,8 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
 
 namespace Mahzan.Api
 {
@@ -42,6 +38,7 @@ namespace Mahzan.Api
             services.AddMvc()
                     .AddJsonOptions(options => {
                         options.JsonSerializerOptions.IgnoreNullValues = true;
+                        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                     });
             //Configura Ignorar referencias circulares
             services.AddControllersWithViews()

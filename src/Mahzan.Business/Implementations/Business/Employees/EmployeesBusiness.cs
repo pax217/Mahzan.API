@@ -29,9 +29,9 @@ namespace Mahzan.Business.Implementations.Business.Employees
             _mapper = mapper;
         }
 
-        public async Task<PostEmployeesResult> Add(AddEmployeesDto addEmployeesDto)
+        public async Task<CreateEmployeeResult> Add(AddEmployeesDto addEmployeesDto)
         {
-            PostEmployeesResult result = new PostEmployeesResult()
+            CreateEmployeeResult result = new CreateEmployeeResult()
             {
                 IsValid = true,
                 StatusCode = 200,

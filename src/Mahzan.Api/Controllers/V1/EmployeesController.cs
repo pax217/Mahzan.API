@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Mahzan.Api.Commands.Employees.CreateEmployee;
 using Mahzan.Api.Context;
 using Mahzan.Api.Controllers._Base;
 using Mahzan.Api.Services;
@@ -80,85 +80,100 @@ namespace Mahzan.Api.Controllers.V1
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPost]
-        public async Task<IActionResult> Post(PostEmployeesRequest postEmployeesRequest)
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody]CreateEmployeeCommand command)
         {
 
-            PostEmployeesResult result =new PostEmployeesResult{};
-
-            //Agrega prefijo de Miembro
-            StringBuilder userNameWithPrefix = new StringBuilder();
-            userNameWithPrefix.Append(UserName + "." + postEmployeesRequest.UserName);
-            postEmployeesRequest.UserName = userNameWithPrefix.ToString().Trim();
-
-
-            IdentityResult addUserResult = await AddUser(postEmployeesRequest);
-
-            SignUpResult signUpValidResult = await _signUpValidations
-                                                    .ValidSignUp(addUserResult);
-
-            if (!signUpValidResult.IsValid)
+            CreateEmployeeResult result = new CreateEmployeeResult
             {
-                return StatusCode(signUpValidResult.StatusCode, signUpValidResult);
-            }
-            else
-            {
-                IdentityResult AddRoleToUserResult = await AddRoleToUser(postEmployeesRequest);
+                IsValid = true,
+                ResultTypeEnum = ResultTypeEnum.SUCCESS
+            };
 
-                if (AddRoleToUserResult.Succeeded)
+            try
+            {
+                //Agrega prefijo de Miembro
+                StringBuilder userNameWithPrefix = new StringBuilder();
+                userNameWithPrefix.Append(UserName + "." + command.UserName);
+                command.UserName = userNameWithPrefix.ToString().Trim();
+
+
+                IdentityResult addUserResult = await AddUser(command);
+
+                SignUpResult signUpValidResult = await _signUpValidations
+                                                        .ValidSignUp(addUserResult);
+
+                if (!signUpValidResult.IsValid)
                 {
-                    var userCreated = await _userManager
-                                            .FindByNameAsync(postEmployeesRequest.UserName);
-
-                    result = await _employeesBusiness
-                                    .Add(new AddEmployeesDto
-                                    {
-                                        CodeEmploye = postEmployeesRequest.CodeEmploye,
-                                        FirstName = postEmployeesRequest.FirstName,
-                                        SecondName = postEmployeesRequest.SecondName,
-                                        LastName = postEmployeesRequest.LastName,
-                                        SureName = postEmployeesRequest.SureName,
-                                        Email = postEmployeesRequest.Email,
-                                        Phone = postEmployeesRequest.Phone,
-                                        Username = postEmployeesRequest.UserName,
-                                        Password = postEmployeesRequest.Password,
-                                        MembersId = MembersId,
-                                        AspNetUsersId = new Guid(userCreated.Id),
-                                        AspNetUserId = AspNetUserId,
-                                        TableAuditEnum = TableAuditEnum.EMPLOYEES_AUDIT
-                                    });
-
-                    //Agrega MembersPatternId
-                    //Crea Miembro
-                    await _miembrosBusiness
-                           .Add(new AddMembersDto()
-                           {
-                               Name = postEmployeesRequest.FirstName + " " +
-                                      postEmployeesRequest.SecondName + " " +
-                                      postEmployeesRequest.LastName + " " +
-                                      postEmployeesRequest.SureName + " ",
-                               Phone = postEmployeesRequest.Phone,
-                               Email = postEmployeesRequest.Email,
-                               UserName = postEmployeesRequest.UserName,
-                               AspNetUsersId = new Guid(userCreated.Id),
-                               MembersPatternId = MembersId
-                           });
-
-
-                    //Envia el correo de confirmación
-                    await SendEmailConfirmation(postEmployeesRequest);
+                    return StatusCode(signUpValidResult.StatusCode, signUpValidResult);
                 }
                 else
                 {
-                    result.IsValid = false;
-                    result.StatusCode = 500;
-                    result.Message = AddRoleToUserResult.Errors.FirstOrDefault().Description;
+                    IdentityResult AddRoleToUserResult = await AddRoleToUser(command);
 
+                    if (AddRoleToUserResult.Succeeded)
+                    {
+                        var userCreated = await _userManager
+                                                .FindByNameAsync(command.UserName);
+
+                        result = await _employeesBusiness
+                                        .Add(new AddEmployeesDto
+                                        {
+                                            CodeEmploye = command.CodeEmploye,
+                                            FirstName = command.FirstName,
+                                            SecondName = command.SecondName,
+                                            LastName = command.LastName,
+                                            SureName = command.SureName,
+                                            Email = command.Email,
+                                            Phone = command.Phone,
+                                            Username = command.UserName,
+                                            Password = command.Password,
+                                            MembersId = MembersId,
+                                            AspNetUsersId = new Guid(userCreated.Id),
+                                            AspNetUserId = AspNetUserId,
+                                            TableAuditEnum = TableAuditEnum.EMPLOYEES_AUDIT
+                                        });
+
+                        //Agrega MembersPatternId
+                        //Crea Miembro
+                        await _miembrosBusiness
+                               .Add(new AddMembersDto()
+                               {
+                                   Name = command.FirstName + " " +
+                                          command.SecondName + " " +
+                                          command.LastName + " " +
+                                          command.SureName + " ",
+                                   Phone = command.Phone,
+                                   Email = command.Email,
+                                   UserName = command.UserName,
+                                   AspNetUsersId = new Guid(userCreated.Id),
+                                   MembersPatternId = MembersId
+                               });
+
+
+                        //Envia el correo de confirmación
+                        await SendEmailConfirmation(command);
+                    }
+                    else
+                    {
+                        result.IsValid = false;
+                        result.StatusCode = 500;
+                        result.Message = "";
+
+                    }
                 }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }    
+
+            return Ok(result);
 
 
-            return StatusCode(result.StatusCode, result);
+
+
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
@@ -235,57 +250,57 @@ namespace Mahzan.Api.Controllers.V1
 
         #region Private Methods
 
-        private async Task<IdentityResult> AddUser(PostEmployeesRequest postEmployeesRequest)
+        private async Task<IdentityResult> AddUser(CreateEmployeeCommand command)
         {
             IdentityResult result = null;
 
             AspNetUsers aspNetUser = new AspNetUsers()
             {
-                UserName = postEmployeesRequest.UserName,
-                Email = postEmployeesRequest.Email,
-                NormalizedEmail = postEmployeesRequest.Email,
-                PhoneNumber = postEmployeesRequest.Phone
+                UserName = command.UserName,
+                Email = command.Email,
+                NormalizedEmail = command.Email,
+                PhoneNumber = command.Phone
             };
 
             result = await _userManager
                             .CreateAsync(aspNetUser,
-                                         postEmployeesRequest.Password);
+                                         command.Password);
 
             return result;
         }
 
-        private async Task<IdentityResult> AddRoleToUser(PostEmployeesRequest postEmployeesRequest)
+        private async Task<IdentityResult> AddRoleToUser(CreateEmployeeCommand command)
         {
             IdentityResult result = null;
 
             var aspNetUser = await _userManager
-                                    .FindByNameAsync(postEmployeesRequest.UserName);
+                                    .FindByNameAsync(command.UserName);
 
             //Verifica si el Role existe
-            if (!_roleManager.RoleExistsAsync(postEmployeesRequest.Role.ToString()).Result)
+            if (!_roleManager.RoleExistsAsync(command.Role.ToString()).Result)
             {
                 result = await _roleManager.CreateAsync(new IdentityRole()
                 {
-                    Name = postEmployeesRequest.Role.ToString(),
-                    NormalizedName = postEmployeesRequest.Role.ToString(),
+                    Name = command.Role.ToString(),
+                    NormalizedName = command.Role.ToString(),
                 });
             }
 
             //Agrega Role a Usuario
             result = await _userManager
                             .AddToRoleAsync(aspNetUser,
-                                            postEmployeesRequest.Role.ToString());
+                                            command.Role.ToString());
 
 
 
             return result;
         }
 
-        private async Task SendEmailConfirmation(PostEmployeesRequest postEmployeesRequest)
+        private async Task SendEmailConfirmation(CreateEmployeeCommand command)
         {
 
             var aspNetUser = await _userManager
-                                    .FindByNameAsync(postEmployeesRequest.UserName);
+                                    .FindByNameAsync(command.UserName);
 
             //Verificación de Email
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(aspNetUser);

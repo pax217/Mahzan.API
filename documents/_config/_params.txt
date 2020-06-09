@@ -27,8 +27,11 @@
 
 # Docker/Digital Ocean
 # Mahzan.Api
+# IP:	45.55.47.96
 # *Levantar aplicación en Digital Ocean con Docker
+# *El servidor de API necesita al menos 2000 megabytes de memoria RAM
 
-CMD > docker-machine create --driver digitalocean --digitalocean-access-token c29f58808e7adf495250f72da5cdc52df49bd0fd6d4b74cc615960c38d02b1b9 mahzan-api-sandbox
+CMD > docker-machine create --driver digitalocean --digitalocean-access-token 340d309eaf9f862c79ab2b9421876c2205b173e7cc13292dcb33738e5768131e mahzan-api-sandbox
 CMD > docker-machine env mahzan-api-sandbox | iex
-
+CMD > docker-compose up
+CMD > docker-compose up -d

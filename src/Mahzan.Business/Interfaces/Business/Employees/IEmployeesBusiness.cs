@@ -10,7 +10,7 @@ namespace Mahzan.Business.Interfaces.Business.Employees
 {
     public interface IEmployeesBusiness
     {
-        Task<PostEmployeesResult> Add(AddEmployeesDto addEmployeesDto);
+        Task<CreateEmployeeResult> Add(AddEmployeesDto addEmployeesDto);
 
         Task<GetEmployeesResult> Get(GetEmployeesDto getEmployeesDto);
 
